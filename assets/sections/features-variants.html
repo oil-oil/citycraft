@@ -286,9 +286,12 @@
          * VARIANT C: VERTICAL TIMELINE
          * ==========================================
          */
+        /* Variant C renders as an inverted dark strip — bg becomes ink, text becomes bg.
+           This creates a distinct section break with strong contrast. */
         .variant-c-section {
             padding: 15vh 0;
-            background: var(--bg);
+            background: var(--ink);
+            color: var(--bg);
             position: relative;
         }
 
@@ -301,6 +304,7 @@
             font-family: var(--font-display);
             font-size: clamp(2rem, 4vw, 3.5rem);
             font-weight: 700;
+            color: var(--bg);
         }
 
         .c-timeline-wrapper {
@@ -315,7 +319,8 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: var(--line);
+            background: var(--bg-surface);
+            opacity: 0.45;
             z-index: 1;
         }
 
@@ -355,6 +360,7 @@
             margin-bottom: 0;
         }
 
+        /* Node sits on dark strip background — use transparent bg with bg-surface border */
         .c-node {
             position: absolute;
             left: 0;
@@ -362,15 +368,15 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: var(--bg);
-            border: 2px solid var(--line);
+            background: var(--ink);
+            border: 2px solid var(--bg-surface);
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: var(--font-display);
             font-weight: 700;
             font-size: 1.25rem;
-            color: var(--ink-muted);
+            color: var(--bg-surface);
             z-index: 2;
             transition: all 0.4s ease;
             transition-delay: 0.3s; /* wait for line */
@@ -394,11 +400,11 @@
             font-size: clamp(1.4rem, 2.5vw, 2rem);
             font-weight: 600;
             margin-bottom: 1rem;
-            color: var(--ink);
+            color: var(--bg);
         }
 
         .c-body {
-            color: var(--ink-muted);
+            color: var(--bg-surface);
             max-width: 400px;
         }
 
@@ -746,8 +752,8 @@
 
     .variant-d .bento-card {
       background-color: var(--bg-surface);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
       padding: clamp(1.5rem, 3vw, 2.5rem);
       display: flex;
       flex-direction: column;
@@ -759,7 +765,7 @@
 
     .variant-d .bento-card:hover {
       transform: translateY(-4px);
-      border-color: rgba(139, 92, 246, 0.4);
+      border-color: var(--accent);
     }
 
     .variant-d .bento-card svg.icon {
@@ -767,6 +773,12 @@
       height: 32px;
       color: var(--accent);
       margin-bottom: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    /* Hero card icon uses inverted color since card bg is accent */
+    .variant-d .span-2x2 svg.icon {
+      color: var(--bg);
     }
 
     .variant-d .bento-card h3 {
@@ -779,21 +791,31 @@
       font-size: clamp(0.875rem, 1.5vw, 1rem);
     }
 
+    /* Hero card: accent background with inverted text creates strong visual anchor */
     .variant-d .span-2x2 {
       grid-column: span 2;
       grid-row: span 2;
       justify-content: space-between;
+      background: var(--accent);
+      border-color: var(--accent);
     }
-    
+
+    .variant-d .span-2x2:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
     .variant-d .span-2x2 h3 {
       font-size: clamp(1.75rem, 3vw, 2.5rem);
       line-height: 1.1;
       margin-bottom: 1rem;
+      color: var(--bg);
     }
-    
+
     .variant-d .span-2x2 p {
       font-size: clamp(1rem, 1.5vw, 1.125rem);
       max-width: 80%;
+      color: var(--bg);
     }
 
     .variant-d .span-1x2 {
@@ -867,16 +889,17 @@
   </div>
 
   <div class="bento-grid">
+    <!-- Hero card: accent bg, text/illustration uses --bg for contrast -->
     <a href="#" class="bento-card span-2x2 js-feature-item">
       <div>
         <h3>Automate your entire revenue lifecycle</h3>
         <p>Connect your CRM, billing, and analytics in one unified pipeline without writing a single line of code.</p>
       </div>
       <svg class="bento-illustration" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="100" cy="100" r="80" stroke="var(--accent)" stroke-width="2" stroke-dasharray="10 10" opacity="0.3"/>
-        <path d="M40 120 L80 80 L120 100 L160 40" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="160" cy="40" r="6" fill="var(--bg-surface)" stroke="var(--accent)" stroke-width="4"/>
-        <rect x="60" y="140" width="80" height="20" rx="10" fill="var(--accent)" opacity="0.2"/>
+        <circle cx="100" cy="100" r="80" stroke="var(--bg)" stroke-width="2" stroke-dasharray="10 10" opacity="0.3"/>
+        <path d="M40 120 L80 80 L120 100 L160 40" stroke="var(--bg)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="160" cy="40" r="6" fill="var(--accent)" stroke="var(--bg)" stroke-width="4"/>
+        <rect x="60" y="140" width="80" height="20" rx="10" fill="var(--bg)" opacity="0.2"/>
       </svg>
     </a>
 
@@ -977,30 +1000,30 @@
       flex: 0 0 280px;
       height: 380px;
       background-color: var(--bg-surface);
-      border: 1px solid rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
       border-radius: 12px;
       padding: 2rem;
       display: flex;
       flex-direction: column;
       scroll-snap-align: center;
-      transition: transform 0.3s ease, background-color 0.3s ease;
+      transition: transform 0.3s ease, border-color 0.3s ease;
       cursor: grab;
     }
-    
+
     .variant-e .scroll-card:active {
       cursor: grabbing;
     }
 
     .variant-e .scroll-card:hover {
       transform: translateY(-8px);
-      background-color: rgba(255, 255, 255, 0.02);
+      border-color: var(--accent);
     }
 
     .variant-e .card-badge {
       font-family: var(--font-display);
       font-size: 3rem;
       font-weight: 900;
-      color: rgba(255, 255, 255, 0.1);
+      color: color-mix(in srgb, var(--accent) 15%, transparent);
       line-height: 1;
       margin-bottom: auto;
     }
@@ -1008,7 +1031,7 @@
     .variant-e .card-icon {
       width: 40px;
       height: 40px;
-      background-color: rgba(139, 92, 246, 0.1);
+      background-color: color-mix(in srgb, var(--accent) 12%, transparent);
       color: var(--accent);
       border-radius: 8px;
       display: flex;
@@ -1036,7 +1059,7 @@
       max-width: 1200px;
       margin: 0 auto;
       height: 2px;
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: var(--line);
       position: relative;
       border-radius: 2px;
       overflow: hidden;
@@ -1135,18 +1158,18 @@
       font-weight: 900;
       color: var(--accent);
       line-height: 1;
-      text-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+      text-shadow: 0 10px 30px color-mix(in srgb, var(--accent) 30%, transparent);
       user-select: none;
     }
 
     .variant-f .qa-list {
       display: flex;
       flex-direction: column;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid var(--line);
     }
 
     .variant-f .qa-row {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid var(--line);
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
@@ -1156,7 +1179,7 @@
     }
 
     .variant-f .qa-row:hover {
-      background-color: rgba(255, 255, 255, 0.03);
+      background-color: color-mix(in srgb, var(--accent) 4%, transparent);
     }
 
     .variant-f .qa-header {
