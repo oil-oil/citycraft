@@ -98,9 +98,9 @@ document.addEventListener("mousemove", (e) => {
 }
 
 .side-nav a {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(180deg);
+  writing-mode: vertical-lr;  /* vertical-lr reads top→bottom for both Latin and CJK */
+                               /* do NOT use vertical-rl + rotate(180deg) — flips CJK characters */
+                               /* active/hover state: only change color/opacity, NO rotate transform */
   font-size: 0.7rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;

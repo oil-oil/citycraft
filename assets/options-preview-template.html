@@ -878,8 +878,8 @@ h1.page-title strong { color: #fff; }
      SUBMIT BAR
 ══════════════════════════════════════ -->
 <div class="submit-bar">
-  <div class="submit-summary" id="summary">还差 <strong id="remaining">3</strong> 项未选 — 选完后点右边的按钮</div>
-  <button class="submit-btn" id="submit-btn" disabled onclick="copyResult()">告诉 Claude →</button>
+  <div class="submit-summary" id="summary">已选 <strong>0 / 3</strong> — 三项都选好后可以复制</div>
+  <button class="submit-btn" id="submit-btn" disabled onclick="copyResult()">复制选项</button>
 </div>
 
 <script>
@@ -905,15 +905,15 @@ function updateSummary() {
   if (selections.nav)    parts.push('导航：' + selections.nav);
   if (selections.color)  parts.push('色调：' + selections.color);
 
-  document.getElementById('remaining').textContent = left;
   const summary = document.getElementById('summary');
   const btn = document.getElementById('submit-btn');
 
   if (done === 3) {
-    summary.innerHTML = '已选：<strong>' + parts.join(' &nbsp;·&nbsp; ') + '</strong>';
+    summary.innerHTML = '已选 <strong>3 / 3</strong> &nbsp;·&nbsp; ' + parts.join(' &nbsp;·&nbsp; ');
     btn.disabled = false;
   } else {
-    summary.innerHTML = '还差 <strong>' + left + '</strong> 项未选 &nbsp;·&nbsp; ' + (parts.join(' · ') || '尚未选择');
+    const selectedStr = parts.length ? ' &nbsp;·&nbsp; ' + parts.join(' &nbsp;·&nbsp; ') : '';
+    summary.innerHTML = '已选 <strong>' + done + ' / 3</strong>' + selectedStr;
     btn.disabled = true;
   }
 }
