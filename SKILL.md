@@ -57,14 +57,31 @@ Use `sed` to fill in the two placeholders and open the result — do NOT read th
 
 ```bash
 _SKILL_DIR=$(ls -d ~/.agents/skills/citycraft 2>/dev/null || ls -d ~/.claude/skills/citycraft 2>/dev/null)
-sed "s/__PRODUCT_NAME__/ACTUAL_PRODUCT_NAME/g; s/__PRODUCT_HEADLINE__/ACTUAL_HEADLINE/g" \
+rm -f /tmp/citycraft_city.json
+python3 "$_SKILL_DIR/assets/scripts/receiver.py" 17433 ./style-preview.html /tmp/citycraft_city.json &
+CITY_RECEIVER_PID=$!
+sed "s/__PRODUCT_NAME__/ACTUAL_PRODUCT_NAME/g; s/__PRODUCT_HEADLINE__/ACTUAL_HEADLINE/g; s/__RECEIVER_PORT__/17433/g" \
   "$_SKILL_DIR/assets/style-preview-template.html" > ./style-preview.html
-open ./style-preview.html 2>/dev/null || xdg-open ./style-preview.html 2>/dev/null || echo "Open in browser: $(pwd)/style-preview.html"
+open http://localhost:17433 2>/dev/null || xdg-open http://localhost:17433 2>/dev/null || echo "Open in browser: http://localhost:17433"
+TIMEOUT=300
+ELAPSED=0
+until [ -f /tmp/citycraft_city.json ] || [ "$ELAPSED" -ge "$TIMEOUT" ]; do
+  sleep 1
+  ELAPSED=$((ELAPSED + 1))
+done
+if [ -f /tmp/citycraft_city.json ]; then
+  cat /tmp/citycraft_city.json
+  rm -f /tmp/citycraft_city.json
+else
+  echo "User did not submit within 300 seconds. Ask them to type the city name manually."
+fi
+kill "$CITY_RECEIVER_PID" 2>/dev/null || true
+wait "$CITY_RECEIVER_PID" 2>/dev/null || true
 ```
 
 Replace `ACTUAL_PRODUCT_NAME` and `ACTUAL_HEADLINE` with the real values from Step 1 directly in the `sed` command.
 
-Tell the user: "我在浏览器里打开了50种城市风格的预览卡片，每个都是真实渲染效果。向下滚动可以看到全部——从京都到拉各斯到棕榈泉，再到伊斯坦布尔、迈阿密、成都、哥本哈根、维也纳、开普敦、波哥大、阿姆斯特丹、贝鲁特、波特兰，以及上海、北京、重庆、西安、杭州、深圳夜、敦煌、苏州、拉萨、罗马、布拉格、墨尔本、雅典、卡萨布兰卡、釜山、巴厘岛、多伦多、特拉维夫、华沙、孟买夜。每张卡片右上角有复制按钮，选好之后复制城市名直接告诉我。如果50个城市都不对，直接用自己的语言描述给我也行。"
+Tell the user: "我在浏览器里打开了50种城市风格的预览卡片，每个都是真实渲染效果。向下滚动可以看到全部——从京都到拉各斯到棕榈泉，再到伊斯坦布尔、迈阿密、成都、哥本哈根、维也纳、开普敦、波哥大、阿姆斯特丹、贝鲁特、波特兰，以及上海、北京、重庆、西安、杭州、深圳夜、敦煌、苏州、拉萨、罗马、布拉格、墨尔本、雅典、卡萨布兰卡、釜山、巴厘岛、多伦多、特拉维夫、华沙、孟买夜。每张卡片右上角都可以直接发送给我；如果本地桥接没有连上，也可以继续复制城市名告诉我。如果50个城市都不对，直接用自己的语言描述给我也行。"
 
 ### Step 3: Open the Interactive Options Preview
 
@@ -122,6 +139,8 @@ wait "$SERVER_PID" 2>/dev/null || true
 ```
 
 The dark variant (`__CITY_DARK_*`) is always the luxury/night treatment — near-black bg, warm light text, same accent. The bright variant is always the fresh/modern treatment — near-white bg, dark text, same accent. The city's identity comes from the base colors and accent, not from the dark/bright shell.
+
+If the shell prints JSON from `/tmp/citycraft_city.json`, read the `city` field and use it in Step 3. If it times out, ask the user to type the city name manually before proceeding.
 
 Tell the user: "在浏览器里打开了一个互动选择页——有排版、导航的实际演示效果，还有三种色调的对比。可以点击全屏菜单看它怎么爆开，把光标移近底部胶囊感受磁性效果。全部选好之后，点底部的「告诉 Agent →」按钮，我会自动收到结果并继续生成；如果本地桥接没有连上，再把复制结果贴给我就可以。"
 

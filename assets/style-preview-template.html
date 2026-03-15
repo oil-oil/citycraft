@@ -2351,6 +2351,8 @@ body {
 </p>
 
 <script>
+const RECEIVER_PORT = '__RECEIVER_PORT__' === '__RECEIVER_PORT__' ? 17433 : parseInt('__RECEIVER_PORT__', 10);
+
 // ── Inject copy button on all city cards ────────────────────────
 document.querySelectorAll('.card').forEach(card => {
   const label = card.querySelector('.city-label');
@@ -2361,24 +2363,58 @@ document.querySelectorAll('.card').forEach(card => {
   btn.addEventListener('click', (e) => {
     e.stopPropagation(); // don't trigger card selection
     const cityName = label.textContent.trim();
-    navigator.clipboard.writeText(cityName).then(() => {
-      btn.textContent = '已复制 ✓';
+
+    const showSuccess = (text) => {
+      btn.textContent = text;
       btn.classList.add('copied');
       setTimeout(() => {
         btn.textContent = '复制';
         btn.classList.remove('copied');
       }, 1800);
+    };
+
+    const copyToClipboard = () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(cityName).then(() => {
+          showSuccess('已复制 ✓');
+        });
+      }
+
+      return new Promise((resolve, reject) => {
+        // fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = cityName;
+        document.body.appendChild(ta);
+        ta.select();
+        const copied = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (copied) {
+          showSuccess('已复制 ✓');
+          resolve();
+          return;
+        }
+        reject(new Error('Clipboard copy failed'));
+      });
+    };
+
+    fetch('http://localhost:' + RECEIVER_PORT + '/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ city: cityName })
+    }).then((response) => {
+      if (!response.ok) throw new Error('Receiver rejected submission');
+      showSuccess('✓ 已发送');
     }).catch(() => {
-      // fallback for older browsers
-      const ta = document.createElement('textarea');
-      ta.value = cityName;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      btn.textContent = '已复制 ✓';
-      btn.classList.add('copied');
-      setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('copied'); }, 1800);
+      copyToClipboard().catch(() => {
+        // fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = cityName;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showSuccess('已复制 ✓');
+      });
     });
   });
   card.querySelector('.card-body').appendChild(btn);
