@@ -76,13 +76,68 @@ Read `references/city-styles.md` and find the chosen city's color tokens: `--bg`
 
 **3b — Generate and open options-preview.html**
 
-Run this `sed` command, replacing the ALL-CAPS values with actual hex codes from the city. Do NOT read the template file into context:
+Run this block, replacing the ALL-CAPS values with actual hex codes from the city. Do NOT read the template file into context:
 
 ```bash
 _SKILL_DIR=$(ls -d ~/.agents/skills/citycraft 2>/dev/null || ls -d ~/.claude/skills/citycraft 2>/dev/null)
+rm -f /tmp/citycraft_selection.json
+python3 -c '
+from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
+from pathlib import Path
+import threading
+
+PORT = 17432
+OUTPUT = Path("/tmp/citycraft_selection.json")
+PAGE = Path("options-preview.html")
+
+class Handler(BaseHTTPRequestHandler):
+    def _cors(self):
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+    def do_OPTIONS(self):
+        self.send_response(204)
+        self._cors()
+        self.end_headers()
+    def do_GET(self):
+        if self.path != "/":
+            self.send_response(404)
+            self._cors()
+            self.end_headers()
+            return
+        body = PAGE.read_bytes()
+        self.send_response(200)
+        self._cors()
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+    def do_POST(self):
+        if self.path != "/submit":
+            self.send_response(404)
+            self._cors()
+            self.end_headers()
+            return
+        length = int(self.headers.get("Content-Length", "0"))
+        body = self.rfile.read(length)
+        OUTPUT.write_bytes(body)
+        self.send_response(200)
+        self._cors()
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(b"{\"ok\":true}")
+        threading.Thread(target=self.server.shutdown, daemon=True).start()
+    def log_message(self, format, *args):
+        pass
+
+server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
+server.serve_forever()
+' &
+SERVER_PID=$!
 sed \
   -e "s/__PRODUCT_NAME__/ACTUAL_PRODUCT_NAME/g" \
   -e "s/__PRODUCT_HEADLINE__/ACTUAL_HEADLINE/g" \
+  -e "s/__CITY_NAME__/ACTUAL_CITY_NAME/g" \
   -e "s/__CITY_BG__/CITY_BG_VALUE/g" \
   -e "s/__CITY_SURFACE__/CITY_SURFACE_VALUE/g" \
   -e "s/__CITY_INK__/CITY_INK_VALUE/g" \
@@ -96,17 +151,32 @@ sed \
   -e "s/__CITY_BRIGHT_SURFACE__/#fffdf8/g" \
   -e "s/__CITY_BRIGHT_INK__/#1a1510/g" \
   -e "s/__CITY_BRIGHT_ACCENT__/CITY_ACCENT_VALUE/g" \
+  -e "s/__RECEIVER_PORT__/17432/g" \
   "$_SKILL_DIR/assets/options-preview-template.html" > ./options-preview.html
-open ./options-preview.html 2>/dev/null || xdg-open ./options-preview.html 2>/dev/null || echo "Open in browser: $(pwd)/options-preview.html"
+open http://localhost:17432 2>/dev/null || xdg-open http://localhost:17432 2>/dev/null || echo "Open in browser: http://localhost:17432"
+TIMEOUT=300
+ELAPSED=0
+until [ -f /tmp/citycraft_selection.json ] || [ "$ELAPSED" -ge "$TIMEOUT" ]; do
+  sleep 1
+  ELAPSED=$((ELAPSED + 1))
+done
+if [ -f /tmp/citycraft_selection.json ]; then
+  cat /tmp/citycraft_selection.json
+  rm -f /tmp/citycraft_selection.json
+else
+  echo "User did not submit within 300 seconds. Ask them to paste manually."
+fi
+kill "$SERVER_PID" 2>/dev/null || true
+wait "$SERVER_PID" 2>/dev/null || true
 ```
 
 The dark variant (`__CITY_DARK_*`) is always the luxury/night treatment — near-black bg, warm light text, same accent. The bright variant is always the fresh/modern treatment — near-white bg, dark text, same accent. The city's identity comes from the base colors and accent, not from the dark/bright shell.
 
-Tell the user: "在浏览器里打开了一个互动选择页——有排版、导航的实际演示效果，还有三种色调的对比。可以点击全屏菜单看它怎么爆开，把光标移近底部胶囊感受磁性效果。全部选好之后，点底部的「告诉 Claude →」按钮，把结果直接粘贴给我。"
+Tell the user: "在浏览器里打开了一个互动选择页——有排版、导航的实际演示效果，还有三种色调的对比。可以点击全屏菜单看它怎么爆开，把光标移近底部胶囊感受磁性效果。全部选好之后，点底部的「告诉 Agent →」按钮，我会自动收到结果并继续生成；如果本地桥接没有连上，再把复制结果贴给我就可以。"
 
 **If the user chose a non-city description** (scene, era, material, emotion): read `references/imagery-derivation.md` to derive the design token system first, use those derived colors to fill in the `sed` command above, then proceed normally.
 
-Wait for the user to come back with their 3 choices (layout + nav + color tone) before proceeding to Step 4.
+If the shell prints JSON from `/tmp/citycraft_selection.json`, parse it directly and continue to Step 4 with `city`, `layout`, `nav`, and `tone`. If it times out, ask the user to paste their 3 choices manually before proceeding.
 
 ### Step 4: Generate the Landing Page
 

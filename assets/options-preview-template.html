@@ -652,12 +652,27 @@ h1.page-title strong { color: #fff; }
 }
 .submit-btn:disabled { opacity: 0.3; cursor: default; }
 .submit-btn:not(:disabled):hover { opacity: 0.85; }
+.submit-success {
+  width: 100%;
+  padding: 18px 22px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.04));
+  color: rgba(255,255,255,0.92);
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.24);
+}
+.submit-success strong {
+  color: #fff;
+  font-weight: 700;
+}
 </style>
 </head>
 <body>
 
 <h1 class="page-title">为 <strong>__PRODUCT_NAME__</strong> 选择最后 3 项</h1>
-<p class="page-subtitle">每组都可以直接交互体验 — 选好之后点底部的「告诉 Claude」</p>
+<p class="page-subtitle">每组都可以直接交互体验 — 选好之后点底部的「告诉 Agent」</p>
 
 <!-- ══════════════════════════════════════
      SECTION 1: 排版气质
@@ -879,18 +894,21 @@ h1.page-title strong { color: #fff; }
 ══════════════════════════════════════ -->
 <div class="submit-bar">
   <div class="submit-summary" id="summary">已选 <strong>0 / 3</strong> — 三项都选好后可以复制</div>
-  <button class="submit-btn" id="submit-btn" disabled onclick="copyResult()">复制选项</button>
+  <button class="submit-btn" id="submit-btn" disabled onclick="submitSelection()">告诉 Agent →</button>
 </div>
 
 <script>
-const selections = { layout: null, nav: null, color: null };
+const RECEIVER_PORT = '__RECEIVER_PORT__' === '__RECEIVER_PORT__' ? 17432 : parseInt('__RECEIVER_PORT__', 10);
+const CITY = '__CITY_NAME__' === '__CITY_NAME__' ? '' : '__CITY_NAME__';
+const selections = { layout: null, nav: null, tone: null };
 
 function select(card) {
-  const group = card.dataset.group;
+  const sourceGroup = card.dataset.group;
+  const group = sourceGroup === 'color' ? 'tone' : sourceGroup;
   const val   = card.dataset.value;
 
   // deselect siblings
-  document.querySelectorAll(`[data-group="${group}"]`).forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll(`[data-group="${sourceGroup}"]`).forEach(c => c.classList.remove('selected'));
   card.classList.add('selected');
   selections[group] = val;
 
@@ -903,7 +921,7 @@ function updateSummary() {
   const parts = [];
   if (selections.layout) parts.push('排版：' + selections.layout);
   if (selections.nav)    parts.push('导航：' + selections.nav);
-  if (selections.color)  parts.push('色调：' + selections.color);
+  if (selections.tone)   parts.push('色调：' + selections.tone);
 
   const summary = document.getElementById('summary');
   const btn = document.getElementById('submit-btn');
@@ -919,12 +937,46 @@ function updateSummary() {
 }
 
 function copyResult() {
-  const text = `排版气质：${selections.layout}\n导航风格：${selections.nav}\n色调微调：${selections.color}`;
-  navigator.clipboard.writeText(text).then(() => {
+  const text = `排版气质：${selections.layout}\n导航风格：${selections.nav}\n色调微调：${selections.tone}`;
+  return navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById('submit-btn');
+    if (!btn) return;
     btn.textContent = '已复制 ✓';
-    setTimeout(() => { btn.textContent = '告诉 Claude →'; }, 2000);
+    setTimeout(() => {
+      if (document.getElementById('submit-btn')) {
+        btn.textContent = '告诉 Agent →';
+      }
+    }, 2000);
   });
+}
+
+function buildPayload() {
+  return {
+    city: CITY,
+    layout: selections.layout,
+    nav: selections.nav,
+    tone: selections.tone
+  };
+}
+
+async function submitSelection() {
+  const payload = buildPayload();
+
+  try {
+    const response = await fetch('http://localhost:' + RECEIVER_PORT + '/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) throw new Error('submit failed');
+
+    const submitBar = document.querySelector('.submit-bar');
+    submitBar.innerHTML = '<div class="submit-success"><strong>✓ 已发送给 Agent，正在生成...</strong><br>你可以留在这个页面，Agent 会继续接手后续流程。</div>';
+    return;
+  } catch (_) {
+    copyResult().catch(() => {});
+  }
 }
 
 // ── Blast nav demo ───────────────────────────
