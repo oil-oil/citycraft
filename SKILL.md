@@ -51,35 +51,37 @@ Wait for the answer before proceeding.
 
 ### Step 2: Generate the Style Preview
 
-Use `sed` to fill in the two placeholders and open the result — do NOT read the template file into context:
-- `__PRODUCT_NAME__` → the product name from Step 1
-- `__PRODUCT_HEADLINE__` → a short punchy phrase (3–5 words) that captures the product's essence
+Fill in the two placeholders and open the result — do NOT read the template file into context:
+- `PRODUCT_NAME` → the product name from Step 1
+- `PRODUCT_HEADLINE` → a short punchy phrase (3–5 words) that captures the product's essence
 
 ```bash
 _SKILL_DIR=$(ls -d ~/.agents/skills/citycraft 2>/dev/null || ls -d ~/.claude/skills/citycraft 2>/dev/null)
-rm -f /tmp/citycraft_city.json
-python3 "$_SKILL_DIR/assets/scripts/receiver.py" 17433 ./style-preview.html /tmp/citycraft_city.json &
-CITY_RECEIVER_PID=$!
-sed "s/__PRODUCT_NAME__/ACTUAL_PRODUCT_NAME/g; s/__PRODUCT_HEADLINE__/ACTUAL_HEADLINE/g; s/__RECEIVER_PORT__/17433/g" \
-  "$_SKILL_DIR/assets/style-preview-template.html" > ./style-preview.html
-open http://localhost:17433 2>/dev/null || xdg-open http://localhost:17433 2>/dev/null || echo "Open in browser: http://localhost:17433"
-TIMEOUT=300
-ELAPSED=0
-until [ -f /tmp/citycraft_city.json ] || [ "$ELAPSED" -ge "$TIMEOUT" ]; do
-  sleep 1
-  ELAPSED=$((ELAPSED + 1))
-done
-if [ -f /tmp/citycraft_city.json ]; then
-  cat /tmp/citycraft_city.json
-  rm -f /tmp/citycraft_city.json
+PYTHON=$(command -v python3 2>/dev/null || command -v python 2>/dev/null || echo "")
+if [ -n "$PYTHON" ]; then
+  # Python available (macOS / Linux / WSL / Windows with Python)
+  "$PYTHON" "$_SKILL_DIR/assets/scripts/run_preview.py" \
+    --template "$_SKILL_DIR/assets/style-preview-template.html" \
+    --output   ./style-preview.html \
+    --port     17433 \
+    --timeout  300 \
+    "PRODUCT_NAME=ACTUAL_PRODUCT_NAME" \
+    "PRODUCT_HEADLINE=ACTUAL_HEADLINE" \
+    "RECEIVER_PORT=17433"
 else
-  echo "User did not submit within 300 seconds. Ask them to type the city name manually."
+  # No Python — substitute via sed and open as a local file.
+  # The submit button falls back to clipboard copy automatically.
+  sed "s/__PRODUCT_NAME__/ACTUAL_PRODUCT_NAME/g; s/__PRODUCT_HEADLINE__/ACTUAL_HEADLINE/g" \
+    "$_SKILL_DIR/assets/style-preview-template.html" > ./style-preview.html
+  open ./style-preview.html 2>/dev/null || xdg-open ./style-preview.html 2>/dev/null \
+    || echo "Open in browser: $(pwd)/style-preview.html"
+  echo "Python not found — no live bridge. The submit button will copy the city name to clipboard. Paste it here."
 fi
-kill "$CITY_RECEIVER_PID" 2>/dev/null || true
-wait "$CITY_RECEIVER_PID" 2>/dev/null || true
 ```
 
-Replace `ACTUAL_PRODUCT_NAME` and `ACTUAL_HEADLINE` with the real values from Step 1 directly in the `sed` command.
+Replace `ACTUAL_PRODUCT_NAME` and `ACTUAL_HEADLINE` with the real values from Step 1 in the script arguments.
+
+> **Windows PowerShell (no WSL/Git Bash):** Run `run_preview.ps1` directly — it has the same interface. See `assets/scripts/run_preview.ps1` for usage.
 
 Tell the user: "我在浏览器里打开了50种城市风格的预览卡片，每个都是真实渲染效果。向下滚动可以看到全部——从京都到拉各斯到棕榈泉，再到伊斯坦布尔、迈阿密、成都、哥本哈根、维也纳、开普敦、波哥大、阿姆斯特丹、贝鲁特、波特兰，以及上海、北京、重庆、西安、杭州、深圳夜、敦煌、苏州、拉萨、罗马、布拉格、墨尔本、雅典、卡萨布兰卡、釜山、巴厘岛、多伦多、特拉维夫、华沙、孟买夜。每张卡片右上角都可以直接发送给我；如果本地桥接没有连上，也可以继续复制城市名告诉我。如果50个城市都不对，直接用自己的语言描述给我也行。"
 
@@ -97,56 +99,66 @@ Run this block, replacing the ALL-CAPS values with actual hex codes from the cit
 
 ```bash
 _SKILL_DIR=$(ls -d ~/.agents/skills/citycraft 2>/dev/null || ls -d ~/.claude/skills/citycraft 2>/dev/null)
-rm -f /tmp/citycraft_selection.json
-# Start the one-shot receiver (serves the HTML + receives the POST submission).
-# Source: assets/scripts/receiver.py — edit there if you need to change server behavior.
-python3 "$_SKILL_DIR/assets/scripts/receiver.py" &
-SERVER_PID=$!
-sed \
-  -e "s/__PRODUCT_NAME__/ACTUAL_PRODUCT_NAME/g" \
-  -e "s/__PRODUCT_HEADLINE__/ACTUAL_HEADLINE/g" \
-  -e "s/__CITY_NAME__/ACTUAL_CITY_NAME/g" \
-  -e "s/__CITY_BG__/CITY_BG_VALUE/g" \
-  -e "s/__CITY_SURFACE__/CITY_SURFACE_VALUE/g" \
-  -e "s/__CITY_INK__/CITY_INK_VALUE/g" \
-  -e "s/__CITY_MUTED__/CITY_MUTED_VALUE/g" \
-  -e "s/__CITY_ACCENT__/CITY_ACCENT_VALUE/g" \
-  -e "s/__CITY_DARK_BG__/#0e0c09/g" \
-  -e "s/__CITY_DARK_SURFACE__/#1e1b16/g" \
-  -e "s/__CITY_DARK_INK__/#f2ede4/g" \
-  -e "s/__CITY_DARK_ACCENT__/CITY_ACCENT_VALUE/g" \
-  -e "s/__CITY_BRIGHT_BG__/#fdf9f2/g" \
-  -e "s/__CITY_BRIGHT_SURFACE__/#fffdf8/g" \
-  -e "s/__CITY_BRIGHT_INK__/#1a1510/g" \
-  -e "s/__CITY_BRIGHT_ACCENT__/CITY_ACCENT_VALUE/g" \
-  -e "s/__RECEIVER_PORT__/17432/g" \
-  "$_SKILL_DIR/assets/options-preview-template.html" > ./options-preview.html
-open http://localhost:17432 2>/dev/null || xdg-open http://localhost:17432 2>/dev/null || echo "Open in browser: http://localhost:17432"
-TIMEOUT=300
-ELAPSED=0
-until [ -f /tmp/citycraft_selection.json ] || [ "$ELAPSED" -ge "$TIMEOUT" ]; do
-  sleep 1
-  ELAPSED=$((ELAPSED + 1))
-done
-if [ -f /tmp/citycraft_selection.json ]; then
-  cat /tmp/citycraft_selection.json
-  rm -f /tmp/citycraft_selection.json
+PYTHON=$(command -v python3 2>/dev/null || command -v python 2>/dev/null || echo "")
+if [ -n "$PYTHON" ]; then
+  "$PYTHON" "$_SKILL_DIR/assets/scripts/run_preview.py" \
+    --template "$_SKILL_DIR/assets/options-preview-template.html" \
+    --output   ./options-preview.html \
+    --port     17432 \
+    --timeout  300 \
+    "PRODUCT_NAME=ACTUAL_PRODUCT_NAME" \
+    "PRODUCT_HEADLINE=ACTUAL_HEADLINE" \
+    "CITY_NAME=ACTUAL_CITY_NAME" \
+    "CITY_BG=CITY_BG_VALUE" \
+    "CITY_SURFACE=CITY_SURFACE_VALUE" \
+    "CITY_INK=CITY_INK_VALUE" \
+    "CITY_MUTED=CITY_MUTED_VALUE" \
+    "CITY_ACCENT=CITY_ACCENT_VALUE" \
+    "CITY_DARK_BG=#0e0c09" \
+    "CITY_DARK_SURFACE=#1e1b16" \
+    "CITY_DARK_INK=#f2ede4" \
+    "CITY_DARK_ACCENT=CITY_ACCENT_VALUE" \
+    "CITY_BRIGHT_BG=#fdf9f2" \
+    "CITY_BRIGHT_SURFACE=#fffdf8" \
+    "CITY_BRIGHT_INK=#1a1510" \
+    "CITY_BRIGHT_ACCENT=CITY_ACCENT_VALUE" \
+    "RECEIVER_PORT=17432"
 else
-  echo "User did not submit within 300 seconds. Ask them to paste manually."
+  sed \
+    -e "s/__PRODUCT_NAME__/ACTUAL_PRODUCT_NAME/g" \
+    -e "s/__PRODUCT_HEADLINE__/ACTUAL_HEADLINE/g" \
+    -e "s/__CITY_NAME__/ACTUAL_CITY_NAME/g" \
+    -e "s/__CITY_BG__/CITY_BG_VALUE/g" \
+    -e "s/__CITY_SURFACE__/CITY_SURFACE_VALUE/g" \
+    -e "s/__CITY_INK__/CITY_INK_VALUE/g" \
+    -e "s/__CITY_MUTED__/CITY_MUTED_VALUE/g" \
+    -e "s/__CITY_ACCENT__/CITY_ACCENT_VALUE/g" \
+    -e "s/__CITY_DARK_BG__/#0e0c09/g" \
+    -e "s/__CITY_DARK_SURFACE__/#1e1b16/g" \
+    -e "s/__CITY_DARK_INK__/#f2ede4/g" \
+    -e "s/__CITY_DARK_ACCENT__/CITY_ACCENT_VALUE/g" \
+    -e "s/__CITY_BRIGHT_BG__/#fdf9f2/g" \
+    -e "s/__CITY_BRIGHT_SURFACE__/#fffdf8/g" \
+    -e "s/__CITY_BRIGHT_INK__/#1a1510/g" \
+    -e "s/__CITY_BRIGHT_ACCENT__/CITY_ACCENT_VALUE/g" \
+    "$_SKILL_DIR/assets/options-preview-template.html" > ./options-preview.html
+  open ./options-preview.html 2>/dev/null || xdg-open ./options-preview.html 2>/dev/null \
+    || echo "Open in browser: $(pwd)/options-preview.html"
+  echo "Python not found — no live bridge. Use the copy button in the preview and paste the result here."
 fi
-kill "$SERVER_PID" 2>/dev/null || true
-wait "$SERVER_PID" 2>/dev/null || true
 ```
 
 The dark variant (`__CITY_DARK_*`) is always the luxury/night treatment — near-black bg, warm light text, same accent. The bright variant is always the fresh/modern treatment — near-white bg, dark text, same accent. The city's identity comes from the base colors and accent, not from the dark/bright shell.
 
-If the shell prints JSON from `/tmp/citycraft_city.json`, read the `city` field and use it in Step 3. If it times out, ask the user to type the city name manually before proceeding.
+> **Windows PowerShell (no WSL/Git Bash):** Run `run_preview.ps1` directly. See `assets/scripts/run_preview.ps1` for usage.
+
+When the script exits, it prints the result JSON to stdout. If it times out, ask the user to type their choice manually before proceeding.
 
 Tell the user: "在浏览器里打开了一个互动选择页——有排版、导航的实际演示效果，还有三种色调的对比。可以点击全屏菜单看它怎么爆开，把光标移近底部胶囊感受磁性效果。全部选好之后，点底部的「告诉 Agent →」按钮，我会自动收到结果并继续生成；如果本地桥接没有连上，再把复制结果贴给我就可以。"
 
-**If the user chose a non-city description** (scene, era, material, emotion): read `references/imagery-derivation.md` to derive the design token system first, use those derived colors to fill in the `sed` command above, then proceed normally.
+**If the user chose a non-city description** (scene, era, material, emotion): read `references/imagery-derivation.md` to derive the design token system first, use those derived colors as the `CITY_*` arg values above, then proceed normally.
 
-If the shell prints JSON from `/tmp/citycraft_selection.json`, parse it directly and continue to Step 4 with `city`, `layout`, `nav`, and `tone`. If it times out, ask the user to paste their 3 choices manually before proceeding.
+If the script prints JSON, parse it directly and continue to Step 4 with `city`, `layout`, `nav`, and `tone`. If it times out, ask the user to paste their 3 choices manually before proceeding.
 
 ### Step 4: Generate the Landing Page
 
