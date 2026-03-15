@@ -1,0 +1,120 @@
+{
+  "skill_name": "landing-page",
+  "evals": [
+    {
+      "id": 0,
+      "name": "luma-ai-diary",
+      "prompt": "帮我做个落地页，我的产品叫 Luma，是个 AI 日记 app。风格我想要首尔那种感觉，干净但有表达力。需要 Hero、功能介绍、用户评价、下载 CTA 这几个板块。排版气质选叙事型。Nav 选底部磁性胶囊。",
+      "expected_output": "Multi-file landing page: index.html + style.css + main.js + assets/icons.svg. Seoul city style applied. Bottom pill nav with magnetic effect. GSAP ScrollTrigger animations. No white backgrounds. No rectangular section dividers.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "multifile-output",
+          "description": "输出包含 index.html、style.css、main.js、assets/icons.svg 四个文件"
+        },
+        {
+          "id": "gsap-loaded",
+          "description": "index.html 中包含 GSAP CDN script 标签"
+        },
+        {
+          "id": "scrolltrigger-used",
+          "description": "main.js 中使用了 ScrollTrigger"
+        },
+        {
+          "id": "no-white-bg",
+          "description": "style.css 中没有 background: #ffffff 或 background: white"
+        },
+        {
+          "id": "no-rectangular-dividers",
+          "description": "style.css 中至少一处使用了 clip-path 或 border-radius 在 section 上"
+        },
+        {
+          "id": "pill-nav-present",
+          "description": "包含 pill-nav 或 bottom pill 样式的导航，position: fixed，bottom 定位"
+        },
+        {
+          "id": "svg-sprite",
+          "description": "assets/icons.svg 存在且包含 <symbol> 元素"
+        },
+        {
+          "id": "css-variables",
+          "description": "style.css 使用 CSS 自定义属性（:root { --xxx }）定义设计系统"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "terroir-coffee",
+      "prompt": "帮我做一个咖啡品牌的官网首页，品牌叫 Terroir，主打单一产区精品豆。风格想要巴黎那种有年代感但不老气的感觉。需要 Hero、品牌故事、产品系列、门店地址这几个板块。排版气质选铺张型（大字铺屏，视觉冲击）。Nav 选侧边垂直型。",
+      "expected_output": "Multi-file landing page with Paris city style. Vertical side rail nav. Bold oversized typography. Serif display font. Warm ecru/cream color palette. Clip-path section dividers. GSAP animations.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "multifile-output",
+          "description": "输出包含 index.html、style.css、main.js、assets/icons.svg 四个文件"
+        },
+        {
+          "id": "serif-font",
+          "description": "style.css 或 index.html 中引用了衬线字体（Playfair、Cormorant、或其他 serif）"
+        },
+        {
+          "id": "vertical-side-nav",
+          "description": "包含侧边垂直导航（writing-mode: vertical 或 position:fixed + left 定位）"
+        },
+        {
+          "id": "warm-palette",
+          "description": "CSS 变量中包含暖色系值（#f2ece0、#f5ede0 或类似的米白/奶油色）"
+        },
+        {
+          "id": "large-headline",
+          "description": "style.css 中 h1 或 display 字号使用了 clamp() 且最大值 ≥ 5rem"
+        },
+        {
+          "id": "gsap-loaded",
+          "description": "index.html 中包含 GSAP CDN script 标签"
+        },
+        {
+          "id": "svg-sprite",
+          "description": "assets/icons.svg 存在且包含 <symbol> 元素"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "forge-devtool",
+      "prompt": "Build me a landing page for a developer tool called Forge — it's a local-first database for teams. I want Tokyo Night style: dark, electric, precise. Sections: Hero, 3 key Features, How it works (step-through), Pricing tiers, CTA. Layout: theatrical (sticky scroll scenes). Nav: full-screen blast menu.",
+      "expected_output": "Multi-file landing page with Tokyo Night style. Dark background (#08060f or similar). Neon accent colors. Full-screen overlay menu with GSAP animation. Sticky scroll step-through section. Monospace or geometric sans font. Grid texture background.",
+      "files": [],
+      "assertions": [
+        {
+          "id": "multifile-output",
+          "description": "Output contains index.html, style.css, main.js, assets/icons.svg"
+        },
+        {
+          "id": "dark-background",
+          "description": "CSS has a dark background color (#08 or #0a or #0b range in the first 2 hex chars)"
+        },
+        {
+          "id": "fullscreen-nav",
+          "description": "main.js or index.html contains a full-screen overlay nav with open/close animation"
+        },
+        {
+          "id": "sticky-scroll-section",
+          "description": "main.js contains a sticky scroll / step-through section using ScrollTrigger"
+        },
+        {
+          "id": "gsap-scrolltrigger",
+          "description": "GSAP and ScrollTrigger CDN scripts are loaded in index.html"
+        },
+        {
+          "id": "grid-texture",
+          "description": "style.css contains a grid or scanline background texture"
+        },
+        {
+          "id": "neon-glow",
+          "description": "style.css contains box-shadow with rgba color for a glow effect"
+        }
+      ]
+    }
+  ]
+}

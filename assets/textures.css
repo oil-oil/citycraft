@@ -1,0 +1,62 @@
+/* ============================================================
+   LANDING PAGE SKILL — TEXTURE LIBRARY
+   Copy the relevant class onto your <body> or section element.
+   Each texture is a CSS-only pattern at low opacity.
+   ============================================================ */
+
+/* KYOTO — washi paper grain + faint crosshatch */
+.texture-kyoto {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(42,31,20,0.018) 18px, rgba(42,31,20,0.018) 19px),
+    repeating-linear-gradient(-45deg, transparent, transparent 18px, rgba(42,31,20,0.018) 18px, rgba(42,31,20,0.018) 19px);
+}
+
+/* PARIS — fine linen weave */
+.texture-paris {
+  background-image:
+    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(26,22,18,0.012) 3px, rgba(26,22,18,0.012) 4px),
+    repeating-linear-gradient(0deg,  transparent, transparent 3px, rgba(26,22,18,0.012) 3px, rgba(26,22,18,0.012) 4px),
+    repeating-linear-gradient(45deg, transparent, transparent 6px, rgba(26,22,18,0.008) 6px, rgba(26,22,18,0.008) 7px);
+}
+
+/* TOKYO NIGHT — precise grid lines */
+.texture-tokyo {
+  background-image:
+    linear-gradient(rgba(240,236,255,0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240,236,255,0.022) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* TOKYO NIGHT — scanlines variant (denser, more electric) */
+.texture-tokyo-scan {
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(123,94,248,0.03) 3px, rgba(123,94,248,0.03) 4px),
+    linear-gradient(rgba(240,236,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240,236,255,0.015) 1px, transparent 1px);
+  background-size: auto, 64px 64px, 64px 64px;
+}
+
+/* NEW YORK — newsprint dot halftone */
+.texture-newyork {
+  background-image: radial-gradient(circle, rgba(17,17,17,0.12) 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+/* SEOUL — soft gradient mesh (apply on the element, not body) */
+.texture-seoul {
+  background-image:
+    radial-gradient(ellipse at 15% 85%, rgba(61,92,255,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(255,107,53,0.055) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(61,92,255,0.03) 0%, transparent 70%);
+}
+
+/* NOISE OVERLAY — add on top of any style for extra grain depth */
+.texture-noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  z-index: 0;
+}

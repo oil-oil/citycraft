@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>风格预览 — 请选择你的落地页美学方向</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@500;700&family=Anton&family=Plus+Jakarta+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #111;
+  color: #fff;
+  font-family: system-ui, sans-serif;
+  padding: 48px 24px 80px;
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.header h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 600;
+  color: #f0f0f0;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.header p {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.product-name {
+  display: inline-block;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  padding: 2px 10px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  color: #a8d8ff;
+}
+
+/* ── CARDS GRID ─────────────────────────────────────────────── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.card {
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+.card:hover { transform: translateY(-6px); }
+.card.selected { outline: 3px solid #fff; outline-offset: 4px; }
+
+.card-body {
+  padding: 40px 36px 36px;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+
+/* City label */
+.city-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  font-weight: 600;
+}
+
+/* Headline */
+.card-headline {
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  flex-shrink: 0;
+}
+
+/* Body text */
+.card-body-text {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  opacity: 0.72;
+  flex: 1;
+}
+
+/* Button */
+.card-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  align-self: flex-start;
+  letter-spacing: 0.02em;
+}
+
+/* ── Copy button (injected via JS on all city cards) ──────────── */
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0,0,0,0.32);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  padding: 4px 11px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: opacity 0.15s ease, background 0.15s;
+  z-index: 20;
+  font-family: system-ui, sans-serif;
+}
+.copy-btn:hover {
+  opacity: 1;
+  background: rgba(0,0,0,0.55);
+}
+.copy-btn.copied {
+  background: rgba(34,197,94,0.6);
+  border-color: rgba(34,197,94,0.7);
+  opacity: 1;
+}
+
+/* Palette swatches */
+.palette {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(128,128,128,0.15);
+}
+.swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── 1. KYOTO ────────────────────────────────────────────────── */
+.card-kyoto .card-body {
+  background: #f7f0e6;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(45deg, transparent, transparent 18px, rgba(42,31,20,0.016) 18px, rgba(42,31,20,0.016) 19px);
+  color: #2a1f14;
+}
+.card-kyoto .city-label { color: #7a6655; }
+.card-kyoto .card-headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-style: italic;
+  font-weight: 400;
+  color: #2a1f14;
+}
+.card-kyoto .card-body-text { color: #5a4535; }
+.card-kyoto .card-btn {
+  background: #8b4513;
+  color: #f7f0e6;
+  box-shadow: 0 8px 24px rgba(139,69,19,0.25);
+}
+.card-kyoto .palette .swatch:nth-child(1) { background: #f7f0e6; border: 1px solid rgba(42,31,20,0.15); }
+.card-kyoto .palette .swatch:nth-child(2) { background: #2a1f14; }
+.card-kyoto .palette .swatch:nth-child(3) { background: #8b4513; }
+.card-kyoto .palette .swatch:nth-child(4) { background: #c9a882; }
+
+/* ── 2. PARIS ────────────────────────────────────────────────── */
+.card-paris .card-body {
+  background: #f2ece0;
+  background-image:
+    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(26,22,18,0.011) 3px, rgba(26,22,18,0.011) 4px),
+    repeating-linear-gradient(0deg,  transparent, transparent 3px, rgba(26,22,18,0.011) 3px, rgba(26,22,18,0.011) 4px);
+  color: #1a1612;
+}
+.card-paris .city-label { color: #6b5f52; }
+.card-paris .card-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-style: italic;
+  font-weight: 700;
+  color: #1a1612;
+}
+.card-paris .card-body-text { color: #4a3f34; }
+.card-paris .card-btn {
+  background: transparent;
+  color: #b5451b;
+  border: 1.5px solid #b5451b;
+  border-radius: 4px;
+}
+.card-paris .palette .swatch:nth-child(1) { background: #f2ece0; border: 1px solid rgba(26,22,18,0.12); }
+.card-paris .palette .swatch:nth-child(2) { background: #1a1612; }
+.card-paris .palette .swatch:nth-child(3) { background: #b5451b; }
+.card-paris .palette .swatch:nth-child(4) { background: #d4956a; }
+
+/* ── 3. TOKYO NIGHT ──────────────────────────────────────────── */
+.card-tokyo .card-body {
+  background: #08060f;
+  background-image:
+    linear-gradient(rgba(240,236,255,0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240,236,255,0.022) 1px, transparent 1px);
+  background-size: 48px 48px;
+  color: #f0ecff;
+}
+.card-tokyo .city-label { color: rgba(240,236,255,0.45); }
+.card-tokyo .card-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  color: #f0ecff;
+}
+.card-tokyo .card-body-text { color: rgba(240,236,255,0.6); font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; }
+.card-tokyo .card-btn {
+  background: #7b5ef8;
+  color: #fff;
+  box-shadow: 0 0 28px rgba(123,94,248,0.45);
+}
+.card-tokyo .palette .swatch:nth-child(1) { background: #08060f; border: 1px solid rgba(240,236,255,0.12); }
+.card-tokyo .palette .swatch:nth-child(2) { background: #7b5ef8; box-shadow: 0 0 12px rgba(123,94,248,0.6); }
+.card-tokyo .palette .swatch:nth-child(3) { background: #22d4a0; box-shadow: 0 0 12px rgba(34,212,160,0.5); }
+.card-tokyo .palette .swatch:nth-child(4) { background: rgba(240,236,255,0.12); }
+
+/* ── 4. NEW YORK ─────────────────────────────────────────────── */
+.card-newyork .card-body {
+  background: #f0ede8;
+  background-image: radial-gradient(circle, rgba(17,17,17,0.1) 1px, transparent 1px);
+  background-size: 8px 8px;
+  color: #111;
+}
+.card-newyork .city-label { color: #555; }
+.card-newyork .card-headline {
+  font-family: 'Anton', 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.92;
+  color: #111;
+}
+.card-newyork .card-body-text { color: #444; font-family: 'Helvetica Neue', Arial, sans-serif; }
+.card-newyork .card-btn {
+  background: #ff2d00;
+  color: #fff;
+  border-radius: 0;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+.card-newyork .palette .swatch:nth-child(1) { background: #f0ede8; border: 1px solid #111; }
+.card-newyork .palette .swatch:nth-child(2) { background: #111; }
+.card-newyork .palette .swatch:nth-child(3) { background: #ff2d00; }
+.card-newyork .palette .swatch:nth-child(4) { background: #f5c518; }
+
+/* ── 5. SEOUL ────────────────────────────────────────────────── */
+.card-seoul .card-body {
+  background: #fafaf8;
+  background-image:
+    radial-gradient(ellipse at 20% 80%, rgba(61,92,255,0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 20%, rgba(255,107,53,0.055) 0%, transparent 50%);
+  color: #191917;
+}
+.card-seoul .city-label { color: #6b6b63; }
+.card-seoul .card-headline {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: #191917;
+}
+.card-seoul .card-body-text { color: #444442; }
+.card-seoul .card-btn {
+  background: #3d5cff;
+  color: #fff;
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(61,92,255,0.28);
+}
+.card-seoul .palette .swatch:nth-child(1) { background: #fafaf8; border: 1px solid rgba(25,25,23,0.1); }
+.card-seoul .palette .swatch:nth-child(2) { background: #191917; }
+.card-seoul .palette .swatch:nth-child(3) { background: #3d5cff; }
+.card-seoul .palette .swatch:nth-child(4) { background: #ff6b35; }
+
+/* ── 6. BERLIN ───────────────────────────────────────────────── */
+.card-berlin .card-body {
+  background: #121214;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  color: #e8e8e4;
+}
+.card-berlin .city-label { color: rgba(212,255,30,0.65); }
+.card-berlin .card-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  color: #e8e8e4;
+  border-left: 4px solid #D4FF1E;
+  padding-left: 14px;
+}
+.card-berlin .card-body-text { color: rgba(232,232,228,0.5); font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; }
+.card-berlin .card-btn {
+  background: #D4FF1E;
+  color: #121214;
+  border-radius: 0;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+.card-berlin .palette .swatch:nth-child(1) { background: #121214; border: 1px solid rgba(232,232,228,0.15); }
+.card-berlin .palette .swatch:nth-child(2) { background: #e8e8e4; }
+.card-berlin .palette .swatch:nth-child(3) { background: #D4FF1E; }
+.card-berlin .palette .swatch:nth-child(4) { background: #444440; }
+
+/* ── 7. MUMBAI ───────────────────────────────────────────────── */
+.card-mumbai .card-body {
+  background: #FAF5F0;
+  background-image:
+    linear-gradient(135deg, rgba(229,58,64,0.05) 0%, transparent 60%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  color: #1a1410;
+}
+.card-mumbai .city-label { color: #8a5a40; }
+.card-mumbai .card-headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 600;
+  font-style: italic;
+  color: #1a1410;
+  line-height: 1.1;
+}
+.card-mumbai .card-body-text { color: #5a4030; }
+.card-mumbai .card-btn {
+  background: #E53A40;
+  color: #FAF5F0;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(229,58,64,0.3);
+}
+.card-mumbai .palette .swatch:nth-child(1) { background: #FAF5F0; border: 1px solid rgba(26,20,16,0.12); }
+.card-mumbai .palette .swatch:nth-child(2) { background: #1a1410; }
+.card-mumbai .palette .swatch:nth-child(3) { background: #E53A40; }
+.card-mumbai .palette .swatch:nth-child(4) { background: #F2C590; }
+
+/* ── 8. HONG KONG ─────────────────────────────────────────────── */
+.card-hongkong .card-body {
+  background: #081014;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(230,244,241,0.018) 2px, rgba(230,244,241,0.018) 4px),
+    radial-gradient(circle at 50% 0%, rgba(255,46,76,0.14) 0%, transparent 55%);
+  color: #f0f0e8;
+}
+.card-hongkong .city-label { color: rgba(255,46,76,0.65); }
+.card-hongkong .card-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  color: #f0f0e8;
+  line-height: 1.0;
+}
+.card-hongkong .card-body-text { color: rgba(240,240,232,0.5); font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; }
+.card-hongkong .card-btn {
+  background: transparent;
+  color: #FF2E4C;
+  border: 1.5px solid #FF2E4C;
+  border-radius: 0;
+  box-shadow: 0 0 18px rgba(255,46,76,0.28);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+}
+.card-hongkong .palette .swatch:nth-child(1) { background: #081014; border: 1px solid rgba(240,240,232,0.1); }
+.card-hongkong .palette .swatch:nth-child(2) { background: #FF2E4C; box-shadow: 0 0 10px rgba(255,46,76,0.5); }
+.card-hongkong .palette .swatch:nth-child(3) { background: #22a8ff; }
+.card-hongkong .palette .swatch:nth-child(4) { background: rgba(240,240,232,0.1); }
+
+/* ── 9. LISBON ────────────────────────────────────────────────── */
+.card-lisbon .card-body {
+  background: #F9F4EE;
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(200,90,71,0.05) 0%, transparent 60%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  color: #2a1a10;
+}
+.card-lisbon .city-label { color: #9a7a60; }
+.card-lisbon .card-headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-style: italic;
+  font-weight: 400;
+  color: #2a1a10;
+  line-height: 1.15;
+}
+.card-lisbon .card-body-text { color: #6a4a34; }
+.card-lisbon .card-btn {
+  background: transparent;
+  color: #D4843A;
+  border: 1.5px solid #D4843A;
+  border-radius: 4px;
+}
+.card-lisbon .palette .swatch:nth-child(1) { background: #F9F4EE; border: 1px solid rgba(42,26,16,0.12); }
+.card-lisbon .palette .swatch:nth-child(2) { background: #2a1a10; }
+.card-lisbon .palette .swatch:nth-child(3) { background: #D4843A; }
+.card-lisbon .palette .swatch:nth-child(4) { background: #87A8B4; }
+
+/* ── 10. HAVANA ───────────────────────────────────────────────── */
+.card-havana .card-body {
+  background: #2a1a0a;
+  background-image:
+    linear-gradient(180deg, rgba(135,179,176,0.14) 0%, transparent 45%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E");
+  color: #f0e8d0;
+}
+.card-havana .city-label { color: rgba(135,179,176,0.65); }
+.card-havana .card-headline {
+  font-family: 'Anton', Impact, sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.9;
+  color: #f0e8d0;
+}
+.card-havana .card-body-text { color: rgba(240,232,208,0.6); font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; }
+.card-havana .card-btn {
+  background: #87B3B0;
+  color: #1a0d04;
+  border-radius: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+.card-havana .palette .swatch:nth-child(1) { background: #2a1a0a; border: 1px solid rgba(240,232,208,0.1); }
+.card-havana .palette .swatch:nth-child(2) { background: #87B3B0; }
+.card-havana .palette .swatch:nth-child(3) { background: #E65A3A; }
+.card-havana .palette .swatch:nth-child(4) { background: #f0e8d0; }
+
+/* ── 11. DUBAI ────────────────────────────────────────────────── */
+.card-dubai .card-body {
+  background: #080809;
+  background-image:
+    linear-gradient(135deg, rgba(255,255,255,0.015) 0%, transparent 40%),
+    linear-gradient(to right, rgba(227,194,152,0.028) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(227,194,152,0.028) 1px, transparent 1px);
+  background-size: auto, 52px 52px, 52px 52px;
+  color: #f8f4ec;
+}
+.card-dubai .city-label { color: rgba(227,194,152,0.5); letter-spacing: 0.22em; }
+.card-dubai .card-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #E3C298;
+  line-height: 1.2;
+}
+.card-dubai .card-body-text { color: rgba(248,244,236,0.4); font-size: 0.8rem; letter-spacing: 0.05em; }
+.card-dubai .card-btn {
+  background: transparent;
+  color: #E3C298;
+  border: 1px solid rgba(227,194,152,0.45);
+  border-radius: 0;
+  letter-spacing: 0.18em;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+.card-dubai .palette .swatch:nth-child(1) { background: #080809; border: 1px solid rgba(227,194,152,0.2); }
+.card-dubai .palette .swatch:nth-child(2) { background: #E3C298; }
+.card-dubai .palette .swatch:nth-child(3) { background: #f8f4ec; }
+.card-dubai .palette .swatch:nth-child(4) { background: #2a2820; }
+
+/* ── 12. MARRAKECH ────────────────────────────────────────────── */
+.card-marrakech .card-body {
+  background: #E8CDBB;
+  background-image:
+    linear-gradient(135deg, transparent 48%, rgba(45,30,22,0.07) 49%, rgba(45,30,22,0.07) 51%, transparent 52%),
+    linear-gradient(45deg,  transparent 48%, rgba(45,30,22,0.07) 49%, rgba(45,30,22,0.07) 51%, transparent 52%);
+  background-size: 40px 40px;
+  color: #1a0f08;
+}
+.card-marrakech .city-label { color: #1639A4; letter-spacing: 0.14em; }
+.card-marrakech .card-headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  color: #1a0f08;
+  line-height: 1.1;
+}
+.card-marrakech .card-body-text { color: #5a3a28; }
+.card-marrakech .card-btn {
+  background: #1639A4;
+  color: #E8CDBB;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(22,57,164,0.32);
+}
+.card-marrakech .palette .swatch:nth-child(1) { background: #E8CDBB; border: 1px solid rgba(45,30,22,0.12); }
+.card-marrakech .palette .swatch:nth-child(2) { background: #D45D3F; }
+.card-marrakech .palette .swatch:nth-child(3) { background: #1639A4; }
+.card-marrakech .palette .swatch:nth-child(4) { background: #1a0f08; }
+
+/* ── 13. STOCKHOLM ────────────────────────────────────────────── */
+.card-stockholm .card-body {
+  background: #F4F5F6;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  color: #1a1a1a;
+}
+.card-stockholm .city-label { color: #888; }
+.card-stockholm .card-headline {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: #1a1a1a;
+  line-height: 1.0;
+}
+.card-stockholm .card-body-text { color: #555; }
+.card-stockholm .card-btn {
+  background: transparent;
+  color: #1a1a1a;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+}
+.card-stockholm .palette .swatch:nth-child(1) { background: #F4F5F6; border: 1px solid rgba(26,26,26,0.12); }
+.card-stockholm .palette .swatch:nth-child(2) { background: #1a1a1a; }
+.card-stockholm .palette .swatch:nth-child(3) { background: #D4C1A9; }
+.card-stockholm .palette .swatch:nth-child(4) { background: #888; }
+
+/* ── 14. BUENOS AIRES ─────────────────────────────────────────── */
+.card-buenosaires .card-body {
+  background: #E3DAC9;
+  background-image:
+    linear-gradient(to bottom, rgba(26,17,13,0) 0%, rgba(26,17,13,0.04) 50%, rgba(26,17,13,0) 100%),
+    linear-gradient(to right, rgba(155,34,38,0.025) 0%, transparent 5%, transparent 95%, rgba(155,34,38,0.025) 100%);
+  background-size: 100% 120px, 60px 100%;
+  color: #1C1A18;
+}
+.card-buenosaires .city-label { color: #8a6a50; }
+.card-buenosaires .card-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-style: italic;
+  font-weight: 700;
+  color: #1C1A18;
+  line-height: 1.1;
+}
+.card-buenosaires .card-body-text { color: #5a4030; }
+.card-buenosaires .card-btn {
+  background: #9B2226;
+  color: #E3DAC9;
+  border-radius: 3px;
+  box-shadow: 0 8px 24px rgba(155,34,38,0.28);
+}
+.card-buenosaires .palette .swatch:nth-child(1) { background: #E3DAC9; border: 1px solid rgba(26,17,13,0.15); }
+.card-buenosaires .palette .swatch:nth-child(2) { background: #1C1A18; }
+.card-buenosaires .palette .swatch:nth-child(3) { background: #9B2226; }
+.card-buenosaires .palette .swatch:nth-child(4) { background: #4A5D23; }
+
+/* ── 15. MEXICO CITY ─────────────────────────────────────────── */
+.card-mexicocity .card-body {
+  background: #F5F5F0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  color: #101010;
+  position: relative;
+}
+.card-mexicocity .card-body::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 60%;
+  height: 100%;
+  background: #F20587;
+  z-index: 0;
+  clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
+}
+.card-mexicocity .card-body > * { position: relative; z-index: 1; }
+.card-mexicocity .city-label { color: rgba(16,16,16,0.5); }
+.card-mexicocity .card-headline {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #F5F5F0;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  text-shadow: 6px 6px 0 #101010;
+}
+.card-mexicocity .card-body-text { color: #2a2a2a; }
+.card-mexicocity .card-btn {
+  background: #101010;
+  color: #F5F5F0;
+  border-radius: 0;
+  box-shadow: 5px 5px 0 #FFC000;
+  font-family: 'Anton', sans-serif;
+  letter-spacing: 0.05em;
+}
+.card-mexicocity .palette .swatch:nth-child(1) { background: #F20587; }
+.card-mexicocity .palette .swatch:nth-child(2) { background: #FFC000; }
+.card-mexicocity .palette .swatch:nth-child(3) { background: #3B593F; }
+.card-mexicocity .palette .swatch:nth-child(4) { background: #F5F5F0; border: 1px solid rgba(16,16,16,0.2); }
+
+/* ── 16. REYKJAVIK ───────────────────────────────────────────── */
+.card-reykjavik .card-body {
+  background: #121417;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  color: #F0F4F8;
+}
+.card-reykjavik .city-label { color: rgba(176,200,216,0.45); letter-spacing: 0.18em; }
+.card-reykjavik .card-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  color: #F0F4F8;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.card-reykjavik .card-body-text { color: #8A9BB0; }
+.card-reykjavik .card-btn {
+  background: transparent;
+  color: #00FF9D;
+  border: 1px solid rgba(0,255,157,0.4);
+  border-radius: 4px;
+  box-shadow: 0 0 16px rgba(0,255,157,0.15);
+}
+.card-reykjavik .palette .swatch:nth-child(1) { background: #121417; border: 1px solid rgba(240,244,248,0.15); }
+.card-reykjavik .palette .swatch:nth-child(2) { background: #B8D8D8; }
+.card-reykjavik .palette .swatch:nth-child(3) { background: #00FF9D; }
+.card-reykjavik .palette .swatch:nth-child(4) { background: #F0F4F8; }
+
+/* ── 17. SINGAPORE ───────────────────────────────────────────── */
+.card-singapore .card-body {
+  background: #E8F2F6;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(0,210,106,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse at 85% 15%, rgba(123,44,191,0.07) 0%, transparent 50%);
+  color: #1B262C;
+}
+.card-singapore .city-label { color: #4A6470; }
+.card-singapore .card-headline {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #1B262C;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.card-singapore .card-body-text { color: #4A6470; }
+.card-singapore .card-btn {
+  background: #00D26A;
+  color: #fff;
+  border-radius: 100px;
+  box-shadow: 0 8px 24px rgba(0,210,106,0.3);
+}
+.card-singapore .palette .swatch:nth-child(1) { background: #00D26A; }
+.card-singapore .palette .swatch:nth-child(2) { background: #7B2CBF; }
+.card-singapore .palette .swatch:nth-child(3) { background: #1B262C; }
+.card-singapore .palette .swatch:nth-child(4) { background: #E8F2F6; border: 1px solid rgba(27,38,44,0.15); }
+
+/* ── 18. SANTORINI ───────────────────────────────────────────── */
+.card-santorini .card-body {
+  background: #FDFDFD;
+  background-image: radial-gradient(ellipse at 50% 100%, rgba(0,75,135,0.07) 0%, transparent 60%);
+  color: #004B87;
+}
+.card-santorini .city-label { color: #6B8BAA; }
+.card-santorini .card-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-style: italic;
+  font-weight: 700;
+  color: #004B87;
+  line-height: 1.1;
+}
+.card-santorini .card-body-text { color: #6B8BAA; }
+.card-santorini .card-btn {
+  background: #D92568;
+  color: #fff;
+  border-radius: 100px;
+  box-shadow: 0 8px 24px rgba(217,37,104,0.3);
+}
+.card-santorini .palette .swatch:nth-child(1) { background: #004B87; }
+.card-santorini .palette .swatch:nth-child(2) { background: #D92568; }
+.card-santorini .palette .swatch:nth-child(3) { background: #FDFDFD; border: 1px solid rgba(0,75,135,0.15); }
+.card-santorini .palette .swatch:nth-child(4) { background: #DCD0C0; }
+
+/* ── 19. LAGOS ───────────────────────────────────────────────── */
+.card-lagos .card-body {
+  background: #101820;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(255,59,0,0.15) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0,229,255,0.1) 0%, transparent 40%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='2' cy='2' r='1' fill='rgba(229,255,0,0.07)'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 100% 100%, 20px 20px;
+  color: #E5FF00;
+}
+.card-lagos .city-label { color: rgba(229,255,0,0.4); }
+.card-lagos .card-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #E5FF00;
+  line-height: 1.0;
+  letter-spacing: 0.04em;
+}
+.card-lagos .card-body-text { color: #8899AA; }
+.card-lagos .card-btn {
+  background: #FF3B00;
+  color: #E5FF00;
+  border-radius: 0;
+  box-shadow: 4px 4px 0 #E5FF00;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.card-lagos .palette .swatch:nth-child(1) { background: #E5FF00; }
+.card-lagos .palette .swatch:nth-child(2) { background: #FF3B00; }
+.card-lagos .palette .swatch:nth-child(3) { background: #00E5FF; }
+.card-lagos .palette .swatch:nth-child(4) { background: #101820; border: 1px solid rgba(229,255,0,0.2); }
+
+/* ── 20. PALM SPRINGS ────────────────────────────────────────── */
+.card-palmsprings .card-body {
+  background: #F4EBD9;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(77,225,193,0.1) 0%, transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(255,138,138,0.1) 0%, transparent 30%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='15' cy='15' r='3' fill='rgba(77,225,193,0.09)'/%3E%3Ccircle cx='55' cy='45' r='2' fill='rgba(255,138,138,0.08)'/%3E%3Ccircle cx='40' cy='70' r='4' fill='rgba(43,33,24,0.04)'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 100% 100%, 80px 80px;
+  color: #2B2118;
+}
+.card-palmsprings .city-label { color: #7A6552; }
+.card-palmsprings .card-headline {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #2B2118;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.card-palmsprings .card-body-text { color: #7A6552; }
+.card-palmsprings .card-btn {
+  background: #4DE1C1;
+  color: #2B2118;
+  border-radius: 100px;
+  box-shadow: 0 8px 20px rgba(77,225,193,0.35);
+  font-weight: 700;
+}
+.card-palmsprings .palette .swatch:nth-child(1) { background: #4DE1C1; }
+.card-palmsprings .palette .swatch:nth-child(2) { background: #FF8A8A; }
+.card-palmsprings .palette .swatch:nth-child(3) { background: #2B2118; }
+.card-palmsprings .palette .swatch:nth-child(4) { background: #F4EBD9; border: 1px solid rgba(43,33,24,0.15); }
+
+/* ── 21. ISTANBUL ────────────────────────────────────────────── */
+.card-istanbul .card-body {
+  background: #2A1B18;
+  background-image: radial-gradient(circle at 50% 0%, rgba(216,67,21,0.12) 0%, transparent 60%);
+  color: #F5E6D3;
+}
+.card-istanbul .city-label { color: #BCAAA4; }
+.card-istanbul .card-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.1rem, 4.2vw, 3.2rem);
+  font-style: italic;
+  font-weight: 700;
+  color: #F5E6D3;
+  line-height: 1.05;
+}
+.card-istanbul .card-body-text { color: #D7C1B4; }
+.card-istanbul .card-btn {
+  background: #D84315;
+  color: #F5E6D3;
+  border-radius: 6px;
+  box-shadow: 0 10px 28px rgba(216,67,21,0.24);
+}
+.card-istanbul .palette .swatch:nth-child(1) { background: #2A1B18; border: 1px solid rgba(245,230,211,0.12); }
+.card-istanbul .palette .swatch:nth-child(2) { background: #F5E6D3; }
+.card-istanbul .palette .swatch:nth-child(3) { background: #D84315; }
+.card-istanbul .palette .swatch:nth-child(4) { background: #FFCCBC; }
+
+/* ── 22. MIAMI ───────────────────────────────────────────────── */
+.card-miami .card-body {
+  background: #0B1021;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,0,127,0.06) 3px, rgba(255,0,127,0.06) 5px);
+  color: #E0F7FA;
+}
+.card-miami .city-label { color: #80DEEA; }
+.card-miami .card-headline {
+  font-family: 'Anton', 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #E0F7FA;
+  line-height: 0.95;
+  letter-spacing: 0.03em;
+}
+.card-miami .card-body-text { color: #B6EFF5; }
+.card-miami .card-btn {
+  background: #FF007F;
+  color: #E0F7FA;
+  border-radius: 0;
+  box-shadow: 0 0 24px rgba(255,0,127,0.45);
+  text-transform: uppercase;
+}
+.card-miami .palette .swatch:nth-child(1) { background: #0B1021; border: 1px solid rgba(224,247,250,0.14); }
+.card-miami .palette .swatch:nth-child(2) { background: #FF007F; box-shadow: 0 0 12px rgba(255,0,127,0.55); }
+.card-miami .palette .swatch:nth-child(3) { background: #E0F7FA; }
+.card-miami .palette .swatch:nth-child(4) { background: #FF80BF; }
+
+/* ── 23. CHENGDU ─────────────────────────────────────────────── */
+.card-chengdu .card-body {
+  background: #F6F8F4;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  color: #1B2A1E;
+}
+.card-chengdu .city-label { color: #5D7060; }
+.card-chengdu .card-headline {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #1B2A1E;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+.card-chengdu .card-body-text { color: #5D7060; }
+.card-chengdu .card-btn {
+  background: #E53935;
+  color: #F6F8F4;
+  border-radius: 999px;
+  box-shadow: 0 10px 26px rgba(229,57,53,0.2);
+}
+.card-chengdu .palette .swatch:nth-child(1) { background: #F6F8F4; border: 1px solid rgba(27,42,30,0.12); }
+.card-chengdu .palette .swatch:nth-child(2) { background: #1B2A1E; }
+.card-chengdu .palette .swatch:nth-child(3) { background: #E53935; }
+.card-chengdu .palette .swatch:nth-child(4) { background: #FFCDD2; }
+
+/* ── 24. COPENHAGEN ──────────────────────────────────────────── */
+.card-copenhagen .card-body {
+  background: #E3DAC9;
+  background-image: radial-gradient(circle at 100% 100%, rgba(209,96,61,0.06) 0%, transparent 60%);
+  color: #2C3531;
+}
+.card-copenhagen .city-label { color: #788580; letter-spacing: 0.16em; }
+.card-copenhagen .card-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #2C3531;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+.card-copenhagen .card-body-text { color: #5D6964; }
+.card-copenhagen .card-btn {
+  background: transparent;
+  color: #D1603D;
+  border: 1.5px solid #D1603D;
+  border-radius: 2px;
+}
+.card-copenhagen .palette .swatch:nth-child(1) { background: #E3DAC9; border: 1px solid rgba(44,53,49,0.12); }
+.card-copenhagen .palette .swatch:nth-child(2) { background: #2C3531; }
+.card-copenhagen .palette .swatch:nth-child(3) { background: #D1603D; }
+.card-copenhagen .palette .swatch:nth-child(4) { background: #E8B8A8; }
+
+/* ── 25. VIENNA ──────────────────────────────────────────────── */
+.card-vienna .card-body {
+  background: #1A110A;
+  background-image: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(212,175,55,0.02) 40px, rgba(212,175,55,0.02) 80px);
+  color: #FDFBF7;
+}
+.card-vienna .city-label { color: #C5B4A3; }
+.card-vienna .card-headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2.3rem, 4.8vw, 3.6rem);
+  font-weight: 600;
+  color: #FDFBF7;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+}
+.card-vienna .card-body-text { color: #D9CBBB; }
+.card-vienna .card-btn {
+  background: #D4AF37;
+  color: #1A110A;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(212,175,55,0.22);
+  font-weight: 700;
+}
+.card-vienna .palette .swatch:nth-child(1) { background: #1A110A; border: 1px solid rgba(253,251,247,0.15); }
+.card-vienna .palette .swatch:nth-child(2) { background: #FDFBF7; }
+.card-vienna .palette .swatch:nth-child(3) { background: #D4AF37; }
+.card-vienna .palette .swatch:nth-child(4) { background: #F3E5AB; }
+
+/* ── 26. CAPE TOWN ───────────────────────────────────────────── */
+.card-capetown .card-body {
+  background: #004D40;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='rock'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23rock)' opacity='0.08'/%3E%3C/svg%3E");
+  color: #FFF8E1;
+}
+.card-capetown .city-label { color: #B2DFDB; }
+.card-capetown .card-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2.1rem, 4.4vw, 3.3rem);
+  font-weight: 700;
+  color: #FFF8E1;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+.card-capetown .card-body-text { color: #DCE8D0; }
+.card-capetown .card-btn {
+  background: #FFC107;
+  color: #004D40;
+  border-radius: 0;
+  box-shadow: 5px 5px 0 rgba(255,248,225,0.32);
+  font-weight: 700;
+}
+.card-capetown .palette .swatch:nth-child(1) { background: #004D40; border: 1px solid rgba(255,248,225,0.18); }
+.card-capetown .palette .swatch:nth-child(2) { background: #FFF8E1; }
+.card-capetown .palette .swatch:nth-child(3) { background: #FFC107; }
+.card-capetown .palette .swatch:nth-child(4) { background: #FFECB3; }
+
+/* ── 27. BOGOTA ──────────────────────────────────────────────── */
+.card-bogota .card-body {
+  background: #1B1615;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(80,200,120,0.04) 8px, rgba(80,200,120,0.04) 16px);
+  color: #EAE3D9;
+}
+.card-bogota .city-label { color: #A89F95; }
+.card-bogota .card-headline {
+  font-family: 'Anton', 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(2.3rem, 4.8vw, 3.7rem);
+  font-weight: 400;
+  color: #EAE3D9;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.card-bogota .card-body-text { color: #B9AEA3; }
+.card-bogota .card-btn {
+  background: #50C878;
+  color: #1B1615;
+  border-radius: 2px;
+  box-shadow: 0 10px 24px rgba(80,200,120,0.2);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.card-bogota .palette .swatch:nth-child(1) { background: #1B1615; border: 1px solid rgba(234,227,217,0.16); }
+.card-bogota .palette .swatch:nth-child(2) { background: #EAE3D9; }
+.card-bogota .palette .swatch:nth-child(3) { background: #50C878; }
+.card-bogota .palette .swatch:nth-child(4) { background: #A9DFBF; }
+
+/* ── 28. AMSTERDAM ───────────────────────────────────────────── */
+.card-amsterdam .card-body {
+  background: #0033A0;
+  background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 60px);
+  color: #FFFFFF;
+}
+.card-amsterdam .city-label { color: #99BBFF; }
+.card-amsterdam .card-headline {
+  font-family: 'Anton', 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(2.2rem, 4.6vw, 3.4rem);
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 0.96;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.card-amsterdam .card-body-text { color: #D7E4FF; }
+.card-amsterdam .card-btn {
+  background: #FF3814;
+  color: #FFFFFF;
+  border-radius: 0;
+  box-shadow: 4px 4px 0 rgba(255,255,255,0.3);
+  font-weight: 700;
+}
+.card-amsterdam .palette .swatch:nth-child(1) { background: #0033A0; border: 1px solid rgba(255,255,255,0.2); }
+.card-amsterdam .palette .swatch:nth-child(2) { background: #FFFFFF; }
+.card-amsterdam .palette .swatch:nth-child(3) { background: #FF3814; }
+.card-amsterdam .palette .swatch:nth-child(4) { background: #FF9C8A; }
+
+/* ── 29. BEIRUT ──────────────────────────────────────────────── */
+.card-beirut .card-body {
+  background: #F5EBE1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='ruin'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23ruin)' opacity='0.05'/%3E%3C/svg%3E");
+  color: #3A2E2A;
+}
+.card-beirut .city-label { color: #8C7C77; }
+.card-beirut .card-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4.1vw, 3rem);
+  font-style: italic;
+  font-weight: 700;
+  color: #3A2E2A;
+  line-height: 1.08;
+}
+.card-beirut .card-body-text { color: #786964; }
+.card-beirut .card-btn {
+  background: transparent;
+  color: #008B8B;
+  border: 1.5px solid #008B8B;
+  border-radius: 999px;
+}
+.card-beirut .palette .swatch:nth-child(1) { background: #F5EBE1; border: 1px solid rgba(58,46,42,0.12); }
+.card-beirut .palette .swatch:nth-child(2) { background: #3A2E2A; }
+.card-beirut .palette .swatch:nth-child(3) { background: #008B8B; }
+.card-beirut .palette .swatch:nth-child(4) { background: #B3E0E0; }
+
+/* ── 30. PORTLAND ────────────────────────────────────────────── */
+.card-portland .card-body {
+  background: #252D27;
+  background-image: repeating-linear-gradient(135deg, rgba(217,83,79,0.04) 0px, rgba(217,83,79,0.04) 2px, transparent 2px, transparent 10px);
+  color: #E8E2D2;
+}
+.card-portland .city-label { color: #A4A99E; }
+.card-portland .card-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4.1vw, 3rem);
+  font-weight: 700;
+  color: #E8E2D2;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+.card-portland .card-body-text { color: #BFC4B8; }
+.card-portland .card-btn {
+  background: #D9534F;
+  color: #252D27;
+  border-radius: 4px;
+  box-shadow: 0 6px 0 rgba(232,226,210,0.18);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.card-portland .palette .swatch:nth-child(1) { background: #252D27; border: 1px solid rgba(232,226,210,0.16); }
+.card-portland .palette .swatch:nth-child(2) { background: #E8E2D2; }
+.card-portland .palette .swatch:nth-child(3) { background: #D9534F; }
+.card-portland .palette .swatch:nth-child(4) { background: #F2B2B0; }
+
+/* ── FOOTER NOTE ─────────────────────────────────────────────── */
+.footer-note {
+  text-align: center;
+  margin-top: 56px;
+  color: rgba(255,255,255,0.35);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>为 <span class="product-name">__PRODUCT_NAME__</span> 选择设计风格</h1>
+  <p>30 种城市美学，每张都是真实渲染效果<br>选一个最接近你感觉的，或者告诉我你想混合哪几个</p>
+</div>
+
+<div class="cards">
+
+  <!-- 1. KYOTO -->
+  <div class="card card-kyoto">
+    <div class="card-body">
+      <span class="city-label">京都 Kyoto</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>in stillness.</h2>
+      <p class="card-body-text">留白就是答案。质感来自克制，不来自装饰。每一处细节，都在等待被发现的时机。</p>
+      <button class="card-btn">了解更多</button>
+      <div class="palette">
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. PARIS -->
+  <div class="card card-paris">
+    <div class="card-body">
+      <span class="city-label">巴黎 Paris</span>
+      <h2 class="card-headline">*__PRODUCT_HEADLINE__*,<br>redefined.</h2>
+      <p class="card-body-text">优雅不是选项，是态度。编辑的眼光，字体的自信，每一页都是一个声明。</p>
+      <button class="card-btn">En savoir plus</button>
+      <div class="palette">
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. TOKYO NIGHT -->
+  <div class="card card-tokyo">
+    <div class="card-body">
+      <span class="city-label">东京夜 Tokyo Night</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>// ELECTRIC</h2>
+      <p class="card-body-text">// precision_mode: on<br>// latency: 0ms<br>// scale: unlimited</p>
+      <button class="card-btn">INITIALIZE →</button>
+      <div class="palette">
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. NEW YORK -->
+  <div class="card card-newyork">
+    <div class="card-body">
+      <span class="city-label">纽约 New York</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>OR NOTHING.</h2>
+      <p class="card-body-text">No explanations. No apologies. The work speaks. The numbers don't lie. Either you're in or you're not.</p>
+      <button class="card-btn">GET IN →</button>
+      <div class="palette">
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. SEOUL -->
+  <div class="card card-seoul">
+    <div class="card-body">
+      <span class="city-label">首尔 Seoul</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>느끼다</h2>
+      <p class="card-body-text">干净但有温度。技术与感受并存。不炫耀，但让你停下来多看一眼。</p>
+      <button class="card-btn">시작하기</button>
+      <div class="palette">
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+        <div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 6. BERLIN -->
+  <div class="card card-berlin">
+    <div class="card-body">
+      <span class="city-label">柏林 Berlin</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>ODER NICHTS.</h2>
+      <p class="card-body-text">// NO DECORATION<br>// PURE FUNCTION<br>// CONCRETE + VOID</p>
+      <button class="card-btn">EINTRETEN →</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. MUMBAI -->
+  <div class="card card-mumbai">
+    <div class="card-body">
+      <span class="city-label">孟买 Mumbai</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__,<br><em>woven in gold.</em></h2>
+      <p class="card-body-text">Art Deco 的骨骼，热带阳光的体温。每一层都是一段历史，繁盛与斑驳并存。</p>
+      <button class="card-btn">Explore →</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. HONG KONG -->
+  <div class="card card-hongkong">
+    <div class="card-body">
+      <span class="city-label">香港 Hong Kong</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>// 香港製造</h2>
+      <p class="card-body-text">// density: maximum<br>// neon: always on<br>// vertical: infinite</p>
+      <button class="card-btn">進入 ENTER →</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. LISBON -->
+  <div class="card card-lisbon">
+    <div class="card-body">
+      <span class="city-label">里斯本 Lisbon</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__,<br>com saudade.</h2>
+      <p class="card-body-text">美丽来自消逝本身。瓷砖裂缝里的光，海盐风吹过的故事。有些东西越是褪色越是动人。</p>
+      <button class="card-btn">Descobrir →</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. HAVANA -->
+  <div class="card card-havana">
+    <div class="card-body">
+      <span class="city-label">哈瓦那 Havana</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>SINCE 1959.</h2>
+      <p class="card-body-text">时间在这里停止转动，美丽反而更烈。镀铬与热带植物，层层覆盖，历久弥新。</p>
+      <button class="card-btn">ENTRAR →</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. DUBAI -->
+  <div class="card card-dubai">
+    <div class="card-body">
+      <span class="city-label">迪拜 Dubai</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>PERFECTED.</h2>
+      <p class="card-body-text">规模即信息。空旷即奢华。每一条线都是精确的，每一处留白都是刻意的。</p>
+      <button class="card-btn">ENTER THE TOWER</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. MARRAKECH -->
+  <div class="card card-marrakech">
+    <div class="card-body">
+      <span class="city-label">马拉喀什 Marrakech</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>في المدينة.</h2>
+      <p class="card-body-text">香料的浓烈、阳光的灼热、Majorelle 蓝的震动。每一条小巷都是一层惊喜。</p>
+      <button class="card-btn">ادخل المدينة</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13. STOCKHOLM -->
+  <div class="card card-stockholm">
+    <div class="card-body">
+      <span class="city-label">斯德哥尔摩 Stockholm</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>stripped bare.</h2>
+      <p class="card-body-text">去掉所有不必要的，剩下的才是真正重要的。桦木的温度，冬日的光，克制就是美。</p>
+      <button class="card-btn">Gå vidare →</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14. BUENOS AIRES -->
+  <div class="card card-buenosaires">
+    <div class="card-body">
+      <span class="city-label">布宜诺斯艾利斯 Buenos Aires</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__,<br>con melancolía.</h2>
+      <p class="card-body-text">欧式廊柱在热带空气中缓缓腐朽，反而更美。探戈的停顿里，有比音符更浓烈的东西。</p>
+      <button class="card-btn">Entrar →</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 15. MEXICO CITY -->
+  <div class="card card-mexicocity">
+    <div class="card-body">
+      <span class="city-label">墨西哥城 Mexico City</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>SIN MIEDO.</h2>
+      <p class="card-body-text">饱和的色彩像建筑墙面一样碰撞。几何极简主义遇上热烈的拉丁灵魂。</p>
+      <button class="card-btn">ENTRAR AHORA</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 16. REYKJAVIK -->
+  <div class="card card-reykjavik">
+    <div class="card-body">
+      <span class="city-label">雷克雅未克 Reykjavik</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>BEYOND HORIZON.</h2>
+      <p class="card-body-text">冰川的沉默，极光的一瞬。冷到极致反而成为最烈的美。</p>
+      <button class="card-btn">ENTER THE VOID →</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 17. SINGAPORE -->
+  <div class="card card-singapore">
+    <div class="card-body">
+      <span class="city-label">新加坡 Singapore</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>grown here.</h2>
+      <p class="card-body-text">垂直雨林与玻璃穹顶共生。科技向善的太阳朋克，充满呼吸感。</p>
+      <button class="card-btn">Explore →</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 18. SANTORINI -->
+  <div class="card card-santorini">
+    <div class="card-body">
+      <span class="city-label">圣托里尼 Santorini</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__,<br>καλοκαίρι.</h2>
+      <p class="card-body-text">白墙与深蓝的极端对比。有机曲线，波浪边界。时间溶解在爱琴海光里。</p>
+      <button class="card-btn">Ανακαλύψτε →</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 19. LAGOS -->
+  <div class="card card-lagos">
+    <div class="card-body">
+      <span class="city-label">拉各斯 Lagos</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>ON VOLTAGE.</h2>
+      <p class="card-body-text">Afrobeats 节拍与霓虹故障艺术。这里所有的表面都在尖叫，都在跳舞。</p>
+      <button class="card-btn">ẸNTER THE BEAT</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 20. PALM SPRINGS -->
+  <div class="card card-palmsprings">
+    <div class="card-body">
+      <span class="city-label">棕榈泉 Palm Springs</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>circa 1958.</h2>
+      <p class="card-body-text">原子时代的乐观主义。游泳池旁的火烈鸟。中世纪现代主义的永恒午后。</p>
+      <button class="card-btn">Check in →</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 21. ISTANBUL -->
+  <div class="card card-istanbul">
+    <div class="card-body">
+      <span class="city-label">伊斯坦布尔 Istanbul</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>after dusk.</h2>
+      <p class="card-body-text">旧世界的华丽与香料般的热度交织在一起。阴影很深，余韵很长，每一层都像一段传奇。</p>
+      <button class="card-btn">穿城而入</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 22. MIAMI -->
+  <div class="card card-miami">
+    <div class="card-body">
+      <span class="city-label">迈阿密 Miami</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>ALL NIGHT.</h2>
+      <p class="card-body-text">海风、霓虹、棱角和挑衅感同时拉满。这里没有温吞的中间地带，只有一下子击中的强烈情绪。</p>
+      <button class="card-btn">LIGHT IT UP</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 23. CHENGDU -->
+  <div class="card card-chengdu">
+    <div class="card-body">
+      <span class="city-label">成都 Chengdu</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>慢慢发热</h2>
+      <p class="card-body-text">先是竹影一样的松弛，随后才是红油一样的锋利。看起来很轻，真正落下去却有自己的力道。</p>
+      <button class="card-btn">慢慢打开</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 24. COPENHAGEN -->
+  <div class="card card-copenhagen">
+    <div class="card-body">
+      <span class="city-label">哥本哈根 Copenhagen</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>made clear.</h2>
+      <p class="card-body-text">秩序感写在每一条边界里，温度藏在克制的配色里。它安静、可信、没有多余动作。</p>
+      <button class="card-btn">See the system</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 25. VIENNA -->
+  <div class="card card-vienna">
+    <div class="card-body">
+      <span class="city-label">维也纳 Vienna</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>in crescendo.</h2>
+      <p class="card-body-text">一切都被排练得极其讲究。金色不是炫耀，是秩序；庄重不是距离，是更深一层的情感。</p>
+      <button class="card-btn">Enter the hall</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 26. CAPE TOWN -->
+  <div class="card card-capetown">
+    <div class="card-body">
+      <span class="city-label">开普敦 Cape Town</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>OFF THE EDGE.</h2>
+      <p class="card-body-text">大地、海风和高饱和的阳光一起撞上来。画面不打算讨好谁，它天生就带着野性的速度。</p>
+      <button class="card-btn">TAKE THE DROP</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 27. BOGOTA -->
+  <div class="card card-bogota">
+    <div class="card-body">
+      <span class="city-label">波哥大 Bogotá</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>WITHOUT PERMISSION.</h2>
+      <p class="card-body-text">像一张贴满旧墙的海报，粗粝、直给、带一点街头神经质。规矩被撕开之后，气质才真正跑出来。</p>
+      <button class="card-btn">PASTE IT UP</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 28. AMSTERDAM -->
+  <div class="card card-amsterdam">
+    <div class="card-body">
+      <span class="city-label">阿姆斯特丹 Amsterdam</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>IN GRID.</h2>
+      <p class="card-body-text">每个模块都像被推到最准确的位置，色块之间的碰撞却依然鲜活。理性很强，节奏也很强。</p>
+      <button class="card-btn">Open the frame</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 29. BEIRUT -->
+  <div class="card card-beirut">
+    <div class="card-body">
+      <span class="city-label">贝鲁特 Beirut</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__,<br>still luminous.</h2>
+      <p class="card-body-text">像被海风和岁月一起抚过的墙面，柔和里带着裂缝，优雅里留着不对称的韧性。</p>
+      <button class="card-btn">Discover softly</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 30. PORTLAND -->
+  <div class="card card-portland">
+    <div class="card-body">
+      <span class="city-label">波特兰 Portland</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>built by hand.</h2>
+      <p class="card-body-text">带着雨水、木头和旧工坊的气味。它不追求光滑，而是把可靠、耐用和手工感摆在最前面。</p>
+      <button class="card-btn">MAKE IT REAL</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<p class="footer-note">
+  选好之后告诉 Claude 你的选择——可以是城市名，可以是混合，也可以是自由描述里写的感觉<br>
+  比如"京都的质感 + 首尔的配色"，或者把第六张卡片的描述直接粘贴给他
+</p>
+
+<script>
+// ── Inject copy button on all city cards ────────────────────────
+document.querySelectorAll('.card').forEach(card => {
+  const label = card.querySelector('.city-label');
+  if (!label) return;
+  const btn = document.createElement('button');
+  btn.className = 'copy-btn';
+  btn.textContent = '复制';
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation(); // don't trigger card selection
+    const cityName = label.textContent.trim();
+    navigator.clipboard.writeText(cityName).then(() => {
+      btn.textContent = '已复制 ✓';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '复制';
+        btn.classList.remove('copied');
+      }, 1800);
+    }).catch(() => {
+      // fallback for older browsers
+      const ta = document.createElement('textarea');
+      ta.value = cityName;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      btn.textContent = '已复制 ✓';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('copied'); }, 1800);
+    });
+  });
+  card.querySelector('.card-body').appendChild(btn);
+});
+
+</script>
+
+</body>
+</html>

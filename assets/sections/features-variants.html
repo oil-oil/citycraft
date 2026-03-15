@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Templates</title>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --bg-surface: #171717;
+            --ink: #ffffff;
+            --ink-muted: #a3a3a3;
+            --accent: #e1ff00; /* High-visibility acid yellow */
+            --accent-soft: rgba(225, 255, 0, 0.08);
+            --line: #262626;
+            --font-display: "Clash Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Container utility */
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5vw;
+        }
+
+        /* 
+         * ==========================================
+         * VARIANT A: BIG NUMBER CALLOUTS
+         * ==========================================
+         */
+        .variant-a-section {
+            padding: 15vh 0;
+            background: var(--bg);
+        }
+
+        .variant-a-header {
+            margin-bottom: 10vh;
+        }
+
+        .variant-a-header h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .a-feature-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            border-top: 1px solid var(--line);
+            padding: 8vh 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .a-feature-row.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (min-width: 900px) {
+            .a-feature-row {
+                grid-template-columns: 5fr 4fr;
+                gap: 5vw;
+            }
+        }
+
+        .a-col-left {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            min-height: clamp(8rem, 20vw, 15rem);
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 900px) {
+            .a-col-left {
+                margin-bottom: 0;
+            }
+        }
+
+        .a-number {
+            position: absolute;
+            bottom: -0.15em;
+            left: -0.05em;
+            font-family: var(--font-display);
+            font-size: clamp(5rem, 15vw, 12rem);
+            font-weight: 200;
+            line-height: 1;
+            color: var(--bg);
+            -webkit-text-stroke: 1px var(--line);
+            z-index: 0;
+            user-select: none;
+            transition: color 0.4s ease, -webkit-text-stroke 0.4s ease;
+        }
+
+        .a-feature-row:hover .a-number {
+            color: var(--accent-soft);
+            -webkit-text-stroke: 1px var(--accent);
+        }
+
+        .a-title {
+            position: relative;
+            z-index: 1;
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            padding-left: 1rem;
+        }
+
+        .a-col-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .a-desc {
+            color: var(--ink-muted);
+            font-size: clamp(1rem, 1.2vw, 1.25rem);
+            max-width: 35ch;
+            line-height: 1.7;
+        }
+
+        /* 
+         * ==========================================
+         * VARIANT B: ALTERNATING SHOWCASE
+         * ==========================================
+         */
+        .variant-b-section {
+            position: relative;
+            background: var(--bg);
+            padding-bottom: 10vh; /* space after clip paths */
+        }
+
+        .b-showcase-block {
+            position: relative;
+            padding: 15vh 5vw;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10vh;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .b-showcase-block.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (min-width: 992px) {
+            .b-showcase-block {
+                grid-template-columns: 1fr 1fr;
+                gap: 8vw;
+                padding: 20vh 5vw;
+            }
+        }
+
+        /* Tone alternation & Clip paths */
+        .b-showcase-block:nth-child(odd) {
+            background-color: var(--bg-surface);
+            clip-path: polygon(0 0, 100% 4vw, 100% 100%, 0 calc(100% - 4vw));
+            margin-top: -4vw; /* Overlap to hide gaps */
+            padding-top: calc(15vh + 4vw);
+            padding-bottom: calc(15vh + 4vw);
+            z-index: 2;
+        }
+
+        .b-showcase-block:nth-child(even) {
+            background-color: var(--bg);
+            z-index: 1;
+        }
+
+        .b-showcase-block:first-child {
+            margin-top: 0;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 4vw));
+        }
+
+        @media (min-width: 992px) {
+            .b-showcase-block:nth-child(even) .b-content {
+                order: 2;
+            }
+            .b-showcase-block:nth-child(even) .b-visual {
+                order: 1;
+            }
+        }
+
+        .b-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .b-eyebrow {
+            font-family: var(--font-display);
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--accent-soft);
+            border-radius: 100px;
+        }
+
+        .b-headline {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .b-body {
+            color: var(--ink-muted);
+            font-size: 1.125rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .b-link {
+            color: var(--ink);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 0.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .b-link:hover {
+            color: var(--accent);
+        }
+
+        .b-visual {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .b-visual svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        /* SVG Inner Animations via CSS */
+        .b-svg-spin { animation: spin 20s linear infinite; transform-origin: center; }
+        .b-svg-float { animation: float 6s ease-in-out infinite; }
+        .b-svg-pulse { animation: pulse 4s ease-in-out infinite; }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; } }
+
+
+        /* 
+         * ==========================================
+         * VARIANT C: VERTICAL TIMELINE
+         * ==========================================
+         */
+        .variant-c-section {
+            padding: 15vh 0;
+            background: var(--bg);
+            position: relative;
+        }
+
+        .c-header {
+            text-align: center;
+            margin-bottom: 15vh;
+        }
+
+        .c-header h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+        }
+
+        .c-timeline-wrapper {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .c-timeline-line {
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--line);
+            z-index: 1;
+        }
+
+        .c-timeline-line-progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 0%; /* Animates to 100% via JS */
+            background: var(--accent);
+            transition: height 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        @media (min-width: 768px) {
+            .c-timeline-line {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        .c-timeline-node-item {
+            position: relative;
+            display: flex;
+            margin-bottom: 10vh;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .c-timeline-node-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .c-timeline-node-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .c-node {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 2px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--ink-muted);
+            z-index: 2;
+            transition: all 0.4s ease;
+            transition-delay: 0.3s; /* wait for line */
+        }
+
+        .c-timeline-node-item.is-visible .c-node {
+            border-color: var(--accent);
+            color: var(--bg);
+            background: var(--accent);
+            box-shadow: 0 0 20px var(--accent-soft);
+        }
+
+        .c-content {
+            margin-left: 80px;
+            padding-top: 10px;
+            width: calc(100% - 80px);
+        }
+
+        .c-headline {
+            font-family: var(--font-display);
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--ink);
+        }
+
+        .c-body {
+            color: var(--ink-muted);
+            max-width: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .c-timeline-node-item {
+                justify-content: center;
+            }
+            
+            .c-node {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .c-content {
+                width: 50%;
+                margin-left: 0;
+            }
+
+            .c-timeline-node-item:nth-child(odd) .c-content {
+                padding-right: 80px;
+                text-align: right;
+                margin-right: auto;
+            }
+
+            .c-timeline-node-item:nth-child(even) .c-content {
+                padding-left: 80px;
+                text-align: left;
+                margin-left: auto;
+            }
+            
+            .c-timeline-node-item:nth-child(odd) .c-body {
+                margin-left: auto; /* align right visually */
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- GSAP: initStaggeredReveal('.js-feature-item', { y: 40, stagger: 0.1 }) -->
+<section class="variant-a-section">
+    <!-- FEATURE: Big number feature list - Anchors core value propositions with massive typography acts as architectural background -->
+    <div class="wrapper">
+        <div class="variant-a-header">
+            <h2>Core Protocol</h2>
+        </div>
+
+        <div class="a-feature-row js-feature-item">
+            <div class="a-col-left">
+                <span class="a-number">01</span>
+                <h3 class="a-title">Algorithmic Curation</h3>
+            </div>
+            <div class="a-col-right">
+                <p class="a-desc">We leverage deterministic models to filter out noise, ensuring that only the highest fidelity signals reach your operational dashboard. Precision at scale.</p>
+            </div>
+        </div>
+
+        <div class="a-feature-row js-feature-item">
+            <div class="a-col-left">
+                <span class="a-number">02</span>
+                <h3 class="a-title">Distributed Ledger</h3>
+            </div>
+            <div class="a-col-right">
+                <p class="a-desc">State management is decentralized across a proprietary mesh network, guaranteeing cryptographic immutability and zero single points of failure.</p>
+            </div>
+        </div>
+
+        <div class="a-feature-row js-feature-item">
+            <div class="a-col-left">
+                <span class="a-number">03</span>
+                <h3 class="a-title">Kinetic Processing</h3>
+            </div>
+            <div class="a-col-right">
+                <p class="a-desc">Compute resources scale dynamically in response to systemic pressure, optimizing bandwidth and reducing latency to near absolute zero during peak loads.</p>
+            </div>
+        </div>
+        
+        <div class="a-feature-row js-feature-item">
+            <div class="a-col-left">
+                <span class="a-number">04</span>
+                <h3 class="a-title">Zero-Trust Access</h3>
+            </div>
+            <div class="a-col-right">
+                <p class="a-desc">Continuous verification protocols ensure that endpoints authenticate seamlessly while maintaining rigorous isolation from critical infrastructure segments.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- USAGE NOTE: Modify the `.a-number` text for different steps. Ensure `.a-desc` text is kept relatively short (around 2-3 sentences) to maintain the typographic balance against the massive numbers. Change `--accent` to modify the hover stroke color. -->
+
+
+<!-- GSAP: initClipPathScroll('.js-showcase-item', { toggleActions: 'play none none reverse' }) -->
+<section class="variant-b-section">
+    <!-- FEATURE: Alternating Showcase - Pairs highly conceptual abstract SVGs with copy, using diagonal clip-paths to create aggressive architectural dividing lines between sections. -->
+    
+    <div class="b-showcase-block js-showcase-item">
+        <div class="b-content">
+            <span class="b-eyebrow">Data Architecture</span>
+            <h3 class="b-headline">Fractal Data Structures</h3>
+            <p class="b-body">Escape flat databases. Our architecture uses multidimensional mapping to understand relationship contexts natively. Query complex networks in milliseconds without expensive joins.</p>
+            <a href="#" class="b-link">Read Whitepaper <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="b-visual">
+            <svg viewBox="0 0 400 400">
+                <!-- Abstract geometry: Concentric spinning rings -->
+                <g class="b-svg-spin">
+                    <circle cx="200" cy="200" r="160" fill="none" stroke="var(--accent)" stroke-width="1" stroke-dasharray="10 20" opacity="0.5"/>
+                    <circle cx="200" cy="200" r="120" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="40 10"/>
+                    <circle cx="200" cy="200" r="80" fill="none" stroke="var(--accent)" stroke-width="4" stroke-dasharray="15 30"/>
+                </g>
+                <circle cx="200" cy="200" r="20" fill="var(--accent)" class="b-svg-pulse"/>
+                <path d="M200 40 L200 120 M200 280 L200 360 M40 200 L120 200 M280 200 L360 200" stroke="var(--ink)" stroke-width="1" opacity="0.3"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="b-showcase-block js-showcase-item">
+        <div class="b-content">
+            <span class="b-eyebrow">Synthetic Compute</span>
+            <h3 class="b-headline">Non-Euclidean Processing</h3>
+            <p class="b-body">Compute clusters physically reorganize based on workload topology. By abstracting the hardware layer, processes bypass traditional bottlenecks, creating fluid execution pipelines.</p>
+            <a href="#" class="b-link">Explore the Engine <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="b-visual">
+            <svg viewBox="0 0 400 400">
+                <!-- Abstract geometry: Overlapping fluid morphs -->
+                <g class="b-svg-float">
+                    <rect x="100" y="100" width="200" height="200" fill="var(--bg-surface)" stroke="var(--ink)" stroke-width="2" transform="rotate(45 200 200)"/>
+                    <rect x="120" y="120" width="160" height="160" fill="none" stroke="var(--accent)" stroke-width="2" transform="rotate(15 200 200)"/>
+                    <rect x="140" y="140" width="120" height="120" fill="var(--accent-soft)" stroke="var(--ink)" stroke-width="1" transform="rotate(-15 200 200)"/>
+                </g>
+                <line x1="50" y1="200" x2="350" y2="200" stroke="var(--accent)" stroke-width="1" stroke-dasharray="5 5" class="b-svg-spin"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="b-showcase-block js-showcase-item">
+        <div class="b-content">
+            <span class="b-eyebrow">Interface Layer</span>
+            <h3 class="b-headline">Sensory Dashboards</h3>
+            <p class="b-body">Visualizations that adapt to your neurological cadence. The UI predicts intent based on interaction history, manifesting control surfaces exactly when and where they are required.</p>
+            <a href="#" class="b-link">View Gallery <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        </div>
+        <div class="b-visual">
+            <svg viewBox="0 0 400 400">
+                <!-- Abstract geometry: Waveforms -->
+                <g class="b-svg-pulse">
+                    <path d="M 50 200 Q 125 100 200 200 T 350 200" fill="none" stroke="var(--accent)" stroke-width="4"/>
+                    <path d="M 50 200 Q 125 250 200 200 T 350 200" fill="none" stroke="var(--ink)" stroke-width="1" opacity="0.6"/>
+                    <path d="M 50 200 Q 125 50 200 200 T 350 200" fill="none" stroke="var(--ink)" stroke-width="1" opacity="0.2"/>
+                    <circle cx="200" cy="200" r="8" fill="var(--bg)" stroke="var(--accent)" stroke-width="3"/>
+                </g>
+                <g opacity="0.2">
+                    <line x1="100" y1="50" x2="100" y2="350" stroke="var(--ink)" stroke-width="1"/>
+                    <line x1="200" y1="50" x2="200" y2="350" stroke="var(--ink)" stroke-width="1"/>
+                    <line x1="300" y1="50" x2="300" y2="350" stroke="var(--ink)" stroke-width="1"/>
+                </g>
+            </svg>
+        </div>
+    </div>
+</section>
+<!-- USAGE NOTE: The abstract SVGs are inline to maintain performance and distinct coloring via CSS variables. To replace visuals, swap the SVG code but try to retain `.b-svg-spin`, `.b-svg-float`, or `.b-svg-pulse` classes on inner elements to keep the "alive" feeling. Add `.b-showcase-block` elements sequentially; CSS handles the alternating layouts automatically via :nth-child. -->
+
+
+<!-- GSAP: initDrawLineTimeline('.js-timeline-item', '.js-timeline-progress') -->
+<section class="variant-c-section">
+    <!-- FEATURE: Vertical Timeline - "How it works" operational sequence with an animated central nerve-line. -->
+    <div class="wrapper">
+        <div class="c-header">
+            <h2>Integration Matrix</h2>
+        </div>
+
+        <div class="c-timeline-wrapper">
+            <!-- The track -->
+            <div class="c-timeline-line"></div>
+            <!-- The animated fill (controlled via JS class) -->
+            <div class="c-timeline-line-progress js-timeline-progress"></div>
+
+            <div class="c-timeline-node-item js-timeline-item">
+                <div class="c-node">1</div>
+                <div class="c-content">
+                    <h4 class="c-headline">Ingestion Protocol</h4>
+                    <p class="c-body">Raw telemetry is aggregated from all authorized endpoints simultaneously. Data is temporarily buffered in the edge cache to normalize schema variations.</p>
+                </div>
+            </div>
+
+            <div class="c-timeline-node-item js-timeline-item">
+                <div class="c-node">2</div>
+                <div class="c-content">
+                    <h4 class="c-headline">Sanitization Subroutine</h4>
+                    <p class="c-body">Anomalous spikes and null states are isolated. The system scrubs PII natively at the hardware level before it ever enters the analytical stream.</p>
+                </div>
+            </div>
+
+            <div class="c-timeline-node-item js-timeline-item">
+                <div class="c-node">3</div>
+                <div class="c-content">
+                    <h4 class="c-headline">Heuristic Synthesis</h4>
+                    <p class="c-body">Machine learning constructs evaluate the normalized dataset against historical benchmarks, identifying invisible correlations across disparate vectors.</p>
+                </div>
+            </div>
+
+            <div class="c-timeline-node-item js-timeline-item">
+                <div class="c-node">4</div>
+                <div class="c-content">
+                    <h4 class="c-headline">Deployment & Action</h4>
+                    <p class="c-body">Compiled insights are distributed back to your command dashboard via WebSockets. Automated trigger scripts execute predefined mitigation strategies.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- USAGE NOTE: Add more `.c-timeline-node-item` blocks as needed. The layout handles left/right alternation automatically on desktop via CSS. The central line progress is wired to intersection observer in the attached script to simulate ScrollTrigger. -->
+
+
+<script>
+    /**
+     * Interaction Wireup
+     * Simulates GSAP ScrollTrigger behavior natively using Intersection Observer 
+     * to ensure the prototype "feels alive" without external dependencies.
+     */
+    document.addEventListener("DOMContentLoaded", () => {
+        
+        // General Observer for elements sliding/fading in
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -15% 0px',
+            threshold: 0.1
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe Variant A features
+        document.querySelectorAll('.js-feature-item').forEach(el => revealObserver.observe(el));
+        
+        // Observe Variant B alternating blocks
+        document.querySelectorAll('.js-showcase-item').forEach(el => revealObserver.observe(el));
+
+        // Observe Variant C timeline items
+        document.querySelectorAll('.js-timeline-item').forEach(el => revealObserver.observe(el));
+
+
+        // Specific logic for animating the Timeline line in Variant C
+        const timelineProgress = document.querySelector('.js-timeline-progress');
+        const timelineItems = document.querySelectorAll('.js-timeline-item');
+        
+        if (timelineProgress && timelineItems.length > 0) {
+            // A secondary observer just to calculate how deep we are into the timeline
+            const timelineObserver = new IntersectionObserver((entries) => {
+                // Find how many items are currently visible
+                const visibleCount = document.querySelectorAll('.js-timeline-item.is-visible').length;
+                const totalCount = timelineItems.length;
+                
+                // Calculate percentage to fill the line
+                // If 1 item visible, draw line to that item. 
+                // Math logic: (visible - 1) / (total - 1) * 100%
+                let percentage = 0;
+                if(visibleCount > 0) {
+                    percentage = (visibleCount / totalCount) * 100;
+                    // Overshoot slightly to reach the bottom of the circle
+                    if (visibleCount === totalCount) percentage = 100; 
+                }
+                
+                timelineProgress.style.height = `${percentage}%`;
+
+            }, { threshold: 0.5 }); // Trigger when node is half visible
+
+            timelineItems.forEach(el => timelineObserver.observe(el));
+        }
+    });
+</script>
+
+</body>
+</html>

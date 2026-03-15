@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Variants</title>
+    <style>
+        :root {
+            /* Core Design Tokens */
+            --bg: #09090b;
+            --bg-surface: #18181b;
+            --ink: #ffffff;
+            --ink-muted: #a1a1aa;
+            --accent: #e11d48; /* Bold Crimson */
+            --accent-soft: rgba(225, 29, 72, 0.15);
+
+            /* Typography */
+            --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+            --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-serif: "Playfair Display", "Charter", "Georgia", serif;
+
+            /* Spacing & Layout */
+            --section-h: 100vh;
+            --container-px: 5vw;
+        }
+
+        /* Base Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+        /* Generic Prototype Animation States (Simulating GSAP) */
+        .js-hero-title, .js-hero-subtitle, .js-hero-cta {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .js-hero-visual {
+            opacity: 0;
+            transition: opacity 2s ease-out;
+        }
+        .is-animating .js-hero-title { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+        .is-animating .js-hero-subtitle { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+        .is-animating .js-hero-cta { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+        .is-animating .js-hero-visual { opacity: 1; }
+
+        /* =========================================
+           VARIANT A: FULL BLEED DOMINANT
+           ========================================= */
+        .hero-a {
+            position: relative;
+            height: var(--section-h);
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            background: radial-gradient(circle at 70% 50%, var(--bg-surface) 0%, var(--bg) 70%);
+        }
+
+        .hero-a__bg-noise {
+            position: absolute; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 1;
+        }
+
+        .hero-a__content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+
+        .hero-a__title {
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 12vw, 12rem);
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            /* Intentional bleed */
+            transform: translateX(10vw);
+            white-space: nowrap;
+        }
+
+        .hero-a__title .weight-light {
+            font-weight: 200;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--ink-muted);
+            display: block;
+            margin-left: -5vw;
+        }
+
+        .hero-a__title .weight-heavy {
+            font-weight: 900;
+            color: var(--ink);
+            display: block;
+        }
+
+        .hero-a__bottom {
+            position: absolute;
+            bottom: 40px;
+            left: var(--container-px);
+            z-index: 10;
+            max-width: 300px;
+        }
+
+        .hero-a__subtitle {
+            color: var(--ink-muted);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .hero-a__btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--ink);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .hero-a__btn::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0;
+            width: 100%; height: 2px;
+            background: var(--accent);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        .hero-a__btn:hover::after { transform: scaleX(0.3); }
+
+        .hero-a__svg {
+            position: absolute;
+            top: 50%; right: -10vw;
+            transform: translateY(-50%);
+            width: 80vh; height: 80vh;
+            z-index: 5;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        /* =========================================
+           VARIANT B: SPLIT TENSION
+           ========================================= */
+        .hero-b {
+            position: relative;
+            height: var(--section-h);
+            min-height: 700px;
+            display: grid;
+            grid-template-columns: 1fr;
+            background: var(--bg);
+            overflow: hidden;
+        }
+
+        @media (min-width: 900px) {
+            .hero-b { grid-template-columns: 1.1fr 0.9fr; }
+        }
+
+        .hero-b__left {
+            padding: var(--container-px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-b__title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            color: var(--ink);
+        }
+
+        .hero-b__title span { color: var(--accent); }
+
+        .hero-b__subtitle {
+            font-size: clamp(1rem, 1.5vw, 1.25rem);
+            color: var(--ink-muted);
+            max-width: 80%;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-b__actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .hero-b__btn {
+            background: var(--ink);
+            color: var(--bg);
+            padding: 1rem 2rem;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: transform 0.2s, background 0.2s;
+        }
+        .hero-b__btn:hover {
+            transform: translateY(-2px);
+            background: var(--accent);
+            color: var(--ink);
+        }
+
+        .hero-b__right {
+            position: relative;
+            background: var(--bg-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* The diagonal split */
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 15vw 100%);
+        }
+
+        @media (max-width: 899px) {
+            .hero-b__right {
+                clip-path: polygon(0 10vh, 100% 0, 100% 100%, 0% 100%);
+                min-height: 400px;
+            }
+        }
+
+        .hero-b__svg {
+            width: 80%;
+            height: 80%;
+            max-width: 600px;
+        }
+
+        /* =========================================
+           VARIANT C: MINIMAL DESCENT
+           ========================================= */
+        .hero-c {
+            position: relative;
+            height: var(--section-h);
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-c::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 60vw; height: 60vh;
+            background: radial-gradient(ellipse at top, var(--accent-soft) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-c__inner {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .hero-c__eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        .hero-c__rule {
+            width: 40px;
+            height: 1px;
+            background-color: var(--accent);
+        }
+
+        .hero-c__title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 400;
+            line-height: 1.05;
+            color: var(--ink);
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+        }
+
+        .hero-c__title i {
+            font-style: italic;
+            color: var(--ink-muted);
+        }
+
+        .hero-c__desc {
+            font-size: 1.125rem;
+            color: var(--ink-muted);
+            line-height: 1.6;
+            max-width: 40ch;
+            margin-bottom: 3rem;
+        }
+
+        .hero-c__actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-c-primary, .btn-c-ghost {
+            padding: 0.875rem 2rem;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-c-primary {
+            background: var(--ink);
+            color: var(--bg);
+        }
+        .btn-c-primary:hover {
+            box-shadow: 0 0 20px var(--accent-soft);
+            background: var(--accent);
+            color: var(--ink);
+        }
+
+        .btn-c-ghost {
+            background: transparent;
+            color: var(--ink);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn-c-ghost:hover {
+            border-color: var(--ink);
+        }
+
+        .hero-c__visual {
+            position: absolute;
+            bottom: -5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: auto;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================================================================= -->
+    <!-- HERO VARIANT A: FULL BLEED DOMINANT                               -->
+    <!-- ================================================================= -->
+
+    <!-- GSAP: init with initHeroEntrance() -->
+    <section class="hero-a" id="variant-a">
+        <!-- FEATURE: Textured dark radial background -->
+        <div class="hero-a__bg-noise"></div>
+
+        <div class="hero-a__content">
+            <!-- FEATURE: Massive off-screen bleeding typography -->
+            <h1 class="hero-a__title js-hero-title">
+                <span class="weight-light">SYNTHETIC</span>
+                <span class="weight-heavy">EVOLUTION</span>
+            </h1>
+        </div>
+
+        <!-- FEATURE: Giant abstract geometric SVG graphic -->
+        <svg class="hero-a__svg js-hero-visual" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="90" fill="none" stroke="var(--accent)" stroke-width="0.5" stroke-dasharray="4 4" />
+            <circle cx="100" cy="100" r="60" fill="none" stroke="var(--ink)" stroke-width="0.2" />
+            <path d="M10,100 Q100,0 190,100" fill="none" stroke="var(--accent)" stroke-width="1" opacity="0.5" />
+            <path d="M100,10 L100,190" fill="none" stroke="var(--ink-muted)" stroke-width="0.5" stroke-dasharray="2 10" />
+        </svg>
+
+        <!-- FEATURE: Secondary CTA positioned unconventionally -->
+        <div class="hero-a__bottom">
+            <p class="hero-a__subtitle js-hero-subtitle">Pioneering algorithmic frameworks for the next generation of spatial computing.</p>
+            <div class="js-hero-cta">
+                <button class="hero-a__btn">Deploy Node <span>&rarr;</span></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- HERO VARIANT B: SPLIT TENSION                                     -->
+    <!-- ================================================================= -->
+
+    <!-- GSAP: init with initHeroEntrance() -->
+    <section class="hero-b" id="variant-b">
+        <!-- FEATURE: Left text stack with distinct tone -->
+        <div class="hero-b__left">
+            <h1 class="hero-b__title js-hero-title">Engineering<br><span>the obscure.</span></h1>
+            <p class="hero-b__subtitle js-hero-subtitle">We construct high-fidelity infrastructure systems designed to scale autonomously and securely across distributed global networks.</p>
+
+            <div class="hero-b__actions js-hero-cta">
+                <button class="hero-b__btn">Initialize Protocol</button>
+            </div>
+        </div>
+
+        <!-- FEATURE: Slanted right panel via clip-path with abstract visual -->
+        <div class="hero-b__right js-hero-visual" data-parallax="true">
+            <svg class="hero-b__svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                <!-- Abstract geometric composition -->
+                <rect x="50" y="50" width="120" height="120" fill="var(--bg)" stroke="var(--ink-muted)" stroke-width="2" />
+                <rect x="120" y="100" width="180" height="180" fill="var(--accent-soft)" />
+                <circle cx="280" cy="120" r="40" fill="var(--accent)" />
+                <line x1="0" y1="400" x2="400" y2="0" stroke="var(--ink)" stroke-width="1" stroke-dasharray="5 5" opacity="0.3" />
+                <path d="M 100 300 C 150 200, 250 200, 300 300" fill="none" stroke="var(--ink)" stroke-width="4" />
+
+                <!-- Decorative dots -->
+                <circle cx="80" cy="320" r="3" fill="var(--ink)" />
+                <circle cx="100" cy="320" r="3" fill="var(--ink)" />
+                <circle cx="120" cy="320" r="3" fill="var(--ink)" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- HERO VARIANT C: MINIMAL DESCENT                                   -->
+    <!-- ================================================================= -->
+
+    <!-- GSAP: init with initHeroEntrance() -->
+    <section class="hero-c" id="variant-c">
+        <div class="hero-c__inner">
+            <!-- FEATURE: Architectural eyebrow label -->
+            <div class="hero-c__eyebrow js-hero-subtitle">
+                <span class="hero-c__rule"></span>
+                <span>Atelier of Code</span>
+                <span class="hero-c__rule"></span>
+            </div>
+
+            <!-- FEATURE: Elegant serif typography -->
+            <h1 class="hero-c__title js-hero-title">Cultivating <i>digital</i> prestige.</h1>
+
+            <p class="hero-c__desc js-hero-subtitle">Meticulously crafted interactive experiences that transcend utility, designed for visionary brands demanding uncompromising aesthetic excellence.</p>
+
+            <!-- FEATURE: Balanced dual call-to-action -->
+            <div class="hero-c__actions js-hero-cta">
+                <button class="btn-c-primary">Discover the Collection</button>
+                <button class="btn-c-ghost">Private Consultation</button>
+            </div>
+        </div>
+
+        <!-- FEATURE: Extremely faint structural SVG backdrop -->
+        <svg class="hero-c__visual js-hero-visual" viewBox="0 0 1000 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,150 L1000,150" stroke="var(--ink)" stroke-width="1" />
+            <path d="M500,0 L500,300" stroke="var(--ink)" stroke-width="1" />
+            <circle cx="500" cy="150" r="100" fill="none" stroke="var(--ink)" stroke-width="1" />
+        </svg>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- INTERACTION SCRIPTS (PROTOTYPE)                                   -->
+    <!-- ================================================================= -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Intersection Observer to trigger entrance animations
+            // This simulates where you would initialize GSAP timelines
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.3
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // GSAP Simulation Hook
+                        entry.target.classList.add('is-animating');
+                        // Optional: unobserve after animating once
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+
+            // 2. Subtle Parallax effect on visual elements tied to mousemove
+            // Brings the bold designs to life as requested
+            document.addEventListener('mousemove', (e) => {
+                const { clientX, clientY } = e;
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+
+                // Calculate distance from center (normalized)
+                const moveX = (clientX - centerX) / 80;
+                const moveY = (clientY - centerY) / 80;
+
+                // Apply slight transform to SVG visuals
+                document.querySelectorAll('.js-hero-visual').forEach(el => {
+                    // Check if it's the split tension right panel which needs different handling
+                    if(el.dataset.parallax === "true") {
+                        el.style.transform = `translate(${moveX * 1.5}px, ${moveY * 1.5}px)`;
+                    } else {
+                        el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- ================================================================= -->
+    <!-- HERO VARIANT D: PRODUCT DEMO (time-driven workflow stepper)      -->
+    <!-- ================================================================= -->
+    <!--
+      When to use: product has a process (workflow, pipeline, transformation).
+      Right side self-runs through 3 scenes on a timer. Left subtitle syncs.
+      Read references/product-demo-hero.md before adapting this variant.
+
+      GSAP: call initHeroDemoStepper() from gsap-snippets.js.
+      Replace scene content inside each .demo-slot with product-specific elements.
+      Each slot should follow: hero element → supporting elements → breakout element.
+    -->
+    <section class="hero-d" id="variant-d">
+
+      <!-- LEFT: headline + synced subtitle + CTA -->
+      <div class="hero-d__left">
+        <div class="hero-d__eyebrow js-hero-subtitle">
+          <span class="hero-d__eyebrow-dot"></span>
+          <span>REPLACE WITH PRODUCT TAGLINE</span>
+        </div>
+
+        <h1 class="hero-d__title js-hero-title">
+          Replace With<br>
+          <span class="hero-d__title-accent">Your Headline</span>
+        </h1>
+
+        <!-- This paragraph updates automatically with each scene -->
+        <p class="demo-synced-text js-hero-subtitle"
+           data-step-0="Tell us your audience and goal"
+           data-step-1="System processes in real time"
+           data-step-2="Results delivered, verified">
+          Tell us your audience and goal
+        </p>
+
+        <div class="hero-d__cta js-hero-cta">
+          <a href="#" class="hero-d__btn-primary">Get Started</a>
+          <a href="#" class="hero-d__btn-ghost">See How It Works</a>
+        </div>
+      </div>
+
+      <!-- RIGHT: demo panel + step badge + progress dots -->
+      <div class="hero-d__panel-wrap demo-wrapper">
+
+        <!-- Step badge — deliberately floats OUTSIDE the panel (breakout) -->
+        <div class="demo-step-badge">
+          <span class="demo-step-num">01</span>
+          <span class="demo-step-label">SETUP</span>
+        </div>
+
+        <!-- The panel itself. overflow: visible so elements can break out. -->
+        <div class="hero-d__panel">
+
+          <!-- ── SLOT 01: Setup / Input phase ── -->
+          <!-- Hero: a config card with rows appearing one by one            -->
+          <!-- Supporting: 3 floating tag pills                               -->
+          <!-- Breakout: none needed — tags overflow top/bottom               -->
+          <div class="demo-slot" data-step="0">
+            <!-- Scanning grid background (subtle) -->
+            <svg class="demo-scan-grid" viewBox="0 0 480 520" aria-hidden="true">
+              <defs>
+                <pattern id="d-grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                  <path d="M 60 0 L 0 0 0 60" fill="none" stroke="var(--accent)" stroke-width="0.4" opacity="0.3"/>
+                </pattern>
+              </defs>
+              <rect width="480" height="520" fill="url(#d-grid)"/>
+            </svg>
+
+            <!-- Hero: configuration card -->
+            <div class="demo-config-card scene-hero-el">
+              <!-- Title bar -->
+              <div class="demo-card-bar">
+                <span class="demo-card-dot" style="background:#ef4444"></span>
+                <span class="demo-card-dot" style="background:#f59e0b"></span>
+                <span class="demo-card-dot" style="background:#22c55e"></span>
+                <span class="demo-card-title">Configure · Replace Product Name</span>
+              </div>
+              <!-- Config rows — replace labels and values -->
+              <div class="demo-config-rows">
+                <div class="demo-config-row scene-support-el"><span class="demo-cfg-label">Audience</span><span class="demo-cfg-value" style="color:var(--accent)">Replace with value</span></div>
+                <div class="demo-config-row scene-support-el"><span class="demo-cfg-label">Goal</span><span class="demo-cfg-value" style="color:var(--accent)">Replace with value</span></div>
+                <div class="demo-config-row scene-support-el"><span class="demo-cfg-label">Mode</span><span class="demo-cfg-value" style="color:var(--accent)">Replace with value</span></div>
+                <div class="demo-config-row scene-support-el" style="border-bottom:none"><span class="demo-cfg-label">Matched</span><span class="demo-cfg-value" style="color:#22c55e">40 profiles found</span></div>
+              </div>
+              <!-- Progress bar -->
+              <div class="demo-progress-bar-wrap">
+                <div class="demo-progress-bar-track"><div class="demo-progress-bar-fill scene-support-el"></div></div>
+                <span class="demo-progress-pct scene-support-el">96%</span>
+              </div>
+            </div>
+
+            <!-- Supporting: floating tag pills (replace labels) -->
+            <div class="demo-tag scene-support-el" style="top:14%;left:4%">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              Replace Tag 1
+            </div>
+            <div class="demo-tag scene-support-el" style="top:64%;right:2%">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              Replace Tag 2
+            </div>
+            <div class="demo-tag scene-support-el" style="bottom:10%;left:6%">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Replace Tag 3
+            </div>
+          </div>
+
+          <!-- ── SLOT 02: Processing / Running phase ── -->
+          <!-- Hero: SVG network diagram (nodes connecting)                   -->
+          <!-- Supporting: status capsule at bottom + progress count          -->
+          <!-- Breakout: status capsule extends below panel                   -->
+          <div class="demo-slot" data-step="1" style="display:none">
+            <!-- Network SVG lines -->
+            <svg class="demo-network-lines" viewBox="0 0 480 520" aria-hidden="true">
+              <path stroke-width="1.5" stroke="rgba(var(--accent-rgb,124,58,237),0.3)"
+                d="M240,260 L300,120 M240,260 L110,340 M240,260 L80,170 M240,260 L370,420 M240,260 L440,230 M240,260 L20,40 M240,260 L470,390"/>
+              <path stroke-width="0.7" stroke="rgba(var(--accent-rgb,124,58,237),0.15)"
+                d="M300,120 L440,230 M110,340 L80,170 M370,420 L440,230 M80,170 L20,40"/>
+            </svg>
+
+            <!-- Scattered avatar/node circles — replace with relevant icons or avatars -->
+            <div class="demo-node scene-hero-el" style="top:42%;left:40%;width:64px;height:64px;z-index:5">
+              <svg viewBox="0 0 24 24" fill="var(--accent)" width="28" height="28"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            </div>
+            <div class="demo-node scene-support-el" style="top:18%;left:56%;width:44px;height:44px"></div>
+            <div class="demo-node scene-support-el" style="top:60%;left:16%;width:54px;height:54px"></div>
+            <div class="demo-node scene-support-el" style="top:26%;left:10%;width:36px;height:36px"></div>
+            <div class="demo-node scene-support-el" style="top:72%;left:64%;width:50px;height:50px"></div>
+            <div class="demo-node scene-support-el" style="top:6%;left:32%;width:40px;height:40px"></div>
+
+            <!-- Breakout: status capsule below panel -->
+            <div class="demo-status-capsule scene-support-el">
+              <span class="demo-pulse-dot"></span>
+              <span>Processing · All Systems Go</span>
+            </div>
+          </div>
+
+          <!-- ── SLOT 03: Output / Result phase ── -->
+          <!-- Hero: giant number counting up (use animateCount())            -->
+          <!-- Supporting: mini bar chart + verified badge                    -->
+          <!-- Breakout: stat card rotated slightly, exits right edge         -->
+          <div class="demo-slot" data-step="2" style="display:none">
+            <!-- Ghost line chart background -->
+            <svg class="demo-result-chart" viewBox="0 0 480 200" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="d-chart-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="var(--accent)" stop-opacity="0"/>
+                  <stop offset="50%" stop-color="var(--accent)" stop-opacity="0.7"/>
+                  <stop offset="100%" stop-color="#22c55e" stop-opacity="0.9"/>
+                </linearGradient>
+              </defs>
+              <path class="demo-chart-path"
+                d="M -40 180 C 80 175, 130 90, 220 120 C 310 150, 400 45, 530 20"
+                fill="none" stroke="url(#d-chart-grad)" stroke-width="3.5" stroke-linecap="round"/>
+            </svg>
+
+            <!-- Hero: big counter number — animateCount() will target .demo-big-num -->
+            <div class="demo-big-num-wrap scene-hero-el">
+              <span class="demo-big-num">0</span>
+              <!-- Replace label with relevant metric name -->
+              <span class="demo-big-num-label">Replace metric label</span>
+            </div>
+
+            <!-- Supporting: verified badge (slides from left) -->
+            <div class="demo-verified-badge scene-support-el">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Verified · API Confirmed
+            </div>
+
+            <!-- Breakout: summary card (rotated, breaks right edge) -->
+            <div class="demo-result-card scene-support-el">
+              <p class="demo-result-card-num">Replace</p>
+              <p class="demo-result-card-sub">Replace sub-metric here</p>
+            </div>
+          </div>
+
+        </div><!-- /.hero-d__panel -->
+
+        <!-- Progress dots — click to jump to step -->
+        <div class="demo-progress-dots">
+          <span class="step-dot active" data-target="0"></span>
+          <span class="step-dot" data-target="1"></span>
+          <span class="step-dot" data-target="2"></span>
+        </div>
+
+      </div><!-- /.hero-d__panel-wrap -->
+    </section>
+
+    <style>
+      /* =========================================
+         VARIANT D: PRODUCT DEMO
+         ========================================= */
+      .hero-d {
+        position: relative;
+        min-height: var(--section-h, 100vh);
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
+        gap: 3rem;
+        padding: 5rem var(--container-px, 5vw);
+        background: var(--bg, #09090b);
+        overflow: hidden;
+      }
+      @media (min-width: 960px) {
+        .hero-d { grid-template-columns: 1fr 1fr; gap: 4rem; }
+      }
+
+      /* Left column */
+      .hero-d__left { display: flex; flex-direction: column; gap: 1.5rem; }
+      .hero-d__eyebrow {
+        display: inline-flex; align-items: center; gap: 10px;
+        font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em;
+        text-transform: uppercase; color: var(--accent, #e11d48);
+      }
+      .hero-d__eyebrow-dot {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: var(--accent, #e11d48);
+        box-shadow: 0 0 0 4px rgba(var(--accent-rgb,225,29,72),0.18);
+        animation: demo-blink 1.2s ease-in-out infinite alternate;
+      }
+      @keyframes demo-blink { from { opacity: 0.5; } to { opacity: 1; } }
+
+      .hero-d__title {
+        font-family: var(--font-display, sans-serif);
+        font-size: clamp(2.5rem, 5vw, 4.25rem);
+        line-height: 1.05; letter-spacing: -0.03em;
+        color: var(--ink, #fff); font-weight: 800;
+      }
+      .hero-d__title-accent { color: var(--accent, #e11d48); }
+
+      .demo-synced-text {
+        font-size: 1.1rem; color: var(--ink-muted, rgba(255,255,255,0.6));
+        line-height: 1.6; max-width: 36ch;
+      }
+
+      .hero-d__cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+      .hero-d__btn-primary {
+        display: inline-flex; align-items: center;
+        background: var(--ink, #fff); color: var(--bg, #09090b);
+        padding: 0.9rem 2rem; border-radius: 4px;
+        font-weight: 700; font-size: 0.9rem; text-decoration: none;
+        transition: transform 0.2s, background 0.2s;
+      }
+      .hero-d__btn-primary:hover { background: var(--accent, #e11d48); color: var(--ink, #fff); transform: translateY(-2px); }
+      .hero-d__btn-ghost {
+        display: inline-flex; align-items: center;
+        color: var(--ink-muted, rgba(255,255,255,0.6));
+        font-size: 0.9rem; text-decoration: none;
+        border-bottom: 1px solid currentColor; padding-bottom: 2px;
+        transition: color 0.2s;
+      }
+      .hero-d__btn-ghost:hover { color: var(--ink, #fff); }
+
+      /* Panel wrap — the right column container */
+      .hero-d__panel-wrap {
+        position: relative;
+        display: flex; flex-direction: column; align-items: center;
+        gap: 1.25rem;
+      }
+
+      /* Step badge — floats OUTSIDE the top-left of the panel */
+      .demo-step-badge {
+        position: absolute;
+        top: -24px; left: -28px;
+        display: flex; align-items: baseline; gap: 10px;
+        padding: 8px 20px; border-radius: 16px;
+        background: rgba(var(--bg-rgb, 9,9,11), 0.88);
+        border: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        z-index: 30;
+      }
+      .demo-step-num {
+        font-family: var(--font-display, monospace);
+        font-size: 2rem; font-weight: 900; line-height: 1;
+        background: linear-gradient(135deg, var(--ink,#fff), var(--accent,#e11d48));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      }
+      .demo-step-label {
+        font-size: 0.7rem; font-weight: 600;
+        letter-spacing: 0.18em; text-transform: uppercase;
+        color: rgba(255,255,255,0.4);
+      }
+
+      /* The panel — overflow:visible is the critical rule */
+      .hero-d__panel {
+        position: relative;
+        width: 100%; max-width: 480px; height: 520px;
+        border-radius: 24px;
+        background: var(--bg-surface, #18181b);
+        border: 1px solid rgba(255,255,255,0.06);
+        box-shadow: 0 32px 80px rgba(0,0,0,0.7), inset 0 0 60px rgba(var(--accent-rgb,225,29,72),0.06);
+        overflow: visible; /* DO NOT CHANGE — needed for breakout elements */
+      }
+
+      /* Slots — each scene fills the panel */
+      .demo-slot {
+        position: absolute; inset: 0;
+        border-radius: 24px;
+        overflow: visible;
+      }
+
+      /* Progress dots */
+      .demo-progress-dots { display: flex; gap: 8px; }
+      .step-dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background: rgba(255,255,255,0.2); cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+      }
+      .step-dot.active {
+        background: var(--accent, #e11d48);
+        transform: scale(1.35);
+        box-shadow: 0 0 8px rgba(var(--accent-rgb,225,29,72),0.6);
+      }
+
+      /* ── Slot 01: Setup ── */
+      .demo-scan-grid {
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        opacity: 0.07; pointer-events: none; border-radius: 24px;
+      }
+      .demo-config-card {
+        position: absolute; top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: 340px;
+        background: rgba(var(--bg-rgb,9,9,11), 0.9);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px; overflow: hidden;
+        backdrop-filter: blur(12px);
+        z-index: 10;
+      }
+      .demo-card-bar {
+        display: flex; align-items: center; gap: 6px;
+        padding: 10px 14px;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .demo-card-dot { width: 10px; height: 10px; border-radius: 50%; }
+      .demo-card-title { font-size: 11px; color: rgba(255,255,255,0.4); margin-left: 6px; }
+      .demo-config-rows { padding: 4px 0; }
+      .demo-config-row {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 10px 16px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        font-size: 12px;
+      }
+      .demo-cfg-label { color: rgba(255,255,255,0.35); }
+      .demo-cfg-value { font-weight: 600; }
+      .demo-progress-bar-wrap {
+        display: flex; align-items: center; gap: 10px;
+        padding: 12px 16px;
+        border-top: 1px solid rgba(255,255,255,0.05);
+      }
+      .demo-progress-bar-track {
+        flex: 1; height: 6px; border-radius: 3px;
+        background: rgba(255,255,255,0.07); overflow: hidden;
+      }
+      .demo-progress-bar-fill {
+        height: 100%; width: 0; border-radius: 3px;
+        background: linear-gradient(90deg, var(--accent,#e11d48), #22c55e);
+      }
+      .demo-progress-pct { font-size: 11px; font-weight: 700; color: #22c55e; }
+
+      .demo-tag {
+        position: absolute;
+        display: flex; align-items: center; gap: 8px;
+        padding: 8px 14px; border-radius: 100px;
+        font-size: 12px; font-weight: 600;
+        color: var(--accent, #e11d48);
+        background: rgba(var(--accent-rgb,225,29,72), 0.1);
+        border: 1px solid rgba(var(--accent-rgb,225,29,72), 0.25);
+        backdrop-filter: blur(10px); z-index: 20;
+        white-space: nowrap;
+        animation: demo-float 3s ease-in-out infinite alternate;
+      }
+      @keyframes demo-float { from { transform: translateY(0); } to { transform: translateY(-6px); } }
+
+      /* ── Slot 02: Processing ── */
+      .demo-network-lines {
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        pointer-events: none;
+      }
+      .demo-node {
+        position: absolute;
+        border-radius: 50%;
+        border: 2px solid rgba(var(--accent-rgb,225,29,72),0.4);
+        background: rgba(var(--accent-rgb,225,29,72),0.08);
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 0 16px rgba(var(--accent-rgb,225,29,72),0.2);
+      }
+      .demo-status-capsule {
+        position: absolute;
+        bottom: -18px; left: 50%; transform: translateX(-50%);
+        display: flex; align-items: center; gap: 10px;
+        padding: 10px 20px; border-radius: 100px;
+        background: rgba(var(--bg-rgb,9,9,11),0.9);
+        border: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(12px);
+        font-size: 13px; font-weight: 500; color: var(--ink,#fff);
+        white-space: nowrap; z-index: 20;
+      }
+      .demo-pulse-dot {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: #22c55e; box-shadow: 0 0 10px #22c55e;
+        animation: demo-blink 1s ease-in-out infinite alternate;
+      }
+
+      /* ── Slot 03: Result ── */
+      .demo-result-chart {
+        position: absolute; bottom: 90px; left: 0;
+        width: 100%; height: 200px; overflow: visible;
+        z-index: 1; pointer-events: none;
+      }
+      .demo-chart-path {
+        stroke-dasharray: 800;
+        stroke-dashoffset: 800;
+        animation: demo-draw-line 2.5s ease-out forwards;
+      }
+      @keyframes demo-draw-line { to { stroke-dashoffset: 0; } }
+      .demo-big-num-wrap {
+        position: absolute; top: 40%; left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center; z-index: 10;
+      }
+      .demo-big-num {
+        display: block;
+        font-family: var(--font-display, monospace);
+        font-size: clamp(4rem, 10vw, 7rem);
+        font-weight: 900; line-height: 1;
+        letter-spacing: -0.04em;
+        background: linear-gradient(180deg, var(--ink,#fff) 0%, var(--accent,#e11d48) 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        font-variant-numeric: tabular-nums;
+      }
+      .demo-big-num-label {
+        display: block; font-size: 0.8rem;
+        color: var(--accent,#e11d48); font-weight: 600;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        margin-top: 6px;
+      }
+      .demo-verified-badge {
+        position: absolute;
+        top: 26%; left: -16px;
+        display: flex; align-items: center; gap: 7px;
+        padding: 7px 14px; border-radius: 100px;
+        font-size: 11px; font-weight: 600;
+        color: #22c55e;
+        background: rgba(34,197,94,0.1);
+        border: 1px solid rgba(34,197,94,0.3);
+        z-index: 20;
+      }
+      .demo-result-card {
+        position: absolute;
+        bottom: 50px; right: -8px;
+        padding: 16px 20px; border-radius: 16px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(12px);
+        transform: rotate(-3deg);
+        z-index: 20;
+      }
+      .demo-result-card-num { font-size: 1.25rem; font-weight: 700; color: var(--ink,#fff); }
+      .demo-result-card-sub { font-size: 0.7rem; color: rgba(255,255,255,0.45); margin-top: 4px; }
+    </style>
+
+    <script>
+      /* ── Prototype animation for Variant D preview ── */
+      /* In actual main.js, replace with initHeroDemoStepper() + real onEnter callbacks */
+      (function() {
+        const wrapper = document.querySelector('#variant-d .demo-wrapper');
+        if (!wrapper) return;
+
+        const stepDefs = [
+          {
+            num: '01', label: 'SETUP',
+            onEnter(slot) {
+              const card = slot.querySelector('.demo-config-card');
+              if (card) gsap.fromTo(card, { opacity:0, y:28, scale:0.94 }, { opacity:1, y:0, scale:1, duration:0.55, ease:'power3.out' });
+              const rows = slot.querySelectorAll('.scene-support-el');
+              gsap.fromTo(rows, { opacity:0, x:-10 }, { opacity:1, x:0, duration:0.35, stagger:0.12, delay:0.3, ease:'power3.out' });
+              const fill = slot.querySelector('.demo-progress-bar-fill');
+              if (fill) gsap.to(fill, { width:'96%', duration:0.9, delay:1.8, ease:'power3.out' });
+              const tags = slot.querySelectorAll('.demo-tag');
+              gsap.fromTo(tags, { opacity:0, scale:0.8, y:8 }, { opacity:1, scale:1, y:0, duration:0.4, stagger:0.12, delay:0.5, ease:'back.out(1.4)' });
+            }
+          },
+          {
+            num: '02', label: 'PROCESSING',
+            onEnter(slot) {
+              const nodes = slot.querySelectorAll('.demo-node');
+              gsap.fromTo(nodes, { opacity:0, scale:0.4 }, { opacity:1, scale:1, duration:0.4, stagger:0.12, delay:0.15, ease:'back.out(1.4)' });
+              const capsule = slot.querySelector('.demo-status-capsule');
+              if (capsule) gsap.fromTo(capsule, { opacity:0, y:10 }, { opacity:1, y:0, duration:0.5, delay:1.5 });
+            }
+          },
+          {
+            num: '03', label: 'RESULT',
+            onEnter(slot) {
+              const numEl = slot.querySelector('.demo-big-num');
+              if (numEl) animateCount(numEl, 84201, 1.8);
+              const badge = slot.querySelector('.demo-verified-badge');
+              if (badge) gsap.fromTo(badge, { opacity:0, x:-16 }, { opacity:1, x:0, duration:0.4, delay:0.45, ease:'power3.out' });
+              const card = slot.querySelector('.demo-result-card');
+              if (card) gsap.fromTo(card, { opacity:0, rotate:-6, y:10 }, { opacity:1, rotate:-3, y:0, duration:0.55, delay:0.9, ease:'power3.out' });
+            }
+          }
+        ];
+
+        if (typeof initHeroDemoStepper === 'function') {
+          initHeroDemoStepper('#variant-d .demo-wrapper', stepDefs, 3400);
+        }
+      })();
+    </script>
+
+    <!-- USAGE NOTE -->
+    <!--
+      CUSTOMIZATION GUIDE:
+      1. CSS Variables: Adjust the :root variables at the top of the <style> block to instantly theme all 3 variants.
+         Change --bg, --ink, and --accent to fit your brand.
+      2. Fonts: The templates use safe system font stacks. Replace var(--font-display) and var(--font-serif)
+         with your imported web fonts (e.g., Google Fonts).
+      3. GSAP Integration: Remove the CSS transitions in `.js-hero-*` and the IntersectionObserver JS.
+         Use your GSAP `ScrollTrigger` targeting the `.js-hero-title`, `.js-hero-subtitle`, `.js-hero-cta`,
+         and `.js-hero-visual` classes within each section block. Call initHeroEntrance() from gsap-snippets.js.
+      4. Extensibility: Simply copy/paste a <section> block into your layout.
+         They are self-contained and isolated by specific BEM-style classes (.hero-a, .hero-b, .hero-c).
+      5. Copy-path classes: Hero B's right panel uses inline clip-path. Swap with .clip-diagonal-br or
+         .clip-parallelogram from clip-paths.css for quick alternative divider shapes.
+    -->
+</body>
+</html>

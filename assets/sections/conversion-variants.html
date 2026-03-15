@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conversion Sections</title>
+<style>
+  /* ==========================================================================
+     DESIGN SYSTEM & VARIABLES
+     ========================================================================== */
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:ital,wght@0,400;0,500;1,400&display=swap');
+
+  :root {
+    /* Color Palette */
+    --bg: #09090b; /* Very dark zinc */
+    --bg-surface: #18181b; /* Slightly lighter zinc */
+    --bg-surface-elevated: #27272a;
+    
+    --ink: #ffffff;
+    --ink-muted: #a1a1aa;
+    
+    --accent: #d9f99d; /* Lime/Neon Green */
+    --accent-hover: #bef264;
+    --accent-soft: rgba(217, 249, 157, 0.1);
+    
+    --border: #3f3f46;
+
+    /* Typography */
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+
+    /* Spacing & Layout */
+    --container: 1280px;
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  section {
+    padding: 8rem 2rem;
+    position: relative;
+  }
+
+  .container {
+    max-width: var(--container);
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Typography Utilities */
+  .text-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .text-accent { color: var(--accent); }
+  .text-muted { color: var(--ink-muted); }
+
+  /* Base Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    border-radius: 100px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    border: none;
+    font-size: 1.125rem;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(217, 249, 157, 0.4);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--border);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--ink);
+    background: var(--bg-surface-elevated);
+  }
+
+  /* ==========================================================================
+     SECTION A: PRICING TIERS
+     ========================================================================== */
+  .pricing-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .pricing-header h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Toggle UI */
+  .billing-toggle-wrapper {
+    display: inline-flex;
+    align-items: center;
+    background: var(--bg-surface);
+    padding: 0.5rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+
+  .billing-toggle-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 100px;
+    border: none;
+    background: transparent;
+    color: var(--ink-muted);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.3s;
+    position: relative;
+    z-index: 2;
+  }
+
+  .billing-toggle-btn.active {
+    color: var(--bg);
+  }
+
+  .toggle-indicator {
+    position: absolute;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    width: calc(50% - 0.5rem);
+    background: var(--accent);
+    border-radius: 100px;
+    transition: transform 0.4s cubic-bezier(0.85, 0, 0.15, 1);
+    z-index: 1;
+  }
+
+  [data-billing="annual"] .toggle-indicator {
+    transform: translateX(100%);
+  }
+
+  /* Pricing Grid */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 992px) {
+    .pricing-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+  }
+
+  .pricing-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+
+  .pricing-card:not(.pro) {
+    z-index: 1;
+  }
+
+  @media (min-width: 992px) {
+    .pricing-card:first-child { border-right: none; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+    .pricing-card:last-child { border-left: none; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+  }
+
+  /* Pro Tier Overlay */
+  .pricing-card.pro {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    transform: translateY(-20px) scale(1.02);
+    z-index: 10;
+    box-shadow: 0 30px 60px -12px rgba(217, 249, 157, 0.15);
+    border-radius: var(--radius-xl);
+    padding: 4rem 2.5rem;
+    overflow: hidden;
+  }
+
+  .pricing-card.pro .text-muted { color: rgba(9, 9, 11, 0.6); }
+  .pricing-card.pro .btn { background: var(--bg); color: var(--ink); }
+  .pricing-card.pro .btn:hover { background: var(--bg-surface-elevated); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+  .pricing-card.pro .feature-icon { stroke: var(--bg); background: rgba(9, 9, 11, 0.1); }
+
+  /* Ribbon */
+  .ribbon-wrapper {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+  }
+  .ribbon {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    transform: rotate(45deg);
+    position: relative;
+    padding: 8px 0;
+    left: -5px;
+    top: 25px;
+    width: 170px;
+    background-color: var(--bg);
+    color: var(--accent);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  }
+
+  /* Card Content */
+  .plan-name {
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-variant: small-caps;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .price-wrapper {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+  }
+
+  .price-currency {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-right: 0.25rem;
+    transform: translateY(-1.5rem);
+  }
+
+  .price-amount {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .price-period {
+    margin-left: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .plan-desc {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    min-height: 3rem;
+  }
+
+  .feature-list {
+    list-style: none;
+    margin-bottom: 3rem;
+    flex-grow: 1;
+  }
+
+  .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  .feature-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    stroke: var(--accent);
+    padding: 4px;
+  }
+
+  .pricing-card .btn { width: 100%; }
+
+  /* ==========================================================================
+     SECTION B: QUOTE WALL / TESTIMONIALS
+     ========================================================================== */
+  .testimonials-header {
+    margin-bottom: 4rem;
+  }
+
+  .testimonials-header h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    max-width: 600px;
+  }
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    grid-auto-flow: dense;
+  }
+
+  @media (min-width: 768px) {
+    .bento-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1024px) {
+    .bento-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .testimonial-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonial-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(217, 249, 157, 0.06), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .testimonial-card:hover::before { opacity: 1; }
+  .testimonial-card:hover { border-color: rgba(217, 249, 157, 0.3); }
+
+  .testimonial-content { position: relative; z-index: 1; }
+
+  /* Asymmetric Layout Rules */
+  @media (min-width: 1024px) {
+    .tc-1 { grid-column: span 2; }
+    .tc-2 { grid-row: span 2; display: flex; flex-direction: column; }
+    .tc-3 { grid-column: span 1; }
+    .tc-4 { grid-column: span 1; }
+    .tc-featured { grid-column: span 2; }
+  }
+
+  .quote-mark {
+    position: absolute;
+    top: -1rem;
+    left: -1rem;
+    font-family: var(--font-display);
+    font-size: 6rem;
+    line-height: 1;
+    color: var(--bg-surface-elevated);
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  .pull-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tc-2 .pull-quote { font-size: clamp(1.3rem, 2vw, 1.8rem); margin-top: auto; margin-bottom: auto; }
+
+  .testimonial-card.featured {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+  }
+
+  .testimonial-card.featured .quote-mark { color: rgba(9, 9, 11, 0.1); }
+  .testimonial-card.featured .pull-quote { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700; letter-spacing: -0.02em; }
+  .testimonial-card.featured .text-muted { color: rgba(9, 9, 11, 0.6); }
+
+  .attribution {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg-surface-elevated);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--ink-muted);
+  }
+
+  .testimonial-card.featured .avatar { background: rgba(9, 9, 11, 0.1); color: var(--bg); }
+
+  .author-meta { display: flex; flex-direction: column; }
+  .author-name { font-weight: 700; font-size: 1rem; }
+  .author-company { font-size: 0.875rem; }
+
+  /* ==========================================================================
+     SECTION C: POWER CTA
+     ========================================================================== */
+  .section-cta {
+    padding: 10rem 2rem 8rem;
+    clip-path: polygon(0 8vw, 100% 0, 100% 100%, 0 100%);
+    background: var(--bg-surface);
+    margin-top: -8vw; /* Pull up to overlap */
+    overflow: hidden;
+  }
+
+  /* Radial Glow */
+  .cta-glow {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    width: 80vw;
+    height: 80vw;
+    background: radial-gradient(circle, rgba(217, 249, 157, 0.15) 0%, rgba(217, 249, 157, 0) 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .cta-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  @media (min-width: 992px) {
+    .cta-container {
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+    }
+  }
+
+  .cta-text-wrap { position: relative; }
+
+  .cta-headline {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cta-headline span {
+    display: block;
+  }
+
+  .cta-headline .hl-accent {
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 700;
+  }
+
+  .cta-subtext {
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    color: var(--ink-muted);
+    max-width: 480px;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* SVG Abstract Arrow */
+  .cta-arrow {
+    position: absolute;
+    right: -100px;
+    bottom: -50px;
+    width: 200px;
+    height: 200px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    opacity: 0.3;
+    pointer-events: none;
+    display: none;
+  }
+
+  @media (min-width: 992px) {
+    .cta-arrow { display: block; }
+  }
+
+  .cta-actions-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  @media (min-width: 576px) {
+    .cta-actions {
+      flex-direction: row;
+      align-items: center;
+      width: auto;
+    }
+  }
+
+  .btn-magnetic {
+    position: relative;
+    display: inline-flex;
+    padding: 1.25rem 3rem;
+    font-size: 1.25rem;
+  }
+
+  .btn-ghost {
+    color: var(--ink-muted);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s;
+  }
+
+  .btn-ghost::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--ink-muted);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+
+  .btn-ghost:hover { color: var(--ink); }
+  .btn-ghost:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+    background: var(--ink);
+  }
+
+</style>
+</head>
+<body>
+
+<!-- GSAP: target class .js-pricing-card stagger -->
+<!-- FEATURE: Interactive Pricing Tier logic switching Monthly/Annual values -->
+<section class="section-pricing" id="pricing">
+  <div class="container">
+    <div class="pricing-header">
+      <h2 class="text-display">Transparent pricing.<br><span class="text-accent">Zero surprises.</span></h2>
+      
+      <div class="billing-toggle-wrapper js-billing-toggle" data-billing="monthly">
+        <div class="toggle-indicator"></div>
+        <button class="billing-toggle-btn active" data-target="monthly">Monthly</button>
+        <button class="billing-toggle-btn" data-target="annual">Annually (Save 20%)</button>
+      </div>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Tier 1 -->
+      <div class="pricing-card js-pricing-card">
+        <div class="plan-name text-muted">Hobbyist</div>
+        <div class="price-wrapper">
+          <span class="price-currency">$</span>
+          <span class="price-amount" data-monthly="0" data-annual="0">0</span>
+          <span class="price-period text-muted">/mo</span>
+        </div>
+        <p class="plan-desc text-muted">Perfect for individuals experimenting with the platform.</p>
+        
+        <ul class="feature-list">
+          <li>
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Up to 3 active projects</span>
+          </li>
+          <li>
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Community support</span>
+          </li>
+          <li>
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Basic analytics export</span>
+          </li>
+        </ul>
+        <button class="btn btn-outline">Start for free</button>
+      </div>
+
+      <!-- Tier 2 (Pro) -->
+      <div class="pricing-card pro js-pricing-card">
+        <div class="ribbon-wrapper"><div class="ribbon">Popular</div></div>
+        <div class="plan-name text-muted">Professional</div>
+        <div class="price-wrapper">
+          <span class="price-currency">$</span>
+          <span class="price-amount" data-monthly="49" data-annual="39">49</span>
+          <span class="price-period text-muted">/mo</span>
+        </div>
+        <p class="plan-desc text-muted">Everything you need to scale your production workflow.</p>
+        
+        <ul class="feature-list">
+          <li>
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Unlimited active projects</span>
+          </li>
+          <li>
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Priority 24/7 email support</span>
+          </li>
+          <li>
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Advanced custom API access</span>
+          </li>
+          <li>
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Custom domain mapping</span>
+          </li>
+        </ul>
+        <button class="btn btn-primary">Upgrade to Pro</button>
+      </div>
+
+      <!-- Tier 3 -->
+      <div class="pricing-card js-pricing-card">
+        <div class="plan-name text-muted">Scale</div>
+        <div class="price-wrapper">
+          <span class="price-currency">$</span>
+          <span class="price-amount" data-monthly="199" data-annual="159">199</span>
+          <span class="price-period text-muted">/mo</span>
+        </div>
+        <p class="plan-desc text-muted">Dedicated infrastructure for massive throughput.</p>
+        
+        <ul class="feature-list">
+          <li>
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Dedicated account manager</span>
+          </li>
+          <li>
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>SAML SSO integration</span>
+          </li>
+          <li>
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>99.99% Uptime SLA</span>
+          </li>
+        </ul>
+        <button class="btn btn-outline">Contact Sales</button>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- USAGE NOTE: Toggle logic is wired in JS below. Uses data-attributes to swap values. -->
+
+
+<!-- GSAP: target class .js-testimonial with grid stagger and autoAlpha -->
+<!-- FEATURE: Hover tracking glow effect on cards (CSS variable mapping via JS) -->
+<section class="section-testimonials">
+  <div class="container">
+    <div class="testimonials-header">
+      <h2 class="text-display">Don't just take our word for it.</h2>
+    </div>
+
+    <div class="bento-grid" id="testimonial-grid">
+      <!-- Card 1 -->
+      <div class="testimonial-card tc-1 js-testimonial">
+        <div class="quote-mark">"</div>
+        <div class="testimonial-content">
+          <p class="pull-quote">Since switching over, our deployment times have dropped by 40%. The CLI is just brutally fast and stays out of my way.</p>
+          <div class="attribution">
+            <div class="avatar">SJ</div>
+            <div class="author-meta">
+              <span class="author-name">Sarah Jenkins</span>
+              <span class="author-company text-muted">Lead Engineer, Vercel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 (Tall) -->
+      <div class="testimonial-card tc-2 js-testimonial">
+        <div class="quote-mark">"</div>
+        <div class="testimonial-content">
+          <p class="pull-quote">It genuinely feels like having an extra senior developer on the team reviewing architecture before we ship.</p>
+          <div class="attribution">
+            <div class="avatar">MK</div>
+            <div class="author-meta">
+              <span class="author-name">Marcus King</span>
+              <span class="author-company text-muted">CTO, Nexus</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="testimonial-card tc-3 js-testimonial">
+        <div class="quote-mark">"</div>
+        <div class="testimonial-content">
+          <p class="pull-quote">The cleanest API documentation I have seen in a decade. Integrated it in an afternoon.</p>
+          <div class="attribution">
+            <div class="avatar">AL</div>
+            <div class="author-meta">
+              <span class="author-name">Aisha Lin</span>
+              <span class="author-company text-muted">Founder, Dataflow</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="testimonial-card tc-4 js-testimonial">
+        <div class="quote-mark">"</div>
+        <div class="testimonial-content">
+          <p class="pull-quote">No more fighting with config files. It just works out of the box.</p>
+          <div class="attribution">
+            <div class="avatar">DR</div>
+            <div class="author-meta">
+              <span class="author-name">David Ross</span>
+              <span class="author-company text-muted">DevOps, Stripe</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 (Featured) -->
+      <div class="testimonial-card featured tc-featured js-testimonial">
+        <div class="quote-mark">"</div>
+        <div class="testimonial-content">
+          <p class="pull-quote">We calculated the ROI after month one and immediately upgraded to Enterprise. The reduction in server costs alone pays for the platform tenfold. An absolute no-brainer for scaleups.</p>
+          <div class="attribution">
+            <div class="avatar">EM</div>
+            <div class="author-meta">
+              <span class="author-name">Elena Martinez</span>
+              <span class="author-company text-muted">VP of Engineering, Shopify</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- USAGE NOTE: Masonry effect achieved via CSS Grid spanning. JS adds dynamic radial hover glow. -->
+
+
+<!-- GSAP: target class .js-cta-section for clip-path reveal and internal text scrub -->
+<!-- FEATURE: Magnetic button interaction and diagonal cut layout -->
+<section class="section-cta js-cta-section">
+  <div class="cta-glow"></div>
+  <div class="container">
+    <div class="cta-container">
+      
+      <div class="cta-text-wrap">
+        <h2 class="text-display cta-headline">
+          <span>Stop tweaking.</span>
+          <span class="hl-accent">Start shipping.</span>
+        </h2>
+        <p class="cta-subtext">Join 10,000+ developers who have already ditched legacy infrastructure for the modern edge.</p>
+        
+        <!-- Abstract SVG Swoosh pointing to button -->
+        <svg class="cta-arrow" viewBox="0 0 200 200">
+          <path d="M 20,20 C 100,20 180,80 160,160" />
+          <path d="M 120,160 L 160,160 L 160,120" />
+        </svg>
+      </div>
+
+      <div class="cta-actions-wrap">
+        <div class="cta-actions">
+          <button class="btn btn-primary btn-magnetic js-magnetic">Deploy your first app</button>
+          <a href="#docs" class="btn-ghost">or read the docs</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- USAGE NOTE: The diagonal top edge overlaps the previous section. Make sure previous section has adequate bottom padding. -->
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    // --- SECTION A: Pricing Toggle Logic ---
+    const toggleWrapper = document.querySelector('.js-billing-toggle');
+    const toggleBtns = document.querySelectorAll('.billing-toggle-btn');
+    const priceAmounts = document.querySelectorAll('.price-amount');
+    const pricePeriods = document.querySelectorAll('.price-period');
+
+    if(toggleWrapper && toggleBtns.length) {
+      toggleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Update active state
+          toggleBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          const billingType = btn.getAttribute('data-target');
+          toggleWrapper.setAttribute('data-billing', billingType);
+
+          // Animate numbers
+          priceAmounts.forEach(el => {
+            const targetVal = el.getAttribute(`data-${billingType}`);
+            // Simple fade out/in effect for number change
+            el.style.opacity = 0;
+            setTimeout(() => {
+              el.textContent = targetVal;
+              el.style.opacity = 1;
+            }, 150);
+          });
+          
+          // Update period text logic (optional, kept /mo for both per SaaS standard, but could change to /yr)
+        });
+      });
+    }
+
+    // --- SECTION B: Testimonial Hover Glow ---
+    const cards = document.querySelectorAll('.js-testimonial:not(.featured)');
+    
+    cards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    // --- SECTION C: Magnetic Button ---
+    const magneticBtns = document.querySelectorAll('.js-magnetic');
+    
+    magneticBtns.forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const h = rect.width / 2;
+        const v = rect.height / 2;
+        
+        // Calculate distance from center
+        const x = e.clientX - rect.left - h;
+        const y = e.clientY - rect.top - v;
+        
+        // Apply transform (move max 15px)
+        const moveX = (x / h) * 15;
+        const moveY = (y / v) * 15;
+        
+        btn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      });
+      
+      btn.addEventListener('mouseleave', () => {
+        // Reset with a spring-like ease via CSS transition
+        btn.style.transform = `translate(0px, 0px)`;
+      });
+    });
+
+  });
+</script>
+
+<!-- ================================================================= -->
+<!-- FAQ VARIANT A: 编辑排版型 (Editorial — sticky anchor + accordion) -->
+<!-- ================================================================= -->
+<!-- Left col: massive "FAQ" as visual anchor. Right col: accordion list.
+     GSAP: initLineReveal() on heading; section reveal with ScrollTrigger.
+     accordion handled by inline JS (data-open toggle). -->
+<style>
+.faq-section { font-family: var(--font-body); color: var(--ink); box-sizing: border-box; }
+.faq-section *, .faq-section *::before, .faq-section *::after { box-sizing: inherit; }
+
+.variant-a { background-color: var(--bg); padding: 6rem 5vw; }
+.v-a-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 4rem; }
+@media (min-width: 900px) { .v-a-container { grid-template-columns: 4fr 6fr; gap: 8vw; } }
+.v-a-title {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 9rem);
+  line-height: 0.9; font-weight: 400; margin: 0;
+  letter-spacing: -0.02em; color: var(--ink);
+  position: sticky; top: 6rem;
+}
+.v-a-right { display: flex; flex-direction: column; }
+.v-a-item { border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent); }
+.v-a-item:last-child { border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent); }
+.v-a-trigger {
+  width: 100%; background: transparent; border: none;
+  padding: 2.5rem 0; display: flex; justify-content: space-between;
+  align-items: center; cursor: pointer; color: var(--ink); text-align: left; gap: 2rem;
+}
+.v-a-trigger:hover .v-a-question { transform: translateX(10px); color: var(--accent); }
+.v-a-question {
+  font-size: clamp(1.25rem, 2vw, 1.75rem); font-weight: 400;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), color 0.3s ease;
+}
+.v-a-icon { width: 24px; height: 24px; flex-shrink: 0; color: var(--ink); }
+.v-a-icon line { stroke: currentColor; stroke-width: 1.5; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease; transform-origin: center; }
+.v-a-item[data-open="true"] .v-a-icon .vertical { transform: rotate(90deg); opacity: 0; }
+.v-a-item[data-open="true"] .v-a-icon .horizontal { transform: rotate(180deg); }
+.v-a-content-grid { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s cubic-bezier(0.16,1,0.3,1); }
+.v-a-item[data-open="true"] .v-a-content-grid { grid-template-rows: 1fr; }
+.v-a-content-inner { overflow: hidden; }
+.v-a-answer { font-size: clamp(1rem,1.2vw,1.125rem); color: var(--ink-muted); line-height: 1.6; padding-bottom: 2.5rem; margin: 0; max-width: 85%; }
+</style>
+
+<section class="faq-section variant-a">
+  <div class="v-a-container">
+    <div>
+      <h2 class="v-a-title js-hero-title">FAQ</h2>
+    </div>
+    <div class="v-a-right">
+      <div class="v-a-item js-faq-item" data-open="false">
+        <button class="v-a-trigger" aria-expanded="false">
+          <span class="v-a-question">How does pricing work?</span>
+          <svg class="v-a-icon" viewBox="0 0 24 24" fill="none"><line class="horizontal" x1="4" y1="12" x2="20" y2="12"/><line class="vertical" x1="12" y1="4" x2="12" y2="20"/></svg>
+        </button>
+        <div class="v-a-content-grid"><div class="v-a-content-inner">
+          <p class="v-a-answer">Replace with your pricing explanation. Mention seat-based, usage-based, or flat monthly billing as appropriate.</p>
+        </div></div>
+      </div>
+      <div class="v-a-item js-faq-item" data-open="false">
+        <button class="v-a-trigger" aria-expanded="false">
+          <span class="v-a-question">Is there a free trial?</span>
+          <svg class="v-a-icon" viewBox="0 0 24 24" fill="none"><line class="horizontal" x1="4" y1="12" x2="20" y2="12"/><line class="vertical" x1="12" y1="4" x2="12" y2="20"/></svg>
+        </button>
+        <div class="v-a-content-grid"><div class="v-a-content-inner">
+          <p class="v-a-answer">Replace with trial details — duration, whether a credit card is required, what features are included.</p>
+        </div></div>
+      </div>
+      <div class="v-a-item js-faq-item" data-open="false">
+        <button class="v-a-trigger" aria-expanded="false">
+          <span class="v-a-question">Can I cancel anytime?</span>
+          <svg class="v-a-icon" viewBox="0 0 24 24" fill="none"><line class="horizontal" x1="4" y1="12" x2="20" y2="12"/><line class="vertical" x1="12" y1="4" x2="12" y2="20"/></svg>
+        </button>
+        <div class="v-a-content-grid"><div class="v-a-content-inner">
+          <p class="v-a-answer">Replace with cancellation policy. Mention refund windows, data export options, and how long data is retained after cancellation.</p>
+        </div></div>
+      </div>
+      <div class="v-a-item js-faq-item" data-open="false">
+        <button class="v-a-trigger" aria-expanded="false">
+          <span class="v-a-question">Is my data secure?</span>
+          <svg class="v-a-icon" viewBox="0 0 24 24" fill="none"><line class="horizontal" x1="4" y1="12" x2="20" y2="12"/><line class="vertical" x1="12" y1="4" x2="12" y2="20"/></svg>
+        </button>
+        <div class="v-a-content-grid"><div class="v-a-content-inner">
+          <p class="v-a-answer">Replace with security details — encryption standards, compliance certifications, and data residency options.</p>
+        </div></div>
+      </div>
+      <div class="v-a-item js-faq-item" data-open="false">
+        <button class="v-a-trigger" aria-expanded="false">
+          <span class="v-a-question">Do you offer team or enterprise plans?</span>
+          <svg class="v-a-icon" viewBox="0 0 24 24" fill="none"><line class="horizontal" x1="4" y1="12" x2="20" y2="12"/><line class="vertical" x1="12" y1="4" x2="12" y2="20"/></svg>
+        </button>
+        <div class="v-a-content-grid"><div class="v-a-content-inner">
+          <p class="v-a-answer">Replace with team/enterprise plan details — volume discounts, SSO, admin controls, dedicated support, SLA guarantees.</p>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================= -->
+<!-- FAQ VARIANT B: 全宽焦点型 (Centered grid cards — expand in place) -->
+<!-- ================================================================= -->
+<!-- Full-width centered. 2-col card grid on desktop.
+     Each card expands in place on click. Plus rotates to X on open.
+     Bottom: "Still have questions?" CTA row. -->
+<style>
+.variant-b { background-color: var(--bg); padding: 6rem 5vw; }
+.v-b-container { max-width: 1200px; margin: 0 auto; }
+.v-b-header { text-align: center; margin-bottom: 5rem; }
+.v-b-eyebrow { display: block; font-size: clamp(0.75rem,1vw,0.875rem); font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 1rem; }
+.v-b-title { font-family: var(--font-display); font-size: clamp(2.5rem,5vw,4.5rem); font-weight: 500; margin: 0; line-height: 1.1; letter-spacing: -0.01em; color: var(--ink); }
+.v-b-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 4rem; }
+@media (min-width: 768px) { .v-b-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; } }
+.v-b-card {
+  background-color: var(--bg-surface);
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, currentColor 8%, transparent);
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+.v-b-card:hover { border-color: color-mix(in srgb, currentColor 18%, transparent); }
+.v-b-trigger {
+  width: 100%; background: transparent; border: none;
+  padding: 2rem; display: flex; justify-content: space-between;
+  align-items: flex-start; cursor: pointer; color: var(--ink); text-align: left; gap: 1rem;
+}
+.v-b-question { font-size: clamp(1.125rem,1.5vw,1.25rem); font-weight: 500; line-height: 1.4; }
+.v-b-icon-wrap {
+  width: 32px; height: 32px; border-radius: 50%;
+  background-color: color-mix(in srgb, var(--ink) 8%, transparent);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  color: var(--ink); transition: background-color 0.3s, color 0.3s;
+}
+.v-b-card[data-open="true"] .v-b-icon-wrap { background-color: var(--accent); color: var(--bg); }
+.v-b-icon { width: 14px; height: 14px; transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+.v-b-card[data-open="true"] .v-b-icon { transform: rotate(45deg); }
+.v-b-content-grid { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(0.25,1,0.5,1); }
+.v-b-card[data-open="true"] .v-b-content-grid { grid-template-rows: 1fr; }
+.v-b-content-inner { overflow: hidden; }
+.v-b-answer { font-size: clamp(0.95rem,1.1vw,1.05rem); color: var(--ink-muted); line-height: 1.6; padding: 0 2rem 2rem; margin: 0; }
+.v-b-cta { text-align: center; padding-top: 4rem; border-top: 1px solid color-mix(in srgb, currentColor 8%, transparent); }
+.v-b-cta-text { font-size: clamp(1.125rem,1.5vw,1.25rem); margin-bottom: 1.5rem; font-weight: 500; color: var(--ink); }
+.v-b-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  background-color: var(--accent); color: var(--bg);
+  padding: 1rem 2.25rem; border-radius: 99px; text-decoration: none;
+  font-weight: 600; font-size: 0.9rem;
+  transition: transform 0.2s, filter 0.2s;
+}
+.v-b-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+</style>
+
+<section class="faq-section variant-b">
+  <div class="v-b-container">
+    <div class="v-b-header">
+      <span class="v-b-eyebrow">Frequently Asked</span>
+      <h2 class="v-b-title js-hero-title">Everything you need to know.</h2>
+    </div>
+    <div class="v-b-grid">
+      <div class="v-b-card js-faq-item" data-open="false">
+        <button class="v-b-trigger" aria-expanded="false">
+          <span class="v-b-question">What is the onboarding process like?</span>
+          <span class="v-b-icon-wrap"><svg class="v-b-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="v-b-content-grid"><div class="v-b-content-inner"><p class="v-b-answer">Replace with onboarding details — guided setup, dedicated onboarding call, time to first value.</p></div></div>
+      </div>
+      <div class="v-b-card js-faq-item" data-open="false">
+        <button class="v-b-trigger" aria-expanded="false">
+          <span class="v-b-question">How does pricing scale with usage?</span>
+          <span class="v-b-icon-wrap"><svg class="v-b-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="v-b-content-grid"><div class="v-b-content-inner"><p class="v-b-answer">Replace with pricing scale details — prorated seats, usage overages, volume discounts.</p></div></div>
+      </div>
+      <div class="v-b-card js-faq-item" data-open="false">
+        <button class="v-b-trigger" aria-expanded="false">
+          <span class="v-b-question">Do you support single sign-on (SSO)?</span>
+          <span class="v-b-icon-wrap"><svg class="v-b-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="v-b-content-grid"><div class="v-b-content-inner"><p class="v-b-answer">Replace with SSO details — SAML 2.0, OIDC, supported identity providers, which plans include it.</p></div></div>
+      </div>
+      <div class="v-b-card js-faq-item" data-open="false">
+        <button class="v-b-trigger" aria-expanded="false">
+          <span class="v-b-question">Can I export my data?</span>
+          <span class="v-b-icon-wrap"><svg class="v-b-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="v-b-content-grid"><div class="v-b-content-inner"><p class="v-b-answer">Replace with export details — formats (JSON/CSV), how to trigger an export, data retention after cancellation.</p></div></div>
+      </div>
+      <div class="v-b-card js-faq-item" data-open="false">
+        <button class="v-b-trigger" aria-expanded="false">
+          <span class="v-b-question">What is your uptime SLA?</span>
+          <span class="v-b-icon-wrap"><svg class="v-b-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="v-b-content-grid"><div class="v-b-content-inner"><p class="v-b-answer">Replace with SLA details — uptime percentage, credit policy for downtime, status page link.</p></div></div>
+      </div>
+      <div class="v-b-card js-faq-item" data-open="false">
+        <button class="v-b-trigger" aria-expanded="false">
+          <span class="v-b-question">Do you offer discounts for startups or non-profits?</span>
+          <span class="v-b-icon-wrap"><svg class="v-b-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="v-b-content-grid"><div class="v-b-content-inner"><p class="v-b-answer">Replace with discount policy — eligibility criteria, discount amount, how to apply.</p></div></div>
+      </div>
+    </div>
+    <div class="v-b-cta">
+      <p class="v-b-cta-text">Still have questions? We're here to help.</p>
+      <a href="#" class="v-b-btn">Contact Support</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  /* FAQ accordion — works for both Variant A and B */
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.js-faq-item').forEach(item => {
+      const trigger = item.querySelector('button');
+      trigger.addEventListener('click', () => {
+        const isOpen = item.getAttribute('data-open') === 'true';
+        item.setAttribute('data-open', !isOpen);
+        trigger.setAttribute('aria-expanded', !isOpen);
+        /* Close siblings in same container (optional — comment out for independent expand) */
+        if (!isOpen) {
+          item.parentElement.querySelectorAll('.js-faq-item').forEach(sib => {
+            if (sib !== item) { sib.setAttribute('data-open','false'); sib.querySelector('button').setAttribute('aria-expanded','false'); }
+          });
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
