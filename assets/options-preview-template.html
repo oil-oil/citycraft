@@ -75,14 +75,20 @@ h1.page-title strong { color: #fff; }
 }
 .option-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
 .option-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.option-grid.cols-5 { grid-template-columns: repeat(5, 1fr); }
 
+@media (max-width: 1100px) {
+  .option-grid.cols-5 { grid-template-columns: repeat(3, 1fr); }
+}
 @media (max-width: 900px) {
   .option-grid.cols-3,
-  .option-grid.cols-4 { grid-template-columns: 1fr 1fr; }
+  .option-grid.cols-4,
+  .option-grid.cols-5 { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 560px) {
   .option-grid.cols-3,
-  .option-grid.cols-4 { grid-template-columns: 1fr; }
+  .option-grid.cols-4,
+  .option-grid.cols-5 { grid-template-columns: 1fr; }
 }
 
 /* ── OPTION CARD ─────────────────────────────────────────── */
@@ -295,6 +301,205 @@ h1.page-title strong { color: #fff; }
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* 产品演示型 */
+.demo-product {
+  background: var(--surface);
+  padding: 24px;
+  overflow: hidden;
+  position: relative;
+  height: 240px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--ink);
+}
+.pd-window {
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  background: var(--bg);
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--ink) 8%, transparent);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.pd-header {
+  height: 24px;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 6px;
+  background: color-mix(in srgb, var(--surface) 50%, transparent);
+}
+.pd-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.pd-dot:nth-child(1) { background: color-mix(in srgb, var(--accent) 30%, transparent); }
+.pd-dot:nth-child(2) { background: color-mix(in srgb, var(--accent) 60%, transparent); }
+.pd-dot:nth-child(3) { background: var(--accent); }
+.pd-body { display: flex; flex: 1; overflow: hidden; }
+.pd-sidebar {
+  width: 80px;
+  border-right: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: color-mix(in srgb, var(--surface) 30%, transparent);
+}
+.pd-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 8px 0 12px;
+  margin: 0 8px 0 0;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--muted);
+  border-radius: 0 4px 4px 0;
+  opacity: 0;
+  animation: pd-fade-in 0.4s ease forwards;
+}
+.pd-nav-item svg { width: 12px; height: 12px; stroke-width: 2.5; }
+.pd-nav-item.active {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border-left: 3px solid var(--accent);
+  color: var(--accent);
+}
+.pd-nav-item:nth-child(1) { animation-delay: 0.1s; }
+.pd-nav-item:nth-child(2) { animation-delay: 0.2s; }
+.pd-nav-item:nth-child(3) { animation-delay: 0.3s; }
+.pd-nav-item:nth-child(4) { animation-delay: 0.4s; }
+.pd-main { flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 12px; }
+.pd-metrics { display: flex; gap: 12px; }
+.pd-metric {
+  flex: 1;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: pd-slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.pd-metric:nth-child(1) { animation-delay: 0.3s; }
+.pd-metric:nth-child(2) { animation-delay: 0.4s; }
+.pd-metric-lbl { font-size: 8px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; color: var(--muted); }
+.pd-metric-val { font-family: 'Anton', sans-serif; font-size: 18px; letter-spacing: 0.5px; color: var(--ink); line-height: 1; }
+.pd-chart {
+  flex: 1;
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 6%, transparent);
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+.pd-bar-wrapper { flex: 1; height: 100%; display: flex; align-items: flex-end; }
+.pd-bar {
+  width: 100%;
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+  border-radius: 2px 2px 0 0;
+  transform-origin: bottom;
+  transform: scaleY(0);
+  animation: pd-scale-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.pd-bar-wrapper:nth-child(1) .pd-bar { height: 35%; animation-delay: 0.50s; }
+.pd-bar-wrapper:nth-child(2) .pd-bar { height: 60%; animation-delay: 0.55s; }
+.pd-bar-wrapper:nth-child(3) .pd-bar { height: 45%; animation-delay: 0.60s; }
+.pd-bar-wrapper:nth-child(4) .pd-bar { height: 90%; animation-delay: 0.65s; background: var(--accent); }
+.pd-bar-wrapper:nth-child(5) .pd-bar { height: 55%; animation-delay: 0.70s; }
+.pd-bar-wrapper:nth-child(6) .pd-bar { height: 75%; animation-delay: 0.75s; }
+@keyframes pd-fade-in  { from { opacity:0; transform: translateX(-8px); } to { opacity:1; transform: translateX(0); } }
+@keyframes pd-slide-up { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: translateY(0); } }
+@keyframes pd-scale-up { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+/* 极简居中型 */
+.opt-demo.demo-minimal {
+  background: var(--bg);
+  height: 240px;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 24px;
+  position: relative;
+}
+.demo-minimal .dm-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: dm-fade-in 0.6s ease forwards;
+  opacity: 0;
+  transform: translateY(8px);
+}
+.demo-minimal .dm-eyebrow {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--accent);
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.demo-minimal .dm-headline {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--ink);
+  font-size: 2.1rem;
+  line-height: 1.05;
+  font-weight: 400;
+  margin: 0 0 0.8rem 0;
+  letter-spacing: -0.01em;
+}
+.demo-minimal .dm-headline em { font-style: italic; }
+.demo-minimal .dm-divider {
+  width: 40px;
+  height: 1px;
+  background-color: var(--accent);
+  margin: 0 0 0.8rem 0;
+}
+.demo-minimal .dm-subtitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--muted);
+  font-size: 0.65rem;
+  font-weight: 400;
+  margin: 0 0 1.2rem 0;
+  max-width: 90%;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+.demo-minimal .dm-cta {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 0.4rem 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 0;
+}
+.demo-minimal .dm-cta:hover { background: var(--accent); color: var(--bg); }
+@keyframes dm-fade-in { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
 
 /* ═══════════════════════════════════════════
    NAV DEMOS
@@ -678,7 +883,7 @@ h1.page-title strong { color: #fff; }
      SECTION 1: 排版气质
 ══════════════════════════════════════ -->
 <div class="section-label"><span>01 &nbsp;排版气质</span></div>
-<div class="option-grid cols-3" id="group-layout">
+<div class="option-grid cols-5" id="group-layout">
 
   <div class="opt-card" data-group="layout" data-value="铺张型" onclick="select(this)">
     <div class="opt-demo demo-maximal">
@@ -687,8 +892,8 @@ h1.page-title strong { color: #fff; }
       <div class="m-rule"></div>
     </div>
     <div class="opt-footer">
-      <strong>铺张型</strong>
-      <span>大标题压住全场 · 冲击力第一 · 类似 Linear、Vercel 首页</span>
+      <strong>大标题铺满屏</strong>
+      <span>进来第一眼就被震住，标题占据整个视野，适合强调品牌冲击力</span>
     </div>
   </div>
 
@@ -702,8 +907,8 @@ h1.page-title strong { color: #fff; }
       <div class="n-row"><div class="n-dot"></div><div class="n-item">功能二 · 数据与证明</div></div>
     </div>
     <div class="opt-footer">
-      <strong>叙事型</strong>
-      <span>页面会讲故事 · 每板块各自精彩 · 类似 Stripe 官网</span>
+      <strong>内容讲故事</strong>
+      <span>页面像杂志，每个板块单独讲清楚一件事，适合需要说服用户的产品</span>
     </div>
   </div>
 
@@ -719,8 +924,80 @@ h1.page-title strong { color: #fff; }
       </div>
     </div>
     <div class="opt-footer">
-      <strong>剧场型</strong>
-      <span>每滚一屏才出现 · 视觉演出感最强 · 类似 Apple 产品页</span>
+      <strong>滚动触发演出</strong>
+      <span>每向下滚一屏，新内容才出现，像翻页一样一幕一幕展开，参考 Apple 产品页</span>
+    </div>
+  </div>
+
+  <div class="opt-card" data-group="layout" data-value="产品演示型" onclick="select(this)">
+    <div class="opt-demo demo-product">
+      <div class="pd-window">
+        <div class="pd-header">
+          <div class="pd-dot"></div>
+          <div class="pd-dot"></div>
+          <div class="pd-dot"></div>
+        </div>
+        <div class="pd-body">
+          <div class="pd-sidebar">
+            <div class="pd-nav-item active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              总览
+            </div>
+            <div class="pd-nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3v18h18"></path><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path></svg>
+              数据
+            </div>
+            <div class="pd-nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+              用户
+            </div>
+            <div class="pd-nav-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 9 19.4V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 4.6 9H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 9 4.6V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              设置
+            </div>
+          </div>
+          <div class="pd-main">
+            <div class="pd-metrics">
+              <div class="pd-metric">
+                <div class="pd-metric-lbl">转化率</div>
+                <div class="pd-metric-val">4.8%</div>
+              </div>
+              <div class="pd-metric">
+                <div class="pd-metric-lbl">访问量</div>
+                <div class="pd-metric-val">128K</div>
+              </div>
+            </div>
+            <div class="pd-chart">
+              <div class="pd-bar-wrapper"><div class="pd-bar"></div></div>
+              <div class="pd-bar-wrapper"><div class="pd-bar"></div></div>
+              <div class="pd-bar-wrapper"><div class="pd-bar"></div></div>
+              <div class="pd-bar-wrapper"><div class="pd-bar"></div></div>
+              <div class="pd-bar-wrapper"><div class="pd-bar"></div></div>
+              <div class="pd-bar-wrapper"><div class="pd-bar"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="opt-footer">
+      <strong>产品界面展示</strong>
+      <span>首屏直接秀出产品的真实界面，适合有实际画面的 App 或 SaaS 工具</span>
+    </div>
+  </div>
+
+  <div class="opt-card" data-group="layout" data-value="极简居中型" onclick="select(this)">
+    <div class="opt-demo demo-minimal">
+      <div class="dm-content">
+        <span class="dm-eyebrow">__PRODUCT_NAME__</span>
+        <h2 class="dm-headline">__PRODUCT_HEADLINE__<br><em>Refined.</em></h2>
+        <div class="dm-divider"></div>
+        <p class="dm-subtitle">大量留白，字体是主角</p>
+        <button class="dm-cta">了解更多</button>
+      </div>
+    </div>
+    <div class="opt-footer">
+      <strong>极简居中留白</strong>
+      <span>所有内容居中对齐，大量留白，字体是主角，适合高端品牌或设计工作室</span>
     </div>
   </div>
 
@@ -751,8 +1028,8 @@ h1.page-title strong { color: #fff; }
       <div class="blast-content">点击右上角的 ≡ 试试</div>
     </div>
     <div class="opt-footer">
-      <strong>A · 全屏爆开</strong>
-      <span>点击后整屏变导航 · 戏剧性最强</span>
+      <strong>A · 全屏菜单</strong>
+      <span>点击右上角图标，菜单铺满整个屏幕，视觉冲击感最强</span>
     </div>
   </div>
 
@@ -768,8 +1045,8 @@ h1.page-title strong { color: #fff; }
       </div>
     </div>
     <div class="opt-footer">
-      <strong>B · 底部磁性胶囊</strong>
-      <span>浮在底部 · 光标靠近时被吸引</span>
+      <strong>B · 底部浮动导航</strong>
+      <span>导航条悬浮在页面底部，鼠标靠近会被轻轻吸引过去</span>
     </div>
   </div>
 
@@ -791,7 +1068,7 @@ h1.page-title strong { color: #fff; }
     </div>
     <div class="opt-footer">
       <strong>C · 左侧竖排</strong>
-      <span>固定左边框 · 设计工作室感</span>
+      <span>导航固定在页面左边框，像设计工作室或开发工具的风格</span>
     </div>
   </div>
 
@@ -814,8 +1091,8 @@ h1.page-title strong { color: #fff; }
       </div>
     </div>
     <div class="opt-footer">
-      <strong>D · 拆分居中</strong>
-      <span>Logo 居中 · 链接分列两侧 · 滚动时变形</span>
+      <strong>D · Logo 居中拆分</strong>
+      <span>品牌名居中，链接分列左右两侧，向下滚动时导航会收缩变形</span>
     </div>
   </div>
 
