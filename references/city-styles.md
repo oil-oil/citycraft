@@ -1301,3 +1301,803 @@ background-image: repeating-linear-gradient(135deg, rgba(217, 83, 79, 0.04) 0px,
 
 ### Icons
 - 类似橡皮章刻印的加粗实心图标，线条粗细略有不均，带有手工温度。
+
+---
+
+## 31. 上海 (Shanghai)
+
+**Emotional register**: 迷人的海派复古与黄浦江畔的现代摩登交织。散发着1930年代Art Deco的奢华与夜幕下微醺的爵士氛围。
+
+### Fonts
+- **Display**: `ZCOOL XiaoWei` — 带有优雅的衬线与曲线，呼应老上海招贴画的韵味。
+- **Body**: `Noto Sans SC`
+
+### Colors
+```
+--bg:           #1A1516    /* Deep mahogany / 深红木夜色 */
+--bg-surface:   #261D1F
+--ink:          #F3E5D8    /* Aged pearl / 泛黄珍珠白 */
+--ink-muted:    #BFAEA3
+--accent:       #D4AF37    /* Art deco gold / 装饰艺术金 */
+--accent-soft:  #8B1C24    /* Velvet red / 丝绒酒红 */
+--line:         rgba(212, 175, 55, 0.20)
+```
+
+### Texture
+丝绒质感与老式留声机黄铜反光带来的微妙颗粒感，光影深邃。
+
+```css
+background-image: radial-gradient(circle at 50% 0%, #30221E 0%, #1A1516 80%)
+```
+
+### Layout character
+- 强烈的垂直对称感，借鉴Art Deco建筑的阶梯式排版。
+- 容器边缘使用极细的金色双线边框（1px solid & 3px double）。
+- 图片大量使用深褐色（Sepia）滤镜或强对比度的黑白处理。
+
+### Motion character
+- 元素入场如留声机唱针落下，带有平滑但克制的缓动（Cubic-bezier(0.25, 0.8, 0.25, 1)）。
+- 悬停时产生微妙的金色反光扫过效果（Sweep reflection）。
+
+### Icons
+- 纤细的几何线框风格，菱形与放射状线条的结合。
+
+---
+
+## 32. 北京 (Beijing)
+
+**Emotional register**: 宏大的皇家气场与胡同的市井烟火碰撞。庄重、对称，带有北方凛冽的空气感与历史的厚重感。
+
+### Fonts
+- **Display**: `Noto Serif SC` — 需使用 900 Ultra Bold，展现汉字碑刻的粗重与力量。
+- **Body**: `Noto Sans SC`
+
+### Colors
+```
+--bg:           #F4F4F4    /* Stone grey / 汉白玉灰 */
+--bg-surface:   #FFFFFF
+--ink:          #232220    /* Calligraphy black / 焦墨黑 */
+--ink-muted:    #6B6966
+--accent:       #B9261A    /* Forbidden City Red / 故宫宫墙红 */
+--accent-soft:  #F1B627    /* Glazed tile yellow / 琉璃瓦黄 */
+--line:         rgba(35, 34, 32, 0.12)
+```
+
+### Texture
+粗糙的汉白玉石阶与带有历史剥落感的微弱质感，干净但有厚度。
+
+```css
+background-image: linear-gradient(180deg, rgba(185,38,26,0.03) 0%, #F4F4F4 30%)
+```
+
+### Layout character
+- 绝对的居中对称排版，强调“中轴线”概念。
+- 大面积的留白搭配粗重的黑色标题，形成如书法般的黑白对比。
+- 模块之间留有宽阔的呼吸空间（Margin: 80px+），展现宏大叙事。
+
+### Motion character
+- 稳重、缓慢的淡入淡出，拒绝跳跃和轻浮的动画。
+- 页面滚动时带有如画卷展开的平移视差。
+
+### Icons
+- 实心且厚重的设计，边缘带有微微的印章式圆润。
+
+---
+
+## 33. 重庆 (Chongqing)
+
+**Emotional register**: 垂直生长的赛博朋克巨兽，湿润的雾气中霓虹刺眼。一种魔幻、立体且带着火锅般辛辣的热烈与失控感。
+
+### Fonts
+- **Display**: `Ma Shan Zheng` — 狂放的毛笔笔触，极具街头感与视觉冲击力。
+- **Body**: `Noto Sans SC`
+
+### Colors
+```
+--bg:           #090B0D    /* River night / 嘉陵江暗夜 */
+--bg-surface:   #13171B
+--ink:          #EAF0F6    /* High-contrast white / 冷白 */
+--ink-muted:    #7E8D9B
+--accent:       #FF0055    /* Cyberpunk magenta / 霓虹洋红 */
+--accent-soft:  #00FF9D    /* Acid green / 酸性荧光绿 */
+--line:         rgba(255, 0, 85, 0.25)
+```
+
+### Texture
+潮湿沥青路面上反射的霓虹光斑，带有雨夜的模糊感。
+
+```css
+background-image: linear-gradient(135deg, rgba(255,0,85,0.15) 0%, #090B0D 50%, rgba(0,255,157,0.1) 100%)
+```
+
+### Layout character
+- 破序排版，文本与图片大胆重叠（Z-index穿插），模拟3D立体交通。
+- 多使用发光阴影（Box-shadow: 0 0 20px rgba(255,0,85,0.4)）代替实体边框。
+- 密集的文本块与巨大的背景数字（如轻轨站编号）混排。
+
+### Motion character
+- 故障艺术（Glitch）风格的悬停效果，色彩瞬间分离再重合。
+- 快速、干脆的切入动画，不拖泥带水。
+
+### Icons
+- 粗犷的发光线框，犹如闪烁的LED灯管。
+
+---
+
+## 34. 西安 (Xi'an)
+
+**Emotional register**: 厚土黄沙与十三朝古都的沉稳。时间在这里是凝固的，色彩带着陶土的粗粝与青铜器的氧化痕迹。
+
+### Fonts
+- **Display**: `Zhi Mang Xing` — 带有狂草意韵，如同古代战旗上的挥毫。
+- **Body**: `Noto Sans SC`
+
+### Colors
+```
+--bg:           #2C2622    /* Oxidized bronze dark / 暗哑青铜 */
+--bg-surface:   #3B322D
+--ink:          #E8D6C8    /* Dust parchment / 蒙尘帛书 */
+--ink-muted:    #9C897A
+--accent:       #C85A37    /* Terracotta / 兵马俑赤陶 */
+--accent-soft:  #6A7961    /* Patina green / 铜绿 */
+--line:         rgba(200, 90, 55, 0.30)
+```
+
+### Texture
+兵马俑表面的粗糙颗粒感与城墙夯土的厚重暗哑。
+
+```css
+background-image: radial-gradient(circle at 20% 50%, rgba(200,90,55,0.08), #2C2622 80%)
+```
+
+### Layout character
+- 块状堆叠，如同城砖般严密的网格系统。
+- 采用非对称但重量感平衡的布局，右侧常留出视觉压舱石的位置。
+- 边缘硬朗，所有容器使用 0px 的 border-radius。
+
+### Motion character
+- 如同石门推开般的沉重缓动，动画时长较长（800ms）。
+- 图像加载时采用从土色到全彩的缓慢揭示效果。
+
+### Icons
+- 仿青铜纹样的几何切割，带有古代图腾的抽象感。
+
+---
+
+## 35. 杭州 (Hangzhou)
+
+**Emotional register**: 烟雨江南的柔婉与温润，水墨留白的极简美学。一切都是轻盈、通透且带着龙井茶香的。
+
+### Fonts
+- **Display**: `Long Cang` — 纤细秀丽的行书，如柳枝拂水。
+- **Body**: `Noto Sans SC`
+
+### Colors
+```
+--bg:           #F7F9F7    /* Mist white / 烟雨白 */
+--bg-surface:   #FFFFFF
+--ink:          #2E3A34    /* Wet tea leaves / 湿润茶褐 */
+--ink-muted:    #85968E
+--accent:       #6F9B82    /* Celadon / 汝窑天青 */
+--accent-soft:  #D4DFD8    /* Faded willow / 褪色残柳 */
+--line:         rgba(111, 155, 130, 0.15)
+```
+
+### Texture
+宣纸的微纤维感与水墨晕染的渐变，清透无暇。
+
+```css
+background-image: linear-gradient(to bottom, #EDF2EF 0%, #F7F9F7 100%)
+```
+
+### Layout character
+- 极端的“留白艺术”，内容区仅占据屏幕的 40% 左右。
+- 元素排布如同散落的棋子，强调视觉上的呼吸感与松弛感。
+- 图像边缘常常使用羽化（Mask-image）处理，融入背景。
+
+### Motion character
+- 如涟漪扩散般的轻柔过渡。
+- 滚动时文字和图像带有轻微的延迟漂浮感（Fluid scroll）。
+
+### Icons
+- 极细的线条（0.5px），圆润且未完全闭合的图形。
+
+---
+
+## 36. 深圳夜 (Shenzhen Night)
+
+**Emotional register**: 极致理性的硬件之都，跳动着硅谷般的脉搏。纯净的暗黑界面与LED屏幕的高频闪烁，充满了未来科幻感。
+
+### Fonts
+- **Display**: `Rajdhani` — 方正的科技感无衬线体，适合数字与英文大写。
+- **Body**: `Noto Sans SC`
+
+### Colors
+```
+--bg:           #030508    /* Screen off / 熄屏黑 */
+--bg-surface:   #0B1118
+--ink:          #FFFFFF    /* LED white / 耀眼白 */
+--ink-muted:    #5B6D82
+--accent:       #0066FF    /* Tech blue / 深邃科技蓝 */
+--accent-soft:  #00E5FF    /* Optic cyan / 光纤青 */
+--line:         rgba(0, 102, 255, 0.30)
+```
+
+### Texture
+无尘车间的极致光滑与电子显微镜下的晶体结构反光。
+
+```css
+background-image: linear-gradient(90deg, #030508 0%, #08101C 50%, #030508 100%)
+```
+
+### Layout character
+- 仪表盘式的紧凑布局，大量使用数据图表与进度条元素。
+- 严格的 8px 基准网格，对齐做到像素级精准。
+- 容器常常带有细微的内发光（Inset box-shadow）模拟屏幕背光。
+
+### Motion character
+- 极速的数字跳动动画与微小的UI触控反馈。
+- 页面切换带有如同代码编译完成时的扫描线闪烁。
+
+### Icons
+- 带有节点连线的微型电路板风格图标。
+
+---
+
+## 37. 敦煌 (Dunhuang)
+
+**Emotional register**: 戈壁荒漠中的极致绚烂，跨越千年的丝路壁画。色彩斑驳脱落，却依然透着异域的神圣与孤独。
+
+### Fonts
+- **Display**: `Noto Serif SC` — 带有古籍刻本的温润。
+- **Body**: `Noto Sans SC`
+
+### Colors
+```
+--bg:           #E3D3BB    /* Desert sand / 鸣沙山黄 */
+--bg-surface:   #EFE4D2
+--ink:          #4A3320    /* Dark earth / 焦土褐 */
+--ink-muted:    #8A6B52
+--accent:       #1F456E    /* Lapis Lazuli / 青金石蓝 */
+--accent-soft:  #C66E4E    /* Mineral orange / 矿物朱砂 */
+--line:         rgba(74, 51, 32, 0.15)
+```
+
+### Texture
+粗糙岩壁与风化矿物颜料的斑驳感，如同被风沙侵蚀的壁画。
+
+```css
+background-image: repeating-linear-gradient(45deg, rgba(74,51,32,0.02) 0px, rgba(74,51,32,0.02) 2px, transparent 2px, transparent 8px)
+```
+
+### Layout character
+- 洞窟式的纵深感排版，主视觉常放置于中央的“龛位”之中。
+- 使用强烈的冷暖撞色（青金石 vs 朱砂），在低饱和背景上爆发。
+- 装饰性强，可引入微小的菱形几何点缀分割线。
+
+### Motion character
+- 如同流沙随风飘散的缓动效果。
+- 悬停时色彩饱和度缓慢提升，仿佛壁画重现昔日光彩。
+
+### Icons
+- 融合曼陀罗或飞天飘带意象的曲线形图标。
+
+---
+
+## 38. 苏州 (Suzhou)
+
+**Emotional register**: 粉墙黛瓦的古典园林，移步换景的几何切割。一种带有书卷气和极度克制的江南极简主义。
+
+### Fonts
+- **Display**: `ZCOOL XiaoWei` — 清瘦的宋体，透出文人墨客的傲骨。
+- **Body**: `Noto Sans SC`
+
+### Colors
+```
+--bg:           #FAFAFA    /* Plaster white / 粉墙白 */
+--bg-surface:   #FFFFFF
+--ink:          #1E2022    /* Tile black / 黛瓦黑 */
+--ink-muted:    #737A80
+--accent:       #2B2E33    /* Wood carving / 紫檀木色 */
+--accent-soft:  #D67A89    /* Plum pink / 寒梅粉 */
+--line:         rgba(30, 32, 34, 0.12)
+```
+
+### Texture
+漏窗透射的光影与白墙上淡淡的苔痕，干净无瑕中的细微变化。
+
+```css
+background-image: linear-gradient(120deg, #FAFAFA 60%, #F0F2F2 100%)
+```
+
+### Layout character
+- “框景”手法，将核心图片限制在特定形状（如圆形或八角形）的遮罩中。
+- 大量的非对称错位排版，引导视线如同在园林中蜿蜒游走。
+- 极细的黑色分割线交错，模拟木制窗棂。
+
+### Motion character
+- 移步换景，滚动时前景与后景存在明显的视差位移。
+- 极其平稳、不带任何弹性的入场动画。
+
+### Icons
+- 提炼自中式园林漏窗与假山石的几何极简图形。
+
+---
+
+## 39. 拉萨 (Lhasa)
+
+**Emotional register**: 离太阳最近的净土，日光倾城。极高明度的白光下，浓烈的宗教色彩显得神圣、纯净而震撼。
+
+### Fonts
+- **Display**: `Cinzel` — 高耸的比例与锐利的衬线，带有强烈的神圣感。
+- **Body**: `Noto Sans SC`
+
+### Colors
+```
+--bg:           #FFFFFF    /* Blinding white / 耀目白光 */
+--bg-surface:   #F8F4F0
+--ink:          #3D221D    /* Dark yak hair / 深牦牛褐 */
+--ink-muted:    #947B75
+--accent:       #8A2522    /* Monk robe red / 绛红僧袍 */
+--accent-soft:  #42A8A1    /* Turquoise / 绿松石青 */
+--line:         rgba(138, 37, 34, 0.15)
+```
+
+### Texture
+高原稀薄空气带来的极致干爽，以及金箔反射的耀眼光斑。
+
+```css
+background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(66,168,161,0.05) 100%)
+```
+
+### Layout character
+- 宽阔、高远的全屏大图布局，强化天空的占比。
+- 大面积的纯白留白，对比高纯度的绛红和绿松石色块。
+- 文本排版紧凑密集，如同经卷般的阵列感。
+
+### Motion character
+- 光晕扩散般的缓慢显现（Fade-in with blur）。
+- 滚动时带有阳光折射的微光掠过效果。
+
+### Icons
+- 粗线条的几何符号，带有一点经幡的飘动感设计。
+
+---
+
+## 40. 罗马 (Rome)
+
+**Emotional register**: Sun-drenched history and cinematic romance. The timeless weight of marble softened by warm, golden-hour light.
+
+### Fonts
+- **Display**: `Playfair Display` — Classic, regal serif with beautiful italics.
+- **Body**: `Lora`
+
+### Colors
+```
+--bg:           #F5EFEB    /* Travertine stone / 凝灰岩暖白 */
+--bg-surface:   #FCF9F7
+--ink:          #362921    /* Espresso ground / 咖啡褐 */
+--ink-muted:    #85746A
+--accent:       #C25B3E    /* Burnt sienna / 罗马红土 */
+--accent-soft:  #385E4D    /* Roman pine / 罗马松绿 */
+--line:         rgba(194, 91, 62, 0.20)
+```
+
+### Texture
+Sunbaked stone and the smooth coolness of ancient statues.
+
+```css
+background-image: radial-gradient(circle at 100% 0%, #FFF5EB 0%, #F5EFEB 60%)
+```
+
+### Layout character
+- Monumental typography with massive drop caps.
+- Overlapping images bordered by generous white frames, like old postcards.
+- Centered, classical alignment for headings and key text.
+
+### Motion character
+- Leisurely, romantic easing curves (ease-in-out).
+- Sepia-toned images that slowly crossfade into full color on hover.
+
+### Icons
+- Fine-line illustrations reminiscent of architectural blueprints or ancient coins.
+
+---
+
+## 41. 布拉格 (Prague)
+
+**Emotional register**: Darkly romantic, steeped in gothic alchemy and baroque mystery. A city of shadowed spires and hidden golden treasures.
+
+### Fonts
+- **Display**: `Cinzel Decorative` — Sweeping, mystical, slightly arcane.
+- **Body**: `Crimson Pro`
+
+### Colors
+```
+--bg:           #111315    /* Vltava night / 伏尔塔瓦河暗夜 */
+--bg-surface:   #1B1E22
+--ink:          #E0D5B5    /* Aged parchment / 旧羊皮纸 */
+--ink-muted:    #888069
+--accent:       #C29A4D    /* Clock gold / 天文钟黯金 */
+--accent-soft:  #5C7053    /* Absinthe / 苦艾酒绿 */
+--line:         rgba(194, 154, 77, 0.25)
+```
+
+### Texture
+The rough grit of cobblestones under gaslight, veiled in thin mist.
+
+```css
+background-image: radial-gradient(ellipse at center, #1B1E22 0%, #111315 100%)
+```
+
+### Layout character
+- Tight, column-based layouts echoing tall, narrow gothic architecture.
+- Heavy use of rich, dark negative space to make the gold accent glow.
+- Embellished dividers (flourishes) between content sections.
+
+### Motion character
+- Fog-like transitions with slight opacity delays.
+- Subtle rotational reveals on hover, echoing the turning of gears.
+
+### Icons
+- Esoteric and alchemical symbols, highly detailed and ornate.
+
+---
+
+## 42. 墨尔本 (Melbourne)
+
+**Emotional register**: Laneway cool, fiercely independent, and effortlessly artistic. Smells like a perfect flat white and wet street art.
+
+### Fonts
+- **Display**: `Syne` — Bold, stretched, unapologetically modern.
+- **Body**: `Inter`
+
+### Colors
+```
+--bg:           #EBEBEB    /* Raw concrete / 清水混凝土 */
+--bg-surface:   #F5F5F5
+--ink:          #1E1A18    /* Espresso shot / 浓缩黑 */
+--ink-muted:    #7A7470
+--accent:       #E63946    /* Graffiti red / 涂鸦亮红 */
+--accent-soft:  #457B9D    /* Yarra river blue / 雅拉河蓝 */
+--line:         rgba(30, 26, 24, 0.15)
+```
+
+### Texture
+Matte and slightly gritty, like spray-painted brick in an alleyway.
+
+```css
+background-image: repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(30,26,24,0.02) 10px, rgba(30,26,24,0.02) 20px)
+```
+
+### Layout character
+- Grid-breaking brutalism, overlapping raw photography with giant typography.
+- "Sticker" style badges overlaid on corners of images.
+- Unaligned margins to create a zine-like indie feel.
+
+### Motion character
+- Snap-to-grid animations, no smooth easing, just instant cuts.
+- Marquee scrolling text used as aggressive dividers.
+
+### Icons
+- Chunky, solid shapes, almost stencil-like in their execution.
+
+---
+
+## 43. 雅典 (Athens)
+
+**Emotional register**: Radiant, mythical, and deeply grounded. The blinding white of the Cyclades meets the stoic grey of ancient ruins.
+
+### Fonts
+- **Display**: `Cormorant Garamond` — Elegant, classical proportions.
+- **Body**: `Montserrat`
+
+### Colors
+```
+--bg:           #FAFAF8    /* Sunlit marble / 日光大理石 */
+--bg-surface:   #FFFFFF
+--ink:          #26332A    /* Deep olive / 深橄榄绿 */
+--ink-muted:    #7E8C82
+--accent:       #0F4C81    /* Aegean blue / 爱琴海蓝 */
+--accent-soft:  #7D8763    /* Olive branch / 橄榄枝绿 */
+--line:         rgba(15, 76, 129, 0.15)
+```
+
+### Texture
+The sun-bleached porous surface of Pentelic marble.
+
+```css
+background-image: linear-gradient(180deg, rgba(15,76,129,0.03) 0%, #FAFAF8 100%)
+```
+
+### Layout character
+- High-contrast typography combining elegant serifs with geometric sans.
+- Generous line heights (1.8+) to let the text breathe like Mediterranean air.
+- Circular image crop masks, evoking ancient amphitheaters.
+
+### Motion character
+- Slow, majestic scaling of background images (Ken Burns effect).
+- Parallax scrolling emphasizing the depth between ancient and modern.
+
+### Icons
+- Line-art based on Greek pottery motifs, perfectly symmetrical.
+
+---
+
+## 44. 卡萨布兰卡 (Casablanca)
+
+**Emotional register**: Nostalgic coastal deco. Muted, dusty pastels washed by the Atlantic breeze, carrying a faint scent of mint tea.
+
+### Fonts
+- **Display**: `Rakkas` — Playful, flowing, with a subtle Arabic calligraphy influence.
+- **Body**: `Mulish`
+
+### Colors
+```
+--bg:           #F2EBE5    /* Dusty plaster / 灰尘灰泥 */
+--bg-surface:   #FAF6F2
+--ink:          #3D332A    /* Wood carving / 深木褐 */
+--ink-muted:    #9E8F82
+--accent:       #4A8C7A    /* Moroccan mint / 薄荷绿 */
+--accent-soft:  #D4A373    /* Soft leather / 软皮革色 */
+--line:         rgba(74, 140, 122, 0.20)
+```
+
+### Texture
+Tadelakt plaster walls with a smooth, chalky, slightly uneven finish.
+
+```css
+background-image: radial-gradient(circle at 0% 100%, rgba(74,140,122,0.08) 0%, #F2EBE5 70%)
+```
+
+### Layout character
+- Arched (border-radius: 50% 50% 0 0) image frames dominating the visual hierarchy.
+- Soft, muted shadows (box-shadow: 0 20px 40px rgba(61,51,42,0.05)).
+- Tile-like grid structures for galleries.
+
+### Motion character
+- Fluid, water-like hover states on buttons and images.
+- Gentle fade-ins moving from bottom to top.
+
+### Icons
+- Geometric patterns inspired by Zellige tilework, intricate and repeating.
+
+---
+
+## 45. 釜山 (Busan)
+
+**Emotional register**: Oceanic pop and cinematic hills. A playful clash of bright port containers, deep sea hues, and energetic modernism.
+
+### Fonts
+- **Display**: `Black Han Sans` — Super chunky, loud, and pop-culture ready.
+- **Body**: `Noto Sans KR`
+
+### Colors
+```
+--bg:           #0D1B2A    /* Deep sea / 深海夜蓝 */
+--bg-surface:   #1B263B
+--ink:          #E0E1DD    /* Moon reflection / 月光白 */
+--ink-muted:    #778DA9
+--accent:       #FF6B35    /* Port crane orange / 港口起重机橘 */
+--accent-soft:  #FF3366    /* Neon pink / 霓虹粉 */
+--line:         rgba(255, 107, 53, 0.3)
+```
+
+### Texture
+The glossy, wet reflection of neon on dark, rippling harbor waters.
+
+```css
+background-image: linear-gradient(135deg, #0D1B2A 0%, #152A42 50%, #0D1B2A 100%)
+```
+
+### Layout character
+- Asymmetric split screens, dividing ocean tones and aggressive accent colors.
+- Oversized typography that runs off the edge of the screen.
+- Neon glow outlines around active elements.
+
+### Motion character
+- Bouncy, elastic easing (spring physics) for UI elements.
+- Rapid color-shifting on hover, resembling flashing neon signs.
+
+### Icons
+- Thick, rounded strokes with misaligned color fills (pop-art style).
+
+---
+
+## 46. 巴厘岛 (Bali)
+
+**Emotional register**: Tropical, spiritual, and deeply rooted in earth. Lush jungle canopies meeting carved teak wood and volcanic stone.
+
+### Fonts
+- **Display**: `Philosopher` — Organic curves and leaf-like terminals.
+- **Body**: `Nunito`
+
+### Colors
+```
+--bg:           #F4EFE6    /* Sand and stone / 砂石暖白 */
+--bg-surface:   #FFFFFF
+--ink:          #3B2F2F    /* Volcanic ash / 火山灰褐 */
+--ink-muted:    #8B7A75
+--accent:       #3D5A45    /* Ubud jungle / 乌布雨林绿 */
+--accent-soft:  #E9B872    /* Woven rattan / 藤编金 */
+--line:         rgba(61, 90, 69, 0.15)
+```
+
+### Texture
+The raw, organic grain of tropical hardwood and the soft dappled light of the jungle.
+
+```css
+background-image: linear-gradient(to bottom right, rgba(233,184,114,0.1) 0%, rgba(61,90,69,0.05) 100%)
+```
+
+### Layout character
+- Floating cards with very soft, large-spread shadows to simulate physical layering.
+- Asymmetrical organic shapes (blob masks) instead of rigid rectangles.
+- Extensive use of rich, textured photography taking up full columns.
+
+### Motion character
+- Slow, breathing-like scale animations (1.0 to 1.02) on hero elements.
+- Soft blur-to-focus reveals on scroll.
+
+### Icons
+- Fluid, organic lines mimicking leaves, water drops, and carvings.
+
+---
+
+## 47. 多伦多 (Toronto)
+
+**Emotional register**: High-contrast urban chill. The sleek, freezing glass of skyscrapers sharply dividing a kaleidoscope of multicultural vibrancy.
+
+### Fonts
+- **Display**: `Oswald` — Tall, condensed, skyline-like.
+- **Body**: `DM Sans`
+
+### Colors
+```
+--bg:           #F0F4F8    /* Lake ice / 冰湖蓝灰 */
+--bg-surface:   #FFFFFF
+--ink:          #101820    /* Winter night / 极夜黑 */
+--ink-muted:    #6B7280
+--accent:       #5A32FA    /* Streetcar purple / 街车紫 */
+--accent-soft:  #00B4D8    /* Cold sky / 凛冽晴空 */
+--line:         rgba(90, 50, 250, 0.15)
+```
+
+### Texture
+Frosted glass panels reflecting sharp, geometric shadows and biting cold air.
+
+```css
+background-image: linear-gradient(180deg, #FFFFFF 0%, #F0F4F8 100%)
+```
+
+### Layout character
+- Strict masonry grids, highly functional and densely packed with information.
+- Glassmorphism effects (backdrop-filter: blur(12px)) heavily utilized on navbars.
+- Stark white containers separated by thin, vivid accent borders.
+
+### Motion character
+- Fast, frictionless sliding interactions (like skating on ice).
+- Hover effects that instantly snap to saturated, high-contrast states.
+
+### Icons
+- Sharp, minimalist, and purely functional vector line art.
+
+---
+
+## 48. 特拉维夫 (Tel Aviv)
+
+**Emotional register**: Bauhaus geometry under the Mediterranean sun. Crisp, warm, highly functional, smelling of sea salt and warm sand.
+
+### Fonts
+- **Display**: `Rubik` — Rounded, friendly, yet structurally solid.
+- **Body**: `Heebo`
+
+### Colors
+```
+--bg:           #F9F7F3    /* White city plaster / 白城灰泥 */
+--bg-surface:   #FFFFFF
+--ink:          #242424    /* Cast shadow / 深邃阴影 */
+--ink-muted:    #858585
+--accent:       #D98341    /* Jaffa orange / 雅法甜橙 */
+--accent-soft:  #2E86AB    /* Sea cyan / 浅海青 */
+--line:         rgba(217, 131, 65, 0.20)
+```
+
+### Texture
+Flat, sun-baked walls with perfectly cast geometric drop shadows.
+
+```css
+background-image: linear-gradient(90deg, #F9F7F3 0%, #FFFDF9 100%)
+```
+
+### Layout character
+- Pure Bauhaus principles: form follows function, absolute grid adherence.
+- Primary shapes (circles, squares) used as massive background graphic elements.
+- High contrast between the flat background and the sharp, dark typography.
+
+### Motion character
+- Geometric wipes (sliding squares or circles) for page transitions.
+- Hover states that translate elements perfectly along the X or Y axis by a few pixels.
+
+### Icons
+- Thick, geometric forms composed entirely of basic shapes (no complex curves).
+
+---
+
+## 49. 华沙 (Warsaw)
+
+**Emotional register**: Bold, rebellious post-soviet energy. Striking graphic design heritage meets brutalist architecture with unapologetic contrasts.
+
+### Fonts
+- **Display**: `Bebas Neue` — Towering, compressed, poster-ready.
+- **Body**: `Space Grotesk`
+
+### Colors
+```
+--bg:           #EAE8E3    /* Raw concrete / 粗糙混凝土 */
+--bg-surface:   #F5F4F0
+--ink:          #0A0A0A    /* Pure ink / 极黑 */
+--ink-muted:    #666666
+--accent:       #DE1A1A    /* Poster red / 宣传画红 */
+--accent-soft:  #141414    /* Steel / 冷钢 */
+--line:         rgba(222, 26, 26, 0.3)
+```
+
+### Texture
+The coarse, halftone dot-print grain of mid-century Polish posters.
+
+```css
+background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #EAE8E3 10px, rgba(0,0,0,0.03) 11px)
+```
+
+### Layout character
+- Poster-style layouts with massive typography acting as the primary visual element.
+- Diagonal slashes and skewed text containers breaking the horizontal plane.
+- Duotone image treatments (strictly black and red).
+
+### Motion character
+- Aggressive text reveal animations, slamming into place.
+- Strobe-like or high-speed sequential reveals for image galleries.
+
+### Icons
+- Abstract, heavy-inked shapes resembling stencil graffiti.
+
+---
+
+## 50. 孟买夜 (Mumbai Night)
+
+**Emotional register**: Intoxicatingly rich and chaotic. Deep jewel tones dripping in gold light, pulsing with the rhythmic hum of a city that never sleeps.
+
+### Fonts
+- **Display**: `Rozha One` — Thick and thin stroke contrast, deeply elegant and dramatic.
+- **Body**: `Poppins`
+
+### Colors
+```
+--bg:           #14081C    /* Midnight velvet / 暗紫夜空 */
+--bg-surface:   #1E1228
+--ink:          #F4E6D2    /* Jasmine white / 茉莉白 */
+--ink-muted:    #A895AF
+--accent:       #FF9933    /* Saffron glow / 藏红花光芒 */
+--accent-soft:  #D4AF37    /* Zari gold / 金线 */
+--line:         rgba(255, 153, 51, 0.25)
+```
+
+### Texture
+Lush, heavy silk heavily embroidered with catching golden threads in low light.
+
+```css
+background-image: radial-gradient(circle at 50% 100%, rgba(255,153,51,0.15) 0%, #14081C 80%)
+```
+
+### Layout character
+- Overlapping, layered interfaces creating a sense of vibrant density.
+- Lush gradients used heavily on typography and buttons to simulate gold foil.
+- Frames adorned with subtle, intricate border patterns.
+
+### Motion character
+- Swirling, kinetic hover states that mix the accent colors like dyed water.
+- Infinite, smooth scrolling marquees of images, representing constant motion.
+
+### Icons
+- Ornate, filled silhouettes with golden gradient drops.

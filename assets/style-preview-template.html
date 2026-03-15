@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>风格预览 — 请选择你的落地页美学方向</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Grotesk:wght@500;700&family=Anton&family=Plus+Jakarta+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Black+Han+Sans&family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Crimson+Pro:wght@400;600&family=DM+Sans:wght@400;500;700&family=Heebo:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Lora:wght@400;600&family=Long+Cang&family=Ma+Shan+Zheng&family=Montserrat:wght@400;600;700&family=Mulish:wght@400;600;700&family=Nunito:wght@400;600;700&family=Oswald:wght@500;700&family=Philosopher:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&family=Plus+Jakarta+Sans:wght@400;600;700&family=Poppins:wght@400;600;700&family=Rajdhani:wght@500;700&family=Rakkas&family=Rozha+One&family=Rubik:wght@500;700&family=Space+Grotesk:wght@500;700&family=Syne:wght@500;700&family=ZCOOL+XiaoWei&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1058,6 +1058,560 @@ body {
 .card-portland .palette .swatch:nth-child(3) { background: #D9534F; }
 .card-portland .palette .swatch:nth-child(4) { background: #F2B2B0; }
 
+/* ── 31. SHANGHAI ────────────────────────────────────────────── */
+.card-shanghai .card-body {
+  background: #1A1516;
+  background-image:
+    radial-gradient(circle at 50% 0%, #30221E 0%, #1A1516 80%),
+    linear-gradient(180deg, rgba(212,175,55,0.06) 0%, transparent 42%);
+  color: #F3E5D8;
+  border: 1px solid rgba(212,175,55,0.18);
+  box-shadow: inset 0 0 0 3px rgba(212,175,55,0.06);
+}
+.card-shanghai .city-label { color: #BFAEA3; letter-spacing: 0.18em; }
+.card-shanghai .card-headline {
+  font-family: 'ZCOOL XiaoWei', 'Playfair Display', serif;
+  font-size: clamp(2.1rem, 4.2vw, 3.2rem);
+  font-weight: 400;
+  color: #F3E5D8;
+  line-height: 1.04;
+  text-transform: uppercase;
+}
+.card-shanghai .card-body-text { color: #D7C1B6; }
+.card-shanghai .card-btn {
+  background: linear-gradient(90deg, #8B1C24 0%, #D4AF37 100%);
+  color: #1A1516;
+  border-radius: 4px;
+  box-shadow: 0 10px 28px rgba(212,175,55,0.22);
+}
+.card-shanghai .palette .swatch:nth-child(1) { background: #1A1516; border: 1px solid rgba(243,229,216,0.14); }
+.card-shanghai .palette .swatch:nth-child(2) { background: #F3E5D8; }
+.card-shanghai .palette .swatch:nth-child(3) { background: #D4AF37; }
+.card-shanghai .palette .swatch:nth-child(4) { background: #8B1C24; }
+
+/* ── 32. BEIJING ─────────────────────────────────────────────── */
+.card-beijing .card-body {
+  background: #F4F4F4;
+  background-image: linear-gradient(180deg, rgba(185,38,26,0.03) 0%, #F4F4F4 30%);
+  color: #232220;
+}
+.card-beijing .city-label { color: #6B6966; letter-spacing: 0.2em; }
+.card-beijing .card-headline {
+  font-family: 'Bebas Neue', 'Anton', sans-serif;
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: #232220;
+  line-height: 0.96;
+  text-align: center;
+}
+.card-beijing .card-body-text { color: #5A5855; text-align: center; }
+.card-beijing .card-btn {
+  background: #B9261A;
+  color: #F4F4F4;
+  border-radius: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  align-self: center;
+  box-shadow: 0 10px 24px rgba(185,38,26,0.22);
+}
+.card-beijing .palette .swatch:nth-child(1) { background: #F4F4F4; border: 1px solid rgba(35,34,32,0.12); }
+.card-beijing .palette .swatch:nth-child(2) { background: #232220; }
+.card-beijing .palette .swatch:nth-child(3) { background: #B9261A; }
+.card-beijing .palette .swatch:nth-child(4) { background: #F1B627; }
+
+/* ── 33. CHONGQING ───────────────────────────────────────────── */
+.card-chongqing .card-body {
+  background: #090B0D;
+  background-image:
+    linear-gradient(135deg, rgba(255,0,85,0.15) 0%, #090B0D 50%, rgba(0,255,157,0.1) 100%),
+    linear-gradient(rgba(234,240,246,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(234,240,246,0.02) 1px, transparent 1px);
+  background-size: auto, 42px 42px, 42px 42px;
+  color: #EAF0F6;
+}
+.card-chongqing .city-label { color: rgba(255,0,85,0.75); }
+.card-chongqing .card-headline {
+  font-family: 'Ma Shan Zheng', 'Space Grotesk', sans-serif;
+  font-size: clamp(2.1rem, 4.4vw, 3.3rem);
+  font-weight: 400;
+  color: #EAF0F6;
+  line-height: 0.98;
+  text-shadow: 0 0 16px rgba(255,0,85,0.28);
+}
+.card-chongqing .card-body-text { color: #9FB1C1; font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; }
+.card-chongqing .card-btn {
+  background: #FF0055;
+  color: #fff;
+  border-radius: 0;
+  box-shadow: 0 0 24px rgba(255,0,85,0.38);
+  letter-spacing: 0.08em;
+}
+.card-chongqing .palette .swatch:nth-child(1) { background: #090B0D; border: 1px solid rgba(234,240,246,0.12); }
+.card-chongqing .palette .swatch:nth-child(2) { background: #FF0055; box-shadow: 0 0 12px rgba(255,0,85,0.5); }
+.card-chongqing .palette .swatch:nth-child(3) { background: #00FF9D; box-shadow: 0 0 12px rgba(0,255,157,0.45); }
+.card-chongqing .palette .swatch:nth-child(4) { background: #EAF0F6; }
+
+/* ── 34. XIAN ────────────────────────────────────────────────── */
+.card-xian .card-body {
+  background: #2C2622;
+  background-image: radial-gradient(circle at 20% 50%, rgba(200,90,55,0.08), #2C2622 80%);
+  color: #E8D6C8;
+}
+.card-xian .city-label { color: #9C897A; }
+.card-xian .card-headline {
+  font-family: 'Zhi Mang Xing', 'Cormorant Garamond', serif;
+  font-size: clamp(2.3rem, 4.8vw, 3.5rem);
+  font-weight: 400;
+  color: #E8D6C8;
+  line-height: 1.02;
+}
+.card-xian .card-body-text { color: #BCA99A; }
+.card-xian .card-btn {
+  background: #C85A37;
+  color: #2C2622;
+  border-radius: 0;
+  box-shadow: 0 8px 20px rgba(200,90,55,0.28);
+}
+.card-xian .palette .swatch:nth-child(1) { background: #2C2622; border: 1px solid rgba(232,214,200,0.12); }
+.card-xian .palette .swatch:nth-child(2) { background: #E8D6C8; }
+.card-xian .palette .swatch:nth-child(3) { background: #C85A37; }
+.card-xian .palette .swatch:nth-child(4) { background: #6A7961; }
+
+/* ── 35. HANGZHOU ────────────────────────────────────────────── */
+.card-hangzhou .card-body {
+  background: #F7F9F7;
+  background-image: linear-gradient(to bottom, #EDF2EF 0%, #F7F9F7 100%);
+  color: #2E3A34;
+}
+.card-hangzhou .city-label { color: #85968E; }
+.card-hangzhou .card-headline {
+  font-family: 'Long Cang', 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 4.8vw, 3.6rem);
+  font-weight: 400;
+  color: #2E3A34;
+  line-height: 1.04;
+}
+.card-hangzhou .card-body-text { color: #6C7E76; }
+.card-hangzhou .card-btn {
+  background: #6F9B82;
+  color: #F7F9F7;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(111,155,130,0.22);
+}
+.card-hangzhou .palette .swatch:nth-child(1) { background: #F7F9F7; border: 1px solid rgba(46,58,52,0.1); }
+.card-hangzhou .palette .swatch:nth-child(2) { background: #2E3A34; }
+.card-hangzhou .palette .swatch:nth-child(3) { background: #6F9B82; }
+.card-hangzhou .palette .swatch:nth-child(4) { background: #D4DFD8; }
+
+/* ── 36. SHENZHEN NIGHT ──────────────────────────────────────── */
+.card-shenzhennight .card-body {
+  background: #030508;
+  background-image:
+    linear-gradient(90deg, #030508 0%, #08101C 50%, #030508 100%),
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: auto, 36px 36px, 36px 36px;
+  color: #FFFFFF;
+}
+.card-shenzhennight .city-label { color: #5B6D82; }
+.card-shenzhennight .card-headline {
+  font-family: 'Rajdhani', 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.card-shenzhennight .card-body-text { color: #8CA0B6; font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; }
+.card-shenzhennight .card-btn {
+  background: #0066FF;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 24px rgba(0,102,255,0.35);
+}
+.card-shenzhennight .palette .swatch:nth-child(1) { background: #030508; border: 1px solid rgba(255,255,255,0.12); }
+.card-shenzhennight .palette .swatch:nth-child(2) { background: #0066FF; box-shadow: 0 0 12px rgba(0,102,255,0.5); }
+.card-shenzhennight .palette .swatch:nth-child(3) { background: #00E5FF; box-shadow: 0 0 12px rgba(0,229,255,0.45); }
+.card-shenzhennight .palette .swatch:nth-child(4) { background: #FFFFFF; }
+
+/* ── 37. DUNHUANG ────────────────────────────────────────────── */
+.card-dunhuang .card-body {
+  background: #E3D3BB;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(74,51,32,0.02) 0px, rgba(74,51,32,0.02) 2px, transparent 2px, transparent 8px),
+    radial-gradient(circle at 15% 20%, rgba(31,69,110,0.08) 0%, transparent 35%);
+  color: #4A3320;
+}
+.card-dunhuang .city-label { color: #8A6B52; }
+.card-dunhuang .card-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #4A3320;
+  line-height: 1.06;
+}
+.card-dunhuang .card-body-text { color: #765642; }
+.card-dunhuang .card-btn {
+  background: #1F456E;
+  color: #EFE4D2;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(31,69,110,0.22);
+}
+.card-dunhuang .palette .swatch:nth-child(1) { background: #E3D3BB; border: 1px solid rgba(74,51,32,0.12); }
+.card-dunhuang .palette .swatch:nth-child(2) { background: #4A3320; }
+.card-dunhuang .palette .swatch:nth-child(3) { background: #1F456E; }
+.card-dunhuang .palette .swatch:nth-child(4) { background: #C66E4E; }
+
+/* ── 38. SUZHOU ──────────────────────────────────────────────── */
+.card-suzhou .card-body {
+  background: #FAFAFA;
+  background-image: linear-gradient(120deg, #FAFAFA 60%, #F0F2F2 100%);
+  color: #1E2022;
+}
+.card-suzhou .city-label { color: #737A80; }
+.card-suzhou .card-headline {
+  font-family: 'ZCOOL XiaoWei', 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  color: #1E2022;
+  line-height: 1.08;
+}
+.card-suzhou .card-body-text { color: #5C646B; }
+.card-suzhou .card-btn {
+  background: #2B2E33;
+  color: #FAFAFA;
+  border-radius: 999px;
+}
+.card-suzhou .palette .swatch:nth-child(1) { background: #FAFAFA; border: 1px solid rgba(30,32,34,0.12); }
+.card-suzhou .palette .swatch:nth-child(2) { background: #1E2022; }
+.card-suzhou .palette .swatch:nth-child(3) { background: #2B2E33; }
+.card-suzhou .palette .swatch:nth-child(4) { background: #D67A89; }
+
+/* ── 39. LHASA ───────────────────────────────────────────────── */
+.card-lhasa .card-body {
+  background: #FBFAF7;
+  background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(66,168,161,0.05) 100%);
+  color: #3D221D;
+}
+.card-lhasa .city-label { color: #947B75; }
+.card-lhasa .card-headline {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  font-weight: 700;
+  color: #3D221D;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+.card-lhasa .card-body-text { color: #7F6862; }
+.card-lhasa .card-btn {
+  background: #8A2522;
+  color: #fff;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(138,37,34,0.18);
+}
+.card-lhasa .palette .swatch:nth-child(1) { background: #FFFFFF; border: 1px solid rgba(61,34,29,0.12); }
+.card-lhasa .palette .swatch:nth-child(2) { background: #3D221D; }
+.card-lhasa .palette .swatch:nth-child(3) { background: #8A2522; }
+.card-lhasa .palette .swatch:nth-child(4) { background: #42A8A1; }
+
+/* ── 40. ROME ────────────────────────────────────────────────── */
+.card-rome .card-body {
+  background: #F5EFEB;
+  background-image: radial-gradient(circle at 100% 0%, #FFF5EB 0%, #F5EFEB 60%);
+  color: #362921;
+}
+.card-rome .city-label { color: #85746A; }
+.card-rome .card-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #362921;
+  line-height: 1.08;
+}
+.card-rome .card-body-text { color: #6C5C53; font-family: 'Lora', serif; }
+.card-rome .card-btn {
+  background: #C25B3E;
+  color: #FCF9F7;
+  border-radius: 6px;
+  box-shadow: 0 10px 24px rgba(194,91,62,0.22);
+}
+.card-rome .palette .swatch:nth-child(1) { background: #F5EFEB; border: 1px solid rgba(54,41,33,0.1); }
+.card-rome .palette .swatch:nth-child(2) { background: #362921; }
+.card-rome .palette .swatch:nth-child(3) { background: #C25B3E; }
+.card-rome .palette .swatch:nth-child(4) { background: #385E4D; }
+
+/* ── 41. PRAGUE ──────────────────────────────────────────────── */
+.card-prague .card-body {
+  background: #111315;
+  background-image: radial-gradient(ellipse at center, #1B1E22 0%, #111315 100%);
+  color: #E0D5B5;
+}
+.card-prague .city-label { color: #888069; }
+.card-prague .card-headline {
+  font-family: 'Cinzel', 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #E0D5B5;
+  line-height: 1.04;
+}
+.card-prague .card-body-text { color: #AAA186; font-family: 'Crimson Pro', serif; }
+.card-prague .card-btn {
+  background: transparent;
+  color: #C29A4D;
+  border: 1px solid rgba(194,154,77,0.5);
+  border-radius: 999px;
+  box-shadow: 0 0 18px rgba(194,154,77,0.16);
+}
+.card-prague .palette .swatch:nth-child(1) { background: #111315; border: 1px solid rgba(224,213,181,0.14); }
+.card-prague .palette .swatch:nth-child(2) { background: #E0D5B5; }
+.card-prague .palette .swatch:nth-child(3) { background: #C29A4D; }
+.card-prague .palette .swatch:nth-child(4) { background: #5C7053; }
+
+/* ── 42. MELBOURNE ───────────────────────────────────────────── */
+.card-melbourne .card-body {
+  background: #EBEBEB;
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(30,26,24,0.02) 10px, rgba(30,26,24,0.02) 20px);
+  color: #1E1A18;
+}
+.card-melbourne .city-label { color: #7A7470; }
+.card-melbourne .card-headline {
+  font-family: 'Syne', 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4.2vw, 3.1rem);
+  font-weight: 700;
+  color: #1E1A18;
+  line-height: 0.98;
+}
+.card-melbourne .card-body-text { color: #5D5652; }
+.card-melbourne .card-btn {
+  background: #E63946;
+  color: #fff;
+  border-radius: 4px;
+  box-shadow: 4px 4px 0 #1E1A18;
+}
+.card-melbourne .palette .swatch:nth-child(1) { background: #EBEBEB; border: 1px solid rgba(30,26,24,0.1); }
+.card-melbourne .palette .swatch:nth-child(2) { background: #1E1A18; }
+.card-melbourne .palette .swatch:nth-child(3) { background: #E63946; }
+.card-melbourne .palette .swatch:nth-child(4) { background: #457B9D; }
+
+/* ── 43. ATHENS ──────────────────────────────────────────────── */
+.card-athens .card-body {
+  background: #FAFAF8;
+  background-image: linear-gradient(180deg, rgba(15,76,129,0.03) 0%, #FAFAF8 100%);
+  color: #26332A;
+}
+.card-athens .city-label { color: #7E8C82; }
+.card-athens .card-headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2.2rem, 4.4vw, 3.2rem);
+  font-weight: 600;
+  color: #26332A;
+  line-height: 1.06;
+}
+.card-athens .card-body-text { color: #627066; font-family: 'Montserrat', sans-serif; }
+.card-athens .card-btn {
+  background: #0F4C81;
+  color: #fff;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(15,76,129,0.22);
+}
+.card-athens .palette .swatch:nth-child(1) { background: #FAFAF8; border: 1px solid rgba(38,51,42,0.1); }
+.card-athens .palette .swatch:nth-child(2) { background: #26332A; }
+.card-athens .palette .swatch:nth-child(3) { background: #0F4C81; }
+.card-athens .palette .swatch:nth-child(4) { background: #7D8763; }
+
+/* ── 44. CASABLANCA ──────────────────────────────────────────── */
+.card-casablanca .card-body {
+  background: #F2EBE5;
+  background-image: radial-gradient(circle at 0% 100%, rgba(74,140,122,0.08) 0%, #F2EBE5 70%);
+  color: #3D332A;
+}
+.card-casablanca .city-label { color: #9E8F82; }
+.card-casablanca .card-headline {
+  font-family: 'Rakkas', 'Playfair Display', serif;
+  font-size: clamp(2rem, 4.1vw, 3rem);
+  font-weight: 400;
+  color: #3D332A;
+  line-height: 1.08;
+}
+.card-casablanca .card-body-text { color: #76685E; font-family: 'Mulish', sans-serif; }
+.card-casablanca .card-btn {
+  background: #4A8C7A;
+  color: #FAF6F2;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(74,140,122,0.22);
+}
+.card-casablanca .palette .swatch:nth-child(1) { background: #F2EBE5; border: 1px solid rgba(61,51,42,0.1); }
+.card-casablanca .palette .swatch:nth-child(2) { background: #3D332A; }
+.card-casablanca .palette .swatch:nth-child(3) { background: #4A8C7A; }
+.card-casablanca .palette .swatch:nth-child(4) { background: #D4A373; }
+
+/* ── 45. BUSAN ───────────────────────────────────────────────── */
+.card-busan .card-body {
+  background: #0D1B2A;
+  background-image:
+    linear-gradient(135deg, #0D1B2A 0%, #152A42 50%, #0D1B2A 100%),
+    radial-gradient(circle at 80% 20%, rgba(255,107,53,0.12) 0%, transparent 35%);
+  color: #E0E1DD;
+}
+.card-busan .city-label { color: #778DA9; }
+.card-busan .card-headline {
+  font-family: 'Black Han Sans', 'Anton', sans-serif;
+  font-size: clamp(2.1rem, 4.3vw, 3.2rem);
+  font-weight: 400;
+  color: #E0E1DD;
+  line-height: 0.98;
+}
+.card-busan .card-body-text { color: #A1B1C4; }
+.card-busan .card-btn {
+  background: #FF6B35;
+  color: #0D1B2A;
+  border-radius: 999px;
+  box-shadow: 0 0 22px rgba(255,107,53,0.3);
+}
+.card-busan .palette .swatch:nth-child(1) { background: #0D1B2A; border: 1px solid rgba(224,225,221,0.12); }
+.card-busan .palette .swatch:nth-child(2) { background: #E0E1DD; }
+.card-busan .palette .swatch:nth-child(3) { background: #FF6B35; }
+.card-busan .palette .swatch:nth-child(4) { background: #FF3366; }
+
+/* ── 46. BALI ────────────────────────────────────────────────── */
+.card-bali .card-body {
+  background: #F4EFE6;
+  background-image: linear-gradient(to bottom right, rgba(233,184,114,0.1) 0%, rgba(61,90,69,0.05) 100%);
+  color: #3B2F2F;
+}
+.card-bali .city-label { color: #8B7A75; }
+.card-bali .card-headline {
+  font-family: 'Philosopher', 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #3B2F2F;
+  line-height: 1.08;
+}
+.card-bali .card-body-text { color: #6E605C; font-family: 'Nunito', sans-serif; }
+.card-bali .card-btn {
+  background: #3D5A45;
+  color: #F4EFE6;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(61,90,69,0.22);
+}
+.card-bali .palette .swatch:nth-child(1) { background: #F4EFE6; border: 1px solid rgba(59,47,47,0.1); }
+.card-bali .palette .swatch:nth-child(2) { background: #3B2F2F; }
+.card-bali .palette .swatch:nth-child(3) { background: #3D5A45; }
+.card-bali .palette .swatch:nth-child(4) { background: #E9B872; }
+
+/* ── 47. TORONTO ─────────────────────────────────────────────── */
+.card-toronto .card-body {
+  background: #F0F4F8;
+  background-image: linear-gradient(180deg, #FFFFFF 0%, #F0F4F8 100%);
+  color: #101820;
+}
+.card-toronto .city-label { color: #6B7280; }
+.card-toronto .card-headline {
+  font-family: 'Oswald', 'Space Grotesk', sans-serif;
+  font-size: clamp(2.1rem, 4.3vw, 3.2rem);
+  font-weight: 700;
+  color: #101820;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+.card-toronto .card-body-text { color: #5B6472; font-family: 'DM Sans', sans-serif; }
+.card-toronto .card-btn {
+  background: #5A32FA;
+  color: #fff;
+  border-radius: 14px;
+  box-shadow: 0 10px 24px rgba(90,50,250,0.22);
+}
+.card-toronto .palette .swatch:nth-child(1) { background: #F0F4F8; border: 1px solid rgba(16,24,32,0.1); }
+.card-toronto .palette .swatch:nth-child(2) { background: #101820; }
+.card-toronto .palette .swatch:nth-child(3) { background: #5A32FA; }
+.card-toronto .palette .swatch:nth-child(4) { background: #00B4D8; }
+
+/* ── 48. TEL AVIV ────────────────────────────────────────────── */
+.card-telaviv .card-body {
+  background: #F9F7F3;
+  background-image: linear-gradient(90deg, #F9F7F3 0%, #FFFDF9 100%);
+  color: #242424;
+}
+.card-telaviv .city-label { color: #858585; }
+.card-telaviv .card-headline {
+  font-family: 'Rubik', 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #242424;
+  line-height: 1.04;
+}
+.card-telaviv .card-body-text { color: #666; font-family: 'Heebo', sans-serif; }
+.card-telaviv .card-btn {
+  background: #D98341;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(217,131,65,0.22);
+}
+.card-telaviv .palette .swatch:nth-child(1) { background: #F9F7F3; border: 1px solid rgba(36,36,36,0.1); }
+.card-telaviv .palette .swatch:nth-child(2) { background: #242424; }
+.card-telaviv .palette .swatch:nth-child(3) { background: #D98341; }
+.card-telaviv .palette .swatch:nth-child(4) { background: #2E86AB; }
+
+/* ── 49. WARSAW ──────────────────────────────────────────────── */
+.card-warsaw .card-body {
+  background: #EAE8E3;
+  background-image: repeating-radial-gradient(circle at 0 0, transparent 0, #EAE8E3 10px, rgba(0,0,0,0.03) 11px);
+  color: #0A0A0A;
+}
+.card-warsaw .city-label { color: #666666; letter-spacing: 0.18em; }
+.card-warsaw .card-headline {
+  font-family: 'Bebas Neue', 'Anton', sans-serif;
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 400;
+  color: #0A0A0A;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+.card-warsaw .card-body-text { color: #3E3E3E; font-family: 'Space Grotesk', sans-serif; }
+.card-warsaw .card-btn {
+  background: #DE1A1A;
+  color: #fff;
+  border-radius: 0;
+  box-shadow: 4px 4px 0 #141414;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.card-warsaw .palette .swatch:nth-child(1) { background: #EAE8E3; border: 1px solid rgba(10,10,10,0.12); }
+.card-warsaw .palette .swatch:nth-child(2) { background: #0A0A0A; }
+.card-warsaw .palette .swatch:nth-child(3) { background: #DE1A1A; }
+.card-warsaw .palette .swatch:nth-child(4) { background: #141414; }
+
+/* ── 50. MUMBAI NIGHT ────────────────────────────────────────── */
+.card-mumbainight .card-body {
+  background: #14081C;
+  background-image:
+    radial-gradient(circle at 50% 100%, rgba(255,153,51,0.15) 0%, #14081C 80%),
+    linear-gradient(180deg, rgba(212,175,55,0.08) 0%, transparent 42%);
+  color: #F4E6D2;
+}
+.card-mumbainight .city-label { color: #A895AF; }
+.card-mumbainight .card-headline {
+  font-family: 'Rozha One', 'Playfair Display', serif;
+  font-size: clamp(2rem, 4.1vw, 3rem);
+  font-weight: 400;
+  color: #F4E6D2;
+  line-height: 1.04;
+}
+.card-mumbainight .card-body-text { color: #C6B4CA; font-family: 'Poppins', sans-serif; }
+.card-mumbainight .card-btn {
+  background: linear-gradient(90deg, #FF9933 0%, #D4AF37 100%);
+  color: #14081C;
+  border-radius: 999px;
+  box-shadow: 0 10px 28px rgba(255,153,51,0.24);
+}
+.card-mumbainight .palette .swatch:nth-child(1) { background: #14081C; border: 1px solid rgba(244,230,210,0.14); }
+.card-mumbainight .palette .swatch:nth-child(2) { background: #F4E6D2; }
+.card-mumbainight .palette .swatch:nth-child(3) { background: #FF9933; }
+.card-mumbainight .palette .swatch:nth-child(4) { background: #D4AF37; }
+
 /* ── FOOTER NOTE ─────────────────────────────────────────────── */
 .footer-note {
   text-align: center;
@@ -1072,7 +1626,7 @@ body {
 
 <div class="header">
   <h1>为 <span class="product-name">__PRODUCT_NAME__</span> 选择设计风格</h1>
-  <p>30 种城市美学，每张都是真实渲染效果<br>选一个最接近你感觉的，或者告诉我你想混合哪几个</p>
+  <p>50 种城市美学，每张都是真实渲染效果<br>选一个最接近你感觉的，或者告诉我你想混合哪几个</p>
 </div>
 
 <div class="cards">
@@ -1501,6 +2055,286 @@ body {
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>built by hand.</h2>
       <p class="card-body-text">带着雨水、木头和旧工坊的气味。它不追求光滑，而是把可靠、耐用和手工感摆在最前面。</p>
       <button class="card-btn">MAKE IT REAL</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 31. SHANGHAI -->
+  <div class="card card-shanghai">
+    <div class="card-body">
+      <span class="city-label">上海 Shanghai</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>after midnight.</h2>
+      <p class="card-body-text">霓虹被爵士的金色边框收住，奢华没有喧哗，只有一层层缓慢显现的海派锋芒。</p>
+      <button class="card-btn">Walk the Bund</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 32. BEIJING -->
+  <div class="card card-beijing">
+    <div class="card-body">
+      <span class="city-label">北京 Beijing</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>立于中轴</h2>
+      <p class="card-body-text">气场先落下，细节随后展开。它庄重、开阔、留有分寸，让每个模块都像被认真安放过。</p>
+      <button class="card-btn">入场查看</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 33. CHONGQING -->
+  <div class="card card-chongqing">
+    <div class="card-body">
+      <span class="city-label">重庆 Chongqing</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>雾里发光</h2>
+      <p class="card-body-text">// vertical rush<br>// neon rain<br>// heat level: maximum</p>
+      <button class="card-btn">冲进夜里</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 34. XIAN -->
+  <div class="card card-xian">
+    <div class="card-body">
+      <span class="city-label">西安 Xi'an</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>厚土之上</h2>
+      <p class="card-body-text">像城墙一样稳，像陶土一样有温度。所有层次都带着沉甸甸的历史感，却一点也不迟缓。</p>
+      <button class="card-btn">推开城门</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 35. HANGZHOU -->
+  <div class="card card-hangzhou">
+    <div class="card-body">
+      <span class="city-label">杭州 Hangzhou</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>落进烟雨</h2>
+      <p class="card-body-text">它不着急证明自己，只让留白、空气和一丝水墨般的柔光慢慢把情绪铺开。</p>
+      <button class="card-btn">轻轻展开</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 36. SHENZHEN NIGHT -->
+  <div class="card card-shenzhennight">
+    <div class="card-body">
+      <span class="city-label">深圳夜 Shenzhen Night</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>COMPILED FAST.</h2>
+      <p class="card-body-text">// hard logic<br>// cold glow<br>// every pixel accountable</p>
+      <button class="card-btn">Deploy now</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 37. DUNHUANG -->
+  <div class="card card-dunhuang">
+    <div class="card-body">
+      <span class="city-label">敦煌 Dunhuang</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>越过流沙</h2>
+      <p class="card-body-text">低饱和的沙色里忽然炸开青金石与朱砂，像壁画在沉寂千年后重新呼吸。</p>
+      <button class="card-btn">穿过洞窟</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 38. SUZHOU -->
+  <div class="card card-suzhou">
+    <div class="card-body">
+      <span class="city-label">苏州 Suzhou</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>移步换景</h2>
+      <p class="card-body-text">框景、留白、细线和克制的偏色一起工作，让页面像园林一样，一转身就多一层意思。</p>
+      <button class="card-btn">入园看看</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 39. LHASA -->
+  <div class="card card-lhasa">
+    <div class="card-body">
+      <span class="city-label">拉萨 Lhasa</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>closer to sun.</h2>
+      <p class="card-body-text">白光、绛红和绿松石色在高海拔空气里被拉到最纯净，画面干净得几乎带着回响。</p>
+      <button class="card-btn">Step into light</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 40. ROME -->
+  <div class="card card-rome">
+    <div class="card-body">
+      <span class="city-label">罗马 Rome</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>at golden hour.</h2>
+      <p class="card-body-text">它带着石材的分量和电影般的浪漫，光一落下来，所有内容都会显得更值得被记住。</p>
+      <button class="card-btn">Enter the piazza</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 41. PRAGUE -->
+  <div class="card card-prague">
+    <div class="card-body">
+      <span class="city-label">布拉格 Prague</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>under spires.</h2>
+      <p class="card-body-text">暗金与雾气一起包裹住内容，神秘感不会一下给满，而是像钟楼齿轮一样慢慢转开。</p>
+      <button class="card-btn">Enter the mist</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 42. MELBOURNE -->
+  <div class="card card-melbourne">
+    <div class="card-body">
+      <span class="city-label">墨尔本 Melbourne</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>off the laneway.</h2>
+      <p class="card-body-text">有混凝土的直爽，也有贴纸和涂鸦的脾气。它不求规整，反而把独立气质推得更满。</p>
+      <button class="card-btn">Make it loud</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 43. ATHENS -->
+  <div class="card card-athens">
+    <div class="card-body">
+      <span class="city-label">雅典 Athens</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>in Aegean light.</h2>
+      <p class="card-body-text">古典比例把页面站稳，爱琴海蓝再把温度带进来，神话感和现代感在同一口气里完成切换。</p>
+      <button class="card-btn">Walk the marble</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 44. CASABLANCA -->
+  <div class="card card-casablanca">
+    <div class="card-body">
+      <span class="city-label">卡萨布兰卡 Casablanca</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>by the Atlantic.</h2>
+      <p class="card-body-text">灰粉色灰泥、薄荷绿和海风一起把节奏放慢，老派海岸装饰感被处理得柔和又耐看。</p>
+      <button class="card-btn">Open the arch</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 45. BUSAN -->
+  <div class="card card-busan">
+    <div class="card-body">
+      <span class="city-label">釜山 Busan</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>at full tide.</h2>
+      <p class="card-body-text">海港的深蓝、橘色吊机和一点霓虹粉同时上场，画面很活，情绪很快，气压也很高。</p>
+      <button class="card-btn">Ride the port</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 46. BALI -->
+  <div class="card card-bali">
+    <div class="card-body">
+      <span class="city-label">巴厘岛 Bali</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>under canopy.</h2>
+      <p class="card-body-text">木纹、热带植物和火山石的重量彼此平衡，整个页面像在呼吸，松弛里带着很稳的生命力。</p>
+      <button class="card-btn">Breathe deeper</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 47. TORONTO -->
+  <div class="card card-toronto">
+    <div class="card-body">
+      <span class="city-label">多伦多 Toronto</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>through the glass.</h2>
+      <p class="card-body-text">冷冽、利落、信息密度高，但亮色一落下去，整个系统马上就带上清醒的都市节奏。</p>
+      <button class="card-btn">See the skyline</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 48. TEL AVIV -->
+  <div class="card card-telaviv">
+    <div class="card-body">
+      <span class="city-label">特拉维夫 Tel Aviv</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>in clean sun.</h2>
+      <p class="card-body-text">Bauhaus 的秩序感让所有形状都干脆落位，海盐空气又把它从冰冷里轻轻提出来。</p>
+      <button class="card-btn">Follow the grid</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 49. WARSAW -->
+  <div class="card card-warsaw">
+    <div class="card-body">
+      <span class="city-label">华沙 Warsaw</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>with impact.</h2>
+      <p class="card-body-text">像一张直接拍在墙上的海报，黑、灰、红没有任何犹豫，整个版面自带一种硬朗的推进力。</p>
+      <button class="card-btn">Paste it loud</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 50. MUMBAI NIGHT -->
+  <div class="card card-mumbainight">
+    <div class="card-body">
+      <span class="city-label">孟买夜 Mumbai Night</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>all shimmer.</h2>
+      <p class="card-body-text">深宝石色背景把金色和藏红花色托得更浓，层层堆叠的奢华感一上来就很难忽略。</p>
+      <button class="card-btn">Enter the glow</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
         <div class="swatch"></div><div class="swatch"></div>

@@ -678,5 +678,670 @@
     });
 </script>
 
+<style>
+/* 
+  Providing fallback variables to ensure the prototype looks beautiful and usable,
+  fulfilling the "aesthetic taste and creative vision" requirement. 
+*/
+.landing-feature-section {
+  --bg: #09090b;
+  --bg-surface: #18181b;
+  --ink: #fafafa;
+  --ink-muted: #a1a1aa;
+  --accent: #8b5cf6;
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  padding: 6rem 5vw;
+  line-height: 1.5;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.landing-feature-section * {
+  box-sizing: border-box;
+}
+
+/* Typography Utilities */
+.landing-feature-section h1,
+.landing-feature-section h2,
+.landing-feature-section h3,
+.landing-feature-section h4 {
+  font-family: var(--font-display);
+  margin: 0;
+  color: var(--ink);
+}
+
+.landing-feature-section p {
+  margin: 0;
+  color: var(--ink-muted);
+}
+</style>
+
+<!-- FEATURES VARIANT D -->
+<section class="landing-feature-section variant-d">
+  <style>
+    .variant-d .bento-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .variant-d .bento-header h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .variant-d .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: minmax(200px, auto);
+      gap: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .variant-d .bento-card {
+      background-color: var(--bg-surface);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      text-decoration: none;
+    }
+
+    .variant-d .bento-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(139, 92, 246, 0.4);
+    }
+
+    .variant-d .bento-card svg.icon {
+      width: 32px;
+      height: 32px;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .variant-d .bento-card h3 {
+      font-size: clamp(1.25rem, 2vw, 1.5rem);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .variant-d .bento-card p {
+      font-size: clamp(0.875rem, 1.5vw, 1rem);
+    }
+
+    .variant-d .span-2x2 {
+      grid-column: span 2;
+      grid-row: span 2;
+      justify-content: space-between;
+    }
+    
+    .variant-d .span-2x2 h3 {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    
+    .variant-d .span-2x2 p {
+      font-size: clamp(1rem, 1.5vw, 1.125rem);
+      max-width: 80%;
+    }
+
+    .variant-d .span-1x2 {
+      grid-column: span 1;
+      grid-row: span 2;
+    }
+
+    .variant-d .span-2x1 {
+      grid-column: span 2;
+      grid-row: span 1;
+      flex-direction: row;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .variant-d .span-2x1 svg.icon {
+      margin-bottom: 0;
+      width: 48px;
+      height: 48px;
+    }
+
+    .variant-d .span-1x1 {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+
+    .variant-d .bento-illustration {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 250px;
+      height: 250px;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    @media (max-width: 1024px) {
+      .variant-d .bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .variant-d .span-2x1 {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+      }
+      .variant-d .span-2x1 svg.icon {
+        margin-bottom: 1.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .variant-d .bento-grid {
+        grid-template-columns: 1fr;
+      }
+      .variant-d .span-2x2,
+      .variant-d .span-1x2,
+      .variant-d .span-2x1,
+      .variant-d .span-1x1 {
+        grid-column: span 1;
+        grid-row: auto;
+      }
+      .variant-d .bento-illustration {
+        width: 150px;
+        height: 150px;
+      }
+    }
+  </style>
+
+  <div class="bento-header">
+    <h2>Everything you need to scale</h2>
+  </div>
+
+  <div class="bento-grid">
+    <a href="#" class="bento-card span-2x2 js-feature-item">
+      <div>
+        <h3>Automate your entire revenue lifecycle</h3>
+        <p>Connect your CRM, billing, and analytics in one unified pipeline without writing a single line of code.</p>
+      </div>
+      <svg class="bento-illustration" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="80" stroke="var(--accent)" stroke-width="2" stroke-dasharray="10 10" opacity="0.3"/>
+        <path d="M40 120 L80 80 L120 100 L160 40" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="160" cy="40" r="6" fill="var(--bg-surface)" stroke="var(--accent)" stroke-width="4"/>
+        <rect x="60" y="140" width="80" height="20" rx="10" fill="var(--accent)" opacity="0.2"/>
+      </svg>
+    </a>
+
+    <a href="#" class="bento-card span-1x2 js-feature-item">
+      <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+      <h3>Enterprise Security</h3>
+      <p>Bank-grade encryption, SOC2 compliance, and granular role-based access controls right out of the box.</p>
+    </a>
+
+    <a href="#" class="bento-card span-1x1 js-feature-item">
+      <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+      <h3>Real-time Sync</h3>
+      <p>Instantaneous data updates across all your devices.</p>
+    </a>
+
+    <a href="#" class="bento-card span-1x1 js-feature-item">
+      <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+      <h3>Team Collaboration</h3>
+      <p>Multiplayer editing and contextual comment threads.</p>
+    </a>
+
+    <a href="#" class="bento-card span-2x1 js-feature-item">
+      <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+      <div>
+        <h3>100+ Deep Integrations</h3>
+        <p>Seamlessly push and pull data from Slack, Jira, Salesforce, Hubspot, and anywhere else your team works.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FEATURES VARIANT E -->
+<section class="landing-feature-section variant-e">
+  <style>
+    .variant-e {
+      position: relative;
+    }
+
+    .variant-e .sticky-header {
+      position: sticky;
+      top: 6rem;
+      max-width: 1200px;
+      margin: 0 auto 3rem auto;
+      z-index: 10;
+    }
+
+    .variant-e .eyebrow {
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .variant-e .sticky-header h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .variant-e .scroll-wrapper {
+      position: relative;
+      max-width: 100%;
+    }
+
+    .variant-e .scroll-track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      padding: 1rem 5vw 3rem 5vw;
+      scroll-snap-type: x mandatory;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    
+    .variant-e .scroll-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .variant-e .scroll-track::before,
+    .variant-e .scroll-track::after {
+      content: '';
+      flex: 0 0 calc((100vw - 1200px) / 2 - 5vw);
+      display: block;
+    }
+    @media (max-width: 1200px) {
+      .variant-e .scroll-track::before,
+      .variant-e .scroll-track::after {
+        display: none;
+      }
+    }
+
+    .variant-e .scroll-card {
+      flex: 0 0 280px;
+      height: 380px;
+      background-color: var(--bg-surface);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      scroll-snap-align: center;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      cursor: grab;
+    }
+    
+    .variant-e .scroll-card:active {
+      cursor: grabbing;
+    }
+
+    .variant-e .scroll-card:hover {
+      transform: translateY(-8px);
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    .variant-e .card-badge {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.1);
+      line-height: 1;
+      margin-bottom: auto;
+    }
+
+    .variant-e .card-icon {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(139, 92, 246, 0.1);
+      color: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .variant-e .card-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .variant-e .scroll-card h3 {
+      font-size: clamp(1.25rem, 2vw, 1.5rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .variant-e .scroll-card p {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+
+    .variant-e .progress-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 2px;
+      background-color: rgba(255, 255, 255, 0.1);
+      position: relative;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .variant-e .progress-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      background-color: var(--accent);
+      transition: width 0.1s ease-out;
+    }
+  </style>
+
+  <div class="sticky-header">
+    <span class="eyebrow">The Platform</span>
+    <h2>Built for velocity.</h2>
+  </div>
+
+  <div class="scroll-wrapper">
+    <div class="scroll-track" id="feature-scroll-track">
+      <div class="scroll-card js-feature-item">
+        <div class="card-badge">01</div>
+        <div class="card-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+        </div>
+        <h3>Lightning Fast</h3>
+        <p>Built on a globally distributed edge network. Your data loads instantly no matter where your users are located.</p>
+      </div>
+
+      <div class="scroll-card js-feature-item">
+        <div class="card-badge">02</div>
+        <div class="card-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+        </div>
+        <h3>Deep Analytics</h3>
+        <p>Pre-built dashboards that give you actionable insights into user behavior, churn, and retention automatically.</p>
+      </div>
+
+      <div class="scroll-card js-feature-item">
+        <div class="card-badge">03</div>
+        <div class="card-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
+        </div>
+        <h3>Custom Workflows</h3>
+        <p>Design multi-step logic paths visually. Trigger emails, webhooks, and database updates flawlessly.</p>
+      </div>
+
+      <div class="scroll-card js-feature-item">
+        <div class="card-badge">04</div>
+        <div class="card-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+        </div>
+        <h3>Zero-Trust Security</h3>
+        <p>Every request is authenticated. We run regular penetration tests to ensure your data is always protected.</p>
+      </div>
+
+      <div class="scroll-card js-feature-item">
+        <div class="card-badge">05</div>
+        <div class="card-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+        </div>
+        <h3>Global Localization</h3>
+        <p>Translate your content into 40+ languages instantly with our integrated AI localization engine.</p>
+      </div>
+    </div>
+    
+    <div class="progress-container">
+      <div class="progress-fill" id="feature-scroll-fill"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES VARIANT F -->
+<section class="landing-feature-section variant-f">
+  <style>
+    .variant-f {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .variant-f .split-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .variant-f .anchor-mark {
+      position: sticky;
+      top: 15vh;
+      font-family: var(--font-display);
+      font-size: clamp(6rem, 15vw, 15rem);
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      text-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+      user-select: none;
+    }
+
+    .variant-f .qa-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .variant-f .qa-row {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .variant-f .qa-row:nth-child(even) {
+      background-color: var(--bg-surface);
+    }
+
+    .variant-f .qa-row:hover {
+      background-color: rgba(255, 255, 255, 0.03);
+    }
+
+    .variant-f .qa-header {
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .variant-f .qa-header h3 {
+      font-size: clamp(1.25rem, 2vw, 1.75rem);
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .variant-f .qa-row.active .qa-header h3 {
+      color: var(--accent);
+    }
+
+    .variant-f .toggle-icon {
+      width: 24px;
+      height: 24px;
+      position: relative;
+    }
+
+    .variant-f .toggle-icon::before,
+    .variant-f .toggle-icon::after {
+      content: '';
+      position: absolute;
+      background-color: var(--ink);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .variant-f .toggle-icon::before {
+      top: 11px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+    }
+
+    .variant-f .toggle-icon::after {
+      top: 0;
+      left: 11px;
+      width: 2px;
+      height: 100%;
+    }
+
+    .variant-f .qa-row.active .toggle-icon::after {
+      transform: rotate(90deg);
+    }
+
+    .variant-f .qa-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .variant-f .qa-row.active .qa-content {
+      grid-template-rows: 1fr;
+    }
+
+    .variant-f .qa-content-inner {
+      overflow: hidden;
+      padding: 0 clamp(1.5rem, 3vw, 2.5rem);
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.4s ease, transform 0.4s ease, padding 0.4s ease;
+    }
+
+    .variant-f .qa-row.active .qa-content-inner {
+      opacity: 1;
+      transform: translateY(0);
+      padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    }
+
+    .variant-f .qa-content p {
+      font-size: clamp(1rem, 1.5vw, 1.125rem);
+      line-height: 1.6;
+      max-width: 800px;
+    }
+
+    .variant-f .cta-row {
+      padding: clamp(2rem, 4vw, 3rem) 0;
+      display: flex;
+    }
+
+    .variant-f .cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 2vw, 1.5rem);
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .variant-f .cta-link:hover {
+      color: var(--accent);
+    }
+
+    .variant-f .cta-link svg {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s ease;
+    }
+
+    .variant-f .cta-link:hover svg {
+      transform: translateX(6px);
+    }
+
+    @media (max-width: 1024px) {
+      .variant-f .split-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .variant-f .anchor-mark {
+        position: static;
+        font-size: clamp(4rem, 10vw, 8rem);
+        text-align: center;
+      }
+    }
+  </style>
+
+  <div class="split-layout">
+    <div class="anchor-mark">?</div>
+    
+    <div class="qa-list">
+      <div class="qa-row js-feature-item">
+        <div class="qa-header">
+          <h3>No more manual data entry</h3>
+          <div class="toggle-icon"></div>
+        </div>
+        <div class="qa-content">
+          <div class="qa-content-inner">
+            <p>Our intelligent OCR and AI extraction engine pulls clean, structured data directly from PDFs, emails, and images. Your team can stop typing and start analyzing in seconds.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-row js-feature-item">
+        <div class="qa-header">
+          <h3>Eliminate siloed communication</h3>
+          <div class="toggle-icon"></div>
+        </div>
+        <div class="qa-content">
+          <div class="qa-content-inner">
+            <p>Comments, approvals, and context live exactly where the work happens. Tag teammates directly on specific data rows or project assets so nothing gets lost in Slack or email chains.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-row js-feature-item">
+        <div class="qa-header">
+          <h3>Prevent unauthorized access automatically</h3>
+          <div class="toggle-icon"></div>
+        </div>
+        <div class="qa-content">
+          <div class="qa-content-inner">
+            <p>Set up dynamic RBAC (Role-Based Access Control) that adapts based on user department, location, or active project. Once a project closes, permissions are automatically revoked.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-row js-feature-item">
+        <div class="qa-header">
+          <h3>Stop guessing about ROI</h3>
+          <div class="toggle-icon"></div>
+        </div>
+        <div class="qa-content">
+          <div class="qa-content-inner">
+            <p>Every dollar spent is automatically tracked against its originating campaign. Our attribution models provide clear, board-ready reports on which channels are actually driving revenue.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-row js-feature-item">
+        <a href="#" class="cta-link">
+          Explore all capabilities
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 </body>
 </html>

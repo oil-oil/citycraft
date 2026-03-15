@@ -5,7 +5,7 @@ description: Create a bold, visually striking landing page with unconventional l
 
 # Landing Page Builder
 
-扩展 25 城：柏林、孟买、香港、里斯本、哈瓦那、迪拜、马拉喀什、斯德哥尔摩、布宜诺斯艾利斯、墨西哥城、雷克雅未克、新加坡、圣托里尼、拉各斯、棕榈泉、伊斯坦布尔、迈阿密、成都、哥本哈根、维也纳、开普敦、波哥大、阿姆斯特丹、贝鲁特、波特兰
+扩展 45 城：柏林、孟买、香港、里斯本、哈瓦那、迪拜、马拉喀什、斯德哥尔摩、布宜诺斯艾利斯、墨西哥城、雷克雅未克、新加坡、圣托里尼、拉各斯、棕榈泉、伊斯坦布尔、迈阿密、成都、哥本哈根、维也纳、开普敦、波哥大、阿姆斯特丹、贝鲁特、波特兰 / 上海 / 北京 / 重庆 / 西安 / 杭州 / 深圳夜 / 敦煌 / 苏州 / 拉萨 / 罗马 / 布拉格 / 墨尔本 / 雅典 / 卡萨布兰卡 / 釜山 / 巴厘岛 / 多伦多 / 特拉维夫 / 华沙 / 孟买夜
 
 ## Philosophy
 
@@ -25,7 +25,7 @@ This skill comes with pre-built assets. Read and use them directly:
 
 | File | What's in it | When to use |
 |------|-------------|-------------|
-| `assets/style-preview-template.html` | 30-city style preview cards | Step 2: `sed` fill `__PRODUCT_NAME__` + `__PRODUCT_HEADLINE__`, save as `style-preview.html`, open |
+| `assets/style-preview-template.html` | 50-city style preview cards | Step 2: `sed` fill `__PRODUCT_NAME__` + `__PRODUCT_HEADLINE__`, save as `style-preview.html`, open |
 | `assets/options-preview-template.html` | Interactive demos: 3 typography styles, 4 nav styles, 3 color variants | Step 3: `sed` fill city color tokens + product name, save as `options-preview.html`, open |
 | `assets/textures.css` | 6 CSS texture classes (`.texture-kyoto`, `.texture-paris`, `.texture-tokyo`, etc.) | Copy the matching class into `style.css` |
 | `assets/gsap-snippets.js` | 6 GSAP animation functions (blur entrance, line reveal, parallax, sticky steps, blast menu, magnetic pill) | Copy the relevant functions into `main.js` |
@@ -64,7 +64,7 @@ open style-preview.html
 
 Replace `ACTUAL_PRODUCT_NAME` and `ACTUAL_HEADLINE` with the real values from Step 1 directly in the `sed` command.
 
-Tell the user: "我在浏览器里打开了30种城市风格的预览卡片，每个都是真实渲染效果。向下滚动可以看到全部——从京都到拉各斯到棕榈泉，再到伊斯坦布尔、迈阿密、成都、哥本哈根、维也纳、开普敦、波哥大、阿姆斯特丹、贝鲁特、波特兰。每张卡片右上角有复制按钮，选好之后复制城市名直接告诉我。如果30个城市都不对，直接用自己的语言描述给我也行。"
+Tell the user: "我在浏览器里打开了50种城市风格的预览卡片，每个都是真实渲染效果。向下滚动可以看到全部——从京都到拉各斯到棕榈泉，再到伊斯坦布尔、迈阿密、成都、哥本哈根、维也纳、开普敦、波哥大、阿姆斯特丹、贝鲁特、波特兰，以及上海、北京、重庆、西安、杭州、深圳夜、敦煌、苏州、拉萨、罗马、布拉格、墨尔本、雅典、卡萨布兰卡、釜山、巴厘岛、多伦多、特拉维夫、华沙、孟买夜。每张卡片右上角有复制按钮，选好之后复制城市名直接告诉我。如果50个城市都不对，直接用自己的语言描述给我也行。"
 
 ### Step 3: Open the Interactive Options Preview
 
@@ -137,11 +137,19 @@ Before writing code, plan which section templates to use from the bundled assets
 | Hero — product visual + headline | Variant B (分屏张力) | `assets/sections/hero-variants.html` |
 | Hero — elegant, story-first | Variant C (极简下降) | `assets/sections/hero-variants.html` |
 | Hero — product has a workflow to show | Variant D (产品演示型) | `assets/sections/hero-variants.html` + `references/product-demo-hero.md` |
+| Hero — typography-led, high-impact statement | Variant E (文字爆炸型) | `assets/sections/hero-variants.html` |
+| Hero — editorial storytelling with asymmetry | Variant F (杂志撕裂型) | `assets/sections/hero-variants.html` |
+| Hero — playful product launch / card spotlight | Variant G (弹出卡片型) | `assets/sections/hero-variants.html` |
 | Features — data/metrics focus | Variant A (大数字) | `assets/sections/features-variants.html` |
 | Features — product screenshots/visuals | Variant B (交替展示) | `assets/sections/features-variants.html` |
 | How it works — step-by-step | Variant C (时间线) | `assets/sections/features-variants.html` |
+| Features — modular story blocks / mixed emphasis | Variant D (本托格子型) | `assets/sections/features-variants.html` |
+| Features — browseable capability ribbon | Variant E (水平滚动卡带型) | `assets/sections/features-variants.html` |
+| Features — objection handling / expandable detail | Variant F (问答展开型) | `assets/sections/features-variants.html` |
 | Pricing | 定价表 | `assets/sections/conversion-variants.html` |
+| Pricing — plan comparison with monthly/yearly toggle | 对比定价表 | `assets/sections/conversion-variants.html` |
 | Social proof / testimonials | 引言墙 | `assets/sections/conversion-variants.html` |
+| Social proof / trusted customers | 品牌墙 | `assets/sections/conversion-variants.html` |
 | Final CTA | 强力CTA区 | `assets/sections/conversion-variants.html` |
 | FAQ — editorial, large "FAQ" anchor left | Variant A (编辑排版型) | `assets/sections/conversion-variants.html` |
 | FAQ — card grid, 2 columns, expands in place | Variant B (全宽焦点型) | `assets/sections/conversion-variants.html` |
@@ -159,7 +167,7 @@ Read the relevant section files, copy the `<section>` + `<style>` blocks, then a
 
 #### style.css
 - At `:root`: full design token system (colors, fonts, spacing, radii) from the chosen city style in `references/city-styles.md`
-- **Texture**: for cities 1–5 (京都/巴黎/东京夜/纽约/首尔), copy the matching class from `assets/textures.css`. For cities 6–30, copy the texture CSS directly from the `### Texture` section in `references/city-styles.md`
+- **Texture**: for cities 1–5 (京都/巴黎/东京夜/纽约/首尔), copy the matching class from `assets/textures.css`. For cities 6–50, copy the texture CSS directly from the `### Texture` section in `references/city-styles.md`
 - **Copy** at least 2 clip-path classes from `assets/clip-paths.css` and apply them to sections
 - `clamp()` for ALL headline font sizes — use these reference ranges (going bigger defeats the design, the whitespace and composition carry the impact):
   - Hero 主标题：`clamp(2.8rem, 7vw, 7rem)` — 铺张型也不超过 7rem
@@ -201,5 +209,5 @@ Read the relevant section files, copy the `<section>` + `<style>` blocks, then a
 
 - `references/city-styles.md` — Exact design parameters (fonts, colors, textures, motion, icons) for each city aesthetic
 - `references/nav-catalog.md` — 4 nav styles with full implementation notes and GSAP code
-- `references/imagery-derivation.md` — How to translate any non-city description (scene, era, material, emotion) into a concrete design token system. Read this whenever the user describes something that isn't one of the 30 city cards.
+- `references/imagery-derivation.md` — How to translate any non-city description (scene, era, material, emotion) into a concrete design token system. Read this whenever the user describes something that isn't one of the 50 city cards.
 - `references/product-demo-hero.md` — When and how to build a time-driven product workflow demo in the Hero (Variant D). Includes scene design guide, 3-act structure, onEnter() callback patterns, and product-type → scene mapping table. Read this whenever the user wants to show their product's process in the hero.

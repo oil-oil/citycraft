@@ -1043,5 +1043,517 @@
       5. Copy-path classes: Hero B's right panel uses inline clip-path. Swap with .clip-diagonal-br or
          .clip-parallelogram from clip-paths.css for quick alternative divider shapes.
     -->
+<!-- HERO VARIANT E -->
+<!-- FEATURE: Text Explosion layout with overlapping text layers, extreme scale contrast, and radial glow -->
+<section id="variant-e" style="--bg: #09090b; --bg-surface: #18181b; --ink: #ffffff; --ink-muted: #71717a; --accent: #38bdf8; --font-display: 'Impact', 'Arial Black', sans-serif; --font-body: 'Inter', system-ui, sans-serif;">
+  <div class="e-wrapper">
+    <div class="e-glow"></div>
+    
+    <div class="e-content">
+      <div class="e-explosion-container">
+        <!-- FEATURE: Overlapping offset layers for depth and motion effect -->
+        <div class="e-layer e-layer-3">SYNTHESIS</div>
+        <div class="e-layer e-layer-2">SYNTHESIS</div>
+        <div class="e-layer e-layer-1">SYNTHESIS</div>
+        <h1 class="e-layer e-layer-main js-hero-title">SYNTHESIS</h1>
+      </div>
+
+      <div class="e-bottom-stack">
+        <!-- FEATURE: Extreme contrast tagline separated by a hairline -->
+        <p class="e-tagline js-hero-sub">Where deterministic algorithms meet the unpredictability of human intuition.</p>
+        
+        <!-- FEATURE: Minimalist pill CTA -->
+        <button class="e-cta js-hero-cta">Initialize Core</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HERO VARIANT F -->
+<!-- FEATURE: Magazine Tear layout with asymmetric columns, editorial grid lines, and diagonal clipping -->
+<section id="variant-f" style="--bg: #fdfcf8; --bg-surface: #ffffff; --ink: #18181b; --ink-muted: #a1a1aa; --accent: #f43f5e; --font-display: 'Playfair Display', 'Times New Roman', serif; --font-body: 'Helvetica Neue', Helvetica, sans-serif;">
+  <div class="f-grid">
+    <!-- FEATURE: Editorial text column with grid borders -->
+    <div class="f-col-left">
+      <div class="f-content">
+        <span class="f-eyebrow">Vol. 42 &mdash; Editorial Selection</span>
+        <h1 class="f-headline js-hero-title">The Anatomy<br>of Grid Systems.</h1>
+        <p class="f-body js-hero-sub">Deconstructing the invisible scaffolding that defines modern editorial web design, balancing mathematical precision with artistic liberty.</p>
+        <button class="f-cta js-hero-cta">Read the Manifesto</button>
+      </div>
+    </div>
+
+    <!-- FEATURE: Jagged/Diagonal clipped image placeholder column with decorative numbers -->
+    <div class="f-col-right">
+      <div class="f-pattern-overlay"></div>
+      <div class="f-watermark">01</div>
+      
+      <!-- FEATURE: Floating statistics card interacting with the grid -->
+      <div class="f-floating-card js-f-card">
+        <div class="f-card-header">
+          <span class="f-card-label">Current Metric</span>
+          <div class="f-card-dot"></div>
+        </div>
+        <div class="f-card-value">98.4%</div>
+        <div class="f-card-desc">Typographic alignment variance across rendering engines.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HERO VARIANT G -->
+<!-- FEATURE: Pop Card layout with floating central card, 3D tilt effect, and scattered geometric elements -->
+<section id="variant-g" style="--bg: #1c1917; --bg-surface: #fafaf9; --ink: #1c1917; --ink-muted: #57534e; --accent: #10b981; --font-display: 'Outfit', system-ui, sans-serif; --font-body: 'DM Sans', system-ui, sans-serif;">
+  <div class="g-wrapper">
+    <!-- FEATURE: Full viewport noise texture background -->
+    <div class="g-noise"></div>
+    
+    <!-- FEATURE: Scattered absolute-positioned decorative SVGs -->
+    <div class="g-decor g-decor-1">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+    </div>
+    <div class="g-decor g-decor-2">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    </div>
+    <div class="g-decor g-decor-3">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/></svg>
+    </div>
+    <div class="g-decor g-decor-4"></div>
+
+    <!-- FEATURE: Centered floating card with offset shadow -->
+    <div class="g-card js-g-card">
+      <div class="g-badge">v2.0</div>
+      <h1 class="g-title js-hero-title">Design Systems Unlocked</h1>
+      <p class="g-sub js-hero-sub">Scale your product UI effortlessly with a unified architecture. Stop reinventing the wheel and start focusing on user experience.</p>
+      
+      <div class="g-cta-group">
+        <button class="g-cta-primary js-hero-cta">Get Started Free</button>
+        <button class="g-cta-secondary js-hero-cta">View Documentation</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* =========================================
+     GLOBAL RESETS FOR PROTOTYPE PURPOSES
+  ========================================= */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  section {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+  }
+
+  /* =========================================
+     VARIANT E: TEXT EXPLOSION
+  ========================================= */
+  #variant-e .e-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #variant-e .e-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(300px, 50vw, 800px);
+    height: clamp(300px, 50vw, 800px);
+    background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 1;
+  }
+  #variant-e .e-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(2rem, 5vh, 4rem);
+  }
+  #variant-e .e-explosion-container {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 100%;
+  }
+  #variant-e .e-layer {
+    grid-area: 1 / 1;
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 18vw, 20rem);
+    font-weight: 900;
+    line-height: 0.8;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    will-change: transform;
+  }
+  #variant-e .e-layer-3 {
+    transform: scale(1.15) translateY(-6%);
+    color: var(--accent);
+    opacity: 0.05;
+    filter: blur(8px);
+  }
+  #variant-e .e-layer-2 {
+    transform: scale(1.08) translateY(-3%);
+    color: transparent;
+    -webkit-text-stroke: 1px var(--accent);
+    opacity: 0.2;
+    filter: blur(4px);
+  }
+  #variant-e .e-layer-1 {
+    transform: scale(1.03) translateY(-1%);
+    color: transparent;
+    -webkit-text-stroke: 1px var(--ink-muted);
+    opacity: 0.4;
+    filter: blur(1px);
+  }
+  #variant-e .e-layer-main {
+    color: var(--ink);
+    position: relative;
+    z-index: 10;
+  }
+  #variant-e .e-bottom-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 90%;
+    max-width: 600px;
+  }
+  #variant-e .e-tagline {
+    font-size: clamp(0.75rem, 1.5vw, 1rem);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    text-align: center;
+    border-top: 1px solid var(--ink-muted);
+    padding-top: 1rem;
+    width: 100%;
+  }
+  #variant-e .e-cta {
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    border-radius: 999px;
+    padding: clamp(0.75rem, 2vw, 1rem) clamp(2rem, 4vw, 3rem);
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    font-family: var(--font-body);
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  #variant-e .e-cta:hover {
+    transform: translateY(-2px);
+    background: var(--accent);
+    color: var(--ink);
+  }
+
+  /* =========================================
+     VARIANT F: MAGAZINE TEAR
+  ========================================= */
+  #variant-f .f-grid {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    border-bottom: 1px solid var(--ink-muted);
+  }
+  #variant-f .f-col-left {
+    width: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: clamp(2rem, 5vw, 4rem);
+    border-right: 1px solid var(--ink-muted);
+    position: relative;
+    z-index: 2;
+  }
+  #variant-f .f-content {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 3vh, 2rem);
+  }
+  #variant-f .f-eyebrow {
+    font-family: var(--font-body);
+    font-variant: small-caps;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+  #variant-f .f-headline {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    line-height: 1.05;
+    font-weight: 400;
+    color: var(--ink);
+  }
+  #variant-f .f-body {
+    font-size: clamp(1rem, 1.25vw, 1.25rem);
+    line-height: 1.6;
+    color: var(--ink-muted);
+  }
+  #variant-f .f-cta {
+    align-self: flex-start;
+    background: transparent;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    padding: 1rem 2rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.3s ease;
+  }
+  #variant-f .f-cta::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--ink);
+    transform: translateX(-101%);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: -1;
+  }
+  #variant-f .f-cta:hover {
+    color: var(--bg);
+  }
+  #variant-f .f-cta:hover::before {
+    transform: translateX(0);
+  }
+  #variant-f .f-col-right {
+    width: 65%;
+    margin-left: -10%;
+    background: var(--bg-surface);
+    clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid var(--ink-muted);
+  }
+  #variant-f .f-pattern-overlay {
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    background-image: radial-gradient(var(--ink) 2px, transparent 2px);
+    background-size: 24px 24px;
+    z-index: 1;
+  }
+  #variant-f .f-watermark {
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: clamp(15rem, 30vw, 40rem);
+    font-weight: 700;
+    color: var(--bg);
+    -webkit-text-stroke: 1px var(--ink-muted);
+    opacity: 0.2;
+    z-index: 2;
+    right: -5%;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  #variant-f .f-floating-card {
+    position: relative;
+    z-index: 3;
+    background: var(--bg-surface);
+    border: 1px solid var(--ink);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    width: clamp(250px, 20vw, 350px);
+    box-shadow: 12px 12px 0 var(--ink);
+    transform: translateY(20px);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  #variant-f .f-floating-card:hover {
+    transform: translateY(10px);
+    box-shadow: 20px 20px 0 var(--accent);
+  }
+  #variant-f .f-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--ink-muted);
+    padding-bottom: 0.5rem;
+  }
+  #variant-f .f-card-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+  }
+  #variant-f .f-card-dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  #variant-f .f-card-value {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+  #variant-f .f-card-desc {
+    font-size: 0.875rem;
+    color: var(--ink-muted);
+    line-height: 1.4;
+  }
+
+  @media (max-width: 900px) {
+    #variant-f .f-grid { flex-direction: column; }
+    #variant-f .f-col-left, #variant-f .f-col-right { width: 100%; margin: 0; }
+    #variant-f .f-col-right { clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%); height: 50vh; }
+  }
+
+  /* =========================================
+     VARIANT G: POP CARD
+  ========================================= */
+  #variant-g .g-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+  }
+  #variant-g .g-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+  }
+  #variant-g .g-decor {
+    position: absolute;
+    color: var(--ink-muted);
+    opacity: 0.5;
+    z-index: 2;
+  }
+  #variant-g .g-decor-1 { top: 20%; left: 15%; animation: float 6s ease-in-out infinite; }
+  #variant-g .g-decor-2 { bottom: 25%; right: 20%; animation: float 8s ease-in-out infinite reverse; }
+  #variant-g .g-decor-3 { top: 30%; right: 15%; animation: float 7s ease-in-out infinite 1s; }
+  #variant-g .g-decor-4 {
+    bottom: 20%; left: 25%;
+    width: 60px; height: 1px;
+    background: var(--ink-muted);
+    transform: rotate(45deg);
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+  }
+
+  #variant-g .g-card {
+    position: relative;
+    z-index: 10;
+    background: var(--bg-surface);
+    color: var(--ink);
+    padding: clamp(2rem, 5vw, 4rem);
+    width: 90%;
+    max-width: 650px;
+    border-radius: 24px;
+    transform: rotate(-1.5deg);
+    box-shadow:
+      0 10px 30px -10px rgba(0,0,0,0.5),
+      20px 20px 0px var(--accent);
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease-out;
+  }
+  #variant-g .g-badge {
+    position: absolute;
+    top: 0; left: 0;
+    transform: translate(-30%, -30%) translateZ(30px);
+    background: var(--ink);
+    color: var(--bg-surface);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.25rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: 999px;
+    box-shadow: 4px 4px 0 var(--accent);
+  }
+  #variant-g .g-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.03em;
+    transform: translateZ(40px);
+  }
+  #variant-g .g-sub {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.5;
+    color: var(--ink-muted);
+    margin-bottom: 2.5rem;
+    max-width: 90%;
+    transform: translateZ(20px);
+  }
+  #variant-g .g-cta-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    transform: translateZ(30px);
+  }
+  #variant-g .g-cta-primary, #variant-g .g-cta-secondary {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  #variant-g .g-cta-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+  }
+  #variant-g .g-cta-primary:hover {
+    background: var(--ink);
+    transform: translateY(-2px);
+  }
+  #variant-g .g-cta-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 2px solid var(--ink-muted);
+  }
+  #variant-g .g-cta-secondary:hover {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--bg-surface);
+  }
+
+  /* =========================================
+     GLOBAL JS ANIMATION STATES (GSAP SIMULATION)
+  ========================================= */
+  .js-hero-title, .js-hero-sub, .js-hero-cta {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+                transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .is-active .js-hero-title { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+  .is-active .js-hero-sub { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
+  .is-active .js-hero-cta { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+</style>
 </body>
 </html>
