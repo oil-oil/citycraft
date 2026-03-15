@@ -56,10 +56,10 @@ Use `sed` to fill in the two placeholders and open the result — do NOT read th
 - `__PRODUCT_HEADLINE__` → a short punchy phrase (3–5 words) that captures the product's essence
 
 ```bash
-SKILL_DIR="$(dirname $(realpath ~/.claude/skills/landing-page/assets/style-preview-template.html))"
+_SKILL_DIR=$(ls -d ~/.agents/skills/citycraft 2>/dev/null || ls -d ~/.claude/skills/citycraft 2>/dev/null)
 sed "s/__PRODUCT_NAME__/ACTUAL_PRODUCT_NAME/g; s/__PRODUCT_HEADLINE__/ACTUAL_HEADLINE/g" \
-  ~/.claude/skills/landing-page/assets/style-preview-template.html > ./style-preview.html
-open style-preview.html
+  "$_SKILL_DIR/assets/style-preview-template.html" > ./style-preview.html
+open ./style-preview.html 2>/dev/null || xdg-open ./style-preview.html 2>/dev/null || echo "Open in browser: $(pwd)/style-preview.html"
 ```
 
 Replace `ACTUAL_PRODUCT_NAME` and `ACTUAL_HEADLINE` with the real values from Step 1 directly in the `sed` command.
@@ -79,6 +79,7 @@ Read `references/city-styles.md` and find the chosen city's color tokens: `--bg`
 Run this `sed` command, replacing the ALL-CAPS values with actual hex codes from the city. Do NOT read the template file into context:
 
 ```bash
+_SKILL_DIR=$(ls -d ~/.agents/skills/citycraft 2>/dev/null || ls -d ~/.claude/skills/citycraft 2>/dev/null)
 sed \
   -e "s/__PRODUCT_NAME__/ACTUAL_PRODUCT_NAME/g" \
   -e "s/__PRODUCT_HEADLINE__/ACTUAL_HEADLINE/g" \
@@ -95,8 +96,8 @@ sed \
   -e "s/__CITY_BRIGHT_SURFACE__/#fffdf8/g" \
   -e "s/__CITY_BRIGHT_INK__/#1a1510/g" \
   -e "s/__CITY_BRIGHT_ACCENT__/CITY_ACCENT_VALUE/g" \
-  ~/.claude/skills/landing-page/assets/options-preview-template.html > ./options-preview.html
-open options-preview.html
+  "$_SKILL_DIR/assets/options-preview-template.html" > ./options-preview.html
+open ./options-preview.html 2>/dev/null || xdg-open ./options-preview.html 2>/dev/null || echo "Open in browser: $(pwd)/options-preview.html"
 ```
 
 The dark variant (`__CITY_DARK_*`) is always the luxury/night treatment — near-black bg, warm light text, same accent. The bright variant is always the fresh/modern treatment — near-white bg, dark text, same accent. The city's identity comes from the base colors and accent, not from the dark/bright shell.
