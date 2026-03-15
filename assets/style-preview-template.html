@@ -13,7 +13,7 @@ body {
   background: #111;
   color: #fff;
   font-family: system-ui, sans-serif;
-  padding: 48px 24px 80px;
+  padding: 48px 24px 100px;
   min-height: 100vh;
 }
 
@@ -63,7 +63,36 @@ body {
   position: relative;
 }
 .card:hover { transform: translateY(-6px); }
-.card.selected { outline: 3px solid #fff; outline-offset: 4px; }
+.card.selected {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+  transform: scale(1.02);
+  z-index: 10;
+}
+.card.selected:hover { transform: scale(1.02) translateY(-6px); }
+.card-check {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.92);
+  color: #111;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  z-index: 15;
+}
+.card.selected .card-check {
+  opacity: 1;
+  transform: scale(1);
+}
 
 .card-body {
   padding: 40px 36px 36px;
@@ -109,38 +138,6 @@ body {
   border: none;
   align-self: flex-start;
   letter-spacing: 0.02em;
-}
-
-/* ── Copy button (injected via JS on all city cards) ──────────── */
-.copy-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(0,0,0,0.32);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: rgba(255,255,255,0.85);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 6px;
-  padding: 4px 11px;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  opacity: 0.75;
-  transition: opacity 0.15s ease, background 0.15s;
-  z-index: 20;
-  font-family: system-ui, sans-serif;
-}
-.copy-btn:hover {
-  opacity: 1;
-  background: rgba(0,0,0,0.55);
-}
-.copy-btn.copied {
-  background: rgba(34,197,94,0.6);
-  border-color: rgba(34,197,94,0.7);
-  opacity: 1;
 }
 
 /* Palette swatches */
@@ -1620,6 +1617,72 @@ body {
   font-size: 0.85rem;
   line-height: 1.7;
 }
+.submit-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(13,13,13,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  z-index: 100;
+}
+.submit-summary {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.6;
+}
+.submit-summary strong { color: #fff; }
+.submit-btn {
+  background: white;
+  color: #000;
+  border: none;
+  border-radius: 100px;
+  padding: 10px 28px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+.submit-btn:disabled { opacity: 0.3; cursor: default; }
+.submit-btn:not(:disabled):hover { opacity: 0.85; }
+.submit-success {
+  width: 100%;
+  padding: 18px 22px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.04));
+  color: rgba(255,255,255,0.92);
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.24);
+}
+.submit-success strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  body {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .submit-bar {
+    padding: 12px 18px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+}
 </style>
 </head>
 <body>
@@ -2350,75 +2413,116 @@ body {
   比如"京都的质感 + 首尔的配色"，或者把第六张卡片的描述直接粘贴给他
 </p>
 
+<div class="submit-bar">
+  <div class="submit-summary" id="summary">请选择一种城市风格</div>
+  <button class="submit-btn" id="submit-btn" disabled onclick="submitSelection()">告诉 Agent →</button>
+</div>
+
 <script>
 const RECEIVER_PORT = '__RECEIVER_PORT__' === '__RECEIVER_PORT__' ? 17433 : parseInt('__RECEIVER_PORT__', 10);
+let selectedCity = null;
 
-// ── Inject copy button on all city cards ────────────────────────
-document.querySelectorAll('.card').forEach(card => {
-  const label = card.querySelector('.city-label');
-  if (!label) return;
-  const btn = document.createElement('button');
-  btn.className = 'copy-btn';
-  btn.textContent = '复制';
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation(); // don't trigger card selection
-    const cityName = label.textContent.trim();
+function extractCityName(labelText) {
+  const trimmed = labelText.trim();
+  const parts = trimmed.split(/\s+/);
+  return parts.slice(1).join(' ') || trimmed;
+}
 
-    const showSuccess = (text) => {
-      btn.textContent = text;
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = '复制';
-        btn.classList.remove('copied');
-      }, 1800);
-    };
+function createCheckBadge() {
+  const badge = document.createElement('div');
+  badge.className = 'card-check';
+  badge.setAttribute('aria-hidden', 'true');
+  badge.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M5 12.5L9.5 17L19 7.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
+  return badge;
+}
 
-    const copyToClipboard = () => {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        return navigator.clipboard.writeText(cityName).then(() => {
-          showSuccess('已复制 ✓');
-        });
-      }
+function updateSubmitBar() {
+  const summary = document.getElementById('summary');
+  const btn = document.getElementById('submit-btn');
 
-      return new Promise((resolve, reject) => {
-        // fallback for older browsers
-        const ta = document.createElement('textarea');
-        ta.value = cityName;
-        document.body.appendChild(ta);
-        ta.select();
-        const copied = document.execCommand('copy');
-        document.body.removeChild(ta);
-        if (copied) {
-          showSuccess('已复制 ✓');
-          resolve();
-          return;
-        }
-        reject(new Error('Clipboard copy failed'));
-      });
-    };
+  if (!summary || !btn) return;
 
-    fetch('http://localhost:' + RECEIVER_PORT + '/submit', {
+  if (selectedCity) {
+    summary.innerHTML = '已选 · <strong>' + selectedCity + '</strong>';
+    btn.disabled = false;
+  } else {
+    summary.textContent = '请选择一种城市风格';
+    btn.disabled = true;
+  }
+}
+
+function copySelectedCity() {
+  if (!selectedCity) return Promise.reject(new Error('No city selected'));
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(selectedCity);
+  }
+
+  return new Promise((resolve, reject) => {
+    const ta = document.createElement('textarea');
+    ta.value = selectedCity;
+    document.body.appendChild(ta);
+    ta.select();
+    const copied = document.execCommand('copy');
+    document.body.removeChild(ta);
+    if (copied) {
+      resolve();
+      return;
+    }
+    reject(new Error('Clipboard copy failed'));
+  });
+}
+
+async function submitSelection() {
+  if (!selectedCity) return;
+
+  try {
+    const response = await fetch('http://localhost:' + RECEIVER_PORT + '/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ city: cityName })
-    }).then((response) => {
-      if (!response.ok) throw new Error('Receiver rejected submission');
-      showSuccess('✓ 已发送');
-    }).catch(() => {
-      copyToClipboard().catch(() => {
-        // fallback for older browsers
-        const ta = document.createElement('textarea');
-        ta.value = cityName;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        showSuccess('已复制 ✓');
-      });
+      body: JSON.stringify({ city: selectedCity })
     });
+
+    if (!response.ok) throw new Error('submit failed');
+
+    const submitBar = document.querySelector('.submit-bar');
+    submitBar.innerHTML = '<div class="submit-success"><strong>✓ 已发送给 Agent，正在生成...</strong><br>你可以留在这个页面，Agent 会继续接手后续流程。</div>';
+    return;
+  } catch (_) {
+    const btn = document.getElementById('submit-btn');
+    const originalText = btn ? btn.textContent : '';
+
+    copySelectedCity().then(() => {
+      if (!btn) return;
+      btn.textContent = '已复制 ✓';
+      setTimeout(() => {
+        if (document.getElementById('submit-btn')) {
+          btn.textContent = originalText;
+        }
+      }, 1800);
+    }).catch(() => {});
+  }
+}
+
+document.querySelectorAll('.card').forEach((card) => {
+  const label = card.querySelector('.city-label');
+  if (!label) return;
+
+  card.dataset.city = extractCityName(label.textContent);
+  card.querySelector('.card-body').appendChild(createCheckBadge());
+
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.card.selected').forEach((selectedCard) => {
+      selectedCard.classList.remove('selected');
+    });
+
+    card.classList.add('selected');
+    selectedCity = card.dataset.city;
+    updateSubmitBar();
   });
-  card.querySelector('.card-body').appendChild(btn);
 });
+
+updateSubmitBar();
 
 </script>
 
