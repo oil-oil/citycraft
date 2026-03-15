@@ -81,58 +81,9 @@ Run this block, replacing the ALL-CAPS values with actual hex codes from the cit
 ```bash
 _SKILL_DIR=$(ls -d ~/.agents/skills/citycraft 2>/dev/null || ls -d ~/.claude/skills/citycraft 2>/dev/null)
 rm -f /tmp/citycraft_selection.json
-python3 -c '
-from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
-from pathlib import Path
-import threading
-
-PORT = 17432
-OUTPUT = Path("/tmp/citycraft_selection.json")
-PAGE = Path("options-preview.html")
-
-class Handler(BaseHTTPRequestHandler):
-    def _cors(self):
-        self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
-    def do_OPTIONS(self):
-        self.send_response(204)
-        self._cors()
-        self.end_headers()
-    def do_GET(self):
-        if self.path != "/":
-            self.send_response(404)
-            self._cors()
-            self.end_headers()
-            return
-        body = PAGE.read_bytes()
-        self.send_response(200)
-        self._cors()
-        self.send_header("Content-Type", "text/html; charset=utf-8")
-        self.send_header("Content-Length", str(len(body)))
-        self.end_headers()
-        self.wfile.write(body)
-    def do_POST(self):
-        if self.path != "/submit":
-            self.send_response(404)
-            self._cors()
-            self.end_headers()
-            return
-        length = int(self.headers.get("Content-Length", "0"))
-        body = self.rfile.read(length)
-        OUTPUT.write_bytes(body)
-        self.send_response(200)
-        self._cors()
-        self.send_header("Content-Type", "application/json; charset=utf-8")
-        self.end_headers()
-        self.wfile.write(b"{\"ok\":true}")
-        threading.Thread(target=self.server.shutdown, daemon=True).start()
-    def log_message(self, format, *args):
-        pass
-
-server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
-server.serve_forever()
-' &
+# Start the one-shot receiver (serves the HTML + receives the POST submission).
+# Source: assets/scripts/receiver.py — edit there if you need to change server behavior.
+python3 "$_SKILL_DIR/assets/scripts/receiver.py" &
 SERVER_PID=$!
 sed \
   -e "s/__PRODUCT_NAME__/ACTUAL_PRODUCT_NAME/g" \
