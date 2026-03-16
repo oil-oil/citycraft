@@ -193,89 +193,129 @@ Output into `{product-name}-landing/`:
     └── icons.svg
 ```
 
-#### Section Assembly
+#### 4a — Bash Assembly (do this first, before writing any file)
 
-**All section templates are designed to combine freely.** Each section uses CSS custom properties (`var(--bg)`, `var(--accent)`, etc.) that all resolve to the same city design tokens — so any combination stays visually coherent. There is no fixed page structure: build the order that fits the product's story. Common sequences:
+**The goal is to avoid outputting bundled asset code as model tokens.** Instead, use Bash to copy and pipe the ready-made assets into the output files. Only product-specific content (copy, tokens, overrides) is written by the model.
 
-- Landing for a SaaS tool: Hero D → Features C (timeline) → Features A (big numbers) → Pricing → FAQ A → CTA
-- Agency portfolio: Hero A → Features B (alternating) → Testimonials → CTA
-- Developer tool: Hero B → Features C → Features A → Pricing → FAQ B → CTA
-- Luxury product: Hero C → Features B → Testimonials → CTA
-
-Before writing code, plan which section templates to use from the bundled assets:
-
-| If the user needs... | Use this template | From file |
-|---------------------|-------------------|-----------|
-| Hero — massive bold statement | Variant A (全屏铺张) | `assets/sections/hero-variants.html` |
-| Hero — product visual + headline | Variant B (分屏张力) | `assets/sections/hero-variants.html` |
-| Hero — elegant, story-first | Variant C (极简下降) | `assets/sections/hero-variants.html` |
-| Hero — product has a workflow to show | Variant D (产品演示型) | `assets/sections/hero-variants.html` + `references/product-demo-hero.md` |
-| Hero — typography-led, high-impact statement | Variant E (文字爆炸型) | `assets/sections/hero-variants.html` |
-| Hero — editorial storytelling with asymmetry | Variant F (杂志撕裂型) | `assets/sections/hero-variants.html` |
-| Hero — playful product launch / card spotlight | Variant G (弹出卡片型) | `assets/sections/hero-variants.html` |
-| Features — data/metrics focus | Variant A (大数字) | `assets/sections/features-variants.html` |
-| Features — product screenshots/visuals | Variant B (交替展示) | `assets/sections/features-variants.html` |
-| How it works — step-by-step | Variant C (时间线) | `assets/sections/features-variants.html` |
-| Features — modular story blocks / mixed emphasis | Variant D (本托格子型) | `assets/sections/features-variants.html` |
-| Features — browseable capability ribbon | Variant E (水平滚动卡带型) | `assets/sections/features-variants.html` |
-| Features — objection handling / expandable detail | Variant F (问答展开型) | `assets/sections/features-variants.html` |
-| Pricing | 定价表 | `assets/sections/conversion-variants.html` |
-| Pricing — plan comparison with monthly/yearly toggle | 对比定价表 | `assets/sections/conversion-variants.html` |
-| Social proof / testimonials | 引言墙 | `assets/sections/conversion-variants.html` |
-| Social proof / trusted customers | 品牌墙 | `assets/sections/conversion-variants.html` |
-| Final CTA | 强力CTA区 | `assets/sections/conversion-variants.html` |
-| FAQ — editorial, large "FAQ" anchor left | Variant A (编辑排版型) | `assets/sections/conversion-variants.html` |
-| FAQ — card grid, 2 columns, expands in place | Variant B (全宽焦点型) | `assets/sections/conversion-variants.html` |
-
-Extract only the variants you need using `extract_variant.py` — do NOT read the full section files into context:
+**Step 1 — Set up directories**
 
 ```bash
 _SKILL_DIR=$(ls -d ~/.agents/skills/citycraft 2>/dev/null || ls -d ~/.claude/skills/citycraft 2>/dev/null)
-# Example: user chose Hero B and Features C
-python3 "$_SKILL_DIR/assets/scripts/extract_variant.py" \
-  "$_SKILL_DIR/assets/sections/hero-variants.html" B
-python3 "$_SKILL_DIR/assets/scripts/extract_variant.py" \
-  "$_SKILL_DIR/assets/sections/features-variants.html" C
-# For conversion sections (use variant names: PRICING, COMPARE_PRICING, TESTIMONIALS, BRAND_WALL, CTA, FAQ_A, FAQ_B)
-python3 "$_SKILL_DIR/assets/scripts/extract_variant.py" \
-  "$_SKILL_DIR/assets/sections/conversion-variants.html" PRICING
+_OUT="./{product-name}-landing"
+mkdir -p "$_OUT/assets"
 ```
 
-Copy the extracted `<style>` + `<section>` blocks, then adapt the copy and apply the city's design tokens. If `extract_variant.py` is not yet available, read only the relevant portion of the section file using grep for `@@VARIANT:X`.
+**Step 2 — Assemble section variants into a staging file**
 
-#### index.html
-- Load GSAP + ScrollTrigger CDN:
-  ```html
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  ```
-- Link `style.css` and `main.js`
-- Write real product copy — not Lorem Ipsum. The copy should fit the chosen city aesthetic's tone of voice.
+Plan which variants to use (see table below), then pipe each into a staging file:
 
-#### style.css
-- At `:root`: full design token system (colors, fonts, spacing, radii) from the chosen city style in `references/city-styles.md`
-- **Texture**: for cities 1–5 (京都/巴黎/东京夜/纽约/首尔), copy the matching class from `assets/textures.css`. For cities 6–57, pass `--texture` to `get_city_tokens.py` to print only the CSS texture block — do NOT read the full `city-styles.md`: `python3 "$_SKILL_DIR/assets/scripts/get_city_tokens.py" "CITY_NAME" --texture`
-- **Copy** at least 2 clip-path classes from `assets/clip-paths.css` and apply them to sections
-- `clamp()` for ALL headline font sizes — use these reference ranges (going bigger defeats the design, the whitespace and composition carry the impact):
-  - Hero 主标题：`clamp(2.8rem, 7vw, 7rem)` — 铺张型也不超过 7rem
-  - Section 标题：`clamp(2rem, 4vw, 4rem)`
-  - 大数字/装饰数字：`clamp(4rem, 10vw, 9rem)`
-  - 副标题/说明文字：`clamp(1rem, 1.4vw, 1.2rem)`
-- The nav CSS matching the selected nav style (see `references/nav-catalog.md`)
+```bash
+# Replace B / C / PRICING with the user's actual choices
+python3 "$_SKILL_DIR/assets/scripts/extract_variant.py" \
+  "$_SKILL_DIR/assets/sections/hero-variants.html" B > "$_OUT/_sections.html"
+python3 "$_SKILL_DIR/assets/scripts/extract_variant.py" \
+  "$_SKILL_DIR/assets/sections/features-variants.html" C >> "$_OUT/_sections.html"
+python3 "$_SKILL_DIR/assets/scripts/extract_variant.py" \
+  "$_SKILL_DIR/assets/sections/conversion-variants.html" PRICING >> "$_OUT/_sections.html"
+python3 "$_SKILL_DIR/assets/scripts/extract_variant.py" \
+  "$_SKILL_DIR/assets/sections/conversion-variants.html" CTA >> "$_OUT/_sections.html"
+```
 
-#### main.js
-- Register ScrollTrigger: `gsap.registerPlugin(ScrollTrigger)`
-- **Copy** the relevant animation functions from `assets/gsap-snippets.js` and call them. Required minimum:
-  1. `initHeroEntrance()` — stagger hero elements in
-  2. `initParallax()` — at least 2 layers at different speeds
-  3. Section reveals — each heading animates in on viewport entry
-  4. `initStickySteps()` OR `initBlastMenu()` OR `initMagneticPill()` — whichever matches the nav/layout
-- All functions should call `ScrollTrigger.refresh()` after fonts load
+For conversion sections use names: `PRICING`, `COMPARE_PRICING`, `TESTIMONIALS`, `BRAND_WALL`, `CTA`, `FAQ_A`, `FAQ_B`.
 
-#### assets/icons.svg
-- SVG sprite with `<symbol>` elements
-- At minimum: logo mark, nav toggle (open/close), arrow, checkmark, 2–3 product-relevant feature icons
-- Icon style must match the city aesthetic: stroke weight, corner style, visual weight (see `references/city-styles.md` icon descriptions)
+**Step 3 — Copy bundled CSS utilities into style.css base**
+
+```bash
+# Texture: use --texture flag (never read full city-styles.md)
+python3 "$_SKILL_DIR/assets/scripts/get_city_tokens.py" "CITY_NAME" --texture > "$_OUT/_texture.css"
+# Clip-paths: copy all classes, model picks which to apply via class names
+cat "$_SKILL_DIR/assets/clip-paths.css" >> "$_OUT/_texture.css"
+```
+
+**Step 4 — Copy GSAP snippets into main.js base**
+
+```bash
+cat "$_SKILL_DIR/assets/gsap-snippets.js" > "$_OUT/_gsap-base.js"
+```
+
+Now read the three staging files (`_sections.html`, `_texture.css`, `_gsap-base.js`) to understand what's available, then write the final output files.
+
+#### 4b — Section Variant Reference
+
+Common page sequences:
+- SaaS tool: Hero D → Features C → Features A → Pricing → FAQ A → CTA
+- Agency portfolio: Hero A → Features B → Testimonials → CTA
+- Developer tool: Hero B → Features C → Features A → Pricing → FAQ B → CTA
+- Luxury product: Hero C → Features B → Testimonials → CTA
+
+| If the user needs... | Use this template | Variant |
+|---------------------|-------------------|---------|
+| Hero — massive bold statement | 全屏铺张 | A |
+| Hero — product visual + headline | 分屏张力 | B |
+| Hero — elegant, story-first | 极简下降 | C |
+| Hero — product has a workflow to show | 产品演示型 | D (also read `references/product-demo-hero.md`) |
+| Hero — typography-led, high-impact | 文字爆炸型 | E |
+| Hero — editorial storytelling | 杂志撕裂型 | F |
+| Hero — playful product launch | 弹出卡片型 | G |
+| Features — data/metrics focus | 大数字 | A |
+| Features — product screenshots | 交替展示 | B |
+| How it works — step-by-step | 时间线 | C |
+| Features — modular story blocks | 本托格子型 | D |
+| Features — browseable capability ribbon | 水平滚动卡带型 | E |
+| Features — objection handling | 问答展开型 | F |
+| Pricing table | 定价表 | PRICING |
+| Pricing comparison with toggle | 对比定价表 | COMPARE_PRICING |
+| Testimonials | 引言墙 | TESTIMONIALS |
+| Trusted brand logos | 品牌墙 | BRAND_WALL |
+| Final CTA | 强力CTA区 | CTA |
+| FAQ — editorial layout | 编辑排版型 | FAQ_A |
+| FAQ — card grid | 全宽焦点型 | FAQ_B |
+
+#### 4c — Write the Output Files
+
+**index.html** — Write with the Write tool. No markdown block, directly to file.
+- Document structure: `<html>`, `<head>` (Google Fonts, GSAP CDN, link to style.css + main.js), `<body>`
+- Nav HTML matching the selected nav style
+- Paste `<style>` blocks and `<section>` HTML from `_sections.html` in page order
+- Replace all placeholder copy with real product copy — fit the city aesthetic's tone of voice
+- No Lorem Ipsum, no placeholder text
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+```
+
+**style.css** — Write with the Write tool. Structure:
+1. `:root` block — full design token system: colors from `$CITY_*` tokens, chosen fonts, spacing scale, radii. This is the only part the model writes from scratch.
+2. Paste texture + clip-path CSS from `_texture.css`
+3. Nav CSS matching the selected nav style (from `references/nav-catalog.md`)
+4. Layout and typography overrides — only what differs from section defaults
+
+`clamp()` for ALL headline font sizes:
+- Hero 主标题：`clamp(2.8rem, 7vw, 7rem)` — 铺张型也不超过 7rem
+- Section 标题：`clamp(2rem, 4vw, 4rem)`
+- 大数字/装饰数字：`clamp(4rem, 10vw, 9rem)`
+- 副标题/说明文字：`clamp(1rem, 1.4vw, 1.2rem)`
+
+Do NOT add comments to style.css — they consume tokens and add no value to the output file.
+
+**main.js** — Write with the Write tool. Structure:
+1. `gsap.registerPlugin(ScrollTrigger)`
+2. Paste the relevant functions from `_gsap-base.js` — required minimum:
+   - `initHeroEntrance()` — stagger hero elements in
+   - `initParallax()` — at least 2 layers at different speeds
+   - Section heading reveals on viewport entry
+   - `initStickySteps()` OR `initBlastMenu()` OR `initMagneticPill()` — matching nav/layout
+3. Call sequence at bottom; `ScrollTrigger.refresh()` after fonts load
+
+Do NOT add comments to main.js.
+
+**assets/icons.svg** — SVG sprite with `<symbol>` elements. At minimum: logo mark, nav toggle, arrow, checkmark, 2–3 product-relevant feature icons. Icon style must match the city aesthetic's stroke weight and geometry.
+
+After all files are written, delete the staging files:
+```bash
+rm -f "$_OUT/_sections.html" "$_OUT/_texture.css" "$_OUT/_gsap-base.js"
+```
 
 ---
 
