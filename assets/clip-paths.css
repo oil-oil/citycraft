@@ -67,3 +67,84 @@
   clip-path: polygon(0 48px, 100% 0, 100% 100%, 0 100%);
   margin-top: -48px;
 }
+
+/* ── GRADIENT / DISSOLVE TRANSITIONS ────────────────────────── */
+/*
+  渐变过渡 — The section's top edge dissolves in from transparent,
+  overlapping the previous section. The gradient fades from transparent
+  to var(--bg), so the section blends into what came before.
+
+  Usage: add to the SECOND section in a pair.
+  The previous section needs no special class.
+*/
+.section-dissolve {
+  position: relative;
+  z-index: 2;
+  margin-top: -120px;
+  padding-top: calc(120px + var(--section-pad, 120px));
+}
+.section-dissolve::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background: linear-gradient(to bottom, transparent, var(--bg, #f5ede0));
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ── FLAT / RULE TRANSITIONS ─────────────────────────────────── */
+/*
+  平直过渡 — Clean straight edge, no clip. An accent-colored ruled line
+  visually separates sections without a geometric cut. Understated.
+
+  Usage: add to the section that receives the rule at its top.
+*/
+.section-rule {
+  position: relative;
+  padding-top: calc(var(--section-pad, 120px) + 32px);
+}
+.section-rule::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--accent, #8b4513) 25%,
+    var(--accent, #8b4513) 75%,
+    transparent
+  );
+  opacity: 0.5;
+}
+
+/* ── SMOOTH CURVE TRANSITIONS ────────────────────────────────── */
+/*
+  曲线过渡 — Smooth rounded bottom edge using border-radius.
+  The section background is clipped to an elliptical curve at the bottom.
+  Combine with the next section using a negative margin-top to interlock.
+
+  Usage: add to the FIRST section in a pair.
+  Next section: add z-index: 2 and margin-top: -6vw.
+*/
+.clip-round-bottom {
+  border-radius: 0 0 50% 50% / 0 0 5vw 5vw;
+  overflow: hidden;
+  padding-bottom: calc(var(--section-pad, 120px) + 6vw);
+}
+
+/* Concave wave — a scalloped bottom cut (multi-point polygon curve) */
+.clip-scallop {
+  clip-path: polygon(
+    0 0, 100% 0, 100% 82%,
+    92% 84%, 84% 88%, 75% 93%, 66% 97%, 58% 99%,
+    50% 100%, 42% 99%, 34% 97%, 25% 93%, 16% 88%,
+    8% 84%, 0 82%
+  );
+  padding-bottom: calc(var(--section-pad, 120px) + 12vw);
+}
