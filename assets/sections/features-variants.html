@@ -39,6 +39,7 @@
             padding: 0 5vw;
         }
 
+        <!-- @@VARIANT:A -->
         /* 
          * ==========================================
          * VARIANT A: BIG NUMBER CALLOUTS
@@ -141,6 +142,9 @@
             line-height: 1.7;
         }
 
+        <!-- @@/VARIANT:A -->
+
+        <!-- @@VARIANT:B -->
         /* 
          * ==========================================
          * VARIANT B: ALTERNATING SHOWCASE
@@ -281,6 +285,9 @@
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.05); opacity: 1; } }
 
 
+        <!-- @@/VARIANT:B -->
+
+        <!-- @@VARIANT:C -->
         /* 
          * ==========================================
          * VARIANT C: VERTICAL TIMELINE
@@ -440,10 +447,12 @@
             }
         }
 
+        <!-- @@/VARIANT:C -->
     </style>
 </head>
 <body>
 
+<!-- @@VARIANT:A -->
 <!-- GSAP: initStaggeredReveal('.js-feature-item', { y: 40, stagger: 0.1 }) -->
 <section class="variant-a-section">
     <!-- FEATURE: Big number feature list - Anchors core value propositions with massive typography acts as architectural background -->
@@ -496,6 +505,9 @@
 <!-- USAGE NOTE: Modify the `.a-number` text for different steps. Ensure `.a-desc` text is kept relatively short (around 2-3 sentences) to maintain the typographic balance against the massive numbers. Change `--accent` to modify the hover stroke color. -->
 
 
+<!-- @@/VARIANT:A -->
+
+<!-- @@VARIANT:B -->
 <!-- GSAP: initClipPathScroll('.js-showcase-item', { toggleActions: 'play none none reverse' }) -->
 <section class="variant-b-section">
     <!-- FEATURE: Alternating Showcase - Pairs highly conceptual abstract SVGs with copy, using diagonal clip-paths to create aggressive architectural dividing lines between sections. -->
@@ -570,6 +582,9 @@
 
 
 <!-- GSAP: initDrawLineTimeline('.js-timeline-item', '.js-timeline-progress') -->
+<!-- @@/VARIANT:B -->
+
+<!-- @@VARIANT:C -->
 <section class="variant-c-section">
     <!-- FEATURE: Vertical Timeline - "How it works" operational sequence with an animated central nerve-line. -->
     <div class="wrapper">
@@ -619,6 +634,8 @@
 </section>
 <!-- USAGE NOTE: Add more `.c-timeline-node-item` blocks as needed. The layout handles left/right alternation automatically on desktop via CSS. The central line progress is wired to intersection observer in the attached script to simulate ScrollTrigger. -->
 
+
+<!-- @@/VARIANT:C -->
 
 <script>
     /**
@@ -727,6 +744,7 @@
 }
 </style>
 
+<!-- @@VARIANT:D -->
 <!-- FEATURES VARIANT D -->
 <section class="landing-feature-section variant-d">
   <style>
@@ -931,6 +949,9 @@
   </div>
 </section>
 
+<!-- @@/VARIANT:D -->
+
+<!-- @@VARIANT:E -->
 <!-- FEATURES VARIANT E -->
 <section class="landing-feature-section variant-e">
   <style>
@@ -1135,6 +1156,9 @@
   </div>
 </section>
 
+<!-- @@/VARIANT:E -->
+
+<!-- @@VARIANT:F -->
 <!-- FEATURES VARIANT F -->
 <section class="landing-feature-section variant-f">
   <style>
@@ -1366,5 +1390,6 @@
     </div>
   </div>
 </section>
+<!-- @@/VARIANT:F -->
 </body>
 </html>

@@ -10,40 +10,245 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: #111;
-  color: #fff;
+  background: #f7f0e6;
+  color: #2a1f14;
   font-family: system-ui, sans-serif;
-  padding: 48px 24px 100px;
+  padding: 54px 24px 100px;
   min-height: 100vh;
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 56px;
-}
-.header h1 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  font-weight: 600;
-  color: #f0f0f0;
-  letter-spacing: -0.02em;
-  margin-bottom: 12px;
-}
-.header p {
-  color: rgba(255,255,255,0.5);
-  font-size: 0.95rem;
-  line-height: 1.6;
+/* ── CITYCRAFT TOPBAR ────────────────────────────────────────── */
+.cc-topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(247,240,230,0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(42,31,20,0.08);
+  z-index: 200;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
 }
 
+.cc-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+}
+.cc-mark { display: flex; align-items: center; flex-shrink: 0; }
+.cc-wordmark {
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  background: linear-gradient(135deg, #2a1f14 20%, #8b4513 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cc-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.cc-topbar .github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: rgba(42,31,20,0.45);
+  text-decoration: none;
+  font-size: 0.77rem;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(42,31,20,0.12);
+  background: rgba(42,31,20,0.04);
+  transition: all 0.15s ease;
+}
+.cc-topbar .github-link:hover {
+  color: #2a1f14;
+  border-color: rgba(42,31,20,0.22);
+  background: rgba(42,31,20,0.08);
+}
+.cc-topbar .author-credit {
+  font-size: 0.72rem;
+  color: rgba(42,31,20,0.28);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.cc-topbar .author-credit:hover {
+  color: rgba(42,31,20,0.65);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 560px) { .cc-topbar .author-credit { display: none; } }
+
+/* ── PAGE TITLE SECTION ──────────────────────────────────────── */
+.page-title-section {
+  text-align: center;
+  padding: 3.2rem 24px 2.8rem;
+  animation: ccFadeIn 0.6s ease forwards;
+  opacity: 0;
+}
+.page-title-section h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 600;
+  color: #2a1f14;
+  letter-spacing: -0.01em;
+  margin: 0 0 10px 0;
+  line-height: 1.25;
+}
 .product-name {
   display: inline-block;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 6px;
-  padding: 2px 10px;
   font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72em;
+  font-weight: 500;
+  background: rgba(139,69,19,0.07);
+  border: 1px solid rgba(139,69,19,0.18);
+  color: #7a3a0e;
+  padding: 0.12em 0.5em;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+.page-title-section .subtitle {
+  color: rgba(42,31,20,0.45);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+@keyframes ccFadeIn {
+  0%   { opacity: 0; transform: translateY(-8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ── AI-CHOOSE CARD ──────────────────────────────────────────── */
+.card-ai-choose {
+  width: 100%;
+  border-radius: 16px;
+  background: #16161a;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid #333;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  min-height: 280px;
+  box-shadow:
+    0 1px 3px rgba(42,31,20,0.1),
+    0 6px 16px rgba(42,31,20,0.12),
+    0 16px 32px rgba(42,31,20,0.08);
+}
+.card-ai-choose::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle at 50% 50%, rgba(196,181,253,0.07) 0%, rgba(168,216,255,0.03) 25%, transparent 50%);
+  animation: ccRotateGlow 15s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+.card-ai-choose::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.6) 100%, transparent),
+    radial-gradient(1.5px 1.5px at 70% 60%, rgba(196,181,253,0.7) 100%, transparent),
+    radial-gradient(1px 1px at 80% 20%, rgba(255,255,255,0.5) 100%, transparent),
+    radial-gradient(2px 2px at 30% 80%, rgba(168,216,255,0.5) 100%, transparent),
+    radial-gradient(1px 1px at 55% 45%, rgba(255,255,255,0.4) 100%, transparent);
+  opacity: 0.35;
+  z-index: 1;
+  pointer-events: none;
+}
+.card-ai-choose.selected {
+  border-color: #c4b5fd;
+  box-shadow:
+    0 0 0 4px rgba(196,181,253,0.2),
+    0 0 0 1px #c4b5fd,
+    0 8px 24px rgba(42,31,20,0.14);
+  transform: translateY(-4px);
+}
+.card-ai-choose:hover:not(.selected) {
+  border-color: rgba(196,181,253,0.4);
+  transform: translateY(-2px);
+}
+.card-ai-choose .content-layer {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.card-ai-choose .ai-indicator {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c4b5fd, #a8d8ff);
+  box-shadow: 0 0 14px rgba(196,181,253,0.4);
+  margin-bottom: 0.5rem;
+  animation: ccPulseOrb 3s ease-in-out infinite alternate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-ai-choose .ai-indicator::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  filter: blur(2px);
+}
+.card-ai-choose .ai-title {
+  color: #ffffff;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+  flex: 1;
+}
+.card-ai-choose .ai-subtitle {
+  color: rgba(255,255,255,0.45);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0;
+}
+.card-ai-choose .ai-cta {
+  align-self: flex-start;
   color: #a8d8ff;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: gap 0.2s ease;
+}
+.card-ai-choose:hover .ai-cta { gap: 0.5rem; }
+
+@keyframes ccRotateGlow {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes ccPulseOrb {
+  0%   { transform: scale(0.95); box-shadow: 0 0 10px rgba(196,181,253,0.3); }
+  100% { transform: scale(1.05); box-shadow: 0 0 22px rgba(196,181,253,0.6); }
 }
 
 /* ── CARDS GRID ─────────────────────────────────────────────── */
@@ -61,13 +266,26 @@ body {
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
+  box-shadow:
+    0 1px 3px rgba(42,31,20,0.07),
+    0 4px 12px rgba(42,31,20,0.08),
+    0 12px 28px rgba(42,31,20,0.06);
 }
-.card:hover { transform: translateY(-6px); }
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 2px 6px rgba(42,31,20,0.08),
+    0 8px 20px rgba(42,31,20,0.1),
+    0 20px 40px rgba(42,31,20,0.08);
+}
 .card.selected {
-  outline: 3px solid #fff;
+  outline: 3px solid #8b4513;
   outline-offset: 4px;
   transform: scale(1.02);
   z-index: 10;
+  box-shadow:
+    0 0 0 6px rgba(139,69,19,0.12),
+    0 12px 32px rgba(42,31,20,0.14);
 }
 .card.selected:hover { transform: scale(1.02) translateY(-6px); }
 .card-check {
@@ -1609,18 +1827,238 @@ body {
 .card-mumbainight .palette .swatch:nth-child(3) { background: #FF9933; }
 .card-mumbainight .palette .swatch:nth-child(4) { background: #D4AF37; }
 
+/* ── 51. OSAKA ──────────────────────────────────────────────── */
+.card-osaka .card-body {
+  background: #F2EFE9;
+  background-image: radial-gradient(#737373 1px, transparent 1px);
+  background-size: 8px 8px;
+  background-position: 0 0;
+  color: #111111;
+}
+.card-osaka .city-label { color: #0891B2; }
+.card-osaka .card-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.9rem, 3.8vw, 3rem);
+  font-weight: 800;
+  color: #111111;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+.card-osaka .card-body-text { color: #737373; }
+.card-osaka .card-btn {
+  background: #0891B2;
+  color: #F2EFE9;
+  border-radius: 0;
+  box-shadow: 4px 4px 0 #111111;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.card-osaka .palette .swatch:nth-child(1) { background: #F2EFE9; border: 1px solid rgba(17,17,17,0.15); }
+.card-osaka .palette .swatch:nth-child(2) { background: #111111; }
+.card-osaka .palette .swatch:nth-child(3) { background: #0891B2; }
+.card-osaka .palette .swatch:nth-child(4) { background: #E5E0D5; }
+
+/* ── 52. CHIANG MAI ─────────────────────────────────────────── */
+.card-chiangmai .card-body {
+  background: #F6F4EB;
+  background-image:
+    repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(44,63,45,0.03) 4px, rgba(44,63,45,0.03) 5px),
+    repeating-linear-gradient(0deg, transparent, transparent 12px, rgba(44,63,45,0.02) 12px, rgba(44,63,45,0.02) 13px);
+  color: #2C3F2D;
+}
+.card-chiangmai .city-label { color: #E07A5F; }
+.card-chiangmai .card-headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2.1rem, 4.2vw, 3.2rem);
+  font-weight: 500;
+  font-style: italic;
+  color: #2C3F2D;
+  line-height: 1.1;
+}
+.card-chiangmai .card-body-text { color: #6B705C; font-family: 'DM Serif Display', serif; font-size: 0.85rem; }
+.card-chiangmai .card-btn {
+  background: #E07A5F;
+  color: #F6F4EB;
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(224,122,95,0.28);
+}
+.card-chiangmai .palette .swatch:nth-child(1) { background: #F6F4EB; border: 1px solid rgba(44,63,45,0.12); }
+.card-chiangmai .palette .swatch:nth-child(2) { background: #2C3F2D; }
+.card-chiangmai .palette .swatch:nth-child(3) { background: #E07A5F; }
+.card-chiangmai .palette .swatch:nth-child(4) { background: #EAE4D3; }
+
+/* ── 53. MILAN ──────────────────────────────────────────────── */
+.card-milan .card-body {
+  background: #EADDD0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  color: #3A2A22;
+}
+.card-milan .city-label { color: #3E5424; }
+.card-milan .card-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 900;
+  color: #3A2A22;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.card-milan .card-body-text { color: #8C7A6E; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.card-milan .card-btn {
+  background: transparent;
+  color: #3A2A22;
+  border: 1px solid #3A2A22;
+  border-radius: 0;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+.card-milan .palette .swatch:nth-child(1) { background: #EADDD0; border: 1px solid rgba(58,42,34,0.15); }
+.card-milan .palette .swatch:nth-child(2) { background: #3A2A22; }
+.card-milan .palette .swatch:nth-child(3) { background: #3E5424; }
+.card-milan .palette .swatch:nth-child(4) { background: #F3EBE3; border: 1px solid rgba(58,42,34,0.1); }
+
+/* ── 54. TAIPEI ─────────────────────────────────────────────── */
+.card-taipei .card-body {
+  background: #FFF9F0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(0, 179, 113, 0.10) 19px, rgba(0, 179, 113, 0.10) 20px),
+    repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(0, 179, 113, 0.10) 19px, rgba(0, 179, 113, 0.10) 20px);
+  color: #3A2E2A;
+}
+.card-taipei .city-label { color: #00B371; }
+.card-taipei .card-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #3A2E2A;
+  line-height: 1.0;
+}
+.card-taipei .card-body-text { color: #8C7A73; }
+.card-taipei .card-btn {
+  background: #00B371;
+  color: #FFF9F0;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,179,113,0.3);
+  font-weight: 600;
+}
+.card-taipei .palette .swatch:nth-child(1) { background: #FFF9F0; border: 1px solid rgba(58,46,42,0.12); }
+.card-taipei .palette .swatch:nth-child(2) { background: #3A2E2A; }
+.card-taipei .palette .swatch:nth-child(3) { background: #00B371; }
+.card-taipei .palette .swatch:nth-child(4) { background: #F4EBD9; }
+
+/* ── 55. NEW ORLEANS ────────────────────────────────────────── */
+.card-neworleans .card-body {
+  background: #2A1B38;
+  background-image:
+    repeating-linear-gradient(to right, transparent, transparent 40px, rgba(242, 169, 0, 0.07) 40px, rgba(242, 169, 0, 0.07) 42px,
+    transparent 42px, transparent 46px, rgba(242, 169, 0, 0.07) 46px, rgba(242, 169, 0, 0.07) 48px);
+  color: #F4EFE6;
+}
+.card-neworleans .city-label { color: #F2A900; }
+.card-neworleans .card-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 900;
+  font-style: italic;
+  color: #F4EFE6;
+  line-height: 1.05;
+}
+.card-neworleans .card-body-text { color: #B3A3C2; font-size: 0.82rem; }
+.card-neworleans .card-btn {
+  background: #F2A900;
+  color: #2A1B38;
+  border-radius: 4px;
+  box-shadow: 0 6px 20px rgba(242,169,0,0.3);
+  font-weight: 700;
+}
+.card-neworleans .palette .swatch:nth-child(1) { background: #2A1B38; border: 1px solid rgba(244,239,230,0.12); }
+.card-neworleans .palette .swatch:nth-child(2) { background: #F4EFE6; }
+.card-neworleans .palette .swatch:nth-child(3) { background: #F2A900; }
+.card-neworleans .palette .swatch:nth-child(4) { background: #3C2850; }
+
+/* ── 56. ZURICH ─────────────────────────────────────────────── */
+.card-zurich .card-body {
+  background: #F7F8FA;
+  background-image:
+    linear-gradient(rgba(10, 11, 12, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 11, 12, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: center center;
+  color: #0A0B0C;
+}
+.card-zurich .city-label { color: #DA291C; }
+.card-zurich .card-headline {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+  font-weight: 700;
+  color: #0A0B0C;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+}
+.card-zurich .card-body-text { color: #616670; font-family: 'IBM Plex Mono', monospace; font-size: 0.77rem; }
+.card-zurich .card-btn {
+  background: #DA291C;
+  color: #F7F8FA;
+  border-radius: 0;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.73rem;
+}
+.card-zurich .palette .swatch:nth-child(1) { background: #F7F8FA; border: 1px solid rgba(10,11,12,0.15); }
+.card-zurich .palette .swatch:nth-child(2) { background: #0A0B0C; }
+.card-zurich .palette .swatch:nth-child(3) { background: #DA291C; }
+.card-zurich .palette .swatch:nth-child(4) { background: #EEF1F6; border: 1px solid rgba(10,11,12,0.1); }
+
+/* ── 57. VANCOUVER ──────────────────────────────────────────── */
+.card-vancouver .card-body {
+  background: #13201C;
+  background-image:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.01) 0px,
+      rgba(255, 255, 255, 0.01) 1px,
+      transparent 1px,
+      transparent 12px
+    ),
+    radial-gradient(circle at 100% 0%, rgba(72, 229, 194, 0.06) 0%, transparent 40%);
+  color: #E3EBE7;
+}
+.card-vancouver .city-label { color: #48E5C2; }
+.card-vancouver .card-headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: 700;
+  color: #E3EBE7;
+  line-height: 1.0;
+  letter-spacing: 0.01em;
+}
+.card-vancouver .card-body-text { color: #8AA197; }
+.card-vancouver .card-btn {
+  background: transparent;
+  color: #48E5C2;
+  border: 1.5px solid #48E5C2;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.card-vancouver .palette .swatch:nth-child(1) { background: #13201C; border: 1px solid rgba(227,235,231,0.12); }
+.card-vancouver .palette .swatch:nth-child(2) { background: #E3EBE7; }
+.card-vancouver .palette .swatch:nth-child(3) { background: #48E5C2; }
+.card-vancouver .palette .swatch:nth-child(4) { background: #1C2E28; border: 1px solid rgba(227,235,231,0.08); }
+
 /* ── FOOTER NOTE ─────────────────────────────────────────────── */
 .footer-note {
   text-align: center;
   margin-top: 56px;
-  color: rgba(255,255,255,0.35);
+  color: rgba(42,31,20,0.35);
   font-size: 0.85rem;
   line-height: 1.7;
 }
 .submit-bar {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  background: rgba(13,13,13,0.92);
+  background: rgba(36,26,16,0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid rgba(255,255,255,0.08);
@@ -1687,19 +2125,54 @@ body {
 </head>
 <body>
 
-<div class="header">
+<!-- Fixed top navigation bar -->
+<nav class="cc-topbar">
+  <a class="cc-brand" href="https://github.com/oil-oil/citycraft" target="_blank" rel="noopener noreferrer">
+    <div class="cc-mark">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10.8" stroke="rgba(42,31,20,0.18)" stroke-width="1"/>
+        <path d="M12 5.5 L18 8.8 L12 12.1 L6 8.8 Z" fill="#2a1f14" opacity="0.88"/>
+        <path d="M6 8.8 L12 12.1 L12 18.5 L6 15.2 Z" fill="#2a1f14" opacity="0.45"/>
+        <path d="M18 8.8 L12 12.1 L12 18.5 L18 15.2 Z" fill="#2a1f14" opacity="0.2"/>
+      </svg>
+    </div>
+    <span class="cc-wordmark">CITYCRAFT</span>
+  </a>
+  <div class="cc-topbar-right">
+    <a href="https://github.com/oil-oil/citycraft" class="github-link" target="_blank" rel="noopener noreferrer">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+      </svg>
+      GitHub
+    </a>
+    <a href="mailto:zhihuang.oiloil@gmail.com" class="author-credit" id="author-name">oil欧呦</a>
+  </div>
+</nav>
+
+<!-- Page title -->
+<div class="page-title-section">
   <h1>为 <span class="product-name">__PRODUCT_NAME__</span> 选择设计风格</h1>
-  <p>50 种城市美学，每张都是真实渲染效果<br>选一个最接近你感觉的，或者告诉我你想混合哪几个</p>
+  <p class="subtitle">57 种城市美学，每张都是真实渲染效果<br>选一个最接近你感觉的，或者告诉我你想混合哪几个</p>
 </div>
 
 <div class="cards">
+
+  <!-- 0. AI CHOOSE -->
+  <div class="card-ai-choose" id="ai-selector-card" role="button" tabindex="0" data-city="__AI_CHOOSE__">
+    <div class="content-layer">
+      <div class="ai-indicator"></div>
+      <h2 class="ai-title">让 AI 来选</h2>
+      <p class="ai-subtitle">告诉我你的产品场景，AI 会根据你的描述推荐最合适的风格</p>
+      <div class="ai-cta">交给 AI <span aria-hidden="true">→</span></div>
+    </div>
+  </div>
 
   <!-- 1. KYOTO -->
   <div class="card card-kyoto">
     <div class="card-body">
       <span class="city-label">京都 Kyoto</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>in stillness.</h2>
-      <p class="card-body-text">留白就是答案。质感来自克制，不来自装饰。每一处细节，都在等待被发现的时机。</p>
+      <p class="card-body-text" data-en="Silence, space, and restraint shape the mood. Every detail waits quietly to be noticed.">留白就是答案。质感来自克制，不来自装饰。每一处细节，都在等待被发现的时机。</p>
       <button class="card-btn">了解更多</button>
       <div class="palette">
         <div class="swatch"></div>
@@ -1715,7 +2188,7 @@ body {
     <div class="card-body">
       <span class="city-label">巴黎 Paris</span>
       <h2 class="card-headline">*__PRODUCT_HEADLINE__*,<br>redefined.</h2>
-      <p class="card-body-text">优雅不是选项，是态度。编辑的眼光，字体的自信，每一页都是一个声明。</p>
+      <p class="card-body-text" data-en="Editorial confidence leads every surface. Elegant type and sharp taste turn each page into a statement.">优雅不是选项，是态度。编辑的眼光，字体的自信，每一页都是一个声明。</p>
       <button class="card-btn">En savoir plus</button>
       <div class="palette">
         <div class="swatch"></div>
@@ -1731,7 +2204,7 @@ body {
     <div class="card-body">
       <span class="city-label">东京夜 Tokyo Night</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>// ELECTRIC</h2>
-      <p class="card-body-text">// precision_mode: on<br>// latency: 0ms<br>// scale: unlimited</p>
+      <p class="card-body-text" data-en="Pure system energy, stripped to signal and speed. Precise, scalable, and engineered to feel relentless.">// precision_mode: on<br>// latency: 0ms<br>// scale: unlimited</p>
       <button class="card-btn">INITIALIZE →</button>
       <div class="palette">
         <div class="swatch"></div>
@@ -1747,7 +2220,7 @@ body {
     <div class="card-body">
       <span class="city-label">纽约 New York</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>OR NOTHING.</h2>
-      <p class="card-body-text">No explanations. No apologies. The work speaks. The numbers don't lie. Either you're in or you're not.</p>
+      <p class="card-body-text" data-en="Hard confidence with zero cushioning. Clean authority, sharp metrics, no room for doubt.">No explanations. No apologies. The work speaks. The numbers don't lie. Either you're in or you're not.</p>
       <button class="card-btn">GET IN →</button>
       <div class="palette">
         <div class="swatch"></div>
@@ -1763,7 +2236,7 @@ body {
     <div class="card-body">
       <span class="city-label">首尔 Seoul</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>느끼다</h2>
-      <p class="card-body-text">干净但有温度。技术与感受并存。不炫耀，但让你停下来多看一眼。</p>
+      <p class="card-body-text" data-en="Clean lines carry a human warmth. Thoughtful tech, soft feeling, and quiet magnetism hold the gaze.">干净但有温度。技术与感受并存。不炫耀，但让你停下来多看一眼。</p>
       <button class="card-btn">시작하기</button>
       <div class="palette">
         <div class="swatch"></div>
@@ -1780,7 +2253,7 @@ body {
     <div class="card-body">
       <span class="city-label">柏林 Berlin</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>ODER NICHTS.</h2>
-      <p class="card-body-text">// NO DECORATION<br>// PURE FUNCTION<br>// CONCRETE + VOID</p>
+      <p class="card-body-text" data-en="Austere and architectural, with nothing to spare. Function, mass, and emptiness do all the talking.">// NO DECORATION<br>// PURE FUNCTION<br>// CONCRETE + VOID</p>
       <button class="card-btn">EINTRETEN →</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1794,7 +2267,7 @@ body {
     <div class="card-body">
       <span class="city-label">孟买 Mumbai</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__,<br><em>woven in gold.</em></h2>
-      <p class="card-body-text">Art Deco 的骨骼，热带阳光的体温。每一层都是一段历史，繁盛与斑驳并存。</p>
+      <p class="card-body-text" data-en="Art Deco structure warmed by tropical light. Rich layers of glamour and weathered history live together.">Art Deco 的骨骼，热带阳光的体温。每一层都是一段历史，繁盛与斑驳并存。</p>
       <button class="card-btn">Explore →</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1808,7 +2281,7 @@ body {
     <div class="card-body">
       <span class="city-label">香港 Hong Kong</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>// 香港製造</h2>
-      <p class="card-body-text">// density: maximum<br>// neon: always on<br>// vertical: infinite</p>
+      <p class="card-body-text" data-en="Compressed, vertical, and neon-soaked. The whole scene feels like a city climbing without rest.">// density: maximum<br>// neon: always on<br>// vertical: infinite</p>
       <button class="card-btn">進入 ENTER →</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1822,7 +2295,7 @@ body {
     <div class="card-body">
       <span class="city-label">里斯本 Lisbon</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__,<br>com saudade.</h2>
-      <p class="card-body-text">美丽来自消逝本身。瓷砖裂缝里的光，海盐风吹过的故事。有些东西越是褪色越是动人。</p>
+      <p class="card-body-text" data-en="Beauty arrives through fading surfaces and salt air. Cracks, light, and memory make it more moving with age.">美丽来自消逝本身。瓷砖裂缝里的光，海盐风吹过的故事。有些东西越是褪色越是动人。</p>
       <button class="card-btn">Descobrir →</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1836,7 +2309,7 @@ body {
     <div class="card-body">
       <span class="city-label">哈瓦那 Havana</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>SINCE 1959.</h2>
-      <p class="card-body-text">时间在这里停止转动，美丽反而更烈。镀铬与热带植物，层层覆盖，历久弥新。</p>
+      <p class="card-body-text" data-en="Chrome gleam meets lush tropical stillness. Time slows down here, and the glamour only deepens.">时间在这里停止转动，美丽反而更烈。镀铬与热带植物，层层覆盖，历久弥新。</p>
       <button class="card-btn">ENTRAR →</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1850,7 +2323,7 @@ body {
     <div class="card-body">
       <span class="city-label">迪拜 Dubai</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>PERFECTED.</h2>
-      <p class="card-body-text">规模即信息。空旷即奢华。每一条线都是精确的，每一处留白都是刻意的。</p>
+      <p class="card-body-text" data-en="Monumental scale and exact geometry create the luxury. Vast emptiness feels deliberate, clear, and expensive.">规模即信息。空旷即奢华。每一条线都是精确的，每一处留白都是刻意的。</p>
       <button class="card-btn">ENTER THE TOWER</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1864,7 +2337,7 @@ body {
     <div class="card-body">
       <span class="city-label">马拉喀什 Marrakech</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>في المدينة.</h2>
-      <p class="card-body-text">香料的浓烈、阳光的灼热、Majorelle 蓝的震动。每一条小巷都是一层惊喜。</p>
+      <p class="card-body-text" data-en="Spice, heat, and Majorelle blue strike all at once. Every turn reveals another saturated surprise.">香料的浓烈、阳光的灼热、Majorelle 蓝的震动。每一条小巷都是一层惊喜。</p>
       <button class="card-btn">ادخل المدينة</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1878,7 +2351,7 @@ body {
     <div class="card-body">
       <span class="city-label">斯德哥尔摩 Stockholm</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>stripped bare.</h2>
-      <p class="card-body-text">去掉所有不必要的，剩下的才是真正重要的。桦木的温度，冬日的光，克制就是美。</p>
+      <p class="card-body-text" data-en="Everything unnecessary falls away. Birch warmth, winter light, and disciplined calm define the beauty.">去掉所有不必要的，剩下的才是真正重要的。桦木的温度，冬日的光，克制就是美。</p>
       <button class="card-btn">Gå vidare →</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1892,7 +2365,7 @@ body {
     <div class="card-body">
       <span class="city-label">布宜诺斯艾利斯 Buenos Aires</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__,<br>con melancolía.</h2>
-      <p class="card-body-text">欧式廊柱在热带空气中缓缓腐朽，反而更美。探戈的停顿里，有比音符更浓烈的东西。</p>
+      <p class="card-body-text" data-en="European grandeur softens in tropical decay. Between pauses and shadows, the romance grows heavier.">欧式廊柱在热带空气中缓缓腐朽，反而更美。探戈的停顿里，有比音符更浓烈的东西。</p>
       <button class="card-btn">Entrar →</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1906,7 +2379,7 @@ body {
     <div class="card-body">
       <span class="city-label">墨西哥城 Mexico City</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>SIN MIEDO.</h2>
-      <p class="card-body-text">饱和的色彩像建筑墙面一样碰撞。几何极简主义遇上热烈的拉丁灵魂。</p>
+      <p class="card-body-text" data-en="Bold color fields collide like sunlit facades. Geometric rigor meets a vivid Latin pulse.">饱和的色彩像建筑墙面一样碰撞。几何极简主义遇上热烈的拉丁灵魂。</p>
       <button class="card-btn">ENTRAR AHORA</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1920,7 +2393,7 @@ body {
     <div class="card-body">
       <span class="city-label">雷克雅未克 Reykjavik</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>BEYOND HORIZON.</h2>
-      <p class="card-body-text">冰川的沉默，极光的一瞬。冷到极致反而成为最烈的美。</p>
+      <p class="card-body-text" data-en="Glacial silence and a flash of aurora define the atmosphere. Extreme cold sharpens into something fierce and luminous.">冰川的沉默，极光的一瞬。冷到极致反而成为最烈的美。</p>
       <button class="card-btn">ENTER THE VOID →</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1934,7 +2407,7 @@ body {
     <div class="card-body">
       <span class="city-label">新加坡 Singapore</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>grown here.</h2>
-      <p class="card-body-text">垂直雨林与玻璃穹顶共生。科技向善的太阳朋克，充满呼吸感。</p>
+      <p class="card-body-text" data-en="Vertical gardens and glass domes breathe together. Optimistic, sunlit futurism makes the whole page feel alive.">垂直雨林与玻璃穹顶共生。科技向善的太阳朋克，充满呼吸感。</p>
       <button class="card-btn">Explore →</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1948,7 +2421,7 @@ body {
     <div class="card-body">
       <span class="city-label">圣托里尼 Santorini</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__,<br>καλοκαίρι.</h2>
-      <p class="card-body-text">白墙与深蓝的极端对比。有机曲线，波浪边界。时间溶解在爱琴海光里。</p>
+      <p class="card-body-text" data-en="Whitewashed calm cut by deep Aegean blue. Soft curves and wave-like edges dissolve time into light.">白墙与深蓝的极端对比。有机曲线，波浪边界。时间溶解在爱琴海光里。</p>
       <button class="card-btn">Ανακαλύψτε →</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1962,7 +2435,7 @@ body {
     <div class="card-body">
       <span class="city-label">拉各斯 Lagos</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>ON VOLTAGE.</h2>
-      <p class="card-body-text">Afrobeats 节拍与霓虹故障艺术。这里所有的表面都在尖叫，都在跳舞。</p>
+      <p class="card-body-text" data-en="Afrobeats rhythm collides with glitchy neon surfaces. Everything feels loud, kinetic, and fully alive.">Afrobeats 节拍与霓虹故障艺术。这里所有的表面都在尖叫，都在跳舞。</p>
       <button class="card-btn">ẸNTER THE BEAT</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1976,7 +2449,7 @@ body {
     <div class="card-body">
       <span class="city-label">棕榈泉 Palm Springs</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>circa 1958.</h2>
-      <p class="card-body-text">原子时代的乐观主义。游泳池旁的火烈鸟。中世纪现代主义的永恒午后。</p>
+      <p class="card-body-text" data-en="Atomic-age optimism under endless afternoon sun. Poolside glamour and mid-century ease keep it crisp and playful.">原子时代的乐观主义。游泳池旁的火烈鸟。中世纪现代主义的永恒午后。</p>
       <button class="card-btn">Check in →</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -1990,7 +2463,7 @@ body {
     <div class="card-body">
       <span class="city-label">伊斯坦布尔 Istanbul</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>after dusk.</h2>
-      <p class="card-body-text">旧世界的华丽与香料般的热度交织在一起。阴影很深，余韵很长，每一层都像一段传奇。</p>
+      <p class="card-body-text" data-en="Old-world opulence meets the heat of spice and shadow. Every layer feels dramatic, deep, and storied.">旧世界的华丽与香料般的热度交织在一起。阴影很深，余韵很长，每一层都像一段传奇。</p>
       <button class="card-btn">穿城而入</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2004,7 +2477,7 @@ body {
     <div class="card-body">
       <span class="city-label">迈阿密 Miami</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>ALL NIGHT.</h2>
-      <p class="card-body-text">海风、霓虹、棱角和挑衅感同时拉满。这里没有温吞的中间地带，只有一下子击中的强烈情绪。</p>
+      <p class="card-body-text" data-en="Sea air, neon edge, and pure attitude hit at full volume. The mood lands fast and refuses to soften.">海风、霓虹、棱角和挑衅感同时拉满。这里没有温吞的中间地带，只有一下子击中的强烈情绪。</p>
       <button class="card-btn">LIGHT IT UP</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2018,7 +2491,7 @@ body {
     <div class="card-body">
       <span class="city-label">成都 Chengdu</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>慢慢发热</h2>
-      <p class="card-body-text">先是竹影一样的松弛，随后才是红油一样的锋利。看起来很轻，真正落下去却有自己的力道。</p>
+      <p class="card-body-text" data-en="First comes bamboo-shadow ease, then a sudden flash of heat. Light on the surface, but sharp and forceful underneath.">先是竹影一样的松弛，随后才是红油一样的锋利。看起来很轻，真正落下去却有自己的力道。</p>
       <button class="card-btn">慢慢打开</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2032,7 +2505,7 @@ body {
     <div class="card-body">
       <span class="city-label">哥本哈根 Copenhagen</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>made clear.</h2>
-      <p class="card-body-text">秩序感写在每一条边界里，温度藏在克制的配色里。它安静、可信、没有多余动作。</p>
+      <p class="card-body-text" data-en="Order is built into every edge. Restrained color keeps it calm, trustworthy, and quietly warm.">秩序感写在每一条边界里，温度藏在克制的配色里。它安静、可信、没有多余动作。</p>
       <button class="card-btn">See the system</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2046,7 +2519,7 @@ body {
     <div class="card-body">
       <span class="city-label">维也纳 Vienna</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>in crescendo.</h2>
-      <p class="card-body-text">一切都被排练得极其讲究。金色不是炫耀，是秩序；庄重不是距离，是更深一层的情感。</p>
+      <p class="card-body-text" data-en="Every detail feels ceremonially composed. Gold brings order, and solemnity carries emotion instead of distance.">一切都被排练得极其讲究。金色不是炫耀，是秩序；庄重不是距离，是更深一层的情感。</p>
       <button class="card-btn">Enter the hall</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2060,7 +2533,7 @@ body {
     <div class="card-body">
       <span class="city-label">开普敦 Cape Town</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>OFF THE EDGE.</h2>
-      <p class="card-body-text">大地、海风和高饱和的阳光一起撞上来。画面不打算讨好谁，它天生就带着野性的速度。</p>
+      <p class="card-body-text" data-en="Earth tones, sea wind, and blazing sun collide with force. Wild momentum gives the whole composition its own confidence.">大地、海风和高饱和的阳光一起撞上来。画面不打算讨好谁，它天生就带着野性的速度。</p>
       <button class="card-btn">TAKE THE DROP</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2074,7 +2547,7 @@ body {
     <div class="card-body">
       <span class="city-label">波哥大 Bogotá</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>WITHOUT PERMISSION.</h2>
-      <p class="card-body-text">像一张贴满旧墙的海报，粗粝、直给、带一点街头神经质。规矩被撕开之后，气质才真正跑出来。</p>
+      <p class="card-body-text" data-en="Raw like a poster pasted over old concrete. Friction, nerve, and street pressure give it real character.">像一张贴满旧墙的海报，粗粝、直给、带一点街头神经质。规矩被撕开之后，气质才真正跑出来。</p>
       <button class="card-btn">PASTE IT UP</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2088,7 +2561,7 @@ body {
     <div class="card-body">
       <span class="city-label">阿姆斯特丹 Amsterdam</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>IN GRID.</h2>
-      <p class="card-body-text">每个模块都像被推到最准确的位置，色块之间的碰撞却依然鲜活。理性很强，节奏也很强。</p>
+      <p class="card-body-text" data-en="Every block snaps into place with precision. Bold color tension keeps the rhythm vivid and intelligent.">每个模块都像被推到最准确的位置，色块之间的碰撞却依然鲜活。理性很强，节奏也很强。</p>
       <button class="card-btn">Open the frame</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2102,7 +2575,7 @@ body {
     <div class="card-body">
       <span class="city-label">贝鲁特 Beirut</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__,<br>still luminous.</h2>
-      <p class="card-body-text">像被海风和岁月一起抚过的墙面，柔和里带着裂缝，优雅里留着不对称的韧性。</p>
+      <p class="card-body-text" data-en="Soft like walls worn by sea wind and time. Gentle surfaces hide cracks, asymmetry, and a quiet resilience.">像被海风和岁月一起抚过的墙面，柔和里带着裂缝，优雅里留着不对称的韧性。</p>
       <button class="card-btn">Discover softly</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2116,7 +2589,7 @@ body {
     <div class="card-body">
       <span class="city-label">波特兰 Portland</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>built by hand.</h2>
-      <p class="card-body-text">带着雨水、木头和旧工坊的气味。它不追求光滑，而是把可靠、耐用和手工感摆在最前面。</p>
+      <p class="card-body-text" data-en="Rain, timber, and workshop grit shape the feeling. Durable, tactile, and handmade matters more than polish.">带着雨水、木头和旧工坊的气味。它不追求光滑，而是把可靠、耐用和手工感摆在最前面。</p>
       <button class="card-btn">MAKE IT REAL</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2130,7 +2603,7 @@ body {
     <div class="card-body">
       <span class="city-label">上海 Shanghai</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>after midnight.</h2>
-      <p class="card-body-text">霓虹被爵士的金色边框收住，奢华没有喧哗，只有一层层缓慢显现的海派锋芒。</p>
+      <p class="card-body-text" data-en="Neon is held in place by jazz-club gold. The luxury stays controlled, revealing itself in slow, sharp layers.">霓虹被爵士的金色边框收住，奢华没有喧哗，只有一层层缓慢显现的海派锋芒。</p>
       <button class="card-btn">Walk the Bund</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2144,7 +2617,7 @@ body {
     <div class="card-body">
       <span class="city-label">北京 Beijing</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>立于中轴</h2>
-      <p class="card-body-text">气场先落下，细节随后展开。它庄重、开阔、留有分寸，让每个模块都像被认真安放过。</p>
+      <p class="card-body-text" data-en="Presence arrives first, detail follows after. Broad, formal, and measured, every module feels carefully placed.">气场先落下，细节随后展开。它庄重、开阔、留有分寸，让每个模块都像被认真安放过。</p>
       <button class="card-btn">入场查看</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2158,7 +2631,7 @@ body {
     <div class="card-body">
       <span class="city-label">重庆 Chongqing</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>雾里发光</h2>
-      <p class="card-body-text">// vertical rush<br>// neon rain<br>// heat level: maximum</p>
+      <p class="card-body-text" data-en="High-rise momentum under neon rain. Dense heat, vertical speed, and restless nightlife define the mood.">// vertical rush<br>// neon rain<br>// heat level: maximum</p>
       <button class="card-btn">冲进夜里</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2172,7 +2645,7 @@ body {
     <div class="card-body">
       <span class="city-label">西安 Xi'an</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>厚土之上</h2>
-      <p class="card-body-text">像城墙一样稳，像陶土一样有温度。所有层次都带着沉甸甸的历史感，却一点也不迟缓。</p>
+      <p class="card-body-text" data-en="Solid as stone walls, warm as fired clay. History gives it weight, but the pace still feels alive.">像城墙一样稳，像陶土一样有温度。所有层次都带着沉甸甸的历史感，却一点也不迟缓。</p>
       <button class="card-btn">推开城门</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2186,7 +2659,7 @@ body {
     <div class="card-body">
       <span class="city-label">杭州 Hangzhou</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>落进烟雨</h2>
-      <p class="card-body-text">它不着急证明自己，只让留白、空气和一丝水墨般的柔光慢慢把情绪铺开。</p>
+      <p class="card-body-text" data-en="Nothing rushes to impress. Space, air, and ink-soft light unfold the feeling at their own pace.">它不着急证明自己，只让留白、空气和一丝水墨般的柔光慢慢把情绪铺开。</p>
       <button class="card-btn">轻轻展开</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2200,7 +2673,7 @@ body {
     <div class="card-body">
       <span class="city-label">深圳夜 Shenzhen Night</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>COMPILED FAST.</h2>
-      <p class="card-body-text">// hard logic<br>// cold glow<br>// every pixel accountable</p>
+      <p class="card-body-text" data-en="Severe logic meets a cold electronic glow. Every pixel feels audited, exact, and fully intentional.">// hard logic<br>// cold glow<br>// every pixel accountable</p>
       <button class="card-btn">Deploy now</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2214,7 +2687,7 @@ body {
     <div class="card-body">
       <span class="city-label">敦煌 Dunhuang</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>越过流沙</h2>
-      <p class="card-body-text">低饱和的沙色里忽然炸开青金石与朱砂，像壁画在沉寂千年后重新呼吸。</p>
+      <p class="card-body-text" data-en="Muted sand tones break open with lapis and cinnabar. It feels like an ancient mural drawing breath again.">低饱和的沙色里忽然炸开青金石与朱砂，像壁画在沉寂千年后重新呼吸。</p>
       <button class="card-btn">穿过洞窟</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2228,7 +2701,7 @@ body {
     <div class="card-body">
       <span class="city-label">苏州 Suzhou</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>移步换景</h2>
-      <p class="card-body-text">框景、留白、细线和克制的偏色一起工作，让页面像园林一样，一转身就多一层意思。</p>
+      <p class="card-body-text" data-en="Framed views, fine lines, and measured color shifts create layered calm. The page opens like a garden with meaning around each turn.">框景、留白、细线和克制的偏色一起工作，让页面像园林一样，一转身就多一层意思。</p>
       <button class="card-btn">入园看看</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2242,7 +2715,7 @@ body {
     <div class="card-body">
       <span class="city-label">拉萨 Lhasa</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>closer to sun.</h2>
-      <p class="card-body-text">白光、绛红和绿松石色在高海拔空气里被拉到最纯净，画面干净得几乎带着回响。</p>
+      <p class="card-body-text" data-en="White light, vermilion, and turquoise feel sharpened by thin mountain air. The clarity is so pure it almost echoes.">白光、绛红和绿松石色在高海拔空气里被拉到最纯净，画面干净得几乎带着回响。</p>
       <button class="card-btn">Step into light</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2256,7 +2729,7 @@ body {
     <div class="card-body">
       <span class="city-label">罗马 Rome</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>at golden hour.</h2>
-      <p class="card-body-text">它带着石材的分量和电影般的浪漫，光一落下来，所有内容都会显得更值得被记住。</p>
+      <p class="card-body-text" data-en="Stone weight and cinematic romance hold the composition together. Once the light lands, everything feels more memorable.">它带着石材的分量和电影般的浪漫，光一落下来，所有内容都会显得更值得被记住。</p>
       <button class="card-btn">Enter the piazza</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2270,7 +2743,7 @@ body {
     <div class="card-body">
       <span class="city-label">布拉格 Prague</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>under spires.</h2>
-      <p class="card-body-text">暗金与雾气一起包裹住内容，神秘感不会一下给满，而是像钟楼齿轮一样慢慢转开。</p>
+      <p class="card-body-text" data-en="Dark gold and mist wrap the content in slow mystery. The atmosphere opens gradually, like old clockwork turning.">暗金与雾气一起包裹住内容，神秘感不会一下给满，而是像钟楼齿轮一样慢慢转开。</p>
       <button class="card-btn">Enter the mist</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2284,7 +2757,7 @@ body {
     <div class="card-body">
       <span class="city-label">墨尔本 Melbourne</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>off the laneway.</h2>
-      <p class="card-body-text">有混凝土的直爽，也有贴纸和涂鸦的脾气。它不求规整，反而把独立气质推得更满。</p>
+      <p class="card-body-text" data-en="Concrete bluntness meets sticker and graffiti attitude. The lack of polish makes the independence feel stronger.">有混凝土的直爽，也有贴纸和涂鸦的脾气。它不求规整，反而把独立气质推得更满。</p>
       <button class="card-btn">Make it loud</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2298,7 +2771,7 @@ body {
     <div class="card-body">
       <span class="city-label">雅典 Athens</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>in Aegean light.</h2>
-      <p class="card-body-text">古典比例把页面站稳，爱琴海蓝再把温度带进来，神话感和现代感在同一口气里完成切换。</p>
+      <p class="card-body-text" data-en="Classical proportion gives the page its footing. Aegean blue brings warmth, and myth slips easily into modern clarity.">古典比例把页面站稳，爱琴海蓝再把温度带进来，神话感和现代感在同一口气里完成切换。</p>
       <button class="card-btn">Walk the marble</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2312,7 +2785,7 @@ body {
     <div class="card-body">
       <span class="city-label">卡萨布兰卡 Casablanca</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>by the Atlantic.</h2>
-      <p class="card-body-text">灰粉色灰泥、薄荷绿和海风一起把节奏放慢，老派海岸装饰感被处理得柔和又耐看。</p>
+      <p class="card-body-text" data-en="Dusty pink plaster, mint, and sea breeze slow everything down. Vintage coastal charm feels soft, faded, and enduring.">灰粉色灰泥、薄荷绿和海风一起把节奏放慢，老派海岸装饰感被处理得柔和又耐看。</p>
       <button class="card-btn">Open the arch</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2326,7 +2799,7 @@ body {
     <div class="card-body">
       <span class="city-label">釜山 Busan</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>at full tide.</h2>
-      <p class="card-body-text">海港的深蓝、橘色吊机和一点霓虹粉同时上场，画面很活，情绪很快，气压也很高。</p>
+      <p class="card-body-text" data-en="Harbor blue, crane orange, and a flash of neon pink create instant charge. Fast, lively, and high-pressure in the best way.">海港的深蓝、橘色吊机和一点霓虹粉同时上场，画面很活，情绪很快，气压也很高。</p>
       <button class="card-btn">Ride the port</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2340,7 +2813,7 @@ body {
     <div class="card-body">
       <span class="city-label">巴厘岛 Bali</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>under canopy.</h2>
-      <p class="card-body-text">木纹、热带植物和火山石的重量彼此平衡，整个页面像在呼吸，松弛里带着很稳的生命力。</p>
+      <p class="card-body-text" data-en="Wood grain, tropical greens, and volcanic stone balance each other beautifully. The page breathes with calm strength and living warmth.">木纹、热带植物和火山石的重量彼此平衡，整个页面像在呼吸，松弛里带着很稳的生命力。</p>
       <button class="card-btn">Breathe deeper</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2354,7 +2827,7 @@ body {
     <div class="card-body">
       <span class="city-label">多伦多 Toronto</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>through the glass.</h2>
-      <p class="card-body-text">冷冽、利落、信息密度高，但亮色一落下去，整个系统马上就带上清醒的都市节奏。</p>
+      <p class="card-body-text" data-en="Cool, efficient, and information-rich at first glance. Then bright accents snap the whole system into urban rhythm.">冷冽、利落、信息密度高，但亮色一落下去，整个系统马上就带上清醒的都市节奏。</p>
       <button class="card-btn">See the skyline</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2368,7 +2841,7 @@ body {
     <div class="card-body">
       <span class="city-label">特拉维夫 Tel Aviv</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>in clean sun.</h2>
-      <p class="card-body-text">Bauhaus 的秩序感让所有形状都干脆落位，海盐空气又把它从冰冷里轻轻提出来。</p>
+      <p class="card-body-text" data-en="Bauhaus order places every shape with confidence. Sea air softens the rigor just enough to make it human.">Bauhaus 的秩序感让所有形状都干脆落位，海盐空气又把它从冰冷里轻轻提出来。</p>
       <button class="card-btn">Follow the grid</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2382,7 +2855,7 @@ body {
     <div class="card-body">
       <span class="city-label">华沙 Warsaw</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>with impact.</h2>
-      <p class="card-body-text">像一张直接拍在墙上的海报，黑、灰、红没有任何犹豫，整个版面自带一种硬朗的推进力。</p>
+      <p class="card-body-text" data-en="Like a poster slapped straight onto concrete. Black, gray, and red push forward with absolute conviction.">像一张直接拍在墙上的海报，黑、灰、红没有任何犹豫，整个版面自带一种硬朗的推进力。</p>
       <button class="card-btn">Paste it loud</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
@@ -2396,8 +2869,106 @@ body {
     <div class="card-body">
       <span class="city-label">孟买夜 Mumbai Night</span>
       <h2 class="card-headline">__PRODUCT_HEADLINE__<br>all shimmer.</h2>
-      <p class="card-body-text">深宝石色背景把金色和藏红花色托得更浓，层层堆叠的奢华感一上来就很难忽略。</p>
+      <p class="card-body-text" data-en="Deep jewel tones intensify the gold and saffron highlights. Layered richness makes the luxury impossible to ignore.">深宝石色背景把金色和藏红花色托得更浓，层层堆叠的奢华感一上来就很难忽略。</p>
       <button class="card-btn">Enter the glow</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 51. OSAKA -->
+  <div class="card card-osaka">
+    <div class="card-body">
+      <span class="city-label">大阪 Osaka</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>// 暴力上新</h2>
+      <p class="card-body-text" data-en="Comic halftones and hard-shadow buttons punch with street energy. Rebellious, playful, and unmistakably urban.">漫画网点纸质感，硬投影按钮，叛逆而满载的街头能量——一眼就是大阪。</p>
+      <button class="card-btn">DROP NOW</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 52. CHIANG MAI -->
+  <div class="card card-chiangmai">
+    <div class="card-body">
+      <span class="city-label">清迈 Chiang Mai</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__,<br><em>rooted in stillness.</em></h2>
+      <p class="card-body-text" data-en="Linen texture and terracotta warmth create a slower kind of beauty. Soft, organic, and quietly intimate.">亚麻纸纹底，赤陶橘点睛，慢下来才能感受到的有机温柔。</p>
+      <button class="card-btn">Begin the journey</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 53. MILAN -->
+  <div class="card card-milan">
+    <div class="card-body">
+      <span class="city-label">米兰 Milan</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>fatto a mano.</h2>
+      <p class="card-body-text" data-en="A faded linen ground with dramatic Bodoni contrast. Olive accents stay restrained, and the luxury lives in the air.">旧亚麻底色，Bodoni 极致粗细对比，橄榄绿克制地点缀——奢华在留白里。</p>
+      <button class="card-btn">ATELIER →</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 54. TAIPEI -->
+  <div class="card card-taipei">
+    <div class="card-body">
+      <span class="city-label">台北 Taipei</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>夜市现捞</h2>
+      <p class="card-body-text" data-en="Checked texture and jade-green accents feel rounded, lively, and grounded. A digital take on warm neighborhood energy.">格纹底，玉绿点睛，圆润但不失力度——台北市井人情味的数字版本。</p>
+      <button class="card-btn">立即体验</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 55. NEW ORLEANS -->
+  <div class="card card-neworleans">
+    <div class="card-body">
+      <span class="city-label">新奥尔良 New Orleans</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br><em>born in brass.</em></h2>
+      <p class="card-body-text" data-en="Deep violet night, coin-gold glow, and wrought-iron texture set the scene. It feels like jazz at two in the morning.">深紫夜色，金幣光芒，铸铁栏杆纹理——爵士俱乐部凌晨两点的迷醉。</p>
+      <button class="card-btn">Enter the Quarter</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 56. ZURICH -->
+  <div class="card card-zurich">
+    <div class="card-body">
+      <span class="city-label">苏黎世 Zurich</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>with precision.</h2>
+      <p class="card-body-text" data-en="Engineering grid and a single Swiss-red accent keep everything exact. Trust grows directly from the typography and structure.">工程网格底，瑞士红单点，零圆角零装饰——信任感从排版本身里长出来。</p>
+      <button class="card-btn">GET STARTED</button>
+      <div class="palette">
+        <div class="swatch"></div><div class="swatch"></div>
+        <div class="swatch"></div><div class="swatch"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 57. VANCOUVER -->
+  <div class="card card-vancouver">
+    <div class="card-body">
+      <span class="city-label">温哥华 Vancouver</span>
+      <h2 class="card-headline">__PRODUCT_HEADLINE__<br>in the wild.</h2>
+      <p class="card-body-text" data-en="Deep forest green and glacial cyan glow build a hushed immersion. Like catching aurora light inside a midnight pine forest.">老林深绿沉浸底，冰川青幽光点睛，像在暗夜松林里看到极光。</p>
+      <button class="card-btn">Explore →</button>
       <div class="palette">
         <div class="swatch"></div><div class="swatch"></div>
         <div class="swatch"></div><div class="swatch"></div>
@@ -2419,7 +2990,46 @@ body {
 </div>
 
 <script>
+const LANG = /^__/.test('__LANG__') ? 'zh' : '__LANG__';
 const RECEIVER_PORT = '__RECEIVER_PORT__' === '__RECEIVER_PORT__' ? 17433 : parseInt('__RECEIVER_PORT__', 10);
+const I18N = {
+  zh: {
+    pageTitle: '风格预览 — 请选择你的落地页美学方向',
+    headingPrefix: '为 ',
+    headingSuffix: ' 选择设计风格',
+    subtitle: '57 种城市美学，每张都是真实渲染效果<br>选一个最接近你感觉的，或者告诉我你想混合哪几个',
+    aiTitle: '让 AI 来选',
+    aiSubtitle: '告诉我你的产品场景，AI 会根据你的描述推荐最合适的风格',
+    aiCta: '交给 AI ',
+    footer: '选好之后告诉 Claude 你的选择——可以是城市名，可以是混合，也可以是自由描述里写的感觉<br>比如"京都的质感 + 首尔的配色"，或者把第六张卡片的描述直接粘贴给他',
+    selectPrompt: '请选择一种城市风格',
+    aiRecommendation: '让 AI 根据你的场景推荐最合适的风格',
+    selectedPrefix: '已选 · ',
+    submitToAgent: '告诉 Agent →',
+    submitToAi: '交给 AI →',
+    copied: '已复制 ✓',
+    aiSuccess: '<div class="submit-success"><strong>✓ 已发送给 AI，正在根据你的场景选择风格...</strong><br>Agent 会结合你们的对话推荐最合适的城市风格。</div>',
+    agentSuccess: '<div class="submit-success"><strong>✓ 已发送给 Agent，正在生成...</strong><br>你可以留在这个页面，Agent 会继续接手后续流程。</div>'
+  },
+  en: {
+    pageTitle: 'Style Preview - Choose the Visual Direction for Your Landing Page',
+    headingPrefix: 'Choose a visual direction for ',
+    headingSuffix: '',
+    subtitle: 'Explore 57 city-inspired aesthetics rendered as real preview cards.<br>Pick the one that feels closest, or tell me which directions you want to blend.',
+    aiTitle: 'Let AI Decide',
+    aiSubtitle: 'Tell me about your product and context, and AI will recommend the most fitting direction.',
+    aiCta: 'Hand it to AI ',
+    footer: 'Once you decide, tell Claude what you want. You can send a city name, a hybrid mix, or even a mood described in your own words.<br>For example: "Kyoto texture + Seoul colors", or just paste the description from card six.',
+    selectPrompt: 'Choose one city style',
+    aiRecommendation: 'Let AI recommend the best-fit direction for your product',
+    selectedPrefix: 'Selected · ',
+    submitToAgent: 'Tell Agent →',
+    submitToAi: 'Hand to AI →',
+    copied: 'Copied ✓',
+    aiSuccess: '<div class="submit-success"><strong>✓ Sent to AI. Picking a direction based on your product context...</strong><br>Agent will use the conversation to recommend the city style that fits best.</div>',
+    agentSuccess: '<div class="submit-success"><strong>✓ Sent to Agent. Generating now...</strong><br>You can stay on this page while Agent continues the next step.</div>'
+  }
+};
 let selectedCity = null;
 
 function extractCityName(labelText) {
@@ -2437,16 +3047,23 @@ function createCheckBadge() {
 }
 
 function updateSubmitBar() {
+  const t = I18N[LANG] || I18N.zh;
   const summary = document.getElementById('summary');
   const btn = document.getElementById('submit-btn');
 
   if (!summary || !btn) return;
 
-  if (selectedCity) {
-    summary.innerHTML = '已选 · <strong>' + selectedCity + '</strong>';
+  if (selectedCity === '__AI_CHOOSE__') {
+    summary.innerHTML = t.aiRecommendation;
+    btn.textContent = t.submitToAi;
+    btn.disabled = false;
+  } else if (selectedCity) {
+    summary.innerHTML = t.selectedPrefix + '<strong>' + selectedCity + '</strong>';
+    btn.textContent = t.submitToAgent;
     btn.disabled = false;
   } else {
-    summary.textContent = '请选择一种城市风格';
+    summary.textContent = t.selectPrompt;
+    btn.textContent = t.submitToAgent;
     btn.disabled = true;
   }
 }
@@ -2475,6 +3092,7 @@ function copySelectedCity() {
 
 async function submitSelection() {
   if (!selectedCity) return;
+  const t = I18N[LANG] || I18N.zh;
 
   try {
     const response = await fetch('http://localhost:' + RECEIVER_PORT + '/submit', {
@@ -2486,7 +3104,8 @@ async function submitSelection() {
     if (!response.ok) throw new Error('submit failed');
 
     const submitBar = document.querySelector('.submit-bar');
-    submitBar.innerHTML = '<div class="submit-success"><strong>✓ 已发送给 Agent，正在生成...</strong><br>你可以留在这个页面，Agent 会继续接手后续流程。</div>';
+    const successMsg = selectedCity === '__AI_CHOOSE__' ? t.aiSuccess : t.agentSuccess;
+    submitBar.innerHTML = successMsg;
     return;
   } catch (_) {
     const btn = document.getElementById('submit-btn');
@@ -2494,13 +3113,78 @@ async function submitSelection() {
 
     copySelectedCity().then(() => {
       if (!btn) return;
-      btn.textContent = '已复制 ✓';
+      btn.textContent = t.copied;
       setTimeout(() => {
         if (document.getElementById('submit-btn')) {
           btn.textContent = originalText;
         }
       }, 1800);
     }).catch(() => {});
+  }
+}
+
+// Wire AI-choose card
+const aiCard = document.getElementById('ai-selector-card');
+if (aiCard) {
+  aiCard.addEventListener('click', () => {
+    const wasSelected = aiCard.classList.contains('selected');
+    document.querySelectorAll('.card.selected').forEach(c => c.classList.remove('selected'));
+    if (!wasSelected) {
+      aiCard.classList.add('selected');
+      selectedCity = '__AI_CHOOSE__';
+    } else {
+      aiCard.classList.remove('selected');
+      selectedCity = null;
+    }
+    updateSubmitBar();
+  });
+  aiCard.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); aiCard.click(); }
+  });
+}
+
+function applyI18n() {
+  const t = I18N[LANG] || I18N.zh;
+  document.documentElement.lang = LANG;
+  document.title = t.pageTitle;
+
+  const title = document.querySelector('.page-title-section h1');
+  const productName = title ? title.querySelector('.product-name') : null;
+  if (title && productName) {
+    title.innerHTML = '';
+    if (LANG === 'zh') {
+      title.append('为 ');
+      title.appendChild(productName);
+      title.append(' 选择设计风格');
+    } else {
+      title.append(t.headingPrefix);
+      title.appendChild(productName);
+      if (t.headingSuffix) title.append(t.headingSuffix);
+    }
+  }
+
+  const subtitle = document.querySelector('.page-title-section .subtitle');
+  if (subtitle) subtitle.innerHTML = t.subtitle;
+
+  const aiTitle = document.querySelector('.ai-title');
+  if (aiTitle) aiTitle.textContent = t.aiTitle;
+
+  const aiSubtitle = document.querySelector('.ai-subtitle');
+  if (aiSubtitle) aiSubtitle.textContent = t.aiSubtitle;
+
+  const aiCta = document.querySelector('.ai-cta');
+  if (aiCta) aiCta.innerHTML = t.aiCta + '<span aria-hidden="true">→</span>';
+
+  const footer = document.querySelector('.footer-note');
+  if (footer) footer.innerHTML = t.footer;
+
+  const authorName = document.getElementById('author-name');
+  if (authorName) authorName.textContent = LANG === 'en' ? 'oil-oil' : 'oil欧呦';
+
+  if (LANG === 'en') {
+    document.querySelectorAll('.card-body-text[data-en]').forEach((node) => {
+      node.innerHTML = node.dataset.en;
+    });
   }
 }
 
@@ -2512,6 +3196,8 @@ document.querySelectorAll('.card').forEach((card) => {
   card.querySelector('.card-body').appendChild(createCheckBadge());
 
   card.addEventListener('click', () => {
+    // Deselect AI card too
+    if (aiCard) aiCard.classList.remove('selected');
     document.querySelectorAll('.card.selected').forEach((selectedCard) => {
       selectedCard.classList.remove('selected');
     });
@@ -2523,6 +3209,7 @@ document.querySelectorAll('.card').forEach((card) => {
 });
 
 updateSubmitBar();
+if (LANG !== 'zh') applyI18n();
 
 </script>
 

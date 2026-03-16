@@ -2101,3 +2101,327 @@ background-image: radial-gradient(circle at 50% 100%, rgba(255,153,51,0.15) 0%, 
 
 ### Icons
 - Ornate, filled silhouettes with golden gradient drops.
+
+---
+
+## 51. 大阪 (Osaka)
+
+**Emotional register**: 街头 / 满载 / 叛逆. Hyper-dense street energy. Bold graphic impact of screenprinted zines and manga panels.
+
+### Fonts
+- **Display**: `Dela Gothic One` — slab weight, commanding and rebellious
+- **Body**: `Bricolage Grotesque` — chunky and contemporary
+
+### Colors
+```
+--bg:           #F2EFE9    /* bleached cement / 漂白水泥 */
+--bg-surface:   #E5E0D5
+--ink:          #111111    /* sumi black */
+--ink-muted:    #737373
+--accent:       #0891B2    /* neon cyan / 霓虹青 */
+--line:         rgba(8, 145, 178, 0.3)
+```
+
+### Texture
+Comic book halftone dot screen — small radial dots on a light base, like risograph printing.
+
+```css
+.texture-osaka {
+  background-color: var(--bg);
+  background-image: radial-gradient(var(--ink-muted) 1px, transparent 1px);
+  background-size: 8px 8px;
+  background-position: 0 0;
+  opacity: 0.8;
+  mix-blend-mode: multiply;
+}
+```
+
+### Layout character
+- Hyper-compact typography — headlines crowd each other deliberately, breaking whitespace rules
+- Exaggerated font-size jumps between display and body (5:1 ratio or more)
+- Hard-edged cutouts and diagonal crop on images
+
+### Motion character
+- Fast, jerky snaps. `ease: "back.out(2)"`, duration 0.2–0.4s
+- Elements slam in from off-axis, no graceful fade
+- Hover states cause hard color inversion
+
+### Icons
+- Thick strokes with heavy drop shadow offset 4px, slightly misregistered — imitating rough screenprint
+
+---
+
+## 52. 清迈 (Chiang Mai)
+
+**Emotional register**: Grounded / Serene / Organic / Mindful. The unhurried pace of a morning market in mist.
+
+### Fonts
+- **Display**: `Philosopher` — classical elegance with spiritual calm
+- **Body**: `Lora` — warm, readable serif
+
+### Colors
+```
+--bg:           #F6F4EB    /* mulberry paper / 桑纸白 */
+--bg-surface:   #EAE4D3
+--ink:          #2C3F2D    /* forest ink / 林间深绿 */
+--ink-muted:    #6B705C
+--accent:       #E07A5F    /* terracotta / 赤陶橘 */
+--line:         rgba(44, 63, 45, 0.15)
+```
+
+### Texture
+Faint linen-weave crosshatch — barely perceptible, like handmade paper under sunlight.
+
+```css
+.texture-chiangmai {
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(44,63,45,0.03) 4px, rgba(44,63,45,0.03) 5px),
+    repeating-linear-gradient(0deg, transparent, transparent 12px, rgba(44,63,45,0.02) 12px, rgba(44,63,45,0.02) 13px);
+}
+```
+
+### Layout character
+- Generous, breathing layouts with generous line-height (1.8+)
+- Organic dividers — wavy SVG paths, not hard lines
+- Body text in columns, prose-forward
+
+### Motion character
+- Very slow fades, `duration: 1.2–1.8s`, `ease: "power1.inOut"`
+- Nothing bounces or snaps
+- Parallax on botanical-style SVG background elements
+
+### Icons
+- Fluid single-stroke lines, no fill, inspired by botanical illustration
+
+---
+
+## 53. 米兰 (Milan)
+
+**Emotional register**: 奢华 / 匠心 / 隽永. Italian craftsmanship distilled to its purest essence — quiet luxury, nothing superfluous.
+
+### Fonts
+- **Display**: `Bodoni Moda` — extreme contrast between thick and hairline strokes
+- **Body**: `Outfit` — clean, unobtrusive, subordinate to the display
+
+### Colors
+```
+--bg:           #EADDD0    /* aged linen / 旧亚麻 */
+--bg-surface:   #F3EBE3
+--ink:          #3A2A22    /* espresso / 浓缩咖啡 */
+--ink-muted:    #8C7A6E
+--accent:       #3E5424    /* olive grove / 橄榄林 */
+--line:         rgba(58, 42, 34, 0.1)
+```
+
+### Texture
+Venetian plaster micro-grain — SVG fractal noise at 4% opacity, nearly invisible, tactile without being decorative.
+
+```css
+.texture-milan {
+  background-color: var(--bg);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  border-bottom: 1px solid rgba(58, 42, 34, 0.1);
+}
+```
+
+### Layout character
+- Whitespace IS the design — sections have more negative space than content
+- Hairline rules (0.5px) as section dividers, never decorative shapes
+- Headlines floated to margin, body text in narrow centered column
+
+### Motion character
+- Extremely slow and unhurried. `duration: 1.4–2s`, `ease: "power2.inOut"`
+- Opacity-only fades, no movement — like a page being lifted from a fog
+- No scroll-triggered animations on mobile
+
+### Icons
+- Ultra-thin lines (0.5–1px), no fill, inspired by high-jewelry engraving and architectural blueprints
+
+---
+
+## 54. 台北 (Taipei)
+
+**Emotional register**: Bustling / Friendly / Nostalgic / Flavorful. The magnetic chaos of a night market — bright lights, the smell of scallion pancakes, everyone slightly shouting.
+
+### Fonts
+- **Display**: `Dela Gothic One` — round, bold, accessible and warm
+- **Body**: `M PLUS Rounded 1c` — friendly rounded sans, excellent for CJK
+
+### Colors
+```
+--bg:           #FFF9F0    /* warm rice-paper white */
+--bg-surface:   #F4EBD9
+--ink:          #3A2E2A    /* dark soy / 酱油深棕 */
+--ink-muted:    #8C7A73
+--accent:       #00B371    /* jade green / 玉绿 */
+--line:         rgba(0, 179, 113, 0.15)
+```
+
+### Texture
+Faint grid lines like graph paper — evokes the handwritten shop-sign culture of Taiwanese street commerce.
+
+```css
+.texture-taipei {
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(0, 179, 113, 0.12) 19px, rgba(0, 179, 113, 0.12) 20px),
+    repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(0, 179, 113, 0.12) 19px, rgba(0, 179, 113, 0.12) 20px);
+}
+```
+
+### Layout character
+- Capsule tags and pill labels everywhere — the visual language of market sticker pricing
+- Mixed weight in a single headline (bold + thin stacked)
+- Bright color blocks used as section dividers rather than lines
+
+### Motion character
+- Bouncy and friendly. `ease: "back.out(1.4)"`, duration 0.4–0.6s
+- Elements pop in with a slight scale-up
+- Hover states increase saturation
+
+### Icons
+- Rounded corners on everything, filled with accent color, high recognition — like transit-map symbols
+
+---
+
+## 55. 新奥尔良 (New Orleans)
+
+**Emotional register**: Soulful / Festive / Historic / Intoxicating. The velvet depths of a jazz club at 2am — brass catching candlelight, the floor slightly sticky, everyone swaying.
+
+### Fonts
+- **Display**: `Abril Fatface` — Victorian excess, ornate and theatrical
+- **Body**: `Special Elite` — typewriter texture, worn and personal
+
+### Colors
+```
+--bg:           #2A1B38    /* Mardi Gras dark / 狂欢节深紫 */
+--bg-surface:   #3C2850
+--ink:          #F4EFE6    /* cream / 奶油 */
+--ink-muted:    #B3A3C2
+--accent:       #F2A900    /* gold doubloon / 金幣 */
+--line:         rgba(242, 169, 0, 0.2)
+```
+
+### Texture
+Wrought-iron filigree shadow — repeating stripe pattern evoking the ironwork balconies of the French Quarter.
+
+```css
+.texture-neworleans {
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(to right, transparent, transparent 40px, rgba(242, 169, 0, 0.08) 40px, rgba(242, 169, 0, 0.08) 42px,
+    transparent 42px, transparent 46px, rgba(242, 169, 0, 0.08) 46px, rgba(242, 169, 0, 0.08) 48px);
+}
+```
+
+### Layout character
+- Heavy ornamentation: thick borders with corner flourishes, ruled lines flanking section titles
+- Vintage-poster hierarchy: massive display type over dense body copy
+- Irregular column widths — editorial, not systematic
+
+### Motion character
+- Warm and loose. `ease: "sine.inOut"`, duration 0.8–1.1s
+- Slow color fades on hover, like a lamp dimming
+- Parallax on ornamental background patterns
+
+### Icons
+- Copper-plate engraving style — complex silhouettes with fine interior detail, slight roughness at edges
+
+---
+
+## 56. 苏黎世 (Zurich)
+
+**Emotional register**: 精准 / 克制 / 绝对信任. Swiss International Typographic Style — every element earns its position on the grid.
+
+### Fonts
+- **Display**: `Archivo Black` — unapologetic geometric weight, no personality quirks
+- **Body**: `Inter` — the platonic ideal of a screen sans-serif
+
+### Colors
+```
+--bg:           #F7F8FA    /* engineering white / 工程白 */
+--bg-surface:   #EEF1F6
+--ink:          #0A0B0C    /* black / 纯黑 */
+--ink-muted:    #616670
+--accent:       #DA291C    /* Swiss red / 瑞士红 */
+--line:         rgba(10, 11, 12, 0.08)
+```
+
+### Texture
+Engineering graph paper — precise 32px grid lines at 3% opacity, visible only on close inspection.
+
+```css
+.texture-zurich {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(rgba(10, 11, 12, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 11, 12, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: center center;
+}
+```
+
+### Layout character
+- Absolute grid discipline — 12-column, no exceptions
+- Zero border-radius on every element. Hard rectangular corners only.
+- The accent (red) used in single points: one CTA, one underline, one stat highlight — never as area fill
+
+### Motion character
+- Mechanical and precise. `ease: "power3.out"`, duration 0.25–0.35s
+- Elements snap to position rather than easing in
+- No decorative animation — motion only for state changes
+
+### Icons
+- 2px equal-weight strokes, pure geometric construction on grid, zero rounded ends
+
+---
+
+## 57. 温哥华 (Vancouver)
+
+**Emotional register**: 凛冽 / 有机 / 原始野性. The feeling of standing in an old-growth rainforest at dusk — vast, cold, alive, humbling.
+
+### Fonts
+- **Display**: `Oswald` — condensed, vertical, like tall firs
+- **Body**: `Mulish` — clean and legible against dark backgrounds
+
+### Colors
+```
+--bg:           #13201C    /* old growth / 老林深绿 */
+--bg-surface:   #1C2E28
+--ink:          #E3EBE7    /* first light / 晨光白 */
+--ink-muted:    #8AA197
+--accent:       #48E5C2    /* glacier cyan / 冰川青 */
+--line:         rgba(72, 229, 194, 0.15)
+```
+
+### Texture
+Pacific Northwest rain-forest: diagonal rain streaks and a subtle corner glow of accent color.
+
+```css
+.texture-vancouver {
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.01) 0px,
+      rgba(255, 255, 255, 0.01) 1px,
+      transparent 1px,
+      transparent 12px
+    ),
+    radial-gradient(circle at 100% 0%, rgba(72, 229, 194, 0.05) 0%, transparent 40%);
+}
+```
+
+### Layout character
+- Dark, immersive full-viewport sections — content floats in negative space
+- Accent used sparingly: single glowing CTA, key metric highlight, or divider streak
+- Full-bleed imagery with accent color overlay at 10–15% opacity
+
+### Motion character
+- Cold and deliberate. `ease: "power2.inOut"`, duration 0.7–1.0s
+- Elements emerge from darkness (opacity 0 → 1 only, no translateY)
+- Accent glow pulses slowly on the hero CTA (2–3s keyframe loop)
+
+### Icons
+- Slightly rounded organics: flowing strokes imitating leaf veins and water tension, 2px weight

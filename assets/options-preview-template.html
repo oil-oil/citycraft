@@ -33,7 +33,78 @@ body {
   color: #f0f0f0;
   font-family: 'Plus Jakarta Sans', sans-serif;
   padding: 48px 32px 100px;
+  padding-top: calc(54px + 48px);
 }
+
+.cc-topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(10,10,10,0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  z-index: 200;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+.cc-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+}
+.cc-mark { display: flex; align-items: center; flex-shrink: 0; }
+.cc-wordmark {
+  font-size: 0.95rem;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  background: linear-gradient(135deg, #f0ece4 20%, #c8956a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.cc-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.cc-topbar .github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: rgba(255,255,255,0.3);
+  text-decoration: none;
+  font-size: 0.77rem;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  transition: all 0.15s ease;
+}
+.cc-topbar .github-link:hover {
+  color: rgba(255,255,255,0.75);
+  border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+}
+.cc-topbar .author-credit {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.cc-topbar .author-credit:hover {
+  color: rgba(255,255,255,0.55);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+@media (max-width: 560px) { .cc-topbar .author-credit { display: none; } }
 
 h1.page-title {
   font-size: clamp(1.2rem, 2.5vw, 1.6rem);
@@ -876,6 +947,29 @@ h1.page-title strong { color: #fff; }
 </head>
 <body>
 
+<nav class="cc-topbar">
+  <a class="cc-brand" href="https://github.com/oil-oil/citycraft" target="_blank" rel="noopener noreferrer">
+    <div class="cc-mark">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10.8" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+        <path d="M12 5.5 L18 8.8 L12 12.1 L6 8.8 Z" fill="#f0ece4" opacity="0.88"/>
+        <path d="M6 8.8 L12 12.1 L12 18.5 L6 15.2 Z" fill="#f0ece4" opacity="0.45"/>
+        <path d="M18 8.8 L12 12.1 L12 18.5 L18 15.2 Z" fill="#f0ece4" opacity="0.2"/>
+      </svg>
+    </div>
+    <span class="cc-wordmark">CITYCRAFT</span>
+  </a>
+  <div class="cc-topbar-right">
+    <a href="https://github.com/oil-oil/citycraft" class="github-link" target="_blank" rel="noopener noreferrer">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+      </svg>
+      GitHub
+    </a>
+    <a href="mailto:zhihuang.oiloil@gmail.com" class="author-credit" id="author-name">oil欧呦</a>
+  </div>
+</nav>
+
 <h1 class="page-title">为 <strong>__PRODUCT_NAME__</strong> 选择最后 3 项</h1>
 <p class="page-subtitle">每组都可以直接交互体验 — 选好之后点底部的「告诉 Agent」</p>
 
@@ -1175,9 +1269,233 @@ h1.page-title strong { color: #fff; }
 </div>
 
 <script>
+const LANG = /^__/.test('__LANG__') ? 'zh' : '__LANG__';
 const RECEIVER_PORT = '__RECEIVER_PORT__' === '__RECEIVER_PORT__' ? 17432 : parseInt('__RECEIVER_PORT__', 10);
 const CITY = '__CITY_NAME__' === '__CITY_NAME__' ? '' : '__CITY_NAME__';
 const selections = { layout: null, nav: null, tone: null };
+const I18N = {
+  zh: {
+    pageTitle: '选择设计方向 — __PRODUCT_NAME__',
+    pageTitlePrefix: '为 ',
+    pageTitleSuffix: ' 选择最后 3 项',
+    subtitle: '每组都可以直接交互体验 — 选好之后点底部的「告诉 Agent」',
+    sectionLabels: [
+      '01 &nbsp;排版气质',
+      '02 &nbsp;导航风格',
+      '03 &nbsp;色调微调'
+    ],
+    summaryEmpty: '已选 <strong>{done} / 3</strong>',
+    summaryReady: '已选 <strong>3 / 3</strong> &nbsp;·&nbsp; {parts}',
+    summaryLabel: {
+      layout: '排版：',
+      nav: '导航：',
+      tone: '色调：'
+    },
+    copyLabels: {
+      layout: '排版气质：',
+      nav: '导航风格：',
+      tone: '色调微调：'
+    },
+    submit: '告诉 Agent →',
+    copied: '已复制 ✓',
+    success: '<div class="submit-success"><strong>✓ 已发送给 Agent，正在生成...</strong><br>你可以留在这个页面，Agent 会继续接手后续流程。</div>',
+    footerTitles: [
+      '大标题铺满屏',
+      '内容讲故事',
+      '滚动触发演出',
+      '产品界面展示',
+      '极简居中留白',
+      'A · 全屏菜单',
+      'B · 底部浮动导航',
+      'C · 左侧竖排',
+      'D · Logo 居中拆分',
+      '保留原版',
+      '压暗版',
+      '提亮版'
+    ],
+    footerBodies: [
+      '进来第一眼就被震住，标题占据整个视野，适合强调品牌冲击力',
+      '页面像杂志，每个板块单独讲清楚一件事，适合需要说服用户的产品',
+      '每向下滚一屏，新内容才出现，像翻页一样一幕一幕展开，参考 Apple 产品页',
+      '首屏直接秀出产品的真实界面，适合有实际画面的 App 或 SaaS 工具',
+      '所有内容居中对齐，大量留白，字体是主角，适合高端品牌或设计工作室',
+      '点击右上角图标，菜单铺满整个屏幕，视觉冲击感最强',
+      '导航条悬浮在页面底部，鼠标靠近会被轻轻吸引过去',
+      '导航固定在页面左边框，像设计工作室或开发工具的风格',
+      '品牌名居中，链接分列左右两侧，向下滚动时导航会收缩变形',
+      '就是预览卡里的那个质感',
+      '更深沉 · 偏奢侈品或高端 SaaS',
+      '更鲜明 · 偏现代消费品牌或 B2C'
+    ],
+    optionLabels: {
+      layout: {
+        '铺张型': '铺张型',
+        '叙事型': '叙事型',
+        '剧场型': '剧场型',
+        '产品演示型': '产品演示型',
+        '极简居中型': '极简居中型'
+      },
+      nav: {
+        A: 'A',
+        B: 'B',
+        C: 'C',
+        D: 'D'
+      },
+      tone: {
+        '保留原版': '保留原版',
+        '压暗版': '压暗版',
+        '提亮版': '提亮版'
+      }
+    },
+    demo: {
+      narrativeBody: '往下滚是一段有节奏的故事，每个板块都在讲清楚一件事，像一本可以翻阅的杂志。',
+      narrativeItems: ['功能一 · 核心差异化', '功能二 · 数据与证明'],
+      theaterStrips: ['场景一 · 问题', '场景二 · 解法', '场景三 · 结果'],
+      theaterCta: '进入',
+      productNav: ['总览', '数据', '用户', '设置'],
+      productMetrics: ['转化率', '访问量'],
+      minimalSubtitle: '大量留白，字体是主角',
+      minimalCta: '了解更多',
+      blastLinks: ['产品', '案例', '定价', '关于'],
+      blastHint: '点击右上角的 ≡ 试试',
+      pillLinks: ['产品', '案例', '定价'],
+      sidebarLinks: ['产品', '案例', '价格'],
+      sidebarBody: '固定在左侧的竖排导航',
+      splitLinks: ['产品', '案例', '定价', '关于'],
+      colorLabels: ['原版色调', '压暗版', '提亮版'],
+      colorButtons: ['了解更多', '了解更多', '了解更多']
+    }
+  },
+  en: {
+    pageTitle: 'Choose Design Directions - __PRODUCT_NAME__',
+    pageTitlePrefix: 'Choose the final 3 directions for ',
+    pageTitleSuffix: '',
+    subtitle: 'Each group is fully interactive. Once you decide, click "Tell Agent" at the bottom.',
+    sectionLabels: [
+      '01 &nbsp;Typography Mood',
+      '02 &nbsp;Navigation Style',
+      '03 &nbsp;Color Tuning'
+    ],
+    summaryEmpty: 'Selected <strong>{done} / 3</strong>',
+    summaryReady: 'Selected <strong>3 / 3</strong> &nbsp;·&nbsp; {parts}',
+    summaryLabel: {
+      layout: 'Layout: ',
+      nav: 'Nav: ',
+      tone: 'Tone: '
+    },
+    copyLabels: {
+      layout: 'Layout Mood: ',
+      nav: 'Navigation Style: ',
+      tone: 'Color Tuning: '
+    },
+    submit: 'Tell Agent →',
+    copied: 'Copied ✓',
+    success: '<div class="submit-success"><strong>✓ Sent to Agent. Generating now...</strong><br>You can stay on this page while Agent continues the next step.</div>',
+    footerTitles: [
+      'Massive Headline',
+      'Story-Driven Content',
+      'Scroll-Staged Reveal',
+      'Product UI Showcase',
+      'Minimal Centered Layout',
+      'A · Fullscreen Menu',
+      'B · Floating Bottom Nav',
+      'C · Left Vertical Rail',
+      'D · Center-Split Logo Nav',
+      'Keep Original Palette',
+      'Darkened Version',
+      'Brightened Version'
+    ],
+    footerBodies: [
+      'The headline dominates the first glance and fills the viewport. Best for maximum brand impact.',
+      'The page reads like a magazine, with each section making one clear point. Great for products that need persuasion.',
+      'New content appears only as you scroll, unfolding scene by scene like a staged product narrative.',
+      'The hero shows the real product interface right away. Perfect for apps or SaaS products with strong visuals.',
+      'Everything stays centered with generous whitespace and typography in the lead. Great for premium brands or design studios.',
+      'Click the top-right trigger and the menu takes over the entire screen for the strongest visual punch.',
+      'The nav floats at the bottom of the page and gently pulls toward the cursor as you approach it.',
+      'The nav stays pinned to the left edge, with a feel that suits design studios or developer tools.',
+      'The logo anchors the center while links split to both sides, then the nav compresses as you scroll.',
+      'The exact same atmosphere as the original preview card.',
+      'Deeper and moodier, leaning more luxury brand or premium SaaS.',
+      'Brighter and more energetic, leaning more modern consumer brand or B2C.'
+    ],
+    optionLabels: {
+      layout: {
+        '铺张型': 'Maximal',
+        '叙事型': 'Narrative',
+        '剧场型': 'Theatrical',
+        '产品演示型': 'Product Demo',
+        '极简居中型': 'Minimal Centered'
+      },
+      nav: {
+        A: 'A',
+        B: 'B',
+        C: 'C',
+        D: 'D'
+      },
+      tone: {
+        '保留原版': 'Original',
+        '压暗版': 'Darkened',
+        '提亮版': 'Brightened'
+      }
+    },
+    demo: {
+      narrativeBody: 'Scrolling feels like moving through a paced story. Each section exists to explain one clear idea, like a magazine you can move through.',
+      narrativeItems: ['Feature One · Core Differentiator', 'Feature Two · Data and Proof'],
+      theaterStrips: ['Scene One · Problem', 'Scene Two · Solution', 'Scene Three · Result'],
+      theaterCta: 'Enter',
+      productNav: ['Overview', 'Data', 'Users', 'Settings'],
+      productMetrics: ['Conversion', 'Traffic'],
+      minimalSubtitle: 'Whitespace leads, and typography does the talking.',
+      minimalCta: 'Learn More',
+      blastLinks: ['Product', 'Cases', 'Pricing', 'About'],
+      blastHint: 'Try the ≡ button in the top-right corner',
+      pillLinks: ['Product', 'Cases', 'Pricing'],
+      sidebarLinks: ['Product', 'Cases', 'Pricing'],
+      sidebarBody: 'Vertical navigation pinned to the left side',
+      splitLinks: ['Product', 'Cases', 'Pricing', 'About'],
+      colorLabels: ['Original Palette', 'Darkened', 'Brightened'],
+      colorButtons: ['Learn More', 'Learn More', 'Learn More']
+    }
+  }
+};
+
+function getText() {
+  return I18N[LANG] || I18N.zh;
+}
+
+function localizeSelection(group, value) {
+  const t = getText();
+  const map = t.optionLabels[group] || {};
+  return map[value] || value;
+}
+
+function setTextList(selector, values) {
+  document.querySelectorAll(selector).forEach((node, index) => {
+    if (values[index] !== undefined) node.textContent = values[index];
+  });
+}
+
+function setHtmlList(selector, values) {
+  document.querySelectorAll(selector).forEach((node, index) => {
+    if (values[index] !== undefined) node.innerHTML = values[index];
+  });
+}
+
+function setIconLabelText(selector, values) {
+  document.querySelectorAll(selector).forEach((node, index) => {
+    if (values[index] === undefined) return;
+    const icon = node.querySelector('svg');
+    if (!icon) {
+      node.textContent = values[index];
+      return;
+    }
+
+    const textNodes = Array.from(node.childNodes).filter((child) => child.nodeType === Node.TEXT_NODE);
+    textNodes.forEach((child) => child.remove());
+    node.append(document.createTextNode(' ' + values[index]));
+  });
+}
 
 function select(card) {
   const sourceGroup = card.dataset.group;
@@ -1193,35 +1511,36 @@ function select(card) {
 }
 
 function updateSummary() {
+  const t = getText();
   const done = Object.values(selections).filter(Boolean).length;
-  const left = 3 - done;
   const parts = [];
-  if (selections.layout) parts.push('排版：' + selections.layout);
-  if (selections.nav)    parts.push('导航：' + selections.nav);
-  if (selections.tone)   parts.push('色调：' + selections.tone);
+  if (selections.layout) parts.push(t.summaryLabel.layout + localizeSelection('layout', selections.layout));
+  if (selections.nav)    parts.push(t.summaryLabel.nav + localizeSelection('nav', selections.nav));
+  if (selections.tone)   parts.push(t.summaryLabel.tone + localizeSelection('tone', selections.tone));
 
   const summary = document.getElementById('summary');
   const btn = document.getElementById('submit-btn');
 
   if (done === 3) {
-    summary.innerHTML = '已选 <strong>3 / 3</strong> &nbsp;·&nbsp; ' + parts.join(' &nbsp;·&nbsp; ');
+    summary.innerHTML = t.summaryReady.replace('{parts}', parts.join(' &nbsp;·&nbsp; '));
     btn.disabled = false;
   } else {
     const selectedStr = parts.length ? ' &nbsp;·&nbsp; ' + parts.join(' &nbsp;·&nbsp; ') : '';
-    summary.innerHTML = '已选 <strong>' + done + ' / 3</strong>' + selectedStr;
+    summary.innerHTML = t.summaryEmpty.replace('{done}', done) + selectedStr;
     btn.disabled = true;
   }
 }
 
 function copyResult() {
-  const text = `排版气质：${selections.layout}\n导航风格：${selections.nav}\n色调微调：${selections.tone}`;
+  const t = getText();
+  const text = `${t.copyLabels.layout}${localizeSelection('layout', selections.layout)}\n${t.copyLabels.nav}${localizeSelection('nav', selections.nav)}\n${t.copyLabels.tone}${localizeSelection('tone', selections.tone)}`;
   return navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById('submit-btn');
     if (!btn) return;
-    btn.textContent = '已复制 ✓';
+    btn.textContent = t.copied;
     setTimeout(() => {
       if (document.getElementById('submit-btn')) {
-        btn.textContent = '告诉 Agent →';
+        btn.textContent = t.submit;
       }
     }, 2000);
   });
@@ -1238,6 +1557,7 @@ function buildPayload() {
 
 async function submitSelection() {
   const payload = buildPayload();
+  const t = getText();
 
   try {
     const response = await fetch('http://localhost:' + RECEIVER_PORT + '/submit', {
@@ -1249,7 +1569,7 @@ async function submitSelection() {
     if (!response.ok) throw new Error('submit failed');
 
     const submitBar = document.querySelector('.submit-bar');
-    submitBar.innerHTML = '<div class="submit-success"><strong>✓ 已发送给 Agent，正在生成...</strong><br>你可以留在这个页面，Agent 会继续接手后续流程。</div>';
+    submitBar.innerHTML = t.success;
     return;
   } catch (_) {
     copyResult().catch(() => {});
@@ -1282,6 +1602,1251 @@ if (pillDemo && pill) {
     pill.style.transform = 'translateX(-50%)';
   });
 }
+
+function applyI18n() {
+  const t = getText();
+  document.documentElement.lang = LANG;
+  document.title = t.pageTitle;
+
+  const title = document.querySelector('.page-title');
+  const product = title ? title.querySelector('strong') : null;
+  if (title && product) {
+    title.innerHTML = '';
+    if (LANG === 'zh') {
+      title.append('为 ');
+      title.appendChild(product);
+      title.append(' 选择最后 3 项');
+    } else {
+      title.append(t.pageTitlePrefix);
+      title.appendChild(product);
+      if (t.pageTitleSuffix) title.append(t.pageTitleSuffix);
+    }
+  }
+
+  const subtitle = document.querySelector('.page-subtitle');
+  if (subtitle) subtitle.textContent = t.subtitle;
+
+  setHtmlList('.section-label span', t.sectionLabels);
+  setTextList('.opt-footer strong', t.footerTitles);
+  setTextList('.opt-footer span', t.footerBodies);
+
+  const demo = t.demo;
+  const narrativeBody = document.querySelector('.n-body');
+  if (narrativeBody) narrativeBody.textContent = demo.narrativeBody;
+  setTextList('.n-item', demo.narrativeItems);
+  setTextList('.t-strip', demo.theaterStrips);
+
+  const theaterCta = document.querySelector('.t-cta');
+  if (theaterCta) theaterCta.textContent = demo.theaterCta;
+
+  setIconLabelText('.pd-nav-item', demo.productNav);
+  setTextList('.pd-metric-lbl', demo.productMetrics);
+
+  const minimalSubtitle = document.querySelector('.dm-subtitle');
+  if (minimalSubtitle) minimalSubtitle.textContent = demo.minimalSubtitle;
+  const minimalCta = document.querySelector('.dm-cta');
+  if (minimalCta) minimalCta.textContent = demo.minimalCta;
+
+  setTextList('.blast-overlay a', demo.blastLinks);
+  const blastHint = document.querySelector('.blast-content');
+  if (blastHint) blastHint.textContent = demo.blastHint;
+
+  setTextList('.pill-nav a', demo.pillLinks);
+  setTextList('.rail-links a', demo.sidebarLinks);
+  const sidebarBody = document.querySelector('.body-sub');
+  if (sidebarBody) sidebarBody.textContent = demo.sidebarBody;
+  setTextList('.split-link', demo.splitLinks);
+  setTextList('.c-label', demo.colorLabels);
+  setTextList('.c-btn', demo.colorButtons);
+
+  const submitBtn = document.getElementById('submit-btn');
+  if (submitBtn) submitBtn.textContent = t.submit;
+
+  const authorName = document.getElementById('author-name');
+  if (authorName) authorName.textContent = LANG === 'en' ? 'oil-oil' : 'oil欧呦';
+}
+
+updateSummary();
+if (LANG !== 'zh') applyI18n();
+</script>
+
+
+<script id="citycraft-extended-choices">
+const extraChoiceStyles = `
+.opt-card.variant-card .opt-demo {
+  min-height: 180px;
+  background: color-mix(in srgb, var(--surface) 82%, var(--bg));
+}
+
+.opt-card.section-card .opt-demo {
+  min-height: 136px;
+  background: color-mix(in srgb, var(--surface) 86%, var(--bg));
+}
+
+.demo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+  color: var(--muted);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.demo-card {
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  background: color-mix(in srgb, var(--surface) 62%, var(--bg));
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--bg) 35%, transparent);
+}
+
+.demo-hero-a {
+  background:
+    radial-gradient(circle at 78% 36%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 36%),
+    linear-gradient(180deg, color-mix(in srgb, var(--bg) 78%, transparent), var(--bg));
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.demo-hero-a .hero-a-badge {
+  width: fit-content;
+}
+.demo-hero-a .hero-a-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.demo-hero-a .hero-a-stack span {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: color-mix(in srgb, var(--ink) 92%, transparent);
+}
+.demo-hero-a .hero-a-stack span:last-child {
+  color: var(--accent);
+}
+.demo-hero-a .hero-a-rule {
+  width: 44px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 999px;
+}
+
+.demo-hero-b {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 12px;
+  padding: 16px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--bg) 82%, transparent) 0 52%, color-mix(in srgb, var(--surface) 90%, transparent) 52% 100%);
+}
+.demo-hero-b .hero-b-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+.demo-hero-b .hero-b-kicker {
+  width: 48px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+.demo-hero-b .hero-b-title {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.demo-hero-b .hero-b-title span {
+  height: 14px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+.demo-hero-b .hero-b-title span:nth-child(1) { width: 92%; }
+.demo-hero-b .hero-b-title span:nth-child(2) {
+  width: 78%;
+  background: color-mix(in srgb, var(--accent) 74%, var(--ink));
+}
+.demo-hero-b .hero-b-meta {
+  width: 56%;
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--muted) 72%, transparent);
+}
+.demo-hero-b .hero-b-visual {
+  position: relative;
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--accent) 16%, transparent), transparent 58%),
+    color-mix(in srgb, var(--surface) 78%, var(--bg));
+  clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%);
+  overflow: hidden;
+}
+.demo-hero-b .hero-b-visual::before,
+.demo-hero-b .hero-b-visual::after {
+  content: '';
+  position: absolute;
+  border-radius: 999px;
+}
+.demo-hero-b .hero-b-visual::before {
+  width: 72px;
+  height: 72px;
+  top: 16px;
+  right: 18px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.demo-hero-b .hero-b-visual::after {
+  width: 84px;
+  height: 10px;
+  left: 18px;
+  bottom: 20px;
+  background: color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
+.demo-hero-c {
+  background: var(--bg);
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.demo-hero-c .hero-c-stage {
+  width: 100%;
+  height: 100%;
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+}
+.demo-hero-c .hero-c-stage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 34px;
+  background: color-mix(in srgb, var(--accent) 82%, transparent);
+}
+.demo-hero-c .hero-c-ring {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+.demo-hero-c .hero-c-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+.demo-hero-c .hero-c-title span {
+  display: block;
+  height: 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 75%, transparent);
+}
+.demo-hero-c .hero-c-title span:first-child { width: 108px; }
+.demo-hero-c .hero-c-title span:last-child { width: 72px; }
+
+.demo-hero-d {
+  padding: 16px;
+  background: color-mix(in srgb, var(--surface) 88%, var(--bg));
+}
+.demo-hero-d .hero-d-window {
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.demo-hero-d .hero-d-topbar {
+  height: 20px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  background: color-mix(in srgb, var(--surface) 56%, transparent);
+}
+.demo-hero-d .hero-d-topbar span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.demo-hero-d .hero-d-topbar span:last-child { background: var(--accent); }
+.demo-hero-d .hero-d-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 72px 1fr;
+}
+.demo-hero-d .hero-d-steps {
+  border-right: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  background: color-mix(in srgb, var(--surface) 36%, transparent);
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.demo-hero-d .hero-d-step {
+  height: 14px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+.demo-hero-d .hero-d-step.active {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  border-left: 2px solid var(--accent);
+}
+.demo-hero-d .hero-d-panel {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.demo-hero-d .hero-d-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.demo-hero-d .hero-d-metrics span {
+  height: 34px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+.demo-hero-d .hero-d-flow {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.demo-hero-d .hero-d-flow i {
+  display: block;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+}
+.demo-hero-d .hero-d-flow b {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 20%, transparent), var(--accent));
+}
+
+.demo-hero-e {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 45%),
+    var(--bg);
+}
+.demo-hero-e .hero-e-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.demo-hero-e .hero-e-word {
+  position: absolute;
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(2.1rem, 8vw, 4rem);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+.demo-hero-e .hero-e-word.layer-1 {
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--ink) 40%, transparent);
+  transform: translate(-8px, -10px) scale(1.08);
+}
+.demo-hero-e .hero-e-word.layer-2 {
+  color: color-mix(in srgb, var(--accent) 26%, transparent);
+  filter: blur(4px);
+  transform: translate(10px, 8px) scale(1.14);
+}
+.demo-hero-e .hero-e-word.layer-main {
+  color: color-mix(in srgb, var(--ink) 94%, transparent);
+}
+
+.demo-hero-f {
+  display: grid;
+  grid-template-columns: 0.96fr 1.04fr;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+}
+.demo-hero-f .hero-f-copy {
+  padding: 18px 14px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  border-right: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+}
+.demo-hero-f .hero-f-copy .demo-chip {
+  width: fit-content;
+}
+.demo-hero-f .hero-f-title {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.demo-hero-f .hero-f-title span,
+.demo-hero-f .hero-f-copy em {
+  display: block;
+  height: 11px;
+  border-radius: 999px;
+}
+.demo-hero-f .hero-f-title span {
+  background: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+.demo-hero-f .hero-f-title span:first-child { width: 88%; }
+.demo-hero-f .hero-f-title span:last-child { width: 68%; }
+.demo-hero-f .hero-f-copy em {
+  width: 54%;
+  background: color-mix(in srgb, var(--muted) 64%, transparent);
+}
+.demo-hero-f .hero-f-visual {
+  position: relative;
+  margin-left: -10px;
+  background:
+    linear-gradient(0deg, color-mix(in srgb, var(--accent) 7%, transparent), transparent 60%),
+    color-mix(in srgb, var(--bg) 8%, var(--surface));
+  clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%);
+}
+.demo-hero-f .hero-f-number {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4.6rem;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--ink) 20%, transparent);
+}
+.demo-hero-f .hero-f-note {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  width: 84px;
+  height: 62px;
+  border-radius: 14px;
+  box-shadow: 12px 12px 0 color-mix(in srgb, var(--accent) 62%, transparent);
+}
+
+.demo-hero-g {
+  position: relative;
+  background:
+    radial-gradient(circle at 20% 24%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 26%),
+    radial-gradient(circle at 80% 72%, color-mix(in srgb, var(--ink) 10%, transparent), transparent 24%),
+    var(--bg);
+  display: grid;
+  place-items: center;
+}
+.demo-hero-g .hero-g-card {
+  width: 72%;
+  min-height: 104px;
+  border-radius: 22px;
+  transform: rotate(-3deg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 16px 16px 0 color-mix(in srgb, var(--accent) 72%, transparent);
+}
+.demo-hero-g .hero-g-card strong {
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.demo-hero-g .hero-g-card span {
+  width: 70%;
+  height: 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 14%, transparent);
+}
+.demo-hero-g .hero-g-card span:last-child { width: 50%; }
+.demo-hero-g .hero-g-dot,
+.demo-hero-g .hero-g-line {
+  position: absolute;
+  opacity: 0.6;
+}
+.demo-hero-g .hero-g-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--ink) 35%, transparent);
+  top: 20px;
+  right: 26px;
+}
+.demo-hero-g .hero-g-line {
+  width: 44px;
+  height: 2px;
+  background: color-mix(in srgb, var(--ink) 28%, transparent);
+  bottom: 28px;
+  left: 22px;
+  transform: rotate(34deg);
+}
+
+.demo-feature-a {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--bg);
+}
+.demo-feature-a .feature-a-row {
+  flex: 1;
+  position: relative;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  padding-top: 10px;
+}
+.demo-feature-a .feature-a-row b {
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  font-family: 'Anton', sans-serif;
+  font-size: 2.7rem;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--accent) 36%, transparent);
+}
+.demo-feature-a .feature-a-row span {
+  display: block;
+  margin-left: 56px;
+  height: 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+.demo-feature-a .feature-a-row span:last-child {
+  width: 58%;
+  margin-top: 8px;
+  background: color-mix(in srgb, var(--muted) 66%, transparent);
+}
+
+.demo-feature-b {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--bg);
+}
+.demo-feature-b .feature-b-block {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.demo-feature-b .feature-b-block:nth-child(odd) .feature-b-copy { order: 1; }
+.demo-feature-b .feature-b-block:nth-child(odd) .feature-b-visual { order: 2; }
+.demo-feature-b .feature-b-block:nth-child(even) .feature-b-copy { order: 2; }
+.demo-feature-b .feature-b-block:nth-child(even) .feature-b-visual { order: 1; }
+.demo-feature-b .feature-b-copy,
+.demo-feature-b .feature-b-visual {
+  border-radius: 12px;
+}
+.demo-feature-b .feature-b-copy {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+  background: color-mix(in srgb, var(--surface) 72%, transparent);
+}
+.demo-feature-b .feature-b-copy span {
+  height: 9px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 74%, transparent);
+}
+.demo-feature-b .feature-b-copy span:last-child {
+  width: 64%;
+  background: color-mix(in srgb, var(--muted) 68%, transparent);
+}
+.demo-feature-b .feature-b-visual {
+  background:
+    radial-gradient(circle at 62% 36%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 26%),
+    color-mix(in srgb, var(--bg) 12%, var(--surface));
+}
+
+.demo-feature-c {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--bg);
+}
+.demo-feature-c .feature-c-step {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+.demo-feature-c .feature-c-dot {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 24%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 64%, transparent);
+}
+.demo-feature-c .feature-c-dot::after {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 34px;
+  background: color-mix(in srgb, var(--ink) 16%, transparent);
+}
+.demo-feature-c .feature-c-step:last-child .feature-c-dot::after { display: none; }
+.demo-feature-c .feature-c-copy {
+  padding-top: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.demo-feature-c .feature-c-copy span {
+  height: 9px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+.demo-feature-c .feature-c-copy span:last-child {
+  width: 56%;
+  background: color-mix(in srgb, var(--muted) 66%, transparent);
+}
+
+.demo-feature-d {
+  padding: 14px;
+  background: var(--bg);
+}
+.demo-feature-d .feature-d-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+}
+.demo-feature-d .feature-d-item {
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface) 74%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+}
+.demo-feature-d .feature-d-item.hero {
+  grid-column: span 2;
+  grid-row: span 2;
+  background: color-mix(in srgb, var(--accent) 82%, var(--bg));
+}
+.demo-feature-d .feature-d-item.tall {
+  grid-row: span 2;
+}
+.demo-feature-d .feature-d-item.wide {
+  grid-column: span 2;
+}
+
+.demo-feature-e {
+  padding: 16px 0 16px 16px;
+  background: var(--bg);
+}
+.demo-feature-e .feature-e-track {
+  display: flex;
+  gap: 10px;
+  height: 100%;
+}
+.demo-feature-e .feature-e-card {
+  flex: 0 0 108px;
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.demo-feature-e .feature-e-card b {
+  font-size: 1.8rem;
+  line-height: 1;
+  color: color-mix(in srgb, var(--accent) 24%, transparent);
+}
+.demo-feature-e .feature-e-card span {
+  height: 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+.demo-feature-e .feature-e-card span:last-child {
+  width: 62%;
+  background: color-mix(in srgb, var(--muted) 66%, transparent);
+}
+
+.demo-feature-f {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--bg);
+}
+.demo-feature-f .feature-f-row {
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  background: color-mix(in srgb, var(--surface) 76%, transparent);
+  overflow: hidden;
+}
+.demo-feature-f .feature-f-head {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.demo-feature-f .feature-f-head span {
+  width: 64%;
+  height: 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 76%, transparent);
+}
+.demo-feature-f .feature-f-head i {
+  width: 16px;
+  height: 16px;
+  position: relative;
+}
+.demo-feature-f .feature-f-head i::before,
+.demo-feature-f .feature-f-head i::after {
+  content: '';
+  position: absolute;
+  background: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+.demo-feature-f .feature-f-head i::before {
+  top: 7px;
+  left: 0;
+  width: 16px;
+  height: 2px;
+}
+.demo-feature-f .feature-f-head i::after {
+  top: 0;
+  left: 7px;
+  width: 2px;
+  height: 16px;
+}
+.demo-feature-f .feature-f-row.open .feature-f-head i::after { display: none; }
+.demo-feature-f .feature-f-body {
+  padding: 0 14px 14px;
+}
+.demo-feature-f .feature-f-body span {
+  display: block;
+  height: 8px;
+  border-radius: 999px;
+  margin-top: 7px;
+  background: color-mix(in srgb, var(--muted) 62%, transparent);
+}
+.demo-feature-f .feature-f-body span:last-child { width: 58%; }
+
+.demo-ai-pick {
+  position: relative;
+  background:
+    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 34%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 88%, transparent), color-mix(in srgb, var(--bg) 92%, transparent));
+  padding: 18px;
+}
+.demo-ai-pick::before {
+  content: '';
+  position: absolute;
+  inset: -36%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 8%, transparent), transparent 52%);
+  animation: ai-rotate-glow 14s linear infinite;
+}
+.demo-ai-pick::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 18% 26%, color-mix(in srgb, var(--ink) 70%, transparent) 100%, transparent),
+    radial-gradient(1px 1px at 72% 58%, color-mix(in srgb, var(--accent) 65%, transparent) 100%, transparent),
+    radial-gradient(1px 1px at 80% 24%, color-mix(in srgb, var(--ink) 54%, transparent) 100%, transparent),
+    radial-gradient(1.5px 1.5px at 30% 80%, color-mix(in srgb, var(--accent) 46%, transparent) 100%, transparent);
+  opacity: 0.4;
+}
+.demo-ai-pick .ai-demo-layer {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.demo-ai-pick .ai-demo-orb {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--ink) 92%, transparent), color-mix(in srgb, var(--accent) 88%, transparent));
+  box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 36%, transparent);
+  position: relative;
+}
+.demo-ai-pick .ai-demo-orb::after {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+}
+.demo-ai-pick .ai-demo-title {
+  color: color-mix(in srgb, var(--ink) 96%, transparent);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: auto;
+}
+.demo-ai-pick .ai-demo-subtitle {
+  color: color-mix(in srgb, var(--muted) 84%, transparent);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+.demo-ai-pick .ai-demo-cta {
+  margin-top: 12px;
+  color: color-mix(in srgb, var(--accent) 94%, transparent);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+@keyframes ai-rotate-glow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.section-card {
+  position: relative;
+}
+.section-card.is-locked {
+  cursor: default;
+}
+.section-card.is-locked:hover {
+  transform: none;
+}
+.section-card .section-check {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: transparent;
+  font-size: 0.78rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+.section-card.selected .section-check {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+.section-card .section-demo-shell {
+  height: 100%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+.section-card .section-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+.section-card .section-bar.muted {
+  background: color-mix(in srgb, var(--muted) 70%, transparent);
+}
+.section-card .section-grid {
+  display: grid;
+  gap: 8px;
+}
+.section-card[data-section-key="hero"] .section-grid {
+  grid-template-columns: 1fr;
+}
+.section-card[data-section-key="features"] .section-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+.section-card[data-section-key="pricing"] .section-grid,
+.section-card[data-section-key="testimonials"] .section-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+.section-card[data-section-key="faq"] .section-grid,
+.section-card[data-section-key="cta"] .section-grid {
+  grid-template-columns: 1fr;
+}
+.section-card .section-grid span {
+  display: block;
+  min-height: 26px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+}
+.section-card[data-section-key="pricing"] .section-grid span:nth-child(2),
+.section-card[data-section-key="cta"] .section-grid span:first-child {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 32%, transparent);
+}
+.section-card[data-section-key="testimonials"] .section-grid span {
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+}
+.section-card[data-section-key="faq"] .section-grid span {
+  min-height: 18px;
+}
+.section-card[data-section-key="cta"] .section-grid span:first-child {
+  min-height: 44px;
+}
+.section-card[data-section-key="hero"] .section-bar:first-child,
+.section-card[data-section-key="cta"] .section-bar:first-child {
+  width: 70%;
+}
+.section-card[data-section-key="features"] .section-bar:first-child {
+  width: 56%;
+}
+.section-card[data-section-key="pricing"] .section-bar:first-child {
+  width: 62%;
+}
+.section-card[data-section-key="testimonials"] .section-bar:first-child {
+  width: 54%;
+}
+.section-card[data-section-key="faq"] .section-bar:first-child {
+  width: 50%;
+}
+`;
+
+const extraChoiceMarkup = `
+<div class="section-label"><span>04 &nbsp;首屏布局 — 用户打开页面第一眼看到的样子</span></div>
+<div class="option-grid cols-4" id="group-hero">
+  <div class="opt-card variant-card" data-group="hero" data-value="__AI_CHOOSE__" onclick="select(this)">
+    <div class="opt-demo demo-ai-pick">
+      <div class="ai-demo-layer"><div class="ai-demo-orb"></div><div class="ai-demo-title">让 AI 来选</div><div class="ai-demo-subtitle">描述你的产品，AI 根据气质自动匹配最合适的首屏布局。</div><div class="ai-demo-cta">交给 AI →</div></div>
+    </div>
+    <div class="opt-footer"><strong>AI 自动选择</strong><span>不确定选哪个？选这个，AI 会根据你的产品类型给出最稳的方案。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="hero" data-value="A" onclick="select(this)">
+    <div class="opt-demo demo-hero-a">
+      <div class="demo-chip hero-a-badge">A</div>
+      <div class="hero-a-stack"><span>FULL</span><span>BLEED</span></div>
+      <div class="hero-a-rule"></div>
+    </div>
+    <div class="opt-footer"><strong>A · 全屏铺张</strong><span>标题和背景铺满整个首屏，气势感最强，适合希望第一眼就震住用户的品牌。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="hero" data-value="B" onclick="select(this)">
+    <div class="opt-demo demo-hero-b">
+      <div class="hero-b-copy"><div class="hero-b-kicker"></div><div class="hero-b-title"><span></span><span></span></div><div class="hero-b-meta"></div></div>
+      <div class="hero-b-visual"></div>
+    </div>
+    <div class="opt-footer"><strong>B · 左文右图</strong><span>左边放文案介绍，右边放产品截图或插图，适合需要同时说明产品功能和视觉的场景。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="hero" data-value="C" onclick="select(this)">
+    <div class="opt-demo demo-hero-c">
+      <div class="hero-c-stage"><div class="hero-c-ring"></div><div class="hero-c-title"><span></span><span></span></div></div>
+    </div>
+    <div class="opt-footer"><strong>C · 居中极简</strong><span>内容居中、大量留白，整体感觉精致克制，适合高端品牌或设计类产品。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="hero" data-value="D" onclick="select(this)">
+    <div class="opt-demo demo-hero-d">
+      <div class="hero-d-window">
+        <div class="hero-d-topbar"><span></span><span></span><span></span></div>
+        <div class="hero-d-main">
+          <div class="hero-d-steps"><div class="hero-d-step active"></div><div class="hero-d-step"></div><div class="hero-d-step"></div></div>
+          <div class="hero-d-panel"><div class="hero-d-metrics"><span></span><span></span><span></span></div><div class="hero-d-flow"><i></i><b></b><i></i><b></b><i></i></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="opt-footer"><strong>D · 产品界面演示</strong><span>首屏直接展示产品截图或操作流程，让用户一进来就看到真实的使用体验，适合 App 或 SaaS。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="hero" data-value="E" onclick="select(this)">
+    <div class="opt-demo demo-hero-e">
+      <div class="hero-e-stack"><div class="hero-e-word layer-2">TYPE</div><div class="hero-e-word layer-1">TYPE</div><div class="hero-e-word layer-main">TYPE</div></div>
+    </div>
+    <div class="opt-footer"><strong>E · 超大文字</strong><span>文字本身就是最大的视觉元素，字体占满画面，适合一句 Slogan 就够冲击力的产品。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="hero" data-value="F" onclick="select(this)">
+    <div class="opt-demo demo-hero-f">
+      <div class="hero-f-copy"><div class="demo-chip">F</div><div class="hero-f-title"><span></span><span></span></div><em></em></div>
+      <div class="hero-f-visual"><div class="hero-f-number">01</div><div class="demo-card hero-f-note"></div></div>
+    </div>
+    <div class="opt-footer"><strong>F · 杂志排版</strong><span>左右内容不等高、结构刻意不对称，像一页有设计感的杂志，适合强调品味和叙事感的产品。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="hero" data-value="G" onclick="select(this)">
+    <div class="opt-demo demo-hero-g">
+      <div class="demo-card hero-g-card"><strong>Launch</strong><span></span><span></span></div><div class="hero-g-dot"></div><div class="hero-g-line"></div>
+    </div>
+    <div class="opt-footer"><strong>G · 浮起卡片</strong><span>主内容放在一张从背景浮起的大卡片里，视觉聚焦感强，适合新产品发布或单一核心功能的展示。</span></div>
+  </div>
+</div>
+
+<div class="section-label"><span>05 &nbsp;功能区排版 — 用来介绍产品核心卖点的那一块</span></div>
+<div class="option-grid cols-4" id="group-features">
+  <div class="opt-card variant-card" data-group="features" data-value="__AI_CHOOSE__" onclick="select(this)">
+    <div class="opt-demo demo-ai-pick"><div class="ai-demo-layer"><div class="ai-demo-orb"></div><div class="ai-demo-title">让 AI 来选</div><div class="ai-demo-subtitle">描述你有哪些功能卖点，AI 自动选最合适的展示方式。</div><div class="ai-demo-cta">交给 AI →</div></div></div>
+    <div class="opt-footer"><strong>AI 自动选择</strong><span>不确定用哪种结构？选这个，AI 会根据你的产品功能数量和性质给出最合适的方案。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="features" data-value="A" onclick="select(this)">
+    <div class="opt-demo demo-feature-a"><div class="feature-a-row"><b>01</b><span></span><span></span></div><div class="feature-a-row"><b>02</b><span></span><span></span></div></div>
+    <div class="opt-footer"><strong>A · 大数字强调</strong><span>用超大数字突出结果，比如「效率提升 3x」「节省 50% 时间」，适合有量化数据可以展示的产品。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="features" data-value="B" onclick="select(this)">
+    <div class="opt-demo demo-feature-b"><div class="feature-b-block"><div class="feature-b-copy"><span></span><span></span></div><div class="feature-b-visual"></div></div><div class="feature-b-block"><div class="feature-b-copy"><span></span><span></span></div><div class="feature-b-visual"></div></div></div>
+    <div class="opt-footer"><strong>B · 文图交替</strong><span>文字和截图左右轮换出现，每个功能各占一行，读起来像一篇完整的案例叙述，适合每个功能都有对应截图的产品。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="features" data-value="C" onclick="select(this)">
+    <div class="opt-demo demo-feature-c"><div class="feature-c-step"><div class="feature-c-dot"></div><div class="feature-c-copy"><span></span><span></span></div></div><div class="feature-c-step"><div class="feature-c-dot"></div><div class="feature-c-copy"><span></span><span></span></div></div><div class="feature-c-step"><div class="feature-c-dot"></div><div class="feature-c-copy"><span></span><span></span></div></div></div>
+    <div class="opt-footer"><strong>C · 步骤时间线</strong><span>从第 1 步到第 N 步，一步步讲清楚怎么用，适合有完整使用流程的产品，比如「注册 → 设置 → 开始使用」。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="features" data-value="D" onclick="select(this)">
+    <div class="opt-demo demo-feature-d"><div class="feature-d-grid"><div class="feature-d-item hero"></div><div class="feature-d-item tall"></div><div class="feature-d-item"></div><div class="feature-d-item wide"></div><div class="feature-d-item"></div></div></div>
+    <div class="opt-footer"><strong>D · 大小格子拼图</strong><span>功能排成大小不一的格子，重要的占更大位置，适合功能多、想体现产品丰富度的场景。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="features" data-value="E" onclick="select(this)">
+    <div class="opt-demo demo-feature-e"><div class="feature-e-track"><div class="demo-card feature-e-card"><b>01</b><span></span><span></span></div><div class="demo-card feature-e-card"><b>02</b><span></span><span></span></div><div class="demo-card feature-e-card"><b>03</b><span></span><span></span></div></div></div>
+    <div class="opt-footer"><strong>E · 横向卡片浏览</strong><span>功能卡片横向排列，可以左右滑动，适合功能比较多但又不想一次全堆出来的产品。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="features" data-value="F" onclick="select(this)">
+    <div class="opt-demo demo-feature-f"><div class="feature-f-row open"><div class="feature-f-head"><span></span><i></i></div><div class="feature-f-body"><span></span><span></span></div></div><div class="feature-f-row"><div class="feature-f-head"><span></span><i></i></div></div></div>
+    <div class="opt-footer"><strong>F · 点击展开详情</strong><span>每个功能默认只显示标题，点击后展开详细说明，适合功能需要详细解释、或者想同时充当 FAQ 的场景。</span></div>
+  </div>
+</div>
+
+<div class="section-label"><span>06 &nbsp;页面包含哪些板块 — 点击可以取消不需要的</span></div>
+<div class="option-grid cols-3" id="group-sections">
+  <div class="opt-card section-card selected is-locked" data-section-key="hero" data-locked="true" onclick="toggleSection(this)">
+    <div class="section-check">✓</div>
+    <div class="opt-demo"><div class="section-demo-shell"><div class="section-bar"></div><div class="section-grid"><span></span></div></div></div>
+    <div class="opt-footer"><strong>首屏 — 必选</strong><span>打开页面第一眼看到的内容，负责说清楚这是什么产品、为什么值得往下看。</span></div>
+  </div>
+  <div class="opt-card section-card selected is-locked" data-section-key="features" data-locked="true" onclick="toggleSection(this)">
+    <div class="section-check">✓</div>
+    <div class="opt-demo"><div class="section-demo-shell"><div class="section-bar"></div><div class="section-grid"><span></span><span></span><span></span><span></span></div></div></div>
+    <div class="opt-footer"><strong>功能介绍 — 必选</strong><span>首屏之后展开介绍核心卖点，是整个落地页最重要的说服区域。</span></div>
+  </div>
+  <div class="opt-card section-card selected" data-section-key="pricing" onclick="toggleSection(this)">
+    <div class="section-check">✓</div>
+    <div class="opt-demo"><div class="section-demo-shell"><div class="section-bar"></div><div class="section-grid"><span></span><span></span><span></span></div></div></div>
+    <div class="opt-footer"><strong>定价表</strong><span>列出各个收费方案，让用户直接比较和决策。如果是免费产品或暂不公开定价，可以取消。</span></div>
+  </div>
+  <div class="opt-card section-card selected" data-section-key="testimonials" onclick="toggleSection(this)">
+    <div class="section-check">✓</div>
+    <div class="opt-demo"><div class="section-demo-shell"><div class="section-bar"></div><div class="section-grid"><span></span><span></span><span></span></div></div></div>
+    <div class="opt-footer"><strong>用户评价 / 案例墙</strong><span>展示真实用户的使用反馈或合作品牌 Logo，帮助新访客建立信任感。</span></div>
+  </div>
+  <div class="opt-card section-card selected" data-section-key="faq" onclick="toggleSection(this)">
+    <div class="section-check">✓</div>
+    <div class="opt-demo"><div class="section-demo-shell"><div class="section-bar"></div><div class="section-grid"><span></span><span></span><span></span></div></div></div>
+    <div class="opt-footer"><strong>常见问题 FAQ</strong><span>提前回答用户最常见的疑问，减少犹豫、降低流失。</span></div>
+  </div>
+  <div class="opt-card section-card selected" data-section-key="cta" onclick="toggleSection(this)">
+    <div class="section-check">✓</div>
+    <div class="opt-demo"><div class="section-demo-shell"><div class="section-bar"></div><div class="section-grid"><span></span><span></span></div></div></div>
+    <div class="opt-footer"><strong>底部行动号召</strong><span>页面最后的转化区域，用一个清晰的按钮引导用户注册、购买或联系，为整页做一个有力的收尾。</span></div>
+  </div>
+</div>
+`;
+
+const choiceStyleTag = document.createElement('style');
+choiceStyleTag.textContent = extraChoiceStyles;
+document.head.appendChild(choiceStyleTag);
+
+const colorGroup = document.getElementById('group-color');
+if (colorGroup) {
+  colorGroup.insertAdjacentHTML('afterend', extraChoiceMarkup);
+}
+
+const SECTION_ORDER = ['hero', 'features', 'pricing', 'testimonials', 'faq', 'cta'];
+selections.hero = null;
+selections.features = null;
+selections.sections = [...SECTION_ORDER];
+
+const zh = I18N.zh;
+zh.pageTitle = '选择设计方向 — __PRODUCT_NAME__';
+zh.pageTitlePrefix = '为 ';
+zh.pageTitleSuffix = ' 选择最后 6 项';
+zh.subtitle = '先选排版、导航、色调，再补上 Hero、Features 和页面板块，全部决定好之后就可以直接发给 Agent。';
+zh.sectionLabels = ['01 &nbsp;排版气质', '02 &nbsp;导航风格', '03 &nbsp;色调微调', '04 &nbsp;Hero 变体', '05 &nbsp;Features 变体', '06 &nbsp;页面板块'];
+zh.summaryEmpty = '已选 <strong>{done} / 6</strong>';
+zh.summaryReady = '已选 <strong>6 / 6</strong> &nbsp;·&nbsp; {parts}';
+zh.summaryLabel.hero = 'Hero：';
+zh.summaryLabel.features = 'Features：';
+zh.summaryLabel.sections = '板块：';
+zh.copyLabels.hero = 'Hero 变体：';
+zh.copyLabels.features = 'Features 变体：';
+zh.copyLabels.sections = '页面板块：';
+zh.listJoiner = '、';
+zh.footerTitles = ['大标题铺满屏', '内容讲故事', '滚动触发演出', '产品界面展示', '极简居中留白', 'A · 全屏菜单', 'B · 底部浮动导航', 'C · 左侧竖排', 'D · Logo 居中拆分', '保留原版', '压暗版', '提亮版', 'A · 全屏铺张 / Full Bleed Dominant', 'B · 分屏张力 / Split Tension', 'C · 极简下降 / Minimal Drop', 'D · 产品演示 / Product Demo', 'E · 文字爆炸 / Text Explosion', 'F · 杂志撕裂 / Magazine Tear', 'G · 弹出卡片 / Pop Card', '__AI_CHOOSE__ · AI 来选 / Let AI Decide', 'A · 大数字 / Big Numbers', 'B · 交替展示 / Alternating Showcase', 'C · 时间线 / Timeline', 'D · 本托格子 / Bento Grid', 'E · 横向滚动 / Horizontal Scroll', 'F · 问答展开 / QA Expand', '__AI_CHOOSE__ · AI 来选 / Let AI Decide', 'Hero / 首屏', 'Features / 功能', 'Pricing / 定价表', 'Wall / 案例墙', 'FAQ / 常见问题', 'CTA / 尾部转化'];
+zh.footerBodies = ['进来第一眼就被震住，标题占据整个视野，适合强调品牌冲击力', '页面像杂志，每个板块单独讲清楚一件事，适合需要说服用户的产品', '每向下滚一屏，新内容才出现，像翻页一样一幕一幕展开，参考 Apple 产品页', '首屏直接秀出产品的真实界面，适合有实际画面的 App 或 SaaS 工具', '所有内容居中对齐，大量留白，字体是主角，适合高端品牌或设计工作室', '点击右上角图标，菜单铺满整个屏幕，视觉冲击感最强', '导航条悬浮在页面底部，鼠标靠近会被轻轻吸引过去', '导航固定在页面左边框，像设计工作室或开发工具的风格', '品牌名居中，链接分列左右两侧，向下滚动时导航会收缩变形', '就是预览卡里的那个质感', '更深沉 · 偏奢侈品或高端 SaaS', '更鲜明 · 偏现代消费品牌或 B2C', '标题与视觉铺满首屏，先把气势拉满。', '文案与视觉各占一侧，适合把卖点和产品一起推出去。', '留白很多，节奏很轻，靠一条下降轴线建立高级感。', '首屏直接用流程或界面说话，适合有真实操作路径的产品。', '让字体成为主视觉，适合一句话就很有力量的产品。', '偏编辑排版，结构不对称，适合强调审美和叙事张力。', '用一张浮起的大卡片承接主叙事，适合新产品发布感。', '如果你更想交给系统判断，这张卡会自动帮你配 Hero 方向。', '适合数据、结果、效率提升这类能量化的卖点。', '内容和视觉交错出现，阅读感更像完整案例叙事。', '把使用路径一步步讲清楚，适合 onboarding 或 workflow。', '适合卖点比较多、层级差异明显的产品，信息组织会很强。', '适合能力很多的产品，一路横着浏览会更有动感。', '适合处理异议、解释复杂功能，也能顺手兼容 FAQ 语气。', '如果你还不确定怎么讲功能，这张卡会让系统帮你挑最合适的结构。', '默认勾选且固定包含，负责第一眼把产品讲明白。', '默认勾选且固定包含，用来承接 Hero 之后的核心卖点。', '默认勾选，适合需要直接转化或让用户比较方案的页面。', '默认勾选，用来补社会证明、客户案例或用户声音。', '默认勾选，适合提前处理疑问和购买阻力。', '默认勾选，用一个更明确的行动收口整页叙事。'];
+zh.optionLabels.hero = { A: 'A · 全屏铺张', B: 'B · 分屏张力', C: 'C · 极简下降', D: 'D · 产品演示', E: 'E · 文字爆炸', F: 'F · 杂志撕裂', G: 'G · 弹出卡片', '__AI_CHOOSE__': 'AI 来选' };
+zh.optionLabels.features = { A: 'A · 大数字', B: 'B · 交替展示', C: 'C · 时间线', D: 'D · 本托格子', E: 'E · 横向滚动', F: 'F · 问答展开', '__AI_CHOOSE__': 'AI 来选' };
+zh.optionLabels.sections = { hero: 'Hero', features: 'Features', pricing: '定价表', testimonials: '案例墙', faq: 'FAQ', cta: 'CTA 尾部' };
+zh.demo.aiTitle = '让 AI 来选';
+zh.demo.aiSubtitle = '根据你的产品气质自动匹配更稳的一版。';
+zh.demo.aiCta = '交给 AI →';
+
+const en = I18N.en;
+en.pageTitle = 'Choose Design Directions - __PRODUCT_NAME__';
+en.pageTitlePrefix = 'Choose the final 6 directions for ';
+en.pageTitleSuffix = '';
+en.subtitle = 'Choose layout, nav, tone, then lock in the Hero, Features, and section stack before sending everything to the Agent.';
+en.sectionLabels = ['01 &nbsp;Typography Mood', '02 &nbsp;Navigation Style', '03 &nbsp;Color Tuning', '04 &nbsp;Hero Variant', '05 &nbsp;Features Variant', '06 &nbsp;Page Sections'];
+en.summaryEmpty = 'Selected <strong>{done} / 6</strong>';
+en.summaryReady = 'Selected <strong>6 / 6</strong> &nbsp;·&nbsp; {parts}';
+en.summaryLabel.hero = 'Hero: ';
+en.summaryLabel.features = 'Features: ';
+en.summaryLabel.sections = 'Sections: ';
+en.copyLabels.hero = 'Hero Variant: ';
+en.copyLabels.features = 'Features Variant: ';
+en.copyLabels.sections = 'Page Sections: ';
+en.listJoiner = ', ';
+en.footerTitles = ['Massive Headline', 'Story-Driven Content', 'Scroll-Staged Reveal', 'Product UI Showcase', 'Minimal Centered Layout', 'A · Fullscreen Menu', 'B · Floating Bottom Nav', 'C · Left Vertical Rail', 'D · Center-Split Logo Nav', 'Keep Original Palette', 'Darkened Version', 'Brightened Version', 'A · Full Bleed Dominant / 全屏铺张', 'B · Split Tension / 分屏张力', 'C · Minimal Drop / 极简下降', 'D · Product Demo / 产品演示', 'E · Text Explosion / 文字爆炸', 'F · Magazine Tear / 杂志撕裂', 'G · Pop Card / 弹出卡片', '__AI_CHOOSE__ · Let AI Decide / AI 来选', 'A · Big Numbers / 大数字', 'B · Alternating Showcase / 交替展示', 'C · Timeline / 时间线', 'D · Bento Grid / 本托格子', 'E · Horizontal Scroll / 横向滚动', 'F · QA Expand / 问答展开', '__AI_CHOOSE__ · Let AI Decide / AI 来选', 'Hero / 首屏', 'Features / 功能', 'Pricing / 定价表', 'Wall / 案例墙', 'FAQ / 常见问题', 'CTA / 尾部转化'];
+en.footerBodies = ['The headline dominates the first glance and fills the viewport. Best for maximum brand impact.', 'The page reads like a magazine, with each section making one clear point. Great for products that need persuasion.', 'New content appears only as you scroll, unfolding scene by scene like a staged product narrative.', 'The hero shows the real product interface right away. Perfect for apps or SaaS products with strong visuals.', 'Everything stays centered with generous whitespace and typography in the lead. Great for premium brands or design studios.', 'Click the top-right trigger and the menu takes over the entire screen for the strongest visual punch.', 'The nav floats at the bottom of the page and gently pulls toward the cursor as you approach it.', 'The nav stays pinned to the left edge, with a feel that suits design studios or developer tools.', 'The logo anchors the center while links split to both sides, then the nav compresses as you scroll.', 'The exact same atmosphere as the original preview card.', 'Deeper and moodier, leaning more luxury brand or premium SaaS.', 'Brighter and more energetic, leaning more modern consumer brand or B2C.', 'A headline and the visual both take over the hero for maximum arrival energy.', 'Copy and visual split into separate halves, making the pitch and product land together.', 'Generous whitespace and a descending axis keep the page quiet, refined, and premium.', 'The hero leads with an interface or workflow, which works well for products with a clear interaction path.', 'Typography becomes the visual system. Best when one line can carry the whole statement.', 'Editorial asymmetry and torn-grid energy add taste and narrative tension.', 'A floating hero card gives the page a launch-ready, spotlighted product feel.', 'If you prefer to hand it off, this card lets the system choose the most fitting Hero direction.', 'Best for metrics, outcomes, and any proof point that becomes stronger once quantified.', 'Content and visuals alternate to create a more case-study-like reading rhythm.', 'A step-by-step path makes onboarding and workflows feel easier to understand.', 'Great when the product has many capabilities and each one deserves a different level of emphasis.', 'Best when the product has a long capability list and browsing sideways adds momentum.', 'Useful for objections, nuanced explanations, and a feature stack that naturally overlaps with FAQ tone.', 'If you are still unsure how to structure the features, this card lets the system pick the strongest fit.', 'Always included and locked on, because the page still needs a clear opening statement.', 'Always included and locked on, because the page still needs a core feature story after the hero.', 'Enabled by default for pages that need direct conversion or plan comparison.', 'Enabled by default to add proof, customer stories, or social validation.', 'Enabled by default to answer questions before they become friction.', 'Enabled by default so the page ends with a clear action.'];
+en.optionLabels.hero = { A: 'A · Full Bleed Dominant', B: 'B · Split Tension', C: 'C · Minimal Drop', D: 'D · Product Demo', E: 'E · Text Explosion', F: 'F · Magazine Tear', G: 'G · Pop Card', '__AI_CHOOSE__': 'Let AI Decide' };
+en.optionLabels.features = { A: 'A · Big Numbers', B: 'B · Alternating Showcase', C: 'C · Timeline', D: 'D · Bento Grid', E: 'E · Horizontal Scroll', F: 'F · QA Expand', '__AI_CHOOSE__': 'Let AI Decide' };
+en.optionLabels.sections = { hero: 'Hero', features: 'Features', pricing: 'Pricing', testimonials: 'Wall', faq: 'FAQ', cta: 'CTA' };
+en.demo.aiTitle = 'Let AI Decide';
+en.demo.aiSubtitle = 'Auto-pair the safest variant for this product.';
+en.demo.aiCta = 'Hand It Off →';
+
+const baseApplyI18n = applyI18n;
+
+function localizeSelection(group, value) {
+  const t = getText();
+  const map = t.optionLabels[group] || {};
+  if (Array.isArray(value)) {
+    return value.map((item) => map[item] || item).join(t.listJoiner || ', ');
+  }
+  return map[value] || value;
+}
+
+function select(card) {
+  const sourceGroup = card.dataset.group;
+  const group = sourceGroup === 'color' ? 'tone' : sourceGroup;
+  const val = card.dataset.value;
+  document.querySelectorAll(`[data-group="${sourceGroup}"]`).forEach((node) => node.classList.remove('selected'));
+  card.classList.add('selected');
+  selections[group] = val;
+  updateSummary();
+}
+
+function toggleSection(card) {
+  if (card.dataset.locked === 'true') return;
+  const key = card.dataset.sectionKey;
+  const current = new Set(selections.sections || []);
+  if (current.has(key)) {
+    current.delete(key);
+    card.classList.remove('selected');
+  } else {
+    current.add(key);
+    card.classList.add('selected');
+  }
+  selections.sections = SECTION_ORDER.filter((item) => current.has(item));
+  updateSummary();
+}
+
+function updateSummary() {
+  const t = getText();
+  const done = Object.values(selections).filter(Boolean).length;
+  const parts = [];
+  if (selections.layout) parts.push(t.summaryLabel.layout + localizeSelection('layout', selections.layout));
+  if (selections.nav) parts.push(t.summaryLabel.nav + localizeSelection('nav', selections.nav));
+  if (selections.tone) parts.push(t.summaryLabel.tone + localizeSelection('tone', selections.tone));
+  if (selections.hero) parts.push(t.summaryLabel.hero + localizeSelection('hero', selections.hero));
+  if (selections.features) parts.push(t.summaryLabel.features + localizeSelection('features', selections.features));
+  if (selections.sections && selections.sections.length) parts.push(t.summaryLabel.sections + localizeSelection('sections', selections.sections));
+  const summary = document.getElementById('summary');
+  const btn = document.getElementById('submit-btn');
+  if (done === 6) {
+    summary.innerHTML = t.summaryReady.replace('{parts}', parts.join(' &nbsp;·&nbsp; '));
+    btn.disabled = false;
+  } else {
+    const selectedStr = parts.length ? ' &nbsp;·&nbsp; ' + parts.join(' &nbsp;·&nbsp; ') : '';
+    summary.innerHTML = t.summaryEmpty.replace('{done}', done) + selectedStr;
+    btn.disabled = true;
+  }
+}
+
+function copyResult() {
+  const t = getText();
+  const text = [
+    `${t.copyLabels.layout}${localizeSelection('layout', selections.layout)}`,
+    `${t.copyLabels.nav}${localizeSelection('nav', selections.nav)}`,
+    `${t.copyLabels.tone}${localizeSelection('tone', selections.tone)}`,
+    `${t.copyLabels.hero}${localizeSelection('hero', selections.hero)}`,
+    `${t.copyLabels.features}${localizeSelection('features', selections.features)}`,
+    `${t.copyLabels.sections}${localizeSelection('sections', selections.sections)}`
+  ].join('\n');
+  return navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('submit-btn');
+    if (!btn) return;
+    btn.textContent = t.copied;
+    setTimeout(() => {
+      if (document.getElementById('submit-btn')) btn.textContent = t.submit;
+    }, 2000);
+  });
+}
+
+function buildPayload() {
+  return {
+    city: CITY,
+    layout: selections.layout,
+    nav: selections.nav,
+    tone: selections.tone,
+    hero: selections.hero,
+    features: selections.features,
+    sections: selections.sections
+  };
+}
+
+async function submitSelection() {
+  const payload = buildPayload();
+  const t = getText();
+  try {
+    const response = await fetch('http://localhost:' + RECEIVER_PORT + '/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!response.ok) throw new Error('submit failed');
+    const submitBar = document.querySelector('.submit-bar');
+    submitBar.innerHTML = t.success;
+    return;
+  } catch (_) {
+    copyResult().catch(() => {});
+  }
+}
+
+function applyI18n() {
+  baseApplyI18n();
+  const t = getText();
+  setTextList('.ai-demo-title', [t.demo.aiTitle, t.demo.aiTitle]);
+  setTextList('.ai-demo-subtitle', [t.demo.aiSubtitle, t.demo.aiSubtitle]);
+  setTextList('.ai-demo-cta', [t.demo.aiCta, t.demo.aiCta]);
+}
+
+window.select = select;
+window.toggleSection = toggleSection;
+window.submitSelection = submitSelection;
+window.applyI18n = applyI18n;
+applyI18n();
+updateSummary();
 </script>
 
 </body>

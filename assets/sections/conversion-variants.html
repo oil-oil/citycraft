@@ -113,6 +113,7 @@
     background: var(--bg-surface-elevated);
   }
 
+  <!-- @@VARIANT:PRICING -->
   /* ==========================================================================
      SECTION A: PRICING TIERS
      ========================================================================== */
@@ -323,6 +324,9 @@
 
   .pricing-card .btn { width: 100%; }
 
+  <!-- @@/VARIANT:PRICING -->
+
+  <!-- @@VARIANT:TESTIMONIALS -->
   /* ==========================================================================
      SECTION B: QUOTE WALL / TESTIMONIALS
      ========================================================================== */
@@ -451,6 +455,9 @@
   .author-name { font-weight: 700; font-size: 1rem; }
   .author-company { font-size: 0.875rem; }
 
+  <!-- @@/VARIANT:TESTIMONIALS -->
+
+  <!-- @@VARIANT:CTA -->
   /* ==========================================================================
      SECTION C: POWER CTA
      ========================================================================== */
@@ -596,10 +603,12 @@
     background: var(--ink);
   }
 
+  <!-- @@/VARIANT:CTA -->
 </style>
 </head>
 <body>
 
+<!-- @@VARIANT:PRICING -->
 <!-- GSAP: target class .js-pricing-card stagger -->
 <!-- FEATURE: Interactive Pricing Tier logic switching Monthly/Annual values -->
 <section class="section-pricing" id="pricing">
@@ -706,6 +715,9 @@
 <!-- USAGE NOTE: Toggle logic is wired in JS below. Uses data-attributes to swap values. -->
 
 
+<!-- @@/VARIANT:PRICING -->
+
+<!-- @@VARIANT:TESTIMONIALS -->
 <!-- GSAP: target class .js-testimonial with grid stagger and autoAlpha -->
 <!-- FEATURE: Hover tracking glow effect on cards (CSS variable mapping via JS) -->
 <section class="section-testimonials">
@@ -795,6 +807,9 @@
 <!-- USAGE NOTE: Masonry effect achieved via CSS Grid spanning. JS adds dynamic radial hover glow. -->
 
 
+<!-- @@/VARIANT:TESTIMONIALS -->
+
+<!-- @@VARIANT:CTA -->
 <!-- GSAP: target class .js-cta-section for clip-path reveal and internal text scrub -->
 <!-- FEATURE: Magnetic button interaction and diagonal cut layout -->
 <section class="section-cta js-cta-section">
@@ -828,6 +843,8 @@
 </section>
 <!-- USAGE NOTE: The diagonal top edge overlaps the previous section. Make sure previous section has adequate bottom padding. -->
 
+
+<!-- @@/VARIANT:CTA -->
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -906,6 +923,7 @@
   });
 </script>
 
+<!-- @@VARIANT:FAQ_A -->
 <!-- ================================================================= -->
 <!-- FAQ VARIANT A: 编辑排版型 (Editorial — sticky anchor + accordion) -->
 <!-- ================================================================= -->
@@ -949,6 +967,9 @@
 .v-a-answer { font-size: clamp(1rem,1.2vw,1.125rem); color: var(--ink-muted); line-height: 1.6; padding-bottom: 2.5rem; margin: 0; max-width: 85%; }
 </style>
 
+<!-- @@/VARIANT:FAQ_A -->
+
+<!-- @@VARIANT:FAQ_A -->
 <section class="faq-section variant-a">
   <div class="v-a-container">
     <div>
@@ -1004,6 +1025,9 @@
   </div>
 </section>
 
+<!-- @@/VARIANT:FAQ_A -->
+
+<!-- @@VARIANT:FAQ_B -->
 <!-- ================================================================= -->
 <!-- FAQ VARIANT B: 全宽焦点型 (Centered grid cards — expand in place) -->
 <!-- ================================================================= -->
@@ -1057,6 +1081,9 @@
 .v-b-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 </style>
 
+<!-- @@/VARIANT:FAQ_B -->
+
+<!-- @@VARIANT:FAQ_B -->
 <section class="faq-section variant-b">
   <div class="v-b-container">
     <div class="v-b-header">
@@ -1114,6 +1141,8 @@
   </div>
 </section>
 
+<!-- @@/VARIANT:FAQ_B -->
+
 <script>
   /* FAQ accordion — works for both Variant A and B */
   document.addEventListener('DOMContentLoaded', () => {
@@ -1133,6 +1162,7 @@
     });
   });
 </script>
+<!-- @@VARIANT:COMPARE_PRICING -->
 <!-- CONVERSION: 对比定价表 -->
 <style>
   .pricing-section {
@@ -1435,6 +1465,9 @@
   }
 </style>
 
+<!-- @@/VARIANT:COMPARE_PRICING -->
+
+<!-- @@VARIANT:COMPARE_PRICING -->
 <section class="pricing-section">
   <div class="pricing-header">
     <h2>Plans that scale with you</h2>
@@ -1583,6 +1616,9 @@
   </div>
 </section>
 
+<!-- @@/VARIANT:COMPARE_PRICING -->
+
+<!-- @@VARIANT:BRAND_WALL -->
 <!-- CONVERSION: 品牌墙 -->
 <style>
   .logo-wall-section {
@@ -1736,6 +1772,9 @@
   }
 </style>
 
+<!-- @@/VARIANT:BRAND_WALL -->
+
+<!-- @@VARIANT:BRAND_WALL -->
 <section class="logo-wall-section">
   <div class="logo-wall-header">
     <span class="eyebrow-text">Industry Proven</span>
@@ -1834,5 +1873,6 @@
     </div>
   </div>
 </section>
+<!-- @@/VARIANT:BRAND_WALL -->
 </body>
 </html>

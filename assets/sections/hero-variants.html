@@ -51,6 +51,7 @@
         .is-animating .js-hero-cta { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
         .is-animating .js-hero-visual { opacity: 1; }
 
+        <!-- @@VARIANT:A -->
         /* =========================================
            VARIANT A: FULL BLEED DOMINANT
            ========================================= */
@@ -150,6 +151,9 @@
             mix-blend-mode: screen;
         }
 
+        <!-- @@/VARIANT:A -->
+
+        <!-- @@VARIANT:B -->
         /* =========================================
            VARIANT B: SPLIT TENSION
            ========================================= */
@@ -240,6 +244,9 @@
             max-width: 600px;
         }
 
+        <!-- @@/VARIANT:B -->
+
+        <!-- @@VARIANT:C -->
         /* =========================================
            VARIANT C: MINIMAL DESCENT
            ========================================= */
@@ -360,10 +367,12 @@
             pointer-events: none;
             z-index: 0;
         }
+        <!-- @@/VARIANT:C -->
     </style>
 </head>
 <body>
 
+    <!-- @@VARIANT:A -->
     <!-- ================================================================= -->
     <!-- HERO VARIANT A: FULL BLEED DOMINANT                               -->
     <!-- ================================================================= -->
@@ -398,6 +407,9 @@
         </div>
     </section>
 
+    <!-- @@/VARIANT:A -->
+
+    <!-- @@VARIANT:B -->
     <!-- ================================================================= -->
     <!-- HERO VARIANT B: SPLIT TENSION                                     -->
     <!-- ================================================================= -->
@@ -432,6 +444,9 @@
         </div>
     </section>
 
+    <!-- @@/VARIANT:B -->
+
+    <!-- @@VARIANT:C -->
     <!-- ================================================================= -->
     <!-- HERO VARIANT C: MINIMAL DESCENT                                   -->
     <!-- ================================================================= -->
@@ -465,6 +480,8 @@
             <circle cx="500" cy="150" r="100" fill="none" stroke="var(--ink)" stroke-width="1" />
         </svg>
     </section>
+
+    <!-- @@/VARIANT:C -->
 
     <!-- ================================================================= -->
     <!-- INTERACTION SCRIPTS (PROTOTYPE)                                   -->
@@ -518,6 +535,7 @@
         });
     </script>
 
+    <!-- @@VARIANT:D -->
     <!-- ================================================================= -->
     <!-- HERO VARIANT D: PRODUCT DEMO (time-driven workflow stepper)      -->
     <!-- ================================================================= -->
@@ -703,7 +721,9 @@
 
       </div><!-- /.hero-d__panel-wrap -->
     </section>
+    <!-- @@/VARIANT:D -->
 
+    <!-- @@VARIANT:D -->
     <style>
       /* =========================================
          VARIANT D: PRODUCT DEMO
@@ -979,6 +999,8 @@
       .demo-result-card-sub { font-size: 0.7rem; color: rgba(255,255,255,0.45); margin-top: 4px; }
     </style>
 
+    <!-- @@/VARIANT:D -->
+
     <script>
       /* ── Prototype animation for Variant D preview ── */
       /* In actual main.js, replace with initHeroDemoStepper() + real onEnter callbacks */
@@ -1043,6 +1065,7 @@
       5. Copy-path classes: Hero B's right panel uses inline clip-path. Swap with .clip-diagonal-br or
          .clip-parallelogram from clip-paths.css for quick alternative divider shapes.
     -->
+<!-- @@VARIANT:E -->
 <!-- HERO VARIANT E -->
 <!-- FEATURE: Text Explosion layout with overlapping text layers, extreme scale contrast, and radial glow -->
 <section id="variant-e" style="--bg: #09090b; --bg-surface: #18181b; --ink: #ffffff; --ink-muted: #71717a; --accent: #38bdf8; --font-display: 'Impact', 'Arial Black', sans-serif; --font-body: 'Inter', system-ui, sans-serif;">
@@ -1069,6 +1092,9 @@
   </div>
 </section>
 
+<!-- @@/VARIANT:E -->
+
+<!-- @@VARIANT:F -->
 <!-- HERO VARIANT F -->
 <!-- FEATURE: Magazine Tear layout with asymmetric columns, editorial grid lines, and diagonal clipping -->
 <section id="variant-f" style="--bg: #fdfcf8; --bg-surface: #ffffff; --ink: #18181b; --ink-muted: #a1a1aa; --accent: #f43f5e; --font-display: 'Playfair Display', 'Times New Roman', serif; --font-body: 'Helvetica Neue', Helvetica, sans-serif;">
@@ -1101,6 +1127,9 @@
   </div>
 </section>
 
+<!-- @@/VARIANT:F -->
+
+<!-- @@VARIANT:G -->
 <!-- HERO VARIANT G -->
 <!-- FEATURE: Pop Card layout with floating central card, 3D tilt effect, and scattered geometric elements -->
 <section id="variant-g" style="--bg: #1c1917; --bg-surface: #fafaf9; --ink: #1c1917; --ink-muted: #57534e; --accent: #10b981; --font-display: 'Outfit', system-ui, sans-serif; --font-body: 'DM Sans', system-ui, sans-serif;">
@@ -1134,6 +1163,8 @@
   </div>
 </section>
 
+<!-- @@/VARIANT:G -->
+
 <style>
   /* =========================================
      GLOBAL RESETS FOR PROTOTYPE PURPOSES
@@ -1148,6 +1179,7 @@
     font-family: var(--font-body);
   }
 
+  <!-- @@VARIANT:E -->
   /* =========================================
      VARIANT E: TEXT EXPLOSION
   ========================================= */
@@ -1259,6 +1291,9 @@
     color: var(--ink);
   }
 
+  <!-- @@/VARIANT:E -->
+
+  <!-- @@VARIANT:F -->
   /* =========================================
      VARIANT F: MAGAZINE TEAR
   ========================================= */
@@ -1420,6 +1455,9 @@
     #variant-f .f-col-right { clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%); height: 50vh; }
   }
 
+  <!-- @@/VARIANT:F -->
+
+  <!-- @@VARIANT:G -->
   /* =========================================
      VARIANT G: POP CARD
   ========================================= */
@@ -1541,6 +1579,8 @@
     background: var(--ink);
     color: var(--bg-surface);
   }
+
+  <!-- @@/VARIANT:G -->
 
   /* =========================================
      GLOBAL JS ANIMATION STATES (GSAP SIMULATION)
