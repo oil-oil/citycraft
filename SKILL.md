@@ -323,7 +323,7 @@ rm -f "$_OUT/_sections.html" "$_OUT/_texture.css" "$_OUT/_gsap-base.js"
 
 1. **No `#ffffff` backgrounds.** Not on sections, not on cards. Warm neutrals: `#f5ede0`. Cool: `#edf0ee`. Dark: `#08060f`. Cards get a slight tint, never pure white.
 2. **No `#6366f1`.** Color comes from the city style palette.
-3. **Section transitions must vary.** Use classes from `assets/clip-paths.css`. Pick at least 3 different transition *types* across the page — mix from: diagonal (`clip-diagonal-*`, `clip-parallelogram`), curved (`clip-round-bottom`, `clip-scallop`, `clip-arc-bottom`), gradient dissolve (`section-dissolve`), and flat rule (`section-rule`). Never use the same type for every section boundary.
+3. **Choose one transition type and use it consistently.** Pick the type that fits the city's character — diagonal for bold/urban, curved for organic/warm, dissolve for moody/atmospheric, flat rule for editorial/minimal. Apply that same type across all section boundaries. Available classes in `assets/clip-paths.css`: diagonal (`clip-diagonal-*`, `clip-parallelogram`), curved (`clip-round-bottom`, `clip-scallop`, `clip-arc-bottom`), gradient dissolve (`section-dissolve`), flat rule (`section-rule`).
 4. **No generic icons.** Match the city style's stroke weight and geometry.
 5. **Two typefaces minimum.** Display/serif for headlines + clean sans for body. From `references/city-styles.md`. Decorative/script accent fonts (when a city style mentions one) go on watermarks, pull quotes, or ornamental elements — **never on buttons, nav, or body copy**.
 6. **Nav must surprise.** Use the chosen nav from `references/nav-catalog.md` with its full surprise element implemented.
