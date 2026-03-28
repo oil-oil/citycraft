@@ -279,6 +279,7 @@ Common page sequences:
 - Paste `<style>` blocks and `<section>` HTML from `_sections.html` in page order
 - Replace all placeholder copy with real product copy — fit the city aesthetic's tone of voice
 - No Lorem Ipsum, no placeholder text
+- Break template uniformity: vary visual weight across items within each section. The template shows a repeating pattern — make one item the focal point (accent background, larger card, featured badge, different internal layout) and let others recede. No section should look like a grid of clones.
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -323,12 +324,13 @@ rm -f "$_OUT/_sections.html" "$_OUT/_texture.css" "$_OUT/_gsap-base.js"
 
 1. **No `#ffffff` backgrounds.** Not on sections, not on cards. Warm neutrals: `#f5ede0`. Cool: `#edf0ee`. Dark: `#08060f`. Cards get a slight tint, never pure white.
 2. **No `#6366f1`.** Color comes from the city style palette.
-3. **Choose one transition type and use it consistently.** Pick the type that fits the city's character — diagonal for bold/urban, curved for organic/warm, dissolve for moody/atmospheric, flat rule for editorial/minimal. Apply that same type across all section boundaries. Available classes in `assets/clip-paths.css`: diagonal (`clip-diagonal-*`, `clip-parallelogram`), curved (`clip-round-bottom`, `clip-scallop`, `clip-arc-bottom`), gradient dissolve (`section-dissolve`), flat rule (`section-rule`).
+3. **Decide the transition type independently for each section boundary.** Every pair of adjacent sections has its own visual relationship — don't reuse the same clip-path class everywhere. First, scan the selected city's entry in `references/city-styles.md` for divider/transition language — phrases like "wave dividers", "diagonal cuts", "organic curves", "geometric wipes", "gradient dissolves", "brutal geometry" — and let that vocabulary bias your choices across the whole page. Then apply per-boundary logic: consider what the two sections are (hero → features, features → pricing, etc.), their relative energy, and the overall page rhythm. Available classes in `assets/clip-paths.css`: diagonal (`clip-diagonal-*`, `clip-parallelogram`), curved (`clip-round-bottom`, `clip-scallop`, `clip-arc-bottom`), gradient dissolve (`section-dissolve`), flat rule (`section-rule`).
 4. **No generic icons.** Match the city style's stroke weight and geometry.
 5. **Two typefaces minimum.** Display/serif for headlines + clean sans for body. From `references/city-styles.md`. Decorative/script accent fonts (when a city style mentions one) go on watermarks, pull quotes, or ornamental elements — **never on buttons, nav, or body copy**.
 6. **Nav must surprise.** Use the chosen nav from `references/nav-catalog.md` with its full surprise element implemented.
 7. **Use bundled assets.** The texture, GSAP snippets, and clip-paths must come from the skill's asset files — not reimplemented from scratch.
 8. **`.line-wrap` CJK fix.** Whenever the page has Chinese or Japanese text and uses `.line-wrap { overflow: hidden }` for line reveal animations, add `padding-top: 0.15em; margin-top: -0.15em;` to prevent CJK ascenders from being clipped at the top.
+9. **No clone grids.** When a section contains multiple repeating items (feature rows, pricing cards, FAQ items, testimonials), they must not all share the same visual treatment. One item should be the focal point — larger, accented, or with a distinct layout — while others form the supporting cast. A section should feel like a poster with visual hierarchy, not a spreadsheet of identical rows. This is the single biggest cause of pages looking "templated" rather than designed.
 
 ---
 

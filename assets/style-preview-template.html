@@ -2091,6 +2091,21 @@ body {
 }
 .submit-btn:disabled { opacity: 0.3; cursor: default; }
 .submit-btn:not(:disabled):hover { opacity: 0.85; }
+.submit-actions { display: flex; align-items: center; gap: 10px; }
+.copy-btn {
+  background: transparent;
+  color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 100px;
+  padding: 10px 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.copy-btn:disabled { opacity: 0.2; cursor: default; }
+.copy-btn:not(:disabled):hover { color: rgba(255,255,255,0.82); border-color: rgba(255,255,255,0.38); }
 .submit-success {
   width: 100%;
   padding: 18px 22px;
@@ -2988,7 +3003,10 @@ body {
 
 <div class="submit-bar">
   <div class="submit-summary" id="summary">请选择一种城市风格</div>
-  <button class="submit-btn" id="submit-btn" disabled onclick="submitSelection()">告诉 Agent →</button>
+  <div class="submit-actions">
+    <button class="copy-btn" id="copy-btn" disabled onclick="copySelectedCity().then(() => { const b = document.getElementById('copy-btn'); const t = I18N[LANG]||I18N.zh; b.textContent = t.copied; setTimeout(() => { b.textContent = t.copyBtn; }, 2000); }).catch(() => {})">复制提示词</button>
+    <button class="submit-btn" id="submit-btn" disabled onclick="submitSelection()">告诉 Agent →</button>
+  </div>
 </div>
 
 <script>
@@ -3009,6 +3027,7 @@ const I18N = {
     selectedPrefix: '已选 · ',
     submitToAgent: '告诉 Agent →',
     submitToAi: '交给 AI →',
+    copyBtn: '复制提示词',
     copied: '已复制 ✓',
     aiSuccess: '<div class="submit-success"><strong>✓ 已发送给 AI，正在根据你的场景选择风格...</strong><br>Agent 会结合你们的对话推荐最合适的城市风格。</div>',
     agentSuccess: '<div class="submit-success"><strong>✓ 已发送给 Agent，正在生成...</strong><br>你可以留在这个页面，Agent 会继续接手后续流程。</div>'
@@ -3027,6 +3046,7 @@ const I18N = {
     selectedPrefix: 'Selected · ',
     submitToAgent: 'Tell Agent →',
     submitToAi: 'Hand to AI →',
+    copyBtn: 'Copy Prompt',
     copied: 'Copied ✓',
     aiSuccess: '<div class="submit-success"><strong>✓ Sent to AI. Picking a direction based on your product context...</strong><br>Agent will use the conversation to recommend the city style that fits best.</div>',
     agentSuccess: '<div class="submit-success"><strong>✓ Sent to Agent. Generating now...</strong><br>You can stay on this page while Agent continues the next step.</div>'
@@ -3052,6 +3072,7 @@ function updateSubmitBar() {
   const t = I18N[LANG] || I18N.zh;
   const summary = document.getElementById('summary');
   const btn = document.getElementById('submit-btn');
+  const copyBtn = document.getElementById('copy-btn');
 
   if (!summary || !btn) return;
 
@@ -3059,14 +3080,17 @@ function updateSubmitBar() {
     summary.innerHTML = t.aiRecommendation;
     btn.textContent = t.submitToAi;
     btn.disabled = false;
+    if (copyBtn) copyBtn.disabled = false;
   } else if (selectedCity) {
     summary.innerHTML = t.selectedPrefix + '<strong>' + selectedCity + '</strong>';
     btn.textContent = t.submitToAgent;
     btn.disabled = false;
+    if (copyBtn) copyBtn.disabled = false;
   } else {
     summary.textContent = t.selectPrompt;
     btn.textContent = t.submitToAgent;
     btn.disabled = true;
+    if (copyBtn) copyBtn.disabled = true;
   }
 }
 
@@ -3110,15 +3134,14 @@ async function submitSelection() {
     submitBar.innerHTML = successMsg;
     return;
   } catch (_) {
-    const btn = document.getElementById('submit-btn');
-    const originalText = btn ? btn.textContent : '';
+    const copyBtn = document.getElementById('copy-btn');
 
     copySelectedCity().then(() => {
-      if (!btn) return;
-      btn.textContent = t.copied;
+      if (!copyBtn) return;
+      copyBtn.textContent = t.copied;
       setTimeout(() => {
-        if (document.getElementById('submit-btn')) {
-          btn.textContent = originalText;
+        if (document.getElementById('copy-btn')) {
+          copyBtn.textContent = t.copyBtn;
         }
       }, 1800);
     }).catch(() => {});

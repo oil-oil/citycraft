@@ -206,373 +206,6 @@ h1.page-title strong { color: #fff; }
 }
 
 /* ═══════════════════════════════════════════
-   TYPOGRAPHY DEMOS
-══════════════════════════════════════════ */
-
-/* 铺张型 */
-.demo-maximal {
-  background: var(--bg);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 24px;
-}
-.demo-maximal .m-eyebrow {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 8px;
-  opacity: 0.8;
-}
-.demo-maximal .m-headline {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(2.8rem, 6vw, 5rem);
-  font-weight: 700;
-  line-height: 0.92;
-  letter-spacing: -0.03em;
-  color: var(--ink);
-}
-.demo-maximal .m-headline em {
-  font-style: italic;
-  color: var(--accent);
-}
-.demo-maximal .m-rule {
-  width: 40px;
-  height: 2px;
-  background: var(--accent);
-  margin-top: 18px;
-}
-
-/* 叙事型 */
-.demo-narrative {
-  background: var(--bg);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.demo-narrative .n-tag {
-  display: inline-block;
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  padding: 3px 9px;
-  border-radius: 100px;
-  width: fit-content;
-}
-.demo-narrative .n-h {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.15;
-}
-.demo-narrative .n-body {
-  font-size: 0.72rem;
-  color: var(--muted);
-  line-height: 1.65;
-  border-left: 2px solid var(--accent);
-  padding-left: 10px;
-}
-.demo-narrative .n-divider {
-  border: none;
-  border-top: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
-}
-.demo-narrative .n-row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-.demo-narrative .n-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  flex-shrink: 0;
-}
-.demo-narrative .n-item {
-  font-size: 0.68rem;
-  color: var(--muted);
-}
-
-/* 剧场型 */
-.demo-theater {
-  background: var(--surface);
-  padding: 24px;
-  overflow: hidden;
-  position: relative;
-}
-.demo-theater .t-bg-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: 'Anton', sans-serif;
-  font-size: 7rem;
-  color: color-mix(in srgb, var(--accent) 8%, transparent);
-  white-space: nowrap;
-  pointer-events: none;
-  letter-spacing: -0.02em;
-}
-.demo-theater .t-scene {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  height: 100%;
-}
-.demo-theater .t-strip {
-  background: color-mix(in srgb, var(--ink) 8%, transparent);
-  border-left: 3px solid var(--accent);
-  padding: 8px 12px;
-  border-radius: 0 6px 6px 0;
-  font-size: 0.65rem;
-  color: color-mix(in srgb, var(--ink) 60%, transparent);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  animation: slide-in 0.6s ease both;
-}
-.demo-theater .t-strip:nth-child(2) { animation-delay: 0.15s; }
-.demo-theater .t-strip:nth-child(3) { animation-delay: 0.3s; }
-.demo-theater .t-h {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: color-mix(in srgb, var(--ink) 90%, transparent);
-  letter-spacing: -0.02em;
-  margin-top: 4px;
-  animation: fade-up 0.7s 0.1s ease both;
-}
-.demo-theater .t-cta {
-  display: inline-block;
-  background: var(--accent);
-  color: var(--bg);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 7px 16px;
-  border-radius: 4px;
-  width: fit-content;
-  margin-top: 4px;
-  animation: fade-up 0.7s 0.3s ease both;
-}
-
-@keyframes slide-in {
-  from { opacity: 0; transform: translateX(-16px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* 产品演示型 */
-.demo-product {
-  background: var(--surface);
-  padding: 24px;
-  overflow: hidden;
-  position: relative;
-  height: 240px;
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  color: var(--ink);
-}
-.pd-window {
-  width: 100%;
-  max-width: 480px;
-  height: 100%;
-  background: var(--bg);
-  border-radius: 8px;
-  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
-  box-shadow: 0 12px 32px color-mix(in srgb, var(--ink) 8%, transparent);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-.pd-header {
-  height: 24px;
-  border-bottom: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-  gap: 6px;
-  background: color-mix(in srgb, var(--surface) 50%, transparent);
-}
-.pd-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-.pd-dot:nth-child(1) { background: color-mix(in srgb, var(--accent) 30%, transparent); }
-.pd-dot:nth-child(2) { background: color-mix(in srgb, var(--accent) 60%, transparent); }
-.pd-dot:nth-child(3) { background: var(--accent); }
-.pd-body { display: flex; flex: 1; overflow: hidden; }
-.pd-sidebar {
-  width: 80px;
-  border-right: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
-  padding: 12px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  background: color-mix(in srgb, var(--surface) 30%, transparent);
-}
-.pd-nav-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  height: 24px;
-  padding: 0 8px 0 12px;
-  margin: 0 8px 0 0;
-  font-size: 9px;
-  font-weight: 600;
-  color: var(--muted);
-  border-radius: 0 4px 4px 0;
-  opacity: 0;
-  animation: pd-fade-in 0.4s ease forwards;
-}
-.pd-nav-item svg { width: 12px; height: 12px; stroke-width: 2.5; }
-.pd-nav-item.active {
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
-  border-left: 3px solid var(--accent);
-  color: var(--accent);
-}
-.pd-nav-item:nth-child(1) { animation-delay: 0.1s; }
-.pd-nav-item:nth-child(2) { animation-delay: 0.2s; }
-.pd-nav-item:nth-child(3) { animation-delay: 0.3s; }
-.pd-nav-item:nth-child(4) { animation-delay: 0.4s; }
-.pd-main { flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 12px; }
-.pd-metrics { display: flex; gap: 12px; }
-.pd-metric {
-  flex: 1;
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
-  border-radius: 6px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: pd-slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.pd-metric:nth-child(1) { animation-delay: 0.3s; }
-.pd-metric:nth-child(2) { animation-delay: 0.4s; }
-.pd-metric-lbl { font-size: 8px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; color: var(--muted); }
-.pd-metric-val { font-family: 'Anton', sans-serif; font-size: 18px; letter-spacing: 0.5px; color: var(--ink); line-height: 1; }
-.pd-chart {
-  flex: 1;
-  background: color-mix(in srgb, var(--surface) 60%, transparent);
-  border: 1px solid color-mix(in srgb, var(--ink) 6%, transparent);
-  border-radius: 6px;
-  padding: 12px;
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-}
-.pd-bar-wrapper { flex: 1; height: 100%; display: flex; align-items: flex-end; }
-.pd-bar {
-  width: 100%;
-  background: color-mix(in srgb, var(--accent) 30%, transparent);
-  border-radius: 2px 2px 0 0;
-  transform-origin: bottom;
-  transform: scaleY(0);
-  animation: pd-scale-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.pd-bar-wrapper:nth-child(1) .pd-bar { height: 35%; animation-delay: 0.50s; }
-.pd-bar-wrapper:nth-child(2) .pd-bar { height: 60%; animation-delay: 0.55s; }
-.pd-bar-wrapper:nth-child(3) .pd-bar { height: 45%; animation-delay: 0.60s; }
-.pd-bar-wrapper:nth-child(4) .pd-bar { height: 90%; animation-delay: 0.65s; background: var(--accent); }
-.pd-bar-wrapper:nth-child(5) .pd-bar { height: 55%; animation-delay: 0.70s; }
-.pd-bar-wrapper:nth-child(6) .pd-bar { height: 75%; animation-delay: 0.75s; }
-@keyframes pd-fade-in  { from { opacity:0; transform: translateX(-8px); } to { opacity:1; transform: translateX(0); } }
-@keyframes pd-slide-up { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: translateY(0); } }
-@keyframes pd-scale-up { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-
-/* 极简居中型 */
-.opt-demo.demo-minimal {
-  background: var(--bg);
-  height: 240px;
-  width: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  padding: 24px;
-  position: relative;
-}
-.demo-minimal .dm-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  animation: dm-fade-in 0.6s ease forwards;
-  opacity: 0;
-  transform: translateY(8px);
-}
-.demo-minimal .dm-eyebrow {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  color: var(--accent);
-  font-size: 0.55rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-.demo-minimal .dm-headline {
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--ink);
-  font-size: 2.1rem;
-  line-height: 1.05;
-  font-weight: 400;
-  margin: 0 0 0.8rem 0;
-  letter-spacing: -0.01em;
-}
-.demo-minimal .dm-headline em { font-style: italic; }
-.demo-minimal .dm-divider {
-  width: 40px;
-  height: 1px;
-  background-color: var(--accent);
-  margin: 0 0 0.8rem 0;
-}
-.demo-minimal .dm-subtitle {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  color: var(--muted);
-  font-size: 0.65rem;
-  font-weight: 400;
-  margin: 0 0 1.2rem 0;
-  max-width: 90%;
-  line-height: 1.4;
-  letter-spacing: 0.02em;
-}
-.demo-minimal .dm-cta {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  color: var(--accent);
-  background: transparent;
-  border: 1px solid var(--accent);
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  padding: 0.4rem 1.2rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 0;
-}
-.demo-minimal .dm-cta:hover { background: var(--accent); color: var(--bg); }
-@keyframes dm-fade-in { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
-
-/* ═══════════════════════════════════════════
    NAV DEMOS
 ══════════════════════════════════════════ */
 
@@ -928,6 +561,21 @@ h1.page-title strong { color: #fff; }
 }
 .submit-btn:disabled { opacity: 0.3; cursor: default; }
 .submit-btn:not(:disabled):hover { opacity: 0.85; }
+.submit-actions { display: flex; align-items: center; gap: 10px; }
+.copy-btn {
+  background: transparent;
+  color: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 100px;
+  padding: 10px 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.copy-btn:disabled { opacity: 0.2; cursor: default; }
+.copy-btn:not(:disabled):hover { color: rgba(255,255,255,0.82); border-color: rgba(255,255,255,0.38); }
 .submit-success {
   width: 100%;
   padding: 18px 22px;
@@ -970,132 +618,9 @@ h1.page-title strong { color: #fff; }
   </div>
 </nav>
 
-<h1 class="page-title">为 <strong>__PRODUCT_NAME__</strong> 选择最后 3 项</h1>
+<h1 class="page-title">为 <strong>__PRODUCT_NAME__</strong> 选择最后 5 项</h1>
 <p class="page-subtitle">每组都可以直接交互体验 — 选好之后点底部的「告诉 Agent」</p>
 
-<!-- ══════════════════════════════════════
-     SECTION 1: 排版气质
-══════════════════════════════════════ -->
-<div class="section-label"><span>01 &nbsp;排版气质</span></div>
-<div class="option-grid cols-5" id="group-layout">
-
-  <div class="opt-card" data-group="layout" data-value="铺张型" onclick="select(this)">
-    <div class="opt-demo demo-maximal">
-      <div class="m-eyebrow">__PRODUCT_NAME__</div>
-      <div class="m-headline">__PRODUCT_HEADLINE__<em>.</em></div>
-      <div class="m-rule"></div>
-    </div>
-    <div class="opt-footer">
-      <strong>大标题铺满屏</strong>
-      <span>进来第一眼就被震住，标题占据整个视野，适合强调品牌冲击力</span>
-    </div>
-  </div>
-
-  <div class="opt-card" data-group="layout" data-value="叙事型" onclick="select(this)">
-    <div class="opt-demo demo-narrative">
-      <div class="n-tag">__PRODUCT_NAME__</div>
-      <div class="n-h">__PRODUCT_HEADLINE__</div>
-      <div class="n-body">往下滚是一段有节奏的故事，每个板块都在讲清楚一件事，像一本可以翻阅的杂志。</div>
-      <hr class="n-divider">
-      <div class="n-row"><div class="n-dot"></div><div class="n-item">功能一 · 核心差异化</div></div>
-      <div class="n-row"><div class="n-dot"></div><div class="n-item">功能二 · 数据与证明</div></div>
-    </div>
-    <div class="opt-footer">
-      <strong>内容讲故事</strong>
-      <span>页面像杂志，每个板块单独讲清楚一件事，适合需要说服用户的产品</span>
-    </div>
-  </div>
-
-  <div class="opt-card" data-group="layout" data-value="剧场型" onclick="select(this)">
-    <div class="opt-demo demo-theater">
-      <div class="t-bg-text">ACT</div>
-      <div class="t-scene">
-        <div class="t-strip">场景一 · 问题</div>
-        <div class="t-strip">场景二 · 解法</div>
-        <div class="t-strip">场景三 · 结果</div>
-        <div class="t-h">__PRODUCT_HEADLINE__</div>
-        <div class="t-cta">进入</div>
-      </div>
-    </div>
-    <div class="opt-footer">
-      <strong>滚动触发演出</strong>
-      <span>每向下滚一屏，新内容才出现，像翻页一样一幕一幕展开，参考 Apple 产品页</span>
-    </div>
-  </div>
-
-  <div class="opt-card" data-group="layout" data-value="产品演示型" onclick="select(this)">
-    <div class="opt-demo demo-product">
-      <div class="pd-window">
-        <div class="pd-header">
-          <div class="pd-dot"></div>
-          <div class="pd-dot"></div>
-          <div class="pd-dot"></div>
-        </div>
-        <div class="pd-body">
-          <div class="pd-sidebar">
-            <div class="pd-nav-item active">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-              总览
-            </div>
-            <div class="pd-nav-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3v18h18"></path><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path></svg>
-              数据
-            </div>
-            <div class="pd-nav-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
-              用户
-            </div>
-            <div class="pd-nav-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 9 19.4V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 4.6 9H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 9 4.6V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-              设置
-            </div>
-          </div>
-          <div class="pd-main">
-            <div class="pd-metrics">
-              <div class="pd-metric">
-                <div class="pd-metric-lbl">转化率</div>
-                <div class="pd-metric-val">4.8%</div>
-              </div>
-              <div class="pd-metric">
-                <div class="pd-metric-lbl">访问量</div>
-                <div class="pd-metric-val">128K</div>
-              </div>
-            </div>
-            <div class="pd-chart">
-              <div class="pd-bar-wrapper"><div class="pd-bar"></div></div>
-              <div class="pd-bar-wrapper"><div class="pd-bar"></div></div>
-              <div class="pd-bar-wrapper"><div class="pd-bar"></div></div>
-              <div class="pd-bar-wrapper"><div class="pd-bar"></div></div>
-              <div class="pd-bar-wrapper"><div class="pd-bar"></div></div>
-              <div class="pd-bar-wrapper"><div class="pd-bar"></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="opt-footer">
-      <strong>产品界面展示</strong>
-      <span>首屏直接秀出产品的真实界面，适合有实际画面的 App 或 SaaS 工具</span>
-    </div>
-  </div>
-
-  <div class="opt-card" data-group="layout" data-value="极简居中型" onclick="select(this)">
-    <div class="opt-demo demo-minimal">
-      <div class="dm-content">
-        <span class="dm-eyebrow">__PRODUCT_NAME__</span>
-        <h2 class="dm-headline">__PRODUCT_HEADLINE__<br><em>Refined.</em></h2>
-        <div class="dm-divider"></div>
-        <p class="dm-subtitle">大量留白，字体是主角</p>
-        <button class="dm-cta">了解更多</button>
-      </div>
-    </div>
-    <div class="opt-footer">
-      <strong>极简居中留白</strong>
-      <span>所有内容居中对齐，大量留白，字体是主角，适合高端品牌或设计工作室</span>
-    </div>
-  </div>
-
-</div>
 
 <!-- ══════════════════════════════════════
      SECTION 2: 导航风格
@@ -1265,38 +790,39 @@ h1.page-title strong { color: #fff; }
 ══════════════════════════════════════ -->
 <div class="submit-bar">
   <div class="submit-summary" id="summary">已选 <strong>0 / 3</strong> — 三项都选好后可以复制</div>
-  <button class="submit-btn" id="submit-btn" disabled onclick="submitSelection()">告诉 Agent →</button>
+  <div class="submit-actions">
+    <button class="copy-btn" id="copy-btn" disabled onclick="copyResult()">复制提示词</button>
+    <button class="submit-btn" id="submit-btn" disabled onclick="submitSelection()">告诉 Agent →</button>
+  </div>
 </div>
 
 <script>
 const LANG = /^__/.test('__LANG__') ? 'zh' : '__LANG__';
 const RECEIVER_PORT = '__RECEIVER_PORT__' === '__RECEIVER_PORT__' ? 17432 : parseInt('__RECEIVER_PORT__', 10);
 const CITY = '__CITY_NAME__' === '__CITY_NAME__' ? '' : '__CITY_NAME__';
-const selections = { layout: null, nav: null, tone: null };
+const selections = { nav: null, tone: null };
 const I18N = {
   zh: {
     pageTitle: '选择设计方向 — __PRODUCT_NAME__',
     pageTitlePrefix: '为 ',
-    pageTitleSuffix: ' 选择最后 3 项',
+    pageTitleSuffix: ' 选择最后 5 项',
     subtitle: '每组都可以直接交互体验 — 选好之后点底部的「告诉 Agent」',
     sectionLabels: [
-      '01 &nbsp;排版气质',
-      '02 &nbsp;导航风格',
-      '03 &nbsp;色调微调'
+      '01 &nbsp;导航风格',
+      '02 &nbsp;色调微调'
     ],
-    summaryEmpty: '已选 <strong>{done} / 3</strong>',
-    summaryReady: '已选 <strong>3 / 3</strong> &nbsp;·&nbsp; {parts}',
+    summaryEmpty: '已选 <strong>{done} / 2</strong>',
+    summaryReady: '已选 <strong>2 / 2</strong> &nbsp;·&nbsp; {parts}',
     summaryLabel: {
-      layout: '排版：',
       nav: '导航：',
       tone: '色调：'
     },
     copyLabels: {
-      layout: '排版气质：',
       nav: '导航风格：',
       tone: '色调微调：'
     },
     submit: '告诉 Agent →',
+    copyBtn: '复制提示词',
     copied: '已复制 ✓',
     success: '<div class="submit-success"><strong>✓ 已发送给 Agent，正在生成...</strong><br>你可以留在这个页面，Agent 会继续接手后续流程。</div>',
     footerTitles: [
@@ -1328,13 +854,6 @@ const I18N = {
       '更鲜明 · 偏现代消费品牌或 B2C'
     ],
     optionLabels: {
-      layout: {
-        '铺张型': '铺张型',
-        '叙事型': '叙事型',
-        '剧场型': '剧场型',
-        '产品演示型': '产品演示型',
-        '极简居中型': '极简居中型'
-      },
       nav: {
         A: 'A',
         B: 'B',
@@ -1368,27 +887,25 @@ const I18N = {
   },
   en: {
     pageTitle: 'Choose Design Directions - __PRODUCT_NAME__',
-    pageTitlePrefix: 'Choose the final 3 directions for ',
+    pageTitlePrefix: 'Choose the final 5 directions for ',
     pageTitleSuffix: '',
     subtitle: 'Each group is fully interactive. Once you decide, click "Tell Agent" at the bottom.',
     sectionLabels: [
-      '01 &nbsp;Typography Mood',
-      '02 &nbsp;Navigation Style',
-      '03 &nbsp;Color Tuning'
+      '01 &nbsp;Navigation Style',
+      '02 &nbsp;Color Tuning'
     ],
-    summaryEmpty: 'Selected <strong>{done} / 3</strong>',
-    summaryReady: 'Selected <strong>3 / 3</strong> &nbsp;·&nbsp; {parts}',
+    summaryEmpty: 'Selected <strong>{done} / 2</strong>',
+    summaryReady: 'Selected <strong>2 / 2</strong> &nbsp;·&nbsp; {parts}',
     summaryLabel: {
-      layout: 'Layout: ',
       nav: 'Nav: ',
       tone: 'Tone: '
     },
     copyLabels: {
-      layout: 'Layout Mood: ',
       nav: 'Navigation Style: ',
       tone: 'Color Tuning: '
     },
     submit: 'Tell Agent →',
+    copyBtn: 'Copy Prompt',
     copied: 'Copied ✓',
     success: '<div class="submit-success"><strong>✓ Sent to Agent. Generating now...</strong><br>You can stay on this page while Agent continues the next step.</div>',
     footerTitles: [
@@ -1420,13 +937,6 @@ const I18N = {
       'Brighter and more energetic, leaning more modern consumer brand or B2C.'
     ],
     optionLabels: {
-      layout: {
-        '铺张型': 'Maximal',
-        '叙事型': 'Narrative',
-        '剧场型': 'Theatrical',
-        '产品演示型': 'Product Demo',
-        '极简居中型': 'Minimal Centered'
-      },
       nav: {
         A: 'A',
         B: 'B',
@@ -1514,14 +1024,13 @@ function updateSummary() {
   const t = getText();
   const done = Object.values(selections).filter(Boolean).length;
   const parts = [];
-  if (selections.layout) parts.push(t.summaryLabel.layout + localizeSelection('layout', selections.layout));
   if (selections.nav)    parts.push(t.summaryLabel.nav + localizeSelection('nav', selections.nav));
   if (selections.tone)   parts.push(t.summaryLabel.tone + localizeSelection('tone', selections.tone));
 
   const summary = document.getElementById('summary');
   const btn = document.getElementById('submit-btn');
 
-  if (done === 3) {
+  if (done === 2) {
     summary.innerHTML = t.summaryReady.replace('{parts}', parts.join(' &nbsp;·&nbsp; '));
     btn.disabled = false;
   } else {
@@ -1533,7 +1042,7 @@ function updateSummary() {
 
 function copyResult() {
   const t = getText();
-  const text = `${t.copyLabels.layout}${localizeSelection('layout', selections.layout)}\n${t.copyLabels.nav}${localizeSelection('nav', selections.nav)}\n${t.copyLabels.tone}${localizeSelection('tone', selections.tone)}`;
+  const text = `${t.copyLabels.nav}${localizeSelection('nav', selections.nav)}\n${t.copyLabels.tone}${localizeSelection('tone', selections.tone)}`;
   return navigator.clipboard.writeText(text).then(() => {
     const btn = document.getElementById('submit-btn');
     if (!btn) return;
@@ -1549,7 +1058,6 @@ function copyResult() {
 function buildPayload() {
   return {
     city: CITY,
-    layout: selections.layout,
     nav: selections.nav,
     tone: selections.tone
   };
@@ -1615,7 +1123,7 @@ function applyI18n() {
     if (LANG === 'zh') {
       title.append('为 ');
       title.appendChild(product);
-      title.append(' 选择最后 3 项');
+      title.append(' 选择最后 5 项');
     } else {
       title.append(t.pageTitlePrefix);
       title.appendChild(product);
@@ -2680,11 +2188,11 @@ selections.sections = [...SECTION_ORDER];
 const zh = I18N.zh;
 zh.pageTitle = '选择设计方向 — __PRODUCT_NAME__';
 zh.pageTitlePrefix = '为 ';
-zh.pageTitleSuffix = ' 选择最后 6 项';
-zh.subtitle = '先选排版、导航、色调，再补上 Hero、Features 和页面板块，全部决定好之后就可以直接发给 Agent。';
-zh.sectionLabels = ['01 &nbsp;排版气质', '02 &nbsp;导航风格', '03 &nbsp;色调微调', '04 &nbsp;Hero 变体', '05 &nbsp;Features 变体', '06 &nbsp;页面板块'];
-zh.summaryEmpty = '已选 <strong>{done} / 6</strong>';
-zh.summaryReady = '已选 <strong>6 / 6</strong> &nbsp;·&nbsp; {parts}';
+zh.pageTitleSuffix = ' 选择最后 5 项';
+zh.subtitle = '先选导航、色调，再补上 Hero、Features 和页面板块，全部决定好之后就可以直接发给 Agent。';
+zh.sectionLabels = ['01 &nbsp;导航风格', '02 &nbsp;色调微调', '03 &nbsp;Hero 变体', '04 &nbsp;Features 变体', '05 &nbsp;页面板块'];
+zh.summaryEmpty = '已选 <strong>{done} / 5</strong>';
+zh.summaryReady = '已选 <strong>5 / 5</strong> &nbsp;·&nbsp; {parts}';
 zh.summaryLabel.hero = 'Hero：';
 zh.summaryLabel.features = 'Features：';
 zh.summaryLabel.sections = '板块：';
@@ -2703,12 +2211,12 @@ zh.demo.aiCta = '交给 AI →';
 
 const en = I18N.en;
 en.pageTitle = 'Choose Design Directions - __PRODUCT_NAME__';
-en.pageTitlePrefix = 'Choose the final 6 directions for ';
+en.pageTitlePrefix = 'Choose the final 5 directions for ';
 en.pageTitleSuffix = '';
-en.subtitle = 'Choose layout, nav, tone, then lock in the Hero, Features, and section stack before sending everything to the Agent.';
-en.sectionLabels = ['01 &nbsp;Typography Mood', '02 &nbsp;Navigation Style', '03 &nbsp;Color Tuning', '04 &nbsp;Hero Variant', '05 &nbsp;Features Variant', '06 &nbsp;Page Sections'];
-en.summaryEmpty = 'Selected <strong>{done} / 6</strong>';
-en.summaryReady = 'Selected <strong>6 / 6</strong> &nbsp;·&nbsp; {parts}';
+en.subtitle = 'Choose nav and tone, then lock in the Hero, Features, and section stack before sending everything to the Agent.';
+en.sectionLabels = ['01 &nbsp;Navigation Style', '02 &nbsp;Color Tuning', '03 &nbsp;Hero Variant', '04 &nbsp;Features Variant', '05 &nbsp;Page Sections'];
+en.summaryEmpty = 'Selected <strong>{done} / 5</strong>';
+en.summaryReady = 'Selected <strong>5 / 5</strong> &nbsp;·&nbsp; {parts}';
 en.summaryLabel.hero = 'Hero: ';
 en.summaryLabel.features = 'Features: ';
 en.summaryLabel.sections = 'Sections: ';
@@ -2765,7 +2273,6 @@ function updateSummary() {
   const t = getText();
   const done = Object.values(selections).filter(Boolean).length;
   const parts = [];
-  if (selections.layout) parts.push(t.summaryLabel.layout + localizeSelection('layout', selections.layout));
   if (selections.nav) parts.push(t.summaryLabel.nav + localizeSelection('nav', selections.nav));
   if (selections.tone) parts.push(t.summaryLabel.tone + localizeSelection('tone', selections.tone));
   if (selections.hero) parts.push(t.summaryLabel.hero + localizeSelection('hero', selections.hero));
@@ -2773,20 +2280,22 @@ function updateSummary() {
   if (selections.sections && selections.sections.length) parts.push(t.summaryLabel.sections + localizeSelection('sections', selections.sections));
   const summary = document.getElementById('summary');
   const btn = document.getElementById('submit-btn');
-  if (done === 6) {
+  const copyBtn = document.getElementById('copy-btn');
+  if (done === 5) {
     summary.innerHTML = t.summaryReady.replace('{parts}', parts.join(' &nbsp;·&nbsp; '));
     btn.disabled = false;
+    if (copyBtn) copyBtn.disabled = false;
   } else {
     const selectedStr = parts.length ? ' &nbsp;·&nbsp; ' + parts.join(' &nbsp;·&nbsp; ') : '';
     summary.innerHTML = t.summaryEmpty.replace('{done}', done) + selectedStr;
     btn.disabled = true;
+    if (copyBtn) copyBtn.disabled = true;
   }
 }
 
 function copyResult() {
   const t = getText();
   const text = [
-    `${t.copyLabels.layout}${localizeSelection('layout', selections.layout)}`,
     `${t.copyLabels.nav}${localizeSelection('nav', selections.nav)}`,
     `${t.copyLabels.tone}${localizeSelection('tone', selections.tone)}`,
     `${t.copyLabels.hero}${localizeSelection('hero', selections.hero)}`,
@@ -2794,11 +2303,11 @@ function copyResult() {
     `${t.copyLabels.sections}${localizeSelection('sections', selections.sections)}`
   ].join('\n');
   return navigator.clipboard.writeText(text).then(() => {
-    const btn = document.getElementById('submit-btn');
+    const btn = document.getElementById('copy-btn');
     if (!btn) return;
     btn.textContent = t.copied;
     setTimeout(() => {
-      if (document.getElementById('submit-btn')) btn.textContent = t.submit;
+      if (document.getElementById('copy-btn')) btn.textContent = t.copyBtn;
     }, 2000);
   });
 }
@@ -2806,7 +2315,6 @@ function copyResult() {
 function buildPayload() {
   return {
     city: CITY,
-    layout: selections.layout,
     nav: selections.nav,
     tone: selections.tone,
     hero: selections.hero,
