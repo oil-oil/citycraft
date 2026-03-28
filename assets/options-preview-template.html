@@ -623,9 +623,9 @@ h1.page-title strong { color: #fff; }
 
 
 <!-- ══════════════════════════════════════
-     SECTION 2: 导航风格
+     SECTION 1: 导航风格
 ══════════════════════════════════════ -->
-<div class="section-label"><span>02 &nbsp;导航风格</span></div>
+<div class="section-label"><span>01 &nbsp;导航风格</span></div>
 <div class="option-grid cols-4" id="group-nav">
 
   <!-- A 全屏爆开 -->
@@ -718,9 +718,9 @@ h1.page-title strong { color: #fff; }
 </div>
 
 <!-- ══════════════════════════════════════
-     SECTION 3: 色调微调
+     SECTION 2: 色调微调
 ══════════════════════════════════════ -->
-<div class="section-label"><span>03 &nbsp;色调微调</span></div>
+<div class="section-label"><span>02 &nbsp;色调微调</span></div>
 <div class="option-grid cols-3" id="group-color">
 
   <div class="opt-card" data-group="color" data-value="保留原版" onclick="select(this)">
@@ -824,7 +824,7 @@ const I18N = {
     submit: '告诉 Agent →',
     copyBtn: '复制提示词',
     copied: '已复制 ✓',
-    success: '<div class="submit-success"><strong>✓ 已发送给 Agent，正在生成...</strong><br>你可以留在这个页面，Agent 会继续接手后续流程。</div>',
+    successMsg: '<strong>✓ 已发送给 Agent，正在生成...</strong><br>你可以留在这个页面，Agent 会继续接手后续流程。',
     footerTitles: [
       '大标题铺满屏',
       '内容讲故事',
@@ -907,7 +907,7 @@ const I18N = {
     submit: 'Tell Agent →',
     copyBtn: 'Copy Prompt',
     copied: 'Copied ✓',
-    success: '<div class="submit-success"><strong>✓ Sent to Agent. Generating now...</strong><br>You can stay on this page while Agent continues the next step.</div>',
+    successMsg: '<strong>✓ Sent to Agent. Generating now...</strong><br>You can stay on this page while Agent continues the next step.',
     footerTitles: [
       'Massive Headline',
       'Story-Driven Content',
@@ -1076,8 +1076,12 @@ async function submitSelection() {
 
     if (!response.ok) throw new Error('submit failed');
 
-    const submitBar = document.querySelector('.submit-bar');
-    submitBar.innerHTML = t.success;
+    const summary = document.getElementById('summary');
+    const btn = document.getElementById('submit-btn');
+    const copyBtn = document.getElementById('copy-btn');
+    if (summary) summary.innerHTML = t.successMsg;
+    if (btn) btn.style.display = 'none';
+    if (copyBtn) copyBtn.disabled = false;
     return;
   } catch (_) {
     copyResult().catch(() => {});
@@ -2042,7 +2046,7 @@ const extraChoiceStyles = `
 `;
 
 const extraChoiceMarkup = `
-<div class="section-label"><span>04 &nbsp;首屏布局 — 用户打开页面第一眼看到的样子</span></div>
+<div class="section-label"><span>03 &nbsp;首屏布局 — 用户打开页面第一眼看到的样子</span></div>
 <div class="option-grid cols-4" id="group-hero">
   <div class="opt-card variant-card" data-group="hero" data-value="__AI_CHOOSE__" onclick="select(this)">
     <div class="opt-demo demo-ai-pick">
@@ -2104,7 +2108,7 @@ const extraChoiceMarkup = `
   </div>
 </div>
 
-<div class="section-label"><span>05 &nbsp;功能区排版 — 用来介绍产品核心卖点的那一块</span></div>
+<div class="section-label"><span>04 &nbsp;Features 变体 — 用来介绍产品核心卖点的那一块</span></div>
 <div class="option-grid cols-4" id="group-features">
   <div class="opt-card variant-card" data-group="features" data-value="__AI_CHOOSE__" onclick="select(this)">
     <div class="opt-demo demo-ai-pick"><div class="ai-demo-layer"><div class="ai-demo-orb"></div><div class="ai-demo-title">让 AI 来选</div><div class="ai-demo-subtitle">描述你有哪些功能卖点，AI 自动选最合适的展示方式。</div><div class="ai-demo-cta">交给 AI →</div></div></div>
@@ -2136,7 +2140,7 @@ const extraChoiceMarkup = `
   </div>
 </div>
 
-<div class="section-label"><span>06 &nbsp;页面包含哪些板块 — 点击可以取消不需要的</span></div>
+<div class="section-label"><span>05 &nbsp;页面包含哪些板块 — 点击可以取消不需要的</span></div>
 <div class="option-grid cols-3" id="group-sections">
   <div class="opt-card section-card selected is-locked" data-section-key="hero" data-locked="true" onclick="toggleSection(this)">
     <div class="section-check">✓</div>
@@ -2333,8 +2337,12 @@ async function submitSelection() {
       body: JSON.stringify(payload)
     });
     if (!response.ok) throw new Error('submit failed');
-    const submitBar = document.querySelector('.submit-bar');
-    submitBar.innerHTML = t.success;
+    const summary = document.getElementById('summary');
+    const btn = document.getElementById('submit-btn');
+    const copyBtn = document.getElementById('copy-btn');
+    if (summary) summary.innerHTML = t.successMsg;
+    if (btn) btn.style.display = 'none';
+    if (copyBtn) copyBtn.disabled = false;
     return;
   } catch (_) {
     copyResult().catch(() => {});
