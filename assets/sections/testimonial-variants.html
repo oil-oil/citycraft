@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testimonial Variants</title>
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-surface: #171717;
+  --ink: #ffffff;
+  --ink-muted: #a3a3a3;
+  --accent: #e1ff00;
+  --accent-soft: rgba(225, 255, 0, 0.08);
+  --line: #262626;
+  --font-display: "Clash Display", -apple-system, sans-serif;
+  --font-body: "Inter", -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); line-height: 1.6; }
+.wrapper { max-width: 1400px; margin: 0 auto; padding: 0 5vw; }
+section { padding: 8rem 0; }
+
+<!-- @@VARIANT:A -->
+/* VARIANT A: 紧凑卡片网格 - Compact Grid */
+.variant-a { background: var(--bg); }
+.a-header { text-align: center; margin-bottom: 4rem; }
+.a-header h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); margin-bottom: 1rem; }
+.a-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+.a-card {
+  background: var(--bg-surface); border: 1px solid var(--line);
+  border-radius: 12px; padding: 1.5rem; transition: transform 0.3s, border-color 0.3s;
+}
+.a-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+.a-quote { font-size: 0.95rem; line-height: 1.6; color: var(--ink-muted); margin-bottom: 1rem; font-style: italic; }
+.a-author { display: flex; align-items: center; gap: 0.75rem; }
+.a-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: var(--bg); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; flex-shrink: 0; }
+.a-name { font-weight: 600; font-size: 0.9rem; }
+.a-role { font-size: 0.75rem; color: var(--ink-muted); }
+<!-- @@/VARIANT:A -->
+
+<!-- @@VARIANT:B -->
+/* VARIANT B: 单列引用墙 - Magazine Column */
+.variant-b { background: var(--bg-surface); padding: 10rem 0; }
+.b-container { max-width: 800px; margin: 0 auto; padding: 0 2rem; }
+.b-header { text-align: center; margin-bottom: 6rem; }
+.b-header h2 { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5rem); margin-bottom: 1rem; letter-spacing: -0.02em; }
+.b-item { margin-bottom: 5rem; position: relative; }
+.b-item::before { content: '"'; position: absolute; top: -2rem; left: -1rem; font-family: var(--font-display); font-size: 6rem; color: var(--accent); opacity: 0.3; line-height: 1; }
+.b-quote { font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 400; line-height: 1.4; margin-bottom: 1.5rem; font-style: italic; }
+.b-author { display: flex; align-items: center; gap: 1rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+.b-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--ink); color: var(--bg); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; }
+.b-meta { display: flex; flex-direction: column; }
+.b-name { font-weight: 700; font-size: 1rem; }
+.b-role { font-size: 0.875rem; color: var(--ink-muted); }
+<!-- @@/VARIANT:B -->
+
+<!-- @@VARIANT:C -->
+/* VARIANT C: 马赛克拼贴 - Masonry Grid */
+.variant-c { background: var(--bg); }
+.c-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+@media (min-width: 900px) {
+  .c-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(180px, auto); }
+  .c-card:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+  .c-card:nth-child(4) { grid-column: span 2; }
+}
+.c-card { background: var(--bg-surface); border: 1px solid var(--line); border-radius: 16px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s; }
+.c-card:hover { border-color: var(--accent); box-shadow: 0 10px 40px rgba(225, 255, 0, 0.1); }
+.c-card.featured { background: var(--accent); color: var(--bg); border: none; }
+.c-quote { font-size: 0.95rem; line-height: 1.5; font-style: italic; margin-bottom: 1rem; }
+.c-card.featured .c-quote { font-size: 1.1rem; font-weight: 600; }
+.c-author { display: flex; align-items: center; gap: 0.75rem; }
+.c-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--bg); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; }
+.c-name { font-weight: 600; font-size: 0.85rem; }
+<!-- @@/VARIANT:C -->
+
+<!-- @@VARIANT:D -->
+/* VARIANT D: 滚动横条 - Horizontal Scroll Strip */
+.variant-d { background: var(--bg-surface); overflow: hidden; padding: 4rem 0; }
+.d-header { text-align: center; margin-bottom: 3rem; padding: 0 2rem; }
+.d-header h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); }
+.d-scroll-container {
+  display: flex; gap: 1.5rem; overflow-x: auto; padding: 1rem 2rem;
+  scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.d-scroll-container::-webkit-scrollbar { display: none; }
+.d-card {
+  flex: 0 0 auto; width: 350px; scroll-snap-align: start;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 16px; padding: 2rem;
+  transition: all 0.3s;
+}
+.d-card:hover { border-color: var(--accent); transform: scale(1.02); }
+.d-quote { font-size: 0.95rem; color: var(--ink-muted); line-height: 1.5; font-style: italic; margin-bottom: 1.5rem; }
+.d-rating { display: flex; gap: 0.25rem; margin-bottom: 1rem; color: var(--accent); }
+.d-author { display: flex; align-items: center; gap: 0.75rem; }
+.d-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: var(--bg); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; }
+.d-name { font-weight: 600; font-size: 0.9rem; }
+.d-role { font-size: 0.75rem; color: var(--ink-muted); }
+<!-- @@/VARIANT:D -->
+
+<!-- @@VARIANT:E -->
+/* VARIANT E: 对话气泡 - Conversation Bubbles */
+.variant-e { background: var(--bg); }
+.e-header { text-align: center; margin-bottom: 4rem; }
+.e-header h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); }
+.e-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+@media (min-width: 768px) { .e-grid { grid-template-columns: repeat(2, 1fr); } }
+.e-conversation { display: flex; flex-direction: column; gap: 1rem; }
+.e-bubble {
+  background: var(--bg-surface); border: 1px solid var(--line); border-radius: 20px;
+  padding: 1.25rem 1.5rem; position: relative; max-width: 90%;
+}
+.e-bubble.left { align-self: flex-start; border-bottom-left-radius: 4px; }
+.e-bubble.right { align-self: flex-end; background: var(--accent); color: var(--bg); border: none; border-bottom-right-radius: 4px; }
+.e-bubble .quote { font-size: 0.9rem; line-height: 1.4; margin-bottom: 0.5rem; }
+.e-bubble .author { font-size: 0.75rem; font-weight: 600; opacity: 0.8; }
+.e-meta { margin-top: 1rem; padding-left: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+.e-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--ink); color: var(--bg); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75rem; }
+.e-name { font-weight: 600; font-size: 0.85rem; }
+<!-- @@/VARIANT:E -->
+
+<!-- @@VARIANT:F -->
+/* VARIANT F: 视频头像墙 - Video Avatar Wall */
+.variant-f { background: var(--bg-surface); }
+.f-header { text-align: center; margin-bottom: 4rem; }
+.f-header h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); }
+.f-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+.f-card {
+  background: var(--bg); border: 1px solid var(--line); border-radius: 16px; padding: 2rem;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  transition: all 0.3s;
+}
+.f-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+.f-avatar-wrapper {
+  width: 80px; height: 80px; border-radius: 50%; background: var(--accent); color: var(--bg);
+  display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.75rem;
+  margin-bottom: 1rem; position: relative;
+}
+.f-avatar-wrapper::after {
+  content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--accent);
+  opacity: 0; animation: pulse-ring 2s ease-out infinite;
+}
+@keyframes pulse-ring { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.3); } }
+.f-quote { font-size: 0.9rem; color: var(--ink-muted); line-height: 1.5; font-style: italic; margin-bottom: 1rem; }
+.f-name { font-weight: 700; font-size: 1rem; margin-bottom: 0.25rem; }
+.f-role { font-size: 0.8rem; color: var(--ink-muted); }
+<!-- @@/VARIANT:F -->
+</style>
+</head>
+<body>
+
+<!-- @@VARIANT:A -->
+<section class="variant-a">
+  <div class="wrapper">
+    <div class="a-header">
+      <h2>What our users say</h2>
+    </div>
+    <div class="a-grid">
+      <div class="a-card">
+        <p class="a-quote">"The cleanest API I've ever worked with. Integrated it in an afternoon."</p>
+        <div class="a-author">
+          <div class="a-avatar">AL</div>
+          <div><div class="a-name">Aisha Lin</div><div class="a-role">Founder, Dataflow</div></div>
+        </div>
+      </div>
+      <div class="a-card">
+        <p class="a-quote">"Deployment times dropped by 40%. The CLI is brutally fast."</p>
+        <div class="a-author">
+          <div class="a-avatar">MK</div>
+          <div><div class="a-name">Marcus King</div><div class="a-role">CTO, Nexus</div></div>
+        </div>
+      </div>
+      <div class="a-card">
+        <p class="a-quote">"No more fighting with config files. It just works out of the box."</p>
+        <div class="a-author">
+          <div class="a-avatar">DR</div>
+          <div><div class="a-name">David Ross</div><div class="a-role">DevOps, Stripe</div></div>
+        </div>
+      </div>
+      <div class="a-card">
+        <p class="a-quote">"The documentation is exceptional. Never needed to contact support."</p>
+        <div class="a-author">
+          <div class="a-avatar">SJ</div>
+          <div><div class="a-name">Sarah Jenkins</div><div class="a-role">Lead Engineer, Vercel</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- @@/VARIANT:A -->
+
+<!-- @@VARIANT:B -->
+<section class="variant-b">
+  <div class="b-container">
+    <div class="b-header">
+      <h2>Don't take our word for it</h2>
+    </div>
+    <div class="b-item">
+      <p class="b-quote">We calculated the ROI after month one and immediately upgraded to Enterprise. The reduction in server costs alone pays for the platform tenfold. An absolute no-brainer for scaleups.</p>
+      <div class="b-author">
+        <div class="b-avatar">EM</div>
+        <div class="b-meta">
+          <span class="b-name">Elena Martinez</span>
+          <span class="b-role">VP of Engineering, Shopify</span>
+        </div>
+      </div>
+    </div>
+    <div class="b-item">
+      <p class="b-quote">It genuinely feels like having an extra senior developer on the team reviewing architecture before we ship. The code quality improvements have been measurable.</p>
+      <div class="b-author">
+        <div class="b-avatar">JK</div>
+        <div class="b-meta">
+          <span class="b-name">James Kim</span>
+          <span class="b-role">Tech Lead, Figma</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- @@/VARIANT:B -->
+
+<!-- @@VARIANT:C -->
+<section class="variant-c">
+  <div class="wrapper">
+    <div class="a-header">
+      <h2>Loved by teams worldwide</h2>
+    </div>
+    <div class="c-grid">
+      <div class="c-card">
+        <p class="c-quote">"Since switching over, our deployment times have dropped by 40%. The CLI is just brutally fast."</p>
+        <div class="c-author">
+          <div class="c-avatar">SJ</div>
+          <span class="c-name">Sarah Jenkins</span>
+        </div>
+      </div>
+      <div class="c-card">
+        <p class="c-quote">"The cleanest API documentation I have seen in a decade. Integrated it in an afternoon."</p>
+        <div class="c-author">
+          <div class="c-avatar">AL</div>
+          <span class="c-name">Aisha Lin</span>
+        </div>
+      </div>
+      <div class="c-card featured">
+        <p class="c-quote">"We calculated the ROI after month one and immediately upgraded to Enterprise. The reduction in server costs alone pays for the platform tenfold."</p>
+        <div class="c-author">
+          <div class="c-avatar" style="background: var(--bg); color: var(--accent);">EM</div>
+          <span class="c-name">Elena Martinez</span>
+        </div>
+      </div>
+      <div class="c-card">
+        <p class="c-quote">"No more fighting with config files. It just works out of the box."</p>
+        <div class="c-author">
+          <div class="c-avatar">DR</div>
+          <span class="c-name">David Ross</span>
+        </div>
+      </div>
+      <div class="c-card">
+        <p class="c-quote">"It genuinely feels like having an extra senior developer on the team."</p>
+        <div class="c-author">
+          <div class="c-avatar">MK</div>
+          <span class="c-name">Marcus King</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- @@/VARIANT:C -->
+
+<!-- @@VARIANT:D -->
+<section class="variant-d">
+  <div class="d-header">
+    <h2>Trusted by 10,000+ teams</h2>
+  </div>
+  <div class="d-scroll-container">
+    <div class="d-card">
+      <div class="d-rating">★★★★★</div>
+      <p class="d-quote">"Deployment velocity increased by 3x. The CLI is just brutally fast and stays out of my way."</p>
+      <div class="d-author">
+        <div class="d-avatar">SJ</div>
+        <div><div class="d-name">Sarah Jenkins</div><div class="d-role">Vercel</div></div>
+      </div>
+    </div>
+    <div class="d-card">
+      <div class="d-rating">★★★★★</div>
+      <p class="d-quote">"The cleanest API documentation I've ever seen. Integrated it in an afternoon."</p>
+      <div class="d-author">
+        <div class="d-avatar">AL</div>
+        <div><div class="d-name">Aisha Lin</div><div class="d-role">Dataflow</div></div>
+      </div>
+    </div>
+    <div class="d-card">
+      <div class="d-rating">★★★★★</div>
+      <p class="d-quote">"No more fighting with config files. It just works out of the box."</p>
+      <div class="d-author">
+        <div class="d-avatar">DR</div>
+        <div><div class="d-name">David Ross</div><div class="d-role">Stripe</div></div>
+      </div>
+    </div>
+    <div class="d-card">
+      <div class="d-rating">★★★★★</div>
+      <p class="d-quote">"It genuinely feels like having an extra senior developer on the team."</p>
+      <div class="d-author">
+        <div class="d-avatar">MK</div>
+        <div><div class="d-name">Marcus King</div><div class="d-role">Nexus</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- @@/VARIANT:D -->
+
+<!-- @@VARIANT:E -->
+<section class="variant-e">
+  <div class="wrapper">
+    <div class="e-header">
+      <h2>Real conversations, real results</h2>
+    </div>
+    <div class="e-grid">
+      <div class="e-conversation">
+        <div class="e-bubble left">
+          <div class="e-quote">"Our deployment velocity increased by 3x after switching."</div>
+          <div class="e-author">Sarah J.</div>
+        </div>
+        <div class="e-bubble right">
+          <div class="e-quote">"The CLI is just brutally fast and stays out of my way."</div>
+          <div class="e-author">Vercel</div>
+        </div>
+        <div class="e-meta">
+          <div class="e-avatar">SJ</div>
+          <span class="e-name">Sarah Jenkins — Lead Engineer</span>
+        </div>
+      </div>
+      <div class="e-conversation">
+        <div class="e-bubble left">
+          <div class="e-quote">"The cleanest API docs I've ever seen. Integrated in an afternoon."</div>
+          <div class="e-author">Aisha L.</div>
+        </div>
+        <div class="e-bubble right">
+          <div class="e-quote">"What usually takes days took hours. Absolutely blown away."</div>
+          <div class="e-author">Dataflow</div>
+        </div>
+        <div class="e-meta">
+          <div class="e-avatar">AL</div>
+          <span class="e-name">Aisha Lin — Founder</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- @@/VARIANT:E -->
+
+<!-- @@VARIANT:F -->
+<section class="variant-f">
+  <div class="wrapper">
+    <div class="f-header">
+      <h2>Hear from our customers</h2>
+    </div>
+    <div class="f-grid">
+      <div class="f-card">
+        <div class="f-avatar-wrapper">SJ</div>
+        <p class="f-quote">"Since switching over, our deployment times have dropped by 40%. The CLI is just brutally fast."</p>
+        <div class="f-name">Sarah Jenkins</div>
+        <div class="f-role">Lead Engineer, Vercel</div>
+      </div>
+      <div class="f-card">
+        <div class="f-avatar-wrapper">AL</div>
+        <p class="f-quote">"The cleanest API documentation I have seen in a decade. Integrated it in an afternoon."</p>
+        <div class="f-name">Aisha Lin</div>
+        <div class="f-role">Founder, Dataflow</div>
+      </div>
+      <div class="f-card">
+        <div class="f-avatar-wrapper">MK</div>
+        <p class="f-quote">"It genuinely feels like having an extra senior developer on the team reviewing architecture."</p>
+        <div class="f-name">Marcus King</div>
+        <div class="f-role">CTO, Nexus</div>
+      </div>
+      <div class="f-card">
+        <div class="f-avatar-wrapper">DR</div>
+        <p class="f-quote">"No more fighting with config files. It just works out of the box."</p>
+        <div class="f-name">David Ross</div>
+        <div class="f-role">DevOps, Stripe</div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- @@/VARIANT:F -->
+
+</body>
+</html>

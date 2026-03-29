@@ -33,13 +33,14 @@ This skill comes with pre-built assets. Read and use them directly:
 | File | What's in it | When to use |
 |------|-------------|-------------|
 | `assets/style-preview-template.html` | 57-city style preview cards | Step 2: `sed` fill `__PRODUCT_NAME__` + `__PRODUCT_HEADLINE__`, save as `style-preview.html`, open |
-| `assets/options-preview-template.html` | Interactive demos: 3 typography styles, 4 nav styles, 3 color variants | Step 3: `sed` fill city color tokens + product name, save as `options-preview.html`, open |
+| `assets/options-preview-template.html` | Interactive demos: nav styles, color variants, hero/features/testimonials variants | Step 3: `sed` fill city color tokens + product name, save as `options-preview.html`, open |
 | `assets/textures.css` | 6 CSS texture classes (`.texture-kyoto`, `.texture-paris`, `.texture-tokyo`, etc.) | Copy the matching class into `style.css` |
 | `assets/gsap-snippets.js` | 6 GSAP animation functions (blur entrance, line reveal, parallax, sticky steps, blast menu, magnetic pill) | Copy the relevant functions into `main.js` |
 | `assets/clip-paths.css` | 8 clip-path divider classes (`.clip-diagonal-br`, `.clip-parallelogram`, `.clip-arc-bottom`, etc.) | Use at least 2 in `style.css` for section dividers |
 | `assets/sections/hero-variants.html` | 3 Hero section templates (全屏铺张/分屏张力/极简下降) | Step 4: pick the variant matching the user's typography preference, copy and adapt |
-| `assets/sections/features-variants.html` | 3 Features section templates (大数字/交替展示/时间线) | Step 4: pick based on content type (stats → big number, how-it-works → timeline) |
-| `assets/sections/conversion-variants.html` | Pricing table, testimonial wall, power CTA | Step 4: copy relevant section, all use CSS custom properties |
+| `assets/sections/features-variants.html` | 6 Features section templates (大数字/交替展示/时间线/本托格子/水平滚动/问答展开) | Step 4: pick based on content type (stats → big number, how-it-works → timeline) |
+| `assets/sections/testimonial-variants.html` | 6 Testimonials templates (紧凑卡片/单列引用/马赛克拼贴/滚动横条/对话气泡/头像墙) | Step 4: pick based on testimonial volume and visual style preference |
+| `assets/sections/conversion-variants.html` | Pricing table, FAQ, brand wall, power CTA | Step 4: copy relevant section, all use CSS custom properties |
 | `references/product-demo-hero.md` | Product demo hero principles + scene design guide | Read when user wants to show product workflow in hero (see Step 3/4) |
 
 **The quality guarantee of this skill comes from using these assets.** They encode specific design decisions that make outputs distinct. Don't describe what to do — copy the code and adapt it.
@@ -210,18 +211,21 @@ mkdir -p "$_OUT/assets"
 Plan which variants to use (see table below), then pipe each into a staging file:
 
 ```bash
-# Replace B / C / PRICING with the user's actual choices
+# Replace B / C / B / PRICING with the user's actual choices
 python3 "$_SKILL_DIR/assets/scripts/extract_variant.py" \
   "$_SKILL_DIR/assets/sections/hero-variants.html" B > "$_OUT/_sections.html"
 python3 "$_SKILL_DIR/assets/scripts/extract_variant.py" \
   "$_SKILL_DIR/assets/sections/features-variants.html" C >> "$_OUT/_sections.html"
+python3 "$_SKILL_DIR/assets/scripts/extract_variant.py" \
+  "$_SKILL_DIR/assets/sections/testimonial-variants.html" B >> "$_OUT/_sections.html"
 python3 "$_SKILL_DIR/assets/scripts/extract_variant.py" \
   "$_SKILL_DIR/assets/sections/conversion-variants.html" PRICING >> "$_OUT/_sections.html"
 python3 "$_SKILL_DIR/assets/scripts/extract_variant.py" \
   "$_SKILL_DIR/assets/sections/conversion-variants.html" CTA >> "$_OUT/_sections.html"
 ```
 
-For conversion sections use names: `PRICING`, `COMPARE_PRICING`, `TESTIMONIALS`, `BRAND_WALL`, `CTA`, `FAQ_A`, `FAQ_B`.
+For testimonials use: `A`, `B`, `C`, `D`, `E`, `F`
+For conversion sections use: `PRICING`, `COMPARE_PRICING`, `BRAND_WALL`, `CTA`, `FAQ_A`, `FAQ_B`
 
 **Step 3 — Copy bundled CSS utilities into style.css base**
 
@@ -243,10 +247,11 @@ Now read the three staging files (`_sections.html`, `_texture.css`, `_gsap-base.
 #### 4b — Section Variant Reference
 
 Common page sequences:
-- SaaS tool: Hero D → Features C → Features A → Pricing → FAQ A → CTA
-- Agency portfolio: Hero A → Features B → Testimonials → CTA
-- Developer tool: Hero B → Features C → Features A → Pricing → FAQ B → CTA
-- Luxury product: Hero C → Features B → Testimonials → CTA
+- SaaS tool: Hero D → Features C → Features A → Testimonials A → Pricing → FAQ A → CTA
+- Agency portfolio: Hero A → Features B → Testimonials C → CTA
+- Developer tool: Hero B → Features C → Features A → Testimonials A → Pricing → FAQ B → CTA
+- Luxury product: Hero C → Features B → Testimonials B → CTA
+- B2C app: Hero E → Features E → Testimonials F → CTA
 
 | If the user needs... | Use this template | Variant |
 |---------------------|-------------------|---------|
@@ -265,7 +270,12 @@ Common page sequences:
 | Features — objection handling | 问答展开型 | F |
 | Pricing table | 定价表 | PRICING |
 | Pricing comparison with toggle | 对比定价表 | COMPARE_PRICING |
-| Testimonials | 引言墙 | TESTIMONIALS |
+| Testimonials — compact grid | 紧凑卡片网格 | A |
+| Testimonials — magazine style | 单列引用墙 | B |
+| Testimonials — masonry layout | 马赛克拼贴 | C |
+| Testimonials — horizontal scroll | 滚动横条 | D |
+| Testimonials — conversation bubbles | 对话气泡 | E |
+| Testimonials — avatar wall | 视频头像墙 | F |
 | Trusted brand logos | 品牌墙 | BRAND_WALL |
 | Final CTA | 强力CTA区 | CTA |
 | FAQ — editorial layout | 编辑排版型 | FAQ_A |

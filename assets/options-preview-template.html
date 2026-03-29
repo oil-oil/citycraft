@@ -618,7 +618,7 @@ h1.page-title strong { color: #fff; }
   </div>
 </nav>
 
-<h1 class="page-title">为 <strong>__PRODUCT_NAME__</strong> 选择最后 5 项</h1>
+<h1 class="page-title">为 <strong>__PRODUCT_NAME__</strong> 选择最后 6 项</h1>
 <p class="page-subtitle">每组都可以直接交互体验 — 选好之后点底部的「告诉 Agent」</p>
 
 
@@ -805,14 +805,18 @@ const I18N = {
   zh: {
     pageTitle: '选择设计方向 — __PRODUCT_NAME__',
     pageTitlePrefix: '为 ',
-    pageTitleSuffix: ' 选择最后 5 项',
+    pageTitleSuffix: ' 选择最后 6 项',
     subtitle: '每组都可以直接交互体验 — 选好之后点底部的「告诉 Agent」',
     sectionLabels: [
       '01 &nbsp;导航风格',
-      '02 &nbsp;色调微调'
+      '02 &nbsp;色调微调',
+      '03 &nbsp;Hero 变体',
+      '04 &nbsp;Features 变体',
+      '05 &nbsp;Testimonials 变体',
+      '06 &nbsp;页面板块'
     ],
-    summaryEmpty: '已选 <strong>{done} / 2</strong>',
-    summaryReady: '已选 <strong>2 / 2</strong> &nbsp;·&nbsp; {parts}',
+    summaryEmpty: '已选 <strong>{done} / 6</strong>',
+    summaryReady: '已选 <strong>6 / 6</strong> &nbsp;·&nbsp; {parts}',
     summaryLabel: {
       nav: '导航：',
       tone: '色调：'
@@ -887,15 +891,19 @@ const I18N = {
   },
   en: {
     pageTitle: 'Choose Design Directions - __PRODUCT_NAME__',
-    pageTitlePrefix: 'Choose the final 5 directions for ',
+    pageTitlePrefix: 'Choose the final 6 directions for ',
     pageTitleSuffix: '',
     subtitle: 'Each group is fully interactive. Once you decide, click "Tell Agent" at the bottom.',
     sectionLabels: [
       '01 &nbsp;Navigation Style',
-      '02 &nbsp;Color Tuning'
+      '02 &nbsp;Color Tuning',
+      '03 &nbsp;Hero Variant',
+      '04 &nbsp;Features Variant',
+      '05 &nbsp;Testimonials Variant',
+      '06 &nbsp;Page Sections'
     ],
-    summaryEmpty: 'Selected <strong>{done} / 2</strong>',
-    summaryReady: 'Selected <strong>2 / 2</strong> &nbsp;·&nbsp; {parts}',
+    summaryEmpty: 'Selected <strong>{done} / 6</strong>',
+    summaryReady: 'Selected <strong>6 / 6</strong> &nbsp;·&nbsp; {parts}',
     summaryLabel: {
       nav: 'Nav: ',
       tone: 'Tone: '
@@ -1127,7 +1135,7 @@ function applyI18n() {
     if (LANG === 'zh') {
       title.append('为 ');
       title.appendChild(product);
-      title.append(' 选择最后 5 项');
+      title.append(' 选择最后 6 项');
     } else {
       title.append(t.pageTitlePrefix);
       title.appendChild(product);
@@ -1868,7 +1876,59 @@ const extraChoiceStyles = `
 }
 .demo-feature-f .feature-f-body span:last-child { width: 58%; }
 
+
+/* Testimonial Demo Cards */
+.demo-testimonial-a { min-height: 140px; background: color-mix(in srgb, var(--surface) 92%, var(--bg)); padding: 16px; display: flex; align-items: center; justify-content: center; }
+.t-a-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; width: 90%; }
+.t-a-card { background: var(--bg); border-radius: 6px; padding: 8px; }
+.t-a-quote { height: 8px; background: color-mix(in srgb, var(--ink) 15%, transparent); border-radius: 4px; margin-bottom: 6px; }
+.t-a-author { display: flex; gap: 4px; align-items: center; }
+.t-a-avatar { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); }
+.t-a-meta { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.t-a-meta::before { content: ''; height: 4px; background: color-mix(in srgb, var(--ink) 15%, transparent); border-radius: 2px; }
+.t-a-meta::after { content: ''; height: 3px; width: 24px; background: color-mix(in srgb, var(--ink) 15%, transparent); border-radius: 2px; }
+
+.demo-testimonial-b { min-height: 140px; background: var(--surface); padding: 16px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.t-b-quote { font-size: 28px; color: var(--accent); ; line-height: 1; margin-bottom: 8px; }
+.t-b-text { height: 8px; width: 80%; background: color-mix(in srgb, var(--ink) 15%, transparent); border-radius: 4px; margin-bottom: 8px; }
+.t-b-author { display: flex; gap: 8px; align-items: center; }
+.t-b-avatar { width: 24px; height: 24px; border-radius: 50%; background: var(--ink); }
+.t-b-meta { height: 12px; width: 60px; background: color-mix(in srgb, var(--ink) 15%, transparent); border-radius: 4px; }
+
+.demo-testimonial-c { min-height: 140px; background: color-mix(in srgb, var(--surface) 92%, var(--bg)); padding: 12px; display: flex; align-items: center; justify-content: center; }
+.t-c-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; width: 95%; }
+.t-c-card { background: var(--bg); border-radius: 6px; padding: 8px; display: flex; flex-direction: column; justify-content: center; }
+.t-c-card.lg { grid-row: span 2; }
+.t-c-card.featured { background: var(--accent); }
+.t-c-quote { height: 8px; background: color-mix(in srgb, var(--ink) 15%, transparent); border-radius: 4px; }
+.t-c-card.featured .t-c-quote { background: rgba(9,9,11,0.3); }
+
+.demo-testimonial-d { min-height: 140px; background: var(--surface); padding: 12px; display: flex; align-items: center; overflow: hidden; }
+.t-d-scroll { display: flex; gap: 8px; width: 100%; }
+.t-d-card { min-width: 70px; background: var(--bg); border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 4px; }
+.t-d-rating { font-size: 8px; color: var(--accent); letter-spacing: -2px; }
+.t-d-quote { height: 6px; background: color-mix(in srgb, var(--ink) 15%, transparent); border-radius: 3px; }
+.t-d-author { width: 20px; height: 20px; border-radius: 50%; background: var(--ink); }
+
+.demo-testimonial-e { min-height: 140px; background: color-mix(in srgb, var(--surface) 92%, var(--bg)); padding: 16px; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+.t-e-conv { display: flex; flex-direction: column; gap: 6px; }
+.t-e-bubble { height: 32px; border-radius: 12px; padding: 6px 10px; display: flex; align-items: center; font-size: 6px; }
+.t-e-bubble.left { background: var(--surface); border-radius: 12px 0 12px 12px; }
+.t-e-bubble.right { background: var(--accent); border-radius: 0 12px 12px 12px; }
+.t-e-meta { display: flex; align-items: center; gap: 6px; }
+.t-e-avatar { width: 16px; height: 16px; border-radius: 50%; background: var(--ink); }
+.t-e-name { height: 8px; width: 50px; background: color-mix(in srgb, var(--ink) 15%, transparent); border-radius: 4px; }
+
+.demo-testimonial-f { min-height: 140px; background: color-mix(in srgb, var(--surface) 92%, var(--bg)); padding: 12px; display: flex; align-items: center; justify-content: center; }
+.t-f-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 90%; }
+.t-f-card { background: var(--bg); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.t-f-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: var(--bg); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; position: relative; }
+.t-f-avatar::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 1px solid var(--accent); opacity: 0.5; animation: t-f-pulse 2s ease-out infinite; }
+@keyframes t-f-pulse { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.4); } }
+.t-f-quote { height: 6px; background: color-mix(in srgb, var(--ink) 15%, transparent); border-radius: 3px; width: 100%; }
+
 .demo-ai-pick {
+  min-height: 140px;
   position: relative;
   background:
     radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 34%),
@@ -2140,7 +2200,39 @@ const extraChoiceMarkup = `
   </div>
 </div>
 
-<div class="section-label"><span>05 &nbsp;页面包含哪些板块 — 点击可以取消不需要的</span></div>
+<div class="section-label"><span>05 &nbsp;用户评价变体 — 展示真实用户的声音</span></div>
+<div class="option-grid cols-3" id="group-testimonials">
+  <div class="opt-card variant-card" data-group="testimonials" data-value="__AI_CHOOSE__" onclick="select(this)">
+    <div class="opt-demo demo-ai-pick"><div class="ai-demo-layer"><div class="ai-demo-orb"></div><div class="ai-demo-title">让 AI 来选</div><div class="ai-demo-subtitle">描述你的产品气质，AI 自动选择最合适的评价展示方式。</div><div class="ai-demo-cta">交给 AI →</div></div></div>
+    <div class="opt-footer"><strong>AI 自动选择</strong><span>不确定选哪个？选这个，AI 会根据你的产品类型给出最合适的方案。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="testimonials" data-value="A" onclick="select(this)">
+    <div class="opt-demo demo-testimonial-a"><div class="t-a-grid"><div class="t-a-card"><div class="t-a-quote"></div><div class="t-a-author"><div class="t-a-avatar"></div><div class="t-a-meta"></div></div></div><div class="t-a-card"><div class="t-a-quote"></div><div class="t-a-author"><div class="t-a-avatar"></div><div class="t-a-meta"></div></div></div><div class="t-a-card"><div class="t-a-quote"></div><div class="t-a-author"><div class="t-a-avatar"></div><div class="t-a-meta"></div></div></div></div></div>
+    <div class="opt-footer"><strong>A · 紧凑卡片网格</strong><span>响应式网格布局，卡片紧凑排列，适合展示大量用户评价。3-4列自适应，节省垂直空间。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="testimonials" data-value="B" onclick="select(this)">
+    <div class="opt-demo demo-testimonial-b"><div class="t-b-quote">"</div><div class="t-b-text"></div><div class="t-b-author"><div class="t-b-avatar"></div><div class="t-b-meta"></div></div></div>
+    <div class="opt-footer"><strong>B · 单列引用墙</strong><span>杂志风格的大字号引用，每条占据完整宽度，视觉冲击力强，适合高质量长评。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="testimonials" data-value="C" onclick="select(this)">
+    <div class="opt-demo demo-testimonial-c"><div class="t-c-grid"><div class="t-c-card lg"></div><div class="t-c-card"><div class="t-c-quote"></div></div><div class="t-c-card"><div class="t-c-quote"></div></div><div class="t-c-card featured"><div class="t-c-quote"></div></div></div></div>
+    <div class="opt-footer"><strong>C · 马赛克拼贴</strong><span>不规则网格布局，部分卡片跨多列，高亮重要推荐，视觉节奏丰富。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="testimonials" data-value="D" onclick="select(this)">
+    <div class="opt-demo demo-testimonial-d"><div class="t-d-scroll"><div class="t-d-card"><div class="t-d-rating">★★★★★</div><div class="t-d-quote"></div><div class="t-d-author"></div></div><div class="t-d-card"><div class="t-d-rating">★★★★★</div><div class="t-d-quote"></div><div class="t-d-author"></div></div></div></div>
+    <div class="opt-footer"><strong>D · 滚动横条</strong><span>横向滚动的卡片条，节省垂直空间，适合移动端优先设计。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="testimonials" data-value="E" onclick="select(this)">
+    <div class="opt-demo demo-testimonial-e"><div class="t-e-conv"><div class="t-e-bubble left"></div><div class="t-e-bubble right"></div></div><div class="t-e-meta"><div class="t-e-avatar"></div><div class="t-e-name"></div></div></div>
+    <div class="opt-footer"><strong>E · 对话气泡</strong><span>模拟对话场景的气泡布局，生动有趣，适合有互动感的品牌。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="testimonials" data-value="F" onclick="select(this)">
+    <div class="opt-demo demo-testimonial-f"><div class="t-f-grid"><div class="t-f-card"><div class="t-f-avatar"></div><div class="t-f-quote"></div></div><div class="t-f-card"><div class="t-f-avatar"></div><div class="t-f-quote"></div></div></div></div>
+    <div class="opt-footer"><strong>F · 视频头像墙</strong><span>大头像+短引言，头像带脉冲动画，适合强调真实人物和信任感。</span></div>
+  </div>
+</div>
+
+<div class="section-label"><span>06 &nbsp;页面包含哪些板块 — 点击可以取消不需要的</span></div>
 <div class="option-grid cols-3" id="group-sections">
   <div class="opt-card section-card selected is-locked" data-section-key="hero" data-locked="true" onclick="toggleSection(this)">
     <div class="section-check">✓</div>
@@ -2187,16 +2279,17 @@ if (colorGroup) {
 const SECTION_ORDER = ['hero', 'features', 'pricing', 'testimonials', 'faq', 'cta'];
 selections.hero = null;
 selections.features = null;
+selections.testimonials = null;
 selections.sections = [...SECTION_ORDER];
 
 const zh = I18N.zh;
 zh.pageTitle = '选择设计方向 — __PRODUCT_NAME__';
 zh.pageTitlePrefix = '为 ';
-zh.pageTitleSuffix = ' 选择最后 5 项';
+zh.pageTitleSuffix = ' 选择最后 6 项';
 zh.subtitle = '先选导航、色调，再补上 Hero、Features 和页面板块，全部决定好之后就可以直接发给 Agent。';
 zh.sectionLabels = ['01 &nbsp;导航风格', '02 &nbsp;色调微调', '03 &nbsp;Hero 变体', '04 &nbsp;Features 变体', '05 &nbsp;页面板块'];
 zh.summaryEmpty = '已选 <strong>{done} / 5</strong>';
-zh.summaryReady = '已选 <strong>5 / 5</strong> &nbsp;·&nbsp; {parts}';
+zh.summaryReady = '已选 <strong>6 / 6</strong> &nbsp;·&nbsp; {parts}';
 zh.summaryLabel.hero = 'Hero：';
 zh.summaryLabel.features = 'Features：';
 zh.summaryLabel.sections = '板块：';
@@ -2215,10 +2308,10 @@ zh.demo.aiCta = '交给 AI →';
 
 const en = I18N.en;
 en.pageTitle = 'Choose Design Directions - __PRODUCT_NAME__';
-en.pageTitlePrefix = 'Choose the final 5 directions for ';
+en.pageTitlePrefix = 'Choose the final 6 directions for ';
 en.pageTitleSuffix = '';
-en.subtitle = 'Choose nav and tone, then lock in the Hero, Features, and section stack before sending everything to the Agent.';
-en.sectionLabels = ['01 &nbsp;Navigation Style', '02 &nbsp;Color Tuning', '03 &nbsp;Hero Variant', '04 &nbsp;Features Variant', '05 &nbsp;Page Sections'];
+en.subtitle = 'Choose nav and tone, then lock in the Hero, Features, Testimonials, and section stack before sending everything to the Agent.';
+en.sectionLabels = ['01 &nbsp;Navigation Style', '02 &nbsp;Color Tuning', '03 &nbsp;Hero Variant', '04 &nbsp;Features Variant', '05 &nbsp;Testimonials Variant', '06 &nbsp;Page Sections'];
 en.summaryEmpty = 'Selected <strong>{done} / 5</strong>';
 en.summaryReady = 'Selected <strong>5 / 5</strong> &nbsp;·&nbsp; {parts}';
 en.summaryLabel.hero = 'Hero: ';
@@ -2281,11 +2374,12 @@ function updateSummary() {
   if (selections.tone) parts.push(t.summaryLabel.tone + localizeSelection('tone', selections.tone));
   if (selections.hero) parts.push(t.summaryLabel.hero + localizeSelection('hero', selections.hero));
   if (selections.features) parts.push(t.summaryLabel.features + localizeSelection('features', selections.features));
+  if (selections.testimonials) parts.push(t.summaryLabel.testimonials + localizeSelection('testimonials', selections.testimonials));
   if (selections.sections && selections.sections.length) parts.push(t.summaryLabel.sections + localizeSelection('sections', selections.sections));
   const summary = document.getElementById('summary');
   const btn = document.getElementById('submit-btn');
   const copyBtn = document.getElementById('copy-btn');
-  if (done === 5) {
+  if (done === 6) {
     summary.innerHTML = t.summaryReady.replace('{parts}', parts.join(' &nbsp;·&nbsp; '));
     btn.disabled = false;
     if (copyBtn) copyBtn.disabled = false;
@@ -2304,6 +2398,7 @@ function copyResult() {
     `${t.copyLabels.tone}${localizeSelection('tone', selections.tone)}`,
     `${t.copyLabels.hero}${localizeSelection('hero', selections.hero)}`,
     `${t.copyLabels.features}${localizeSelection('features', selections.features)}`,
+    `${t.copyLabels.testimonials}${localizeSelection('testimonials', selections.testimonials)}`,
     `${t.copyLabels.sections}${localizeSelection('sections', selections.sections)}`
   ].join('\n');
   return navigator.clipboard.writeText(text).then(() => {
@@ -2323,6 +2418,7 @@ function buildPayload() {
     tone: selections.tone,
     hero: selections.hero,
     features: selections.features,
+    testimonials: selections.testimonials,
     sections: selections.sections
   };
 }
