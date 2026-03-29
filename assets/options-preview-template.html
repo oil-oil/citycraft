@@ -618,8 +618,8 @@ h1.page-title strong { color: #fff; }
   </div>
 </nav>
 
-<h1 class="page-title">为 <strong>__PRODUCT_NAME__</strong> 选择最后 6 项</h1>
-<p class="page-subtitle">每组都可以直接交互体验 — 选好之后点底部的「告诉 Agent」</p>
+<h1 class="page-title">为 <strong>__PRODUCT_NAME__</strong> 选择最后 7 项</h1>
+<p class="page-subtitle">每组都可以直接交互体验 — 过渡、Hero、Features 都可以选 — 选好之后点底部的「告诉 Agent」</p>
 
 
 <!-- ══════════════════════════════════════
@@ -805,18 +805,19 @@ const I18N = {
   zh: {
     pageTitle: '选择设计方向 — __PRODUCT_NAME__',
     pageTitlePrefix: '为 ',
-    pageTitleSuffix: ' 选择最后 6 项',
+    pageTitleSuffix: ' 选择最后 7 项',
     subtitle: '每组都可以直接交互体验 — 选好之后点底部的「告诉 Agent」',
     sectionLabels: [
       '01 &nbsp;导航风格',
       '02 &nbsp;色调微调',
-      '03 &nbsp;Hero 变体',
-      '04 &nbsp;Features 变体',
-      '05 &nbsp;Testimonials 变体',
-      '06 &nbsp;页面板块'
+      '03 &nbsp;过渡风格',
+      '04 &nbsp;Hero 变体',
+      '05 &nbsp;Features 变体',
+      '06 &nbsp;Testimonials 变体',
+      '07 &nbsp;页面板块'
     ],
-    summaryEmpty: '已选 <strong>{done} / 6</strong>',
-    summaryReady: '已选 <strong>6 / 6</strong> &nbsp;·&nbsp; {parts}',
+    summaryEmpty: '已选 <strong>{done} / 7</strong>',
+    summaryReady: '已选 <strong>7 / 7</strong> &nbsp;·&nbsp; {parts}',
     summaryLabel: {
       nav: '导航：',
       tone: '色调：'
@@ -891,19 +892,20 @@ const I18N = {
   },
   en: {
     pageTitle: 'Choose Design Directions - __PRODUCT_NAME__',
-    pageTitlePrefix: 'Choose the final 6 directions for ',
+    pageTitlePrefix: 'Choose the final 7 directions for ',
     pageTitleSuffix: '',
     subtitle: 'Each group is fully interactive. Once you decide, click "Tell Agent" at the bottom.',
     sectionLabels: [
       '01 &nbsp;Navigation Style',
       '02 &nbsp;Color Tuning',
-      '03 &nbsp;Hero Variant',
-      '04 &nbsp;Features Variant',
-      '05 &nbsp;Testimonials Variant',
-      '06 &nbsp;Page Sections'
+      '03 &nbsp;Section Transitions',
+      '04 &nbsp;Hero Variant',
+      '05 &nbsp;Features Variant',
+      '06 &nbsp;Testimonials Variant',
+      '07 &nbsp;Page Sections'
     ],
-    summaryEmpty: 'Selected <strong>{done} / 6</strong>',
-    summaryReady: 'Selected <strong>6 / 6</strong> &nbsp;·&nbsp; {parts}',
+    summaryEmpty: 'Selected <strong>{done} / 7</strong>',
+    summaryReady: 'Selected <strong>7 / 7</strong> &nbsp;·&nbsp; {parts}',
     summaryLabel: {
       nav: 'Nav: ',
       tone: 'Tone: '
@@ -1222,6 +1224,90 @@ const extraChoiceStyles = `
   border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
   background: color-mix(in srgb, var(--surface) 62%, var(--bg));
   box-shadow: 0 12px 30px color-mix(in srgb, var(--bg) 35%, transparent);
+}
+
+/* ── Transition demos ─── */
+/* Uses fixed contrasting colors so shapes are always visible,
+   regardless of city palette lightness. */
+.demo-transition {
+  position: relative;
+  overflow: hidden;
+  background: var(--accent);
+}
+.demo-transition .t-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 55%;
+  background: #f5efe6;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 20px;
+}
+.demo-transition .t-top span {
+  display: block;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.1);
+}
+.demo-transition .t-top span:nth-child(1) { width: 48%; }
+.demo-transition .t-top span:nth-child(2) { width: 68%; }
+.demo-transition .t-top span:nth-child(3) { width: 34%; }
+.demo-transition .t-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 45%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 20px;
+}
+.demo-transition .t-bottom span {
+  display: block;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.2);
+}
+.demo-transition .t-bottom span:nth-child(1) { width: 62%; }
+.demo-transition .t-bottom span:nth-child(2) { width: 40%; }
+/* Geometric: dramatic diagonal */
+.demo-t-geo .t-top {
+  clip-path: polygon(0 0, 100% 0, 100% 25%, 0 100%);
+}
+/* Organic: large round curve */
+.demo-t-organic .t-top {
+  border-radius: 0 0 50% 50% / 0 0 50% 50%;
+  height: 60%;
+}
+/* Blend: gradient dissolve */
+.demo-t-blend .t-top {
+  height: 60%;
+}
+.demo-t-blend .t-top::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 55%;
+  background: linear-gradient(to bottom, #f5efe6, transparent);
+}
+/* Minimal: accent line between flat blocks */
+.demo-t-minimal .t-top {
+  height: 50%;
+}
+.demo-t-minimal .t-bottom {
+  height: 50%;
+}
+.demo-t-minimal .t-line {
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 2px;
+  background: rgba(255,255,255,0.6);
+  z-index: 2;
 }
 
 .demo-hero-a {
@@ -2106,7 +2192,44 @@ const extraChoiceStyles = `
 `;
 
 const extraChoiceMarkup = `
-<div class="section-label"><span>03 &nbsp;首屏布局 — 用户打开页面第一眼看到的样子</span></div>
+<div class="section-label"><span>03 &nbsp;过渡风格 — 板块与板块之间的衔接方式</span></div>
+<div class="option-grid cols-3" id="group-transitions">
+  <div class="opt-card variant-card" data-group="transitions" data-value="__AI_CHOOSE__" onclick="select(this)">
+    <div class="opt-demo demo-ai-pick"><div class="ai-demo-layer"><div class="ai-demo-orb"></div><div class="ai-demo-title">让 AI 来选</div><div class="ai-demo-subtitle">AI 会根据城市风格，为每两个板块之间自动分配不同类型的过渡效果。</div><div class="ai-demo-cta">交给 AI →</div></div></div>
+    <div class="opt-footer"><strong>AI 自动选择</strong><span>AI 会根据城市风格，在每两个板块之间分配不同的过渡效果，确保整页节奏有变化。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="transitions" data-value="GEOMETRIC" onclick="select(this)">
+    <div class="opt-demo demo-transition demo-t-geo">
+      <div class="t-top"><span></span><span></span><span></span></div>
+      <div class="t-bottom"><span></span><span></span></div>
+    </div>
+    <div class="opt-footer"><strong>几何锐利</strong><span>斜线切割、倒角、台阶——干净利落的几何形状过渡，适合科技、工程、现代品牌。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="transitions" data-value="ORGANIC" onclick="select(this)">
+    <div class="opt-demo demo-transition demo-t-organic">
+      <div class="t-top"><span></span><span></span><span></span></div>
+      <div class="t-bottom"><span></span><span></span></div>
+    </div>
+    <div class="opt-footer"><strong>有机柔和</strong><span>弧线、波浪、扇贝——自然的曲线过渡，适合温暖、人文、生活方式品牌。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="transitions" data-value="BLEND" onclick="select(this)">
+    <div class="opt-demo demo-transition demo-t-blend">
+      <div class="t-top"><span></span><span></span><span></span></div>
+      <div class="t-bottom"><span></span><span></span></div>
+    </div>
+    <div class="opt-footer"><strong>覆盖融合</strong><span>下一个板块从下方滑上来覆盖前一个，或渐变溶解，适合沉浸式长页面体验。</span></div>
+  </div>
+  <div class="opt-card variant-card" data-group="transitions" data-value="MINIMAL" onclick="select(this)">
+    <div class="opt-demo demo-transition demo-t-minimal">
+      <div class="t-top"><span></span><span></span><span></span></div>
+      <div class="t-line"></div>
+      <div class="t-bottom"><span></span><span></span></div>
+    </div>
+    <div class="opt-footer"><strong>极简线条</strong><span>板块之间只用一条细线或渐隐分隔，克制造型，让内容本身说话。</span></div>
+  </div>
+</div>
+
+<div class="section-label"><span>04 &nbsp;首屏布局 — 用户打开页面第一眼看到的样子</span></div>
 <div class="option-grid cols-4" id="group-hero">
   <div class="opt-card variant-card" data-group="hero" data-value="__AI_CHOOSE__" onclick="select(this)">
     <div class="opt-demo demo-ai-pick">
@@ -2168,7 +2291,7 @@ const extraChoiceMarkup = `
   </div>
 </div>
 
-<div class="section-label"><span>04 &nbsp;Features 变体 — 用来介绍产品核心卖点的那一块</span></div>
+<div class="section-label"><span>05 &nbsp;Features 变体 — 用来介绍产品核心卖点的那一块</span></div>
 <div class="option-grid cols-4" id="group-features">
   <div class="opt-card variant-card" data-group="features" data-value="__AI_CHOOSE__" onclick="select(this)">
     <div class="opt-demo demo-ai-pick"><div class="ai-demo-layer"><div class="ai-demo-orb"></div><div class="ai-demo-title">让 AI 来选</div><div class="ai-demo-subtitle">描述你有哪些功能卖点，AI 自动选最合适的展示方式。</div><div class="ai-demo-cta">交给 AI →</div></div></div>
@@ -2200,7 +2323,7 @@ const extraChoiceMarkup = `
   </div>
 </div>
 
-<div class="section-label"><span>05 &nbsp;用户评价变体 — 展示真实用户的声音</span></div>
+<div class="section-label"><span>06 &nbsp;用户评价变体 — 展示真实用户的声音</span></div>
 <div class="option-grid cols-3" id="group-testimonials">
   <div class="opt-card variant-card" data-group="testimonials" data-value="__AI_CHOOSE__" onclick="select(this)">
     <div class="opt-demo demo-ai-pick"><div class="ai-demo-layer"><div class="ai-demo-orb"></div><div class="ai-demo-title">让 AI 来选</div><div class="ai-demo-subtitle">描述你的产品气质，AI 自动选择最合适的评价展示方式。</div><div class="ai-demo-cta">交给 AI →</div></div></div>
@@ -2232,7 +2355,7 @@ const extraChoiceMarkup = `
   </div>
 </div>
 
-<div class="section-label"><span>06 &nbsp;页面包含哪些板块 — 点击可以取消不需要的</span></div>
+<div class="section-label"><span>07 &nbsp;页面包含哪些板块 — 点击可以取消不需要的</span></div>
 <div class="option-grid cols-3" id="group-sections">
   <div class="opt-card section-card selected is-locked" data-section-key="hero" data-locked="true" onclick="toggleSection(this)">
     <div class="section-check">✓</div>
@@ -2280,25 +2403,29 @@ const SECTION_ORDER = ['hero', 'features', 'pricing', 'testimonials', 'faq', 'ct
 selections.hero = null;
 selections.features = null;
 selections.testimonials = null;
+selections.transitions = null;
 selections.sections = [...SECTION_ORDER];
 
 const zh = I18N.zh;
 zh.pageTitle = '选择设计方向 — __PRODUCT_NAME__';
 zh.pageTitlePrefix = '为 ';
-zh.pageTitleSuffix = ' 选择最后 6 项';
-zh.subtitle = '先选导航、色调，再补上 Hero、Features 和页面板块，全部决定好之后就可以直接发给 Agent。';
-zh.sectionLabels = ['01 &nbsp;导航风格', '02 &nbsp;色调微调', '03 &nbsp;Hero 变体', '04 &nbsp;Features 变体', '05 &nbsp;页面板块'];
-zh.summaryEmpty = '已选 <strong>{done} / 5</strong>';
-zh.summaryReady = '已选 <strong>6 / 6</strong> &nbsp;·&nbsp; {parts}';
+zh.pageTitleSuffix = ' 选择最后 7 项';
+zh.subtitle = '先选导航、色调、过渡风格，再补上 Hero、Features、用户评价和页面板块，全部决定好之后就可以直接发给 Agent。';
+zh.sectionLabels = ['01 &nbsp;导航风格', '02 &nbsp;色调微调', '03 &nbsp;过渡风格', '04 &nbsp;Hero 变体', '05 &nbsp;Features 变体', '06 &nbsp;用户评价变体', '07 &nbsp;页面板块'];
+zh.summaryEmpty = '已选 <strong>{done} / 6</strong>';
+zh.summaryReady = '已选 <strong>7 / 7</strong> &nbsp;·&nbsp; {parts}';
 zh.summaryLabel.hero = 'Hero：';
 zh.summaryLabel.features = 'Features：';
+zh.summaryLabel.transitions = '过渡：';
 zh.summaryLabel.sections = '板块：';
 zh.copyLabels.hero = 'Hero 变体：';
 zh.copyLabels.features = 'Features 变体：';
+zh.copyLabels.transitions = '过渡风格：';
 zh.copyLabels.sections = '页面板块：';
 zh.listJoiner = '、';
-zh.footerTitles = ['大标题铺满屏', '内容讲故事', '滚动触发演出', '产品界面展示', '极简居中留白', 'A · 全屏菜单', 'B · 底部浮动导航', 'C · 左侧竖排', 'D · Logo 居中拆分', '保留原版', '压暗版', '提亮版', 'A · 全屏铺张 / Full Bleed Dominant', 'B · 分屏张力 / Split Tension', 'C · 极简下降 / Minimal Drop', 'D · 产品演示 / Product Demo', 'E · 文字爆炸 / Text Explosion', 'F · 杂志撕裂 / Magazine Tear', 'G · 弹出卡片 / Pop Card', '__AI_CHOOSE__ · AI 来选 / Let AI Decide', 'A · 大数字 / Big Numbers', 'B · 交替展示 / Alternating Showcase', 'C · 时间线 / Timeline', 'D · 本托格子 / Bento Grid', 'E · 横向滚动 / Horizontal Scroll', 'F · 问答展开 / QA Expand', '__AI_CHOOSE__ · AI 来选 / Let AI Decide', 'Hero / 首屏', 'Features / 功能', 'Pricing / 定价表', 'Wall / 案例墙', 'FAQ / 常见问题', 'CTA / 尾部转化'];
-zh.footerBodies = ['进来第一眼就被震住，标题占据整个视野，适合强调品牌冲击力', '页面像杂志，每个板块单独讲清楚一件事，适合需要说服用户的产品', '每向下滚一屏，新内容才出现，像翻页一样一幕一幕展开，参考 Apple 产品页', '首屏直接秀出产品的真实界面，适合有实际画面的 App 或 SaaS 工具', '所有内容居中对齐，大量留白，字体是主角，适合高端品牌或设计工作室', '点击右上角图标，菜单铺满整个屏幕，视觉冲击感最强', '导航条悬浮在页面底部，鼠标靠近会被轻轻吸引过去', '导航固定在页面左边框，像设计工作室或开发工具的风格', '品牌名居中，链接分列左右两侧，向下滚动时导航会收缩变形', '就是预览卡里的那个质感', '更深沉 · 偏奢侈品或高端 SaaS', '更鲜明 · 偏现代消费品牌或 B2C', '标题与视觉铺满首屏，先把气势拉满。', '文案与视觉各占一侧，适合把卖点和产品一起推出去。', '留白很多，节奏很轻，靠一条下降轴线建立高级感。', '首屏直接用流程或界面说话，适合有真实操作路径的产品。', '让字体成为主视觉，适合一句话就很有力量的产品。', '偏编辑排版，结构不对称，适合强调审美和叙事张力。', '用一张浮起的大卡片承接主叙事，适合新产品发布感。', '如果你更想交给系统判断，这张卡会自动帮你配 Hero 方向。', '适合数据、结果、效率提升这类能量化的卖点。', '内容和视觉交错出现，阅读感更像完整案例叙事。', '把使用路径一步步讲清楚，适合 onboarding 或 workflow。', '适合卖点比较多、层级差异明显的产品，信息组织会很强。', '适合能力很多的产品，一路横着浏览会更有动感。', '适合处理异议、解释复杂功能，也能顺手兼容 FAQ 语气。', '如果你还不确定怎么讲功能，这张卡会让系统帮你挑最合适的结构。', '默认勾选且固定包含，负责第一眼把产品讲明白。', '默认勾选且固定包含，用来承接 Hero 之后的核心卖点。', '默认勾选，适合需要直接转化或让用户比较方案的页面。', '默认勾选，用来补社会证明、客户案例或用户声音。', '默认勾选，适合提前处理疑问和购买阻力。', '默认勾选，用一个更明确的行动收口整页叙事。'];
+zh.footerTitles = ['大标题铺满屏', '内容讲故事', '滚动触发演出', '产品界面展示', '极简居中留白', 'A · 全屏菜单', 'B · 底部浮动导航', 'C · 左侧竖排', 'D · Logo 居中拆分', '保留原版', '压暗版', '提亮版', 'AI 自动选择', '几何锐利', '有机柔和', '覆盖融合', '极简线条', 'A · 全屏铺张 / Full Bleed Dominant', 'B · 分屏张力 / Split Tension', 'C · 极简下降 / Minimal Drop', 'D · 产品演示 / Product Demo', 'E · 文字爆炸 / Text Explosion', 'F · 杂志撕裂 / Magazine Tear', 'G · 弹出卡片 / Pop Card', '__AI_CHOOSE__ · AI 来选 / Let AI Decide', 'A · 大数字 / Big Numbers', 'B · 交替展示 / Alternating Showcase', 'C · 时间线 / Timeline', 'D · 本托格子 / Bento Grid', 'E · 横向滚动 / Horizontal Scroll', 'F · 问答展开 / QA Expand', '__AI_CHOOSE__ · AI 来选 / Let AI Decide', 'Hero / 首屏', 'Features / 功能', 'Pricing / 定价表', 'Wall / 案例墙', 'FAQ / 常见问题', 'CTA / 尾部转化'];
+zh.footerBodies = ['进来第一眼就被震住，标题占据整个视野，适合强调品牌冲击力', '页面像杂志，每个板块单独讲清楚一件事，适合需要说服用户的产品', '每向下滚一屏，新内容才出现，像翻页一样一幕一幕展开，参考 Apple 产品页', '首屏直接秀出产品的真实界面，适合有实际画面的 App 或 SaaS 工具', '所有内容居中对齐，大量留白，字体是主角，适合高端品牌或设计工作室', '点击右上角图标，菜单铺满整个屏幕，视觉冲击感最强', '导航条悬浮在页面底部，鼠标靠近会被轻轻吸引过去', '导航固定在页面左边框，像设计工作室或开发工具的风格', '品牌名居中，链接分列左右两侧，向下滚动时导航会收缩变形', '就是预览卡里的那个质感', '更深沉 · 偏奢侈品或高端 SaaS', '更鲜明 · 偏现代消费品牌或 B2C', 'AI 会根据城市风格，在每两个板块之间分配不同的过渡效果，确保整页节奏有变化。', '斜线切割、倒角、台阶——干净利落的几何形状过渡，适合科技、工程、现代品牌。', '弧线、波浪、扇贝——自然的曲线过渡，适合温暖、人文、生活方式品牌。', '下一个板块从下方滑上来覆盖前一个，或渐变溶解，适合沉浸式长页面体验。', '板块之间只用一条细线或渐隐分隔，克制造型，让内容本身说话。', '标题与视觉铺满首屏，先把气势拉满。', '文案与视觉各占一侧，适合把卖点和产品一起推出去。', '留白很多，节奏很轻，靠一条下降轴线建立高级感。', '首屏直接用流程或界面说话，适合有真实操作路径的产品。', '让字体成为主视觉，适合一句话就很有力量的产品。', '偏编辑排版，结构不对称，适合强调审美和叙事张力。', '用一张浮起的大卡片承接主叙事，适合新产品发布感。', '如果你更想交给系统判断，这张卡会自动帮你配 Hero 方向。', '适合数据、结果、效率提升这类能量化的卖点。', '内容和视觉交错出现，阅读感更像完整案例叙事。', '把使用路径一步步讲清楚，适合 onboarding 或 workflow。', '适合卖点比较多、层级差异明显的产品，信息组织会很强。', '适合能力很多的产品，一路横着浏览会更有动感。', '适合处理异议、解释复杂功能，也能顺手兼容 FAQ 语气。', '如果你还不确定怎么讲功能，这张卡会让系统帮你挑最合适的结构。', '默认勾选且固定包含，负责第一眼把产品讲明白。', '默认勾选且固定包含，用来承接 Hero 之后的核心卖点。', '默认勾选，适合需要直接转化或让用户比较方案的页面。', '默认勾选，用来补社会证明、客户案例或用户声音。', '默认勾选，适合提前处理疑问和购买阻力。', '默认勾选，用一个更明确的行动收口整页叙事。'];
+zh.optionLabels.transitions = { GEOMETRIC: '几何锐利', ORGANIC: '有机柔和', BLEND: '覆盖融合', MINIMAL: '极简线条', '__AI_CHOOSE__': 'AI 来选' };
 zh.optionLabels.hero = { A: 'A · 全屏铺张', B: 'B · 分屏张力', C: 'C · 极简下降', D: 'D · 产品演示', E: 'E · 文字爆炸', F: 'F · 杂志撕裂', G: 'G · 弹出卡片', '__AI_CHOOSE__': 'AI 来选' };
 zh.optionLabels.features = { A: 'A · 大数字', B: 'B · 交替展示', C: 'C · 时间线', D: 'D · 本托格子', E: 'E · 横向滚动', F: 'F · 问答展开', '__AI_CHOOSE__': 'AI 来选' };
 zh.optionLabels.sections = { hero: 'Hero', features: 'Features', pricing: '定价表', testimonials: '案例墙', faq: 'FAQ', cta: 'CTA 尾部' };
@@ -2308,21 +2435,24 @@ zh.demo.aiCta = '交给 AI →';
 
 const en = I18N.en;
 en.pageTitle = 'Choose Design Directions - __PRODUCT_NAME__';
-en.pageTitlePrefix = 'Choose the final 6 directions for ';
+en.pageTitlePrefix = 'Choose the final 7 directions for ';
 en.pageTitleSuffix = '';
-en.subtitle = 'Choose nav and tone, then lock in the Hero, Features, Testimonials, and section stack before sending everything to the Agent.';
-en.sectionLabels = ['01 &nbsp;Navigation Style', '02 &nbsp;Color Tuning', '03 &nbsp;Hero Variant', '04 &nbsp;Features Variant', '05 &nbsp;Testimonials Variant', '06 &nbsp;Page Sections'];
-en.summaryEmpty = 'Selected <strong>{done} / 5</strong>';
-en.summaryReady = 'Selected <strong>5 / 5</strong> &nbsp;·&nbsp; {parts}';
+en.subtitle = 'Choose nav, tone, and transition style, then lock in the Hero, Features, Testimonials, and section stack before sending everything to the Agent.';
+en.sectionLabels = ['01 &nbsp;Navigation Style', '02 &nbsp;Color Tuning', '03 &nbsp;Section Transitions', '04 &nbsp;Hero Variant', '05 &nbsp;Features Variant', '06 &nbsp;Testimonials Variant', '07 &nbsp;Page Sections'];
+en.summaryEmpty = 'Selected <strong>{done} / 6</strong>';
+en.summaryReady = 'Selected <strong>7 / 7</strong> &nbsp;·&nbsp; {parts}';
 en.summaryLabel.hero = 'Hero: ';
 en.summaryLabel.features = 'Features: ';
+en.summaryLabel.transitions = 'Transitions: ';
 en.summaryLabel.sections = 'Sections: ';
 en.copyLabels.hero = 'Hero Variant: ';
 en.copyLabels.features = 'Features Variant: ';
+en.copyLabels.transitions = 'Transitions: ';
 en.copyLabels.sections = 'Page Sections: ';
 en.listJoiner = ', ';
-en.footerTitles = ['Massive Headline', 'Story-Driven Content', 'Scroll-Staged Reveal', 'Product UI Showcase', 'Minimal Centered Layout', 'A · Fullscreen Menu', 'B · Floating Bottom Nav', 'C · Left Vertical Rail', 'D · Center-Split Logo Nav', 'Keep Original Palette', 'Darkened Version', 'Brightened Version', 'A · Full Bleed Dominant / 全屏铺张', 'B · Split Tension / 分屏张力', 'C · Minimal Drop / 极简下降', 'D · Product Demo / 产品演示', 'E · Text Explosion / 文字爆炸', 'F · Magazine Tear / 杂志撕裂', 'G · Pop Card / 弹出卡片', '__AI_CHOOSE__ · Let AI Decide / AI 来选', 'A · Big Numbers / 大数字', 'B · Alternating Showcase / 交替展示', 'C · Timeline / 时间线', 'D · Bento Grid / 本托格子', 'E · Horizontal Scroll / 横向滚动', 'F · QA Expand / 问答展开', '__AI_CHOOSE__ · Let AI Decide / AI 来选', 'Hero / 首屏', 'Features / 功能', 'Pricing / 定价表', 'Wall / 案例墙', 'FAQ / 常见问题', 'CTA / 尾部转化'];
-en.footerBodies = ['The headline dominates the first glance and fills the viewport. Best for maximum brand impact.', 'The page reads like a magazine, with each section making one clear point. Great for products that need persuasion.', 'New content appears only as you scroll, unfolding scene by scene like a staged product narrative.', 'The hero shows the real product interface right away. Perfect for apps or SaaS products with strong visuals.', 'Everything stays centered with generous whitespace and typography in the lead. Great for premium brands or design studios.', 'Click the top-right trigger and the menu takes over the entire screen for the strongest visual punch.', 'The nav floats at the bottom of the page and gently pulls toward the cursor as you approach it.', 'The nav stays pinned to the left edge, with a feel that suits design studios or developer tools.', 'The logo anchors the center while links split to both sides, then the nav compresses as you scroll.', 'The exact same atmosphere as the original preview card.', 'Deeper and moodier, leaning more luxury brand or premium SaaS.', 'Brighter and more energetic, leaning more modern consumer brand or B2C.', 'A headline and the visual both take over the hero for maximum arrival energy.', 'Copy and visual split into separate halves, making the pitch and product land together.', 'Generous whitespace and a descending axis keep the page quiet, refined, and premium.', 'The hero leads with an interface or workflow, which works well for products with a clear interaction path.', 'Typography becomes the visual system. Best when one line can carry the whole statement.', 'Editorial asymmetry and torn-grid energy add taste and narrative tension.', 'A floating hero card gives the page a launch-ready, spotlighted product feel.', 'If you prefer to hand it off, this card lets the system choose the most fitting Hero direction.', 'Best for metrics, outcomes, and any proof point that becomes stronger once quantified.', 'Content and visuals alternate to create a more case-study-like reading rhythm.', 'A step-by-step path makes onboarding and workflows feel easier to understand.', 'Great when the product has many capabilities and each one deserves a different level of emphasis.', 'Best when the product has a long capability list and browsing sideways adds momentum.', 'Useful for objections, nuanced explanations, and a feature stack that naturally overlaps with FAQ tone.', 'If you are still unsure how to structure the features, this card lets the system pick the strongest fit.', 'Always included and locked on, because the page still needs a clear opening statement.', 'Always included and locked on, because the page still needs a core feature story after the hero.', 'Enabled by default for pages that need direct conversion or plan comparison.', 'Enabled by default to add proof, customer stories, or social validation.', 'Enabled by default to answer questions before they become friction.', 'Enabled by default so the page ends with a clear action.'];
+en.footerTitles = ['Massive Headline', 'Story-Driven Content', 'Scroll-Staged Reveal', 'Product UI Showcase', 'Minimal Centered Layout', 'A · Fullscreen Menu', 'B · Floating Bottom Nav', 'C · Left Vertical Rail', 'D · Center-Split Logo Nav', 'Keep Original Palette', 'Darkened Version', 'Brightened Version', 'AI Auto-Choose', 'Geometric Sharp', 'Organic Soft', 'Cover/Blend', 'Minimal Line', 'A · Full Bleed Dominant / 全屏铺张', 'B · Split Tension / 分屏张力', 'C · Minimal Drop / 极简下降', 'D · Product Demo / 产品演示', 'E · Text Explosion / 文字爆炸', 'F · Magazine Tear / 杂志撕裂', 'G · Pop Card / 弹出卡片', '__AI_CHOOSE__ · Let AI Decide / AI 来选', 'A · Big Numbers / 大数字', 'B · Alternating Showcase / 交替展示', 'C · Timeline / 时间线', 'D · Bento Grid / 本托格子', 'E · Horizontal Scroll / 横向滚动', 'F · QA Expand / 问答展开', '__AI_CHOOSE__ · Let AI Decide / AI 来选', 'Hero / 首屏', 'Features / 功能', 'Pricing / 定价表', 'Wall / 案例墙', 'FAQ / 常见问题', 'CTA / 尾部转化'];
+en.footerBodies = ['The headline dominates the first glance and fills the viewport. Best for maximum brand impact.', 'The page reads like a magazine, with each section making one clear point. Great for products that need persuasion.', 'New content appears only as you scroll, unfolding scene by scene like a staged product narrative.', 'The hero shows the real product interface right away. Perfect for apps or SaaS products with strong visuals.', 'Everything stays centered with generous whitespace and typography in the lead. Great for premium brands or design studios.', 'Click the top-right trigger and the menu takes over the entire screen for the strongest visual punch.', 'The nav floats at the bottom of the page and gently pulls toward the cursor as you approach it.', 'The nav stays pinned to the left edge, with a feel that suits design studios or developer tools.', 'The logo anchors the center while links split to both sides, then the nav compresses as you scroll.', 'The exact same atmosphere as the original preview card.', 'Deeper and moodier, leaning more luxury brand or premium SaaS.', 'Brighter and more energetic, leaning more modern consumer brand or B2C.', 'AI assigns different transition types between each section based on the city aesthetic for a varied page rhythm.', 'Diagonal cuts, chamfers, and stair-steps — clean geometric transitions for tech, engineering, and modern brands.', 'Arcs, waves, and scallops — natural curved transitions for warm, human, and lifestyle brands.', 'The next section slides up to cover the previous one, or dissolves in via gradient — great for immersive long pages.', 'Just a thin accent line or fading separator between sections. Restrained, letting the content speak.', 'A headline and the visual both take over the hero for maximum arrival energy.', 'Copy and visual split into separate halves, making the pitch and product land together.', 'Generous whitespace and a descending axis keep the page quiet, refined, and premium.', 'The hero leads with an interface or workflow, which works well for products with a clear interaction path.', 'Typography becomes the visual system. Best when one line can carry the whole statement.', 'Editorial asymmetry and torn-grid energy add taste and narrative tension.', 'A floating hero card gives the page a launch-ready, spotlighted product feel.', 'If you prefer to hand it off, this card lets the system choose the most fitting Hero direction.', 'Best for metrics, outcomes, and any proof point that becomes stronger once quantified.', 'Content and visuals alternate to create a more case-study-like reading rhythm.', 'A step-by-step path makes onboarding and workflows feel easier to understand.', 'Great when the product has many capabilities and each one deserves a different level of emphasis.', 'Best when the product has a long capability list and browsing sideways adds momentum.', 'Useful for objections, nuanced explanations, and a feature stack that naturally overlaps with FAQ tone.', 'If you are still unsure how to structure the features, this card lets the system pick the strongest fit.', 'Always included and locked on, because the page still needs a clear opening statement.', 'Always included and locked on, because the page still needs a core feature story after the hero.', 'Enabled by default for pages that need direct conversion or plan comparison.', 'Enabled by default to add proof, customer stories, or social validation.', 'Enabled by default to answer questions before they become friction.', 'Enabled by default so the page ends with a clear action.'];
+en.optionLabels.transitions = { GEOMETRIC: 'Geometric Sharp', ORGANIC: 'Organic Soft', BLEND: 'Cover/Blend', MINIMAL: 'Minimal Line', '__AI_CHOOSE__': 'Let AI Decide' };
 en.optionLabels.hero = { A: 'A · Full Bleed Dominant', B: 'B · Split Tension', C: 'C · Minimal Drop', D: 'D · Product Demo', E: 'E · Text Explosion', F: 'F · Magazine Tear', G: 'G · Pop Card', '__AI_CHOOSE__': 'Let AI Decide' };
 en.optionLabels.features = { A: 'A · Big Numbers', B: 'B · Alternating Showcase', C: 'C · Timeline', D: 'D · Bento Grid', E: 'E · Horizontal Scroll', F: 'F · QA Expand', '__AI_CHOOSE__': 'Let AI Decide' };
 en.optionLabels.sections = { hero: 'Hero', features: 'Features', pricing: 'Pricing', testimonials: 'Wall', faq: 'FAQ', cta: 'CTA' };
@@ -2372,6 +2502,7 @@ function updateSummary() {
   const parts = [];
   if (selections.nav) parts.push(t.summaryLabel.nav + localizeSelection('nav', selections.nav));
   if (selections.tone) parts.push(t.summaryLabel.tone + localizeSelection('tone', selections.tone));
+  if (selections.transitions) parts.push(t.summaryLabel.transitions + localizeSelection('transitions', selections.transitions));
   if (selections.hero) parts.push(t.summaryLabel.hero + localizeSelection('hero', selections.hero));
   if (selections.features) parts.push(t.summaryLabel.features + localizeSelection('features', selections.features));
   if (selections.testimonials) parts.push(t.summaryLabel.testimonials + localizeSelection('testimonials', selections.testimonials));
@@ -2379,7 +2510,7 @@ function updateSummary() {
   const summary = document.getElementById('summary');
   const btn = document.getElementById('submit-btn');
   const copyBtn = document.getElementById('copy-btn');
-  if (done === 6) {
+  if (done === 7) {
     summary.innerHTML = t.summaryReady.replace('{parts}', parts.join(' &nbsp;·&nbsp; '));
     btn.disabled = false;
     if (copyBtn) copyBtn.disabled = false;
@@ -2396,6 +2527,7 @@ function copyResult() {
   const text = [
     `${t.copyLabels.nav}${localizeSelection('nav', selections.nav)}`,
     `${t.copyLabels.tone}${localizeSelection('tone', selections.tone)}`,
+    `${t.copyLabels.transitions}${localizeSelection('transitions', selections.transitions)}`,
     `${t.copyLabels.hero}${localizeSelection('hero', selections.hero)}`,
     `${t.copyLabels.features}${localizeSelection('features', selections.features)}`,
     `${t.copyLabels.testimonials}${localizeSelection('testimonials', selections.testimonials)}`,
@@ -2416,6 +2548,7 @@ function buildPayload() {
     city: CITY,
     nav: selections.nav,
     tone: selections.tone,
+    transitions: selections.transitions,
     hero: selections.hero,
     features: selections.features,
     testimonials: selections.testimonials,

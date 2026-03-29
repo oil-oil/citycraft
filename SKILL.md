@@ -33,7 +33,7 @@ This skill comes with pre-built assets. Read and use them directly:
 | File | What's in it | When to use |
 |------|-------------|-------------|
 | `assets/style-preview-template.html` | 57-city style preview cards | Step 2: `sed` fill `__PRODUCT_NAME__` + `__PRODUCT_HEADLINE__`, save as `style-preview.html`, open |
-| `assets/options-preview-template.html` | Interactive demos: nav styles, color variants, hero/features/testimonials variants | Step 3: `sed` fill city color tokens + product name, save as `options-preview.html`, open |
+| `assets/options-preview-template.html` | Interactive demos: nav styles, color variants, transition styles, hero/features/testimonials variants | Step 3: `sed` fill city color tokens + product name, save as `options-preview.html`, open |
 | `assets/textures.css` | 6 CSS texture classes (`.texture-kyoto`, `.texture-paris`, `.texture-tokyo`, etc.) | Copy the matching class into `style.css` |
 | `assets/gsap-snippets.js` | 6 GSAP animation functions (blur entrance, line reveal, parallax, sticky steps, blast menu, magnetic pill) | Copy the relevant functions into `main.js` |
 | `assets/clip-paths.css` | 8 clip-path divider classes (`.clip-diagonal-br`, `.clip-parallelogram`, `.clip-arc-bottom`, etc.) | Use at least 2 in `style.css` for section dividers |
@@ -175,11 +175,11 @@ The dark variant (`__CITY_DARK_*`) is always the luxury/night treatment — near
 
 When the script exits, it prints the result JSON to stdout. If it times out, ask the user to type their choice manually before proceeding.
 
-Tell the user: "在浏览器里打开了一个互动选择页——有排版、导航的实际演示效果，还有三种色调的对比。可以点击全屏菜单看它怎么爆开，把光标移近底部胶囊感受磁性效果。全部选好之后，点底部的「告诉 Agent →」按钮，我会自动收到结果并继续生成；如果本地桥接没有连上，再把复制结果贴给我就可以。"
+Tell the user: "在浏览器里打开了一个互动选择页——有排版、导航的实际演示效果，还有三种色调的对比，以及板块间过渡风格的可视化预览。可以点击全屏菜单看它怎么爆开，把光标移近底部胶囊感受磁性效果。全部选好之后，点底部的「告诉 Agent →」按钮，我会自动收到结果并继续生成；如果本地桥接没有连上，再把复制结果贴给我就可以。"
 
 **If the user chose a non-city description** (scene, era, material, emotion): read `references/imagery-derivation.md` to derive the design token system first, use those derived colors as the `CITY_*` arg values above, then proceed normally.
 
-If the script prints JSON, parse it directly and continue to Step 4 with `city`, `layout`, `nav`, `tone`, `hero`, `features`, and `sections`. If it times out, ask the user to paste their choices manually before proceeding.
+If the script prints JSON, parse it directly and continue to Step 4 with `city`, `layout`, `nav`, `tone`, `transitions`, `hero`, `features`, and `sections`. If it times out, ask the user to paste their choices manually before proceeding.
 
 ### Step 4: Generate the Landing Page
 
@@ -334,7 +334,7 @@ rm -f "$_OUT/_sections.html" "$_OUT/_texture.css" "$_OUT/_gsap-base.js"
 
 1. **No `#ffffff` backgrounds.** Not on sections, not on cards. Warm neutrals: `#f5ede0`. Cool: `#edf0ee`. Dark: `#08060f`. Cards get a slight tint, never pure white.
 2. **No `#6366f1`.** Color comes from the city style palette.
-3. **Decide the transition type independently for each section boundary.** Every pair of adjacent sections has its own visual relationship — don't reuse the same clip-path class everywhere. First, scan the selected city's entry in `references/city-styles.md` for divider/transition language — phrases like "wave dividers", "diagonal cuts", "organic curves", "geometric wipes", "gradient dissolves", "brutal geometry" — and let that vocabulary bias your choices across the whole page. Then apply per-boundary logic: consider what the two sections are (hero → features, features → pricing, etc.), their relative energy, and the overall page rhythm. Available classes in `assets/clip-paths.css`: diagonal (`clip-diagonal-*`, `clip-parallelogram`), curved (`clip-round-bottom`, `clip-scallop`, `clip-arc-bottom`), gradient dissolve (`section-dissolve`), flat rule (`section-rule`).
+3. **Decide the transition type independently for each section boundary.** Every pair of adjacent sections has its own visual relationship — don't reuse the same clip-path class everywhere. The user chooses a **transition direction** (geometric sharp / organic soft / cover-blend / minimal line / AI auto) in the options preview. Use that direction to constrain which classes you pick: `GEOMETRIC` → diagonals, chamfers, steps; `ORGANIC` → curves, scallops, arcs; `BLEND` → cover overlays and gradient dissolves; `MINIMAL` → hairline rules. If `__AI_CHOOSE__`, scan the selected city's entry in `references/city-styles.md` for divider/transition language first. Then apply per-boundary logic: consider what the two sections are (hero → features, features → pricing, etc.), their relative energy, and the overall page rhythm. Available classes in `assets/clip-paths.css`: diagonal (`clip-diagonal-*`, `clip-parallelogram`), curved (`clip-round-bottom`, `clip-scallop`, `clip-arc-bottom`), gradient dissolve (`section-dissolve`), flat rule (`section-rule`).
 4. **No generic icons.** Match the city style's stroke weight and geometry.
 5. **Two typefaces minimum.** Display/serif for headlines + clean sans for body. From `references/city-styles.md`. Decorative/script accent fonts (when a city style mentions one) go on watermarks, pull quotes, or ornamental elements — **never on buttons, nav, or body copy**.
 6. **Nav must surprise.** Use the chosen nav from `references/nav-catalog.md` with its full surprise element implemented.
