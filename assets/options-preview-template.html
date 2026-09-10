@@ -798,8 +798,8 @@ h1.page-title strong { color: #fff; }
 
 <script>
 const LANG = /^__/.test('__LANG__') ? 'zh' : '__LANG__';
-const RECEIVER_PORT = '__RECEIVER_PORT__' === '__RECEIVER_PORT__' ? 17432 : parseInt('__RECEIVER_PORT__', 10);
-const CITY = '__CITY_NAME__' === '__CITY_NAME__' ? '' : '__CITY_NAME__';
+const RECEIVER_PORT = /^__/.test('__RECEIVER_PORT__') ? 17432 : parseInt('__RECEIVER_PORT__', 10);
+const CITY = /^__/.test('__CITY_NAME__') ? '' : '__CITY_NAME__';
 const selections = { nav: null, tone: null };
 const I18N = {
   zh: {
@@ -1078,9 +1078,9 @@ async function submitSelection() {
   const t = getText();
 
   try {
-    const response = await fetch('http://localhost:' + RECEIVER_PORT + '/submit', {
+    const response = await fetch('/submit', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-Citycraft-Token': '__SESSION_TOKEN__' },
       body: JSON.stringify(payload)
     });
 
@@ -2560,9 +2560,9 @@ async function submitSelection() {
   const payload = buildPayload();
   const t = getText();
   try {
-    const response = await fetch('http://localhost:' + RECEIVER_PORT + '/submit', {
+    const response = await fetch('/submit', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-Citycraft-Token': '__SESSION_TOKEN__' },
       body: JSON.stringify(payload)
     });
     if (!response.ok) throw new Error('submit failed');

@@ -3011,7 +3011,7 @@ body {
 
 <script>
 const LANG = /^__/.test('__LANG__') ? 'zh' : '__LANG__';
-const RECEIVER_PORT = '__RECEIVER_PORT__' === '__RECEIVER_PORT__' ? 17433 : parseInt('__RECEIVER_PORT__', 10);
+const RECEIVER_PORT = /^__/.test('__RECEIVER_PORT__') ? 17433 : parseInt('__RECEIVER_PORT__', 10);
 const I18N = {
   zh: {
     pageTitle: '风格预览 — 请选择你的落地页美学方向',
@@ -3121,9 +3121,9 @@ async function submitSelection() {
   const t = I18N[LANG] || I18N.zh;
 
   try {
-    const response = await fetch('http://localhost:' + RECEIVER_PORT + '/submit', {
+    const response = await fetch('/submit', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-Citycraft-Token': '__SESSION_TOKEN__' },
       body: JSON.stringify({ city: selectedCity })
     });
 

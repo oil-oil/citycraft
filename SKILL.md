@@ -1,15 +1,6 @@
 ---
 name: citycraft
-description: >-
-  Create a bold, visually striking landing page — unconventional layouts, GSAP scroll animations,
-  SVG elements, clip-path dividers, real depth and layering. Use this skill whenever the user wants
-  a landing page, homepage, product page, marketing page, campaign page, event page, or any
-  single-page site that needs to impress. Trigger on: 帮我做一个落地页, 做个首页, 产品展示页, 活动页,
-  营销页, 官网首页, landing page, product page, promo page, make me a homepage, build a product
-  showcase, create a campaign page. Workflow: asks one question about the product, then opens a live
-  browser preview of 57 city-inspired visual styles to click-select, lets the user pick
-  typography/nav/color tone/hero variant/features variant/page sections interactively, then outputs
-  a complete multi-file site (index.html + style.css + main.js + SVG sprite) with real product copy.
+description: "使用城市风格库与可选交互预览，为产品、活动、营销或品牌创建具有鲜明风格的完整落地页，输出 HTML、CSS、JS 和 SVG。用户要求有视觉表现力的单页网站或明确使用 citycraft 时使用。不用于普通后台、组件修复、静态海报或不允许改变品牌设计的局部维护；已有产品信息和用户选定风格时直接复用。"
 ---
 
 # Landing Page Builder
@@ -51,135 +42,15 @@ This skill comes with pre-built assets. Read and use them directly:
 
 ### Step 1: Understand the Product
 
-Use `AskUserQuestion` to ask:
+复用用户已经给出的产品与风格；只在产品信息缺失时询问：
 
 > "告诉我你的落地页是关于什么的——产品/服务名称，以及一句话介绍。"
 
-Wait for the answer before proceeding.
+用户已给出产品说明、已选择城市或已委托 Agent 决策时，直接进入相应步骤。
 
-### Step 2: Generate the Style Preview
+### Step 2–3：可选风格与布局预览
 
-Fill in the two placeholders and open the result — do NOT read the template file into context:
-- `PRODUCT_NAME` → the product name from Step 1
-- `PRODUCT_HEADLINE` → a short punchy phrase (3–5 words) that captures the product's essence
-
-```bash
-_SKILL_DIR=$(ls -d ~/.agents/skills/citycraft 2>/dev/null || ls -d ~/.claude/skills/citycraft 2>/dev/null)
-PYTHON=$(command -v python3 2>/dev/null || command -v python 2>/dev/null || echo "")
-if [ -n "$PYTHON" ]; then
-  # Python available (macOS / Linux / WSL / Windows with Python)
-  # Pass LANG=en for English-language conversations
-  "$PYTHON" "$_SKILL_DIR/assets/scripts/run_preview.py" \
-    --template "$_SKILL_DIR/assets/style-preview-template.html" \
-    --output   ./style-preview.html \
-    --port     17433 \
-    --timeout  300 \
-    "LANG=zh" \
-    "PRODUCT_NAME=ACTUAL_PRODUCT_NAME" \
-    "PRODUCT_HEADLINE=ACTUAL_HEADLINE" \
-    "RECEIVER_PORT=17433"
-else
-  # No Python — substitute via sed and open as a local file.
-  # The submit button falls back to clipboard copy automatically.
-  sed "s/__PRODUCT_NAME__/ACTUAL_PRODUCT_NAME/g; s/__PRODUCT_HEADLINE__/ACTUAL_HEADLINE/g" \
-    "$_SKILL_DIR/assets/style-preview-template.html" > ./style-preview.html
-  open ./style-preview.html 2>/dev/null || xdg-open ./style-preview.html 2>/dev/null \
-    || echo "Open in browser: $(pwd)/style-preview.html"
-  echo "Python not found — no live bridge. The submit button will copy the city name to clipboard. Paste it here."
-fi
-```
-
-Replace `ACTUAL_PRODUCT_NAME` and `ACTUAL_HEADLINE` with the real values from Step 1 in the script arguments.
-
-> **Windows PowerShell (no WSL/Git Bash):** Run `run_preview.ps1` directly — it has the same interface. See `assets/scripts/run_preview.ps1` for usage.
-
-Tell the user: "我在浏览器里打开了57种城市风格的预览卡片，每个都是真实渲染效果。向下滚动可以看到全部——从京都到拉各斯到棕榈泉，再到伊斯坦布尔、迈阿密、成都、哥本哈根、维也纳、开普敦、波哥大、阿姆斯特丹、贝鲁特、波特兰，以及上海、北京、重庆、西安、杭州、深圳夜、敦煌、苏州、拉萨、罗马、布拉格、墨尔本、雅典、卡萨布兰卡、釜山、巴厘岛、多伦多、特拉维夫、华沙、孟买夜，还有新加入的大阪、清迈、米兰、台北、新奥尔良、苏黎世、温哥华。选好之后直接点卡片发送给我；如果本地桥接没有连上，也可以复制城市名告诉我。如果57个城市都不对，直接用自己的语言描述给我也行。"
-
-### Step 3: Open the Interactive Options Preview
-
-The user has chosen their city. Now open the visual options preview so they can *feel* the layout and nav choices instead of reading descriptions.
-
-> **If the user clicked "让 AI 来选" (city = `__AI_CHOOSE__`):** Skip the preview entirely. Instead, look back at the conversation to understand the product's audience, industry, and tone. Then pick the single most fitting city from `references/city-styles.md` and briefly explain why (2–3 sentences). Confirm with the user: "我为你选了 [城市]——[理由]. 继续吗？" Then proceed to Step 3 with that city.
-
-**3a — Get city color tokens (script, not file read)**
-
-Run `get_city_tokens.py` to extract just the 5 color values — do NOT read `city-styles.md` into context:
-
-```bash
-_SKILL_DIR=$(ls -d ~/.agents/skills/citycraft 2>/dev/null || ls -d ~/.claude/skills/citycraft 2>/dev/null)
-PYTHON=$(command -v python3 2>/dev/null || command -v python 2>/dev/null || echo "")
-# Outputs CITY_BG=, CITY_SURFACE=, CITY_INK=, CITY_MUTED=, CITY_ACCENT=
-eval $("$PYTHON" "$_SKILL_DIR/assets/scripts/get_city_tokens.py" "ACTUAL_CITY_NAME")
-```
-
-Replace `ACTUAL_CITY_NAME` with the city name the user chose (Chinese or English). The script handles both. If the city isn't found, it exits 1 — in that case fall back to reading the `### Colors` section of `references/city-styles.md` manually.
-
-**3b — Generate and open options-preview.html**
-
-Use the `$CITY_*` variables from 3a. Do NOT read the template file into context:
-
-```bash
-if [ -n "$PYTHON" ]; then
-  # Pass LANG=en for English-language conversations
-  "$PYTHON" "$_SKILL_DIR/assets/scripts/run_preview.py" \
-    --template "$_SKILL_DIR/assets/options-preview-template.html" \
-    --output   ./options-preview.html \
-    --port     17432 \
-    --timeout  300 \
-    "LANG=zh" \
-    "PRODUCT_NAME=ACTUAL_PRODUCT_NAME" \
-    "PRODUCT_HEADLINE=ACTUAL_HEADLINE" \
-    "CITY_NAME=ACTUAL_CITY_NAME" \
-    "CITY_BG=$CITY_BG" \
-    "CITY_SURFACE=$CITY_SURFACE" \
-    "CITY_INK=$CITY_INK" \
-    "CITY_MUTED=$CITY_MUTED" \
-    "CITY_ACCENT=$CITY_ACCENT" \
-    "CITY_DARK_BG=#0e0c09" \
-    "CITY_DARK_SURFACE=#1e1b16" \
-    "CITY_DARK_INK=#f2ede4" \
-    "CITY_DARK_ACCENT=$CITY_ACCENT" \
-    "CITY_BRIGHT_BG=#fdf9f2" \
-    "CITY_BRIGHT_SURFACE=#fffdf8" \
-    "CITY_BRIGHT_INK=#1a1510" \
-    "CITY_BRIGHT_ACCENT=$CITY_ACCENT" \
-    "RECEIVER_PORT=17432"
-else
-  sed \
-    -e "s/__PRODUCT_NAME__/ACTUAL_PRODUCT_NAME/g" \
-    -e "s/__PRODUCT_HEADLINE__/ACTUAL_HEADLINE/g" \
-    -e "s/__CITY_NAME__/ACTUAL_CITY_NAME/g" \
-    -e "s/__CITY_BG__/$CITY_BG/g" \
-    -e "s/__CITY_SURFACE__/$CITY_SURFACE/g" \
-    -e "s/__CITY_INK__/$CITY_INK/g" \
-    -e "s/__CITY_MUTED__/$CITY_MUTED/g" \
-    -e "s/__CITY_ACCENT__/$CITY_ACCENT/g" \
-    -e "s/__CITY_DARK_BG__/#0e0c09/g" \
-    -e "s/__CITY_DARK_SURFACE__/#1e1b16/g" \
-    -e "s/__CITY_DARK_INK__/#f2ede4/g" \
-    -e "s/__CITY_DARK_ACCENT__/$CITY_ACCENT/g" \
-    -e "s/__CITY_BRIGHT_BG__/#fdf9f2/g" \
-    -e "s/__CITY_BRIGHT_SURFACE__/#fffdf8/g" \
-    -e "s/__CITY_BRIGHT_INK__/#1a1510/g" \
-    -e "s/__CITY_BRIGHT_ACCENT__/$CITY_ACCENT/g" \
-    "$_SKILL_DIR/assets/options-preview-template.html" > ./options-preview.html
-  open ./options-preview.html 2>/dev/null || xdg-open ./options-preview.html 2>/dev/null \
-    || echo "Open in browser: $(pwd)/options-preview.html"
-  echo "Python not found — no live bridge. Use the copy button in the preview and paste the result here."
-fi
-```
-
-The dark variant (`__CITY_DARK_*`) is always the luxury/night treatment — near-black bg, warm light text, same accent. The bright variant is always the fresh/modern treatment — near-white bg, dark text, same accent. The city's identity comes from the base colors and accent, not from the dark/bright shell.
-
-> **Windows PowerShell (no WSL/Git Bash):** Run `run_preview.ps1` directly. See `assets/scripts/run_preview.ps1` for usage.
-
-When the script exits, it prints the result JSON to stdout. If it times out, ask the user to type their choice manually before proceeding.
-
-Tell the user: "在浏览器里打开了一个互动选择页——有排版、导航的实际演示效果，还有三种色调的对比，以及板块间过渡风格的可视化预览。可以点击全屏菜单看它怎么爆开，把光标移近底部胶囊感受磁性效果。全部选好之后，点底部的「告诉 Agent →」按钮，我会自动收到结果并继续生成；如果本地桥接没有连上，再把复制结果贴给我就可以。"
-
-**If the user chose a non-city description** (scene, era, material, emotion): read `references/imagery-derivation.md` to derive the design token system first, use those derived colors as the `CITY_*` arg values above, then proceed normally.
-
-If the script prints JSON, parse it directly and continue to Step 4 with `city`, `layout`, `nav`, `tone`, `transitions`, `hero`, `features`, and `sections`. If it times out, ask the user to paste their choices manually before proceeding.
+用户已有选择时直接复用；让 Agent 选择时读取相关城市条目，说明理由后继续。需要比较时按 [预览工作流](references/preview-workflow.md) 生成本地预览。没有可用预览能力时在对话中提供少量候选，不把打开页面当成用户已经选定。
 
 ### Step 4: Generate the Landing Page
 
@@ -201,7 +72,7 @@ Output into `{product-name}-landing/`:
 **Step 1 — Set up directories**
 
 ```bash
-_SKILL_DIR=$(ls -d ~/.agents/skills/citycraft 2>/dev/null || ls -d ~/.claude/skills/citycraft 2>/dev/null)
+_SKILL_DIR="<当前 Skill 的绝对目录>"
 _OUT="./{product-name}-landing"
 mkdir -p "$_OUT/assets"
 ```
@@ -350,3 +221,7 @@ rm -f "$_OUT/_sections.html" "$_OUT/_texture.css" "$_OUT/_gsap-base.js"
 - `references/nav-catalog.md` — 4 nav styles with full implementation notes and GSAP code
 - `references/imagery-derivation.md` — How to translate any non-city description (scene, era, material, emotion) into a concrete design token system. Read this whenever the user describes something that isn't one of the 57 city cards.
 - `references/product-demo-hero.md` — When and how to build a time-driven product workflow demo in the Hero (Variant D). Includes scene design guide, 3-act structure, onEnter() callback patterns, and product-type → scene mapping table. Read this whenever the user wants to show their product's process in the hero.
+
+## 事实与降级
+
+模板里的评价、客户 Logo、人数与价格仅为结构示例；没有证据就删除或换成真实产品说明，不编造背书。实现需支持键盘操作、`prefers-reduced-motion` 和脚本/CDN 加载失败时的静态可读内容。视觉验收说明实际检查的视口与状态；未渲染时不能声称视觉已通过。
