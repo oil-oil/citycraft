@@ -18,6 +18,8 @@ Exit 0 on success, 1 if city not found.
 """
 
 import sys
+import json
+import shlex
 import re
 from pathlib import Path
 
@@ -102,9 +104,12 @@ def main():
     if missing:
         print(f"Warning: could not parse {missing} for '{query}'", file=sys.stderr)
 
+    if "--json" in sys.argv:
+        print(json.dumps(colors, ensure_ascii=False))
+        return
     for key in VAR_MAP.values():
         if key in colors:
-            print(f"{key}={colors[key]}")
+            print(f"{key}={shlex.quote(colors[key])}")
 
 
 if __name__ == "__main__":
